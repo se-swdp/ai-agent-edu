@@ -134,6 +134,15 @@
 @media (max-width: 720px) {
   .library-grid { grid-template-columns: 1fr; }
   .library-bar { flex-direction: column; align-items: flex-start; }
+  .library-card {
+    grid-template-columns: 40px 1fr auto;
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+  .library-card-icon { width: 40px; height: 40px; }
+  .library-card-icon svg { width: 22px; height: 22px; }
+  .library-edit-hint { font-size: var(--fs-xs); padding: var(--space-3); }
+  .library-edit-hint code { word-break: break-all; }
 }
 
 
@@ -264,9 +273,16 @@
   .cover-caption { padding: var(--space-5) var(--space-4) var(--space-6); }
 }
 @media (max-width: 720px) {
-  .cover-image { aspect-ratio: 4 / 3; }
+  .cover-wrap { padding: 0; }
+  .cover-image { aspect-ratio: 4 / 3; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .cover-band { height: 24px; }
+  .cover-caption {
+    padding: var(--space-4) var(--space-4) var(--space-5);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
   .cover-caption-title { letter-spacing: 0.1em; }
-  .cover-seal { right: 12px; bottom: 12px; }
+  .cover-caption-sub { font-size: var(--fs-xs); }
+  .cover-seal { right: var(--space-3); bottom: var(--space-3); }
 }
 
 /* ===== Calendar ===== */
@@ -453,10 +469,19 @@
   .cal-cell { min-height: 82px; padding: 4px; }
 }
 @media (max-width: 720px) {
+  .calendar-bar { gap: var(--space-2); }
+  .calendar-label { font-size: var(--fs-lg); min-width: 100px; }
   .calendar-grid { grid-auto-rows: minmax(68px, auto); }
-  .cal-cell { min-height: 68px; }
-  .cal-event { font-size: 10px; height: 18px; padding: 0 4px; }
+  .cal-cell { min-height: 68px; padding: 3px var(--space-1) var(--space-1); gap: 2px; }
+  .cal-day-num { font-size: var(--fs-sm); }
+  .cal-event { font-size: 10px; height: 18px; padding: 0 4px; gap: 2px; }
   .cal-event-time { display: none; }
+  .cal-more { font-size: 10px; }
+}
+@media (max-width: 420px) {
+  .calendar-grid { grid-auto-rows: minmax(56px, auto); }
+  .cal-cell { min-height: 56px; padding: 2px 3px 3px; }
+  .cal-event { font-size: 9px; height: 16px; padding: 0 3px; }
 }
 
 /* ===== Timeline ===== */

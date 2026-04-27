@@ -100,6 +100,14 @@ svg { flex-shrink: 0; }
   border: 0;
 }
 
+/* Mobile: avoid background-attachment: fixed (iOS Safari address-bar jank) */
+@media (max-width: 720px) {
+  body {
+    background-attachment: scroll;
+    background-size: 320px 320px;
+  }
+}
+
 /* Print styles for executive reports */
 @media print {
   body { background: white; }

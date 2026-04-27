@@ -123,7 +123,12 @@
   /* ---- Layout sizes ---- */
   --sidebar-w: 236px;
   --topbar-h: 60px;
+  --nav-h: 72px;
   --content-max: 1440px;
+
+  /* ---- Safe areas (iPhone notch / home indicator) ---- */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 
   /* ---- Motion ---- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

@@ -560,6 +560,85 @@
   .form-grid { grid-template-columns: 1fr; }
 }
 
+/* =========================================================
+   Mobile-only component refinements
+   ========================================================= */
+@media (max-width: 720px) {
+  .lock-btn {
+    padding: 0 var(--space-2);
+    gap: 0;
+  }
+  .lock-label { display: none; }
+
+  .modal {
+    padding: var(--space-2);
+    align-items: flex-end;
+  }
+  .modal-panel {
+    max-height: calc(100vh - var(--space-4) - var(--safe-bottom));
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+  .modal-panel--mini {
+    max-width: 100%;
+  }
+  .modal-head {
+    padding: var(--space-3) var(--space-4);
+  }
+  .modal-body {
+    padding: var(--space-4);
+  }
+
+  /* Form inputs: 16px to prevent iOS Safari focus zoom */
+  .form-input,
+  .form-textarea,
+  .search input {
+    font-size: 16px;
+  }
+  .form-input { height: 40px; }
+  .form-field--checkbox { min-height: 40px; }
+
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  /* Toast lifted above bottom nav */
+  .toast {
+    bottom: calc(var(--nav-h) + var(--space-2) + var(--safe-bottom));
+    max-width: calc(100vw - var(--space-6));
+  }
+
+  /* Data list (timeline) — let right column wrap underneath on narrow */
+  .data-list-item {
+    grid-template-columns: 44px 1fr;
+    grid-template-areas: "date body" "right right";
+    row-gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+  }
+  .data-list-item > .data-list-date { grid-area: date; }
+  .data-list-item > .data-list-body { grid-area: body; }
+  .data-list-item > .data-list-right {
+    grid-area: right;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-grid { grid-template-columns: 1fr; }
+}
+
+/* Disable hover sticking on touch devices */
+@media (hover: none) {
+  .library-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-default);
+  }
+  .data-list-item:hover { background: transparent; }
+  .nav-item:hover { background: transparent; }
+}
+
 /* ---- Calendar inline add (+) button (edit mode only) ---- */
 .cal-day-head {
   display: flex;
