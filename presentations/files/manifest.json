@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-04-27T08:33:55.750Z",
-  "count": 5,
-  "slides": 5,
+  "generatedAt": "2026-06-03T02:56:12.086Z",
+  "count": 7,
+  "slides": 7,
   "files": 0,
   "items": [
     {
@@ -9,8 +9,17 @@
       "category": "비개발",
       "catClass": "biz",
       "title": "AI가 바꾸는 일하는 방법",
-      "subtitle": "AI Agent 시대와 반도체 · 비개발자",
+      "subtitle": "AI Agent 시대와 반도체 · 비개발자 · 2h",
       "url": "./presentations/non-dev-seminar/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "category": "비개발",
+      "catClass": "biz",
+      "title": "AI가 바꾸는 일하는 방법 · Brief",
+      "subtitle": "AI Agent 시대의 짧은 안내 · 30min",
+      "url": "./presentations/brief-seminar/",
       "ext": "html"
     },
     {
@@ -47,6 +56,15 @@
       "title": "Harness Engineering",
       "subtitle": "개발 방법론 개론 · 운영 시스템",
       "url": "./presentations/harness-engineering/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "category": "개발",
+      "catClass": "dev",
+      "title": "AI 개발 도구 Hands-on · 2026.6",
+      "subtitle": "에이전트 · 토큰=성능 · 리더십 핸즈온 · 4h",
+      "url": "./presentations/dev-seminar-06/",
       "ext": "html"
     }
   ]
