@@ -914,6 +914,16 @@ h3{font-size:clamp(1rem,1.35vw,1.25rem)!important;color:rgba(255,255,255,0.78)!i
   <p class="sub" style="margin-top:3vh;">AI는 마법이 아닌 <span class="em">증폭기</span> &mdash; 기반이 좋으면 가속, 아니면 혼란도 가속</p>
 </div>
 
+<!-- AI 만능론의 감정 곡선 — Hype Curve -->
+<div class="slide in-violet">
+  <h3>AI 만능론을 경계해야 한다</h3>
+  <p class="sub" style="margin-top:0; margin-bottom:2.4vh; font-size:clamp(1.05rem,1.4vw,1.25rem); color:rgba(255,255,255,0.6);">개발자가 AI를 접하며 흔히 겪는 5&ndash;6개월 <span class="em">감정 곡선</span></p>
+  <img src="../assets/images/ai-hype-cycle.png"
+       alt="AI 만능론의 감정 곡선 — 챗봇 경험·첫 실망·에이전트 돌입·AI 만능감·95%의 벽·정체·평정심 회복의 7단계 여정"
+       style="width:100%;max-width:920px;max-height:56vh;object-fit:contain;border-radius:6px;background:#F5F7FA;padding:14px;box-shadow:0 2px 18px rgba(0,0,0,0.35);" />
+  <p class="sub" style="margin-top:2.4vh;">AI로 하는 것은 쉬워졌지만 &mdash; <span class="em">잘하는 것은 여전히 어렵다</span></p>
+</div>
+
 <!-- AI의 한계 — 환각(Hallucination) -->
 <div class="slide in-violet">
   <h3>AI의 한계 &mdash; 환각(Hallucination)</h3>
@@ -2020,19 +2030,19 @@ const partMap=[
 {from:8,to:11,label:'Section 02 \u00b7 \uc5c5\uacc4 \uae30\uc900\uc120'},
 {from:12,to:23,label:'Section 03 \u00b7 Model \u2260 Agent'},
 {from:24,to:30,label:'Section 04 \u00b7 AI \uc778\ud504\ub77c \ubcd1\ubaa9'},
-{from:31,to:40,label:'Section 05 \u00b7 \uc5ed\ud560\uc758 \ubcc0\ud654'},
-{from:41,to:44,label:'Section 06 \u00b7 \ud604\uc2e4 \uc81c\uc57d'},
-{from:45,to:53,label:'Part II B1 \u00b7 Claude Code + Agent Loop'},
-{from:54,to:65,label:'Part II B2 \u00b7 Context + Multi-agent + MCP'},
-{from:66,to:78,label:'Part II B3 \u00b7 \uc2e4\uc804 \uc6cc\ud06c\ud50c\ub85c + Harness'},
-{from:79,to:81,label:'Part II B4 \u00b7 \uc6b4\uc601 \u00b7 \ube44\uc6a9'},
-{from:82,to:83,label:'Part III \u00b7 Hands-on Labs \u00b7 \uc624\ub9ac\uc5d4\ud14c\uc774\uc158'},
-{from:84,to:85,label:'Part III \u00b7 Lab 0 \u00b7 \uce74\uce74\uc624\ud1a1 \ubd84\uc11d'},
-{from:86,to:87,label:'Part III \u00b7 Lab 1 \u00b7 \uc6f9 \ub9ac\uc11c\uce58 \ub9ac\ud3ec\ud2b8'},
-{from:88,to:89,label:'Part III \u00b7 Lab 2 \u00b7 Skill Builder'},
-{from:90,to:90,label:'Part III \u00b7 Lab 3 \u00b7 \uc790\uc720 \uc2e4\uc2b5'},
-{from:91,to:91,label:'Part III \u00b7 Lab \ud68c\uace0'},
-{from:92,to:95,label:'Closing'}
+{from:31,to:41,label:'Section 05 \u00b7 \uc5ed\ud560\uc758 \ubcc0\ud654'},
+{from:42,to:45,label:'Section 06 \u00b7 \ud604\uc2e4 \uc81c\uc57d'},
+{from:46,to:54,label:'Part II B1 \u00b7 Claude Code + Agent Loop'},
+{from:55,to:66,label:'Part II B2 \u00b7 Context + Multi-agent + MCP'},
+{from:67,to:79,label:'Part II B3 \u00b7 \uc2e4\uc804 \uc6cc\ud06c\ud50c\ub85c + Harness'},
+{from:80,to:82,label:'Part II B4 \u00b7 \uc6b4\uc601 \u00b7 \ube44\uc6a9'},
+{from:83,to:84,label:'Part III \u00b7 Hands-on Labs \u00b7 \uc624\ub9ac\uc5d4\ud14c\uc774\uc158'},
+{from:85,to:86,label:'Part III \u00b7 Lab 0 \u00b7 \uce74\uce74\uc624\ud1a1 \ubd84\uc11d'},
+{from:87,to:88,label:'Part III \u00b7 Lab 1 \u00b7 \uc6f9 \ub9ac\uc11c\uce58 \ub9ac\ud3ec\ud2b8'},
+{from:89,to:90,label:'Part III \u00b7 Lab 2 \u00b7 Skill Builder'},
+{from:91,to:91,label:'Part III \u00b7 Lab 3 \u00b7 \uc790\uc720 \uc2e4\uc2b5'},
+{from:92,to:92,label:'Part III \u00b7 Lab \ud68c\uace0'},
+{from:93,to:96,label:'Closing'}
 ];
 function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI \uc138\ubbf8\ub098';}
 function update(){if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
