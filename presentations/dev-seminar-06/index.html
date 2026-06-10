@@ -530,29 +530,56 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 
 <!-- 18 두 개의 곡선 -->
 <div class="slide in-cyan">
-  <h3>두 개의 곡선 &mdash; 모델은 완만, 에이전트는 가파르다</h3>
+  <h3>품질의 출처 이동 &mdash; 모델에서 에이전트·스웜으로</h3>
   <div style="width:100%; max-width:1000px; margin-top:1.5vh;">
     <svg viewBox="0 0 1000 420" style="width:100%; height:auto;">
+      <defs>
+        <linearGradient id="agentBar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#34d399" stop-opacity="0.92"/>
+          <stop offset="100%" stop-color="#059669" stop-opacity="0.55"/>
+        </linearGradient>
+        <linearGradient id="modelBar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3b5bb5" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0.6"/>
+        </linearGradient>
+      </defs>
+      <!-- gridlines -->
+      <line x1="90" y1="120" x2="950" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="90" y1="200" x2="950" y2="200" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="90" y1="280" x2="950" y2="280" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
       <!-- axes -->
-      <line x1="70" y1="360" x2="950" y2="360" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-      <line x1="70" y1="40" x2="70" y2="360" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-      <text x="60" y="34" fill="rgba(255,255,255,0.55)" font-size="15" text-anchor="end">산출물 품질</text>
-      <text x="950" y="388" fill="rgba(255,255,255,0.55)" font-size="15" text-anchor="end">시간 →</text>
-      <!-- model curve: flattening -->
-      <path d="M70,300 C260,150 460,110 950,90" fill="none" stroke="#60a5fa" stroke-width="3.5" stroke-linecap="round"/>
-      <text x="930" y="80" fill="#60a5fa" font-size="17" text-anchor="end" font-weight="700">모델 성능 (점진적·완만)</text>
-      <!-- model release dots -->
-      <circle cx="170" cy="225" r="5" fill="#60a5fa"/><text x="170" y="248" fill="rgba(96,165,250,0.85)" font-size="12" text-anchor="middle">4.5</text>
-      <circle cx="320" cy="150" r="5" fill="#60a5fa"/><text x="320" y="138" fill="rgba(96,165,250,0.85)" font-size="12" text-anchor="middle">4.6</text>
-      <circle cx="500" cy="115" r="5" fill="#60a5fa"/><text x="500" y="103" fill="rgba(96,165,250,0.85)" font-size="12" text-anchor="middle">4.7</text>
-      <circle cx="720" cy="98" r="5" fill="#60a5fa"/><text x="720" y="86" fill="rgba(96,165,250,0.85)" font-size="12" text-anchor="middle">4.8</text>
-      <!-- agent curve: steepening -->
-      <path d="M70,340 C400,330 600,250 950,55" fill="none" stroke="#34d399" stroke-width="3.5" stroke-linecap="round"/>
-      <text x="690" y="200" fill="#34d399" font-size="17" font-weight="700">에이전트 능력 (가파른 상승)</text>
-      <text x="690" y="224" fill="rgba(52,211,153,0.8)" font-size="13">단일 → 멀티에이전트 → 팀(스웜)</text>
+      <line x1="90" y1="40" x2="90" y2="360" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+      <text x="84" y="36" fill="rgba(255,255,255,0.55)" font-size="15" text-anchor="end">산출물 품질</text>
+      <line x1="90" y1="360" x2="950" y2="360" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+      <!-- legend -->
+      <rect x="120" y="70" width="20" height="13" rx="3" fill="rgba(96,165,250,0.6)"/>
+      <text x="148" y="81" fill="#93b4f5" font-size="15" font-weight="700">모델 기여 · 세대마다 완만</text>
+      <rect x="120" y="94" width="20" height="13" rx="3" fill="rgba(52,211,153,0.85)"/>
+      <text x="148" y="105" fill="#5eead4" font-size="15" font-weight="700">에이전트·스웜 기여 · 토큰 태운 만큼 급증</text>
+      <!-- columns: model base (visibly growing) + agent growth on top; green = top-rounded only, flush with blue -->
+      <!-- 단일 -->
+      <rect x="185" y="302" width="150" height="58" fill="url(#modelBar)"/>
+      <path d="M185,302 L185,273 Q185,265 193,265 L327,265 Q335,265 335,273 L335,302 Z" fill="url(#agentBar)"/>
+      <!-- 멀티 -->
+      <rect x="445" y="275" width="150" height="85" fill="url(#modelBar)"/>
+      <path d="M445,275 L445,168 Q445,160 453,160 L587,160 Q595,160 595,168 L595,275 Z" fill="url(#agentBar)"/>
+      <!-- 팀·스웜 -->
+      <rect x="705" y="242" width="150" height="118" fill="url(#modelBar)"/>
+      <path d="M705,242 L705,62 Q705,54 713,54 L847,54 Q855,54 855,62 L855,242 Z" fill="url(#agentBar)"/>
+      <!-- rising-total guide -->
+      <polyline points="260,265 520,160 780,54" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <text x="430" y="138" fill="rgba(255,255,255,0.5)" font-size="13" text-anchor="middle" transform="rotate(-20 430 138)">총 산출물 품질 ↑</text>
+      <!-- segment labels in tallest column -->
+      <text x="780" y="150" fill="rgba(236,253,245,0.97)" font-size="16" font-weight="800" text-anchor="middle">에이전트·스웜</text>
+      <text x="780" y="312" fill="rgba(219,234,254,0.9)" font-size="14" font-weight="700" text-anchor="middle">모델</text>
+      <!-- x labels -->
+      <text x="260" y="384" fill="rgba(255,255,255,0.65)" font-size="15" text-anchor="middle">단일</text>
+      <text x="520" y="384" fill="rgba(255,255,255,0.65)" font-size="15" text-anchor="middle">멀티</text>
+      <text x="780" y="384" fill="rgba(255,255,255,0.85)" font-size="15" font-weight="700" text-anchor="middle">팀·스웜</text>
+      <text x="520" y="406" fill="rgba(255,255,255,0.4)" font-size="13" text-anchor="middle">에이전트 구조가 커질수록 · 태우는 토큰 ↑</text>
     </svg>
   </div>
-  <p class="sub" style="margin-top:1vh; font-size:clamp(1rem,1.4vw,1.25rem);">모델 세대 차이는 점점 줄지만(4.5→4.8 점진 업데이트), <span class="em">에이전트가 끌어올리는 품질</span>은 가팔라진다</p>
+  <p class="sub" style="margin-top:1vh; font-size:clamp(1rem,1.4vw,1.25rem);">모델 기여는 세대마다 완만·꾸준 · <span class="em">품질의 큰 몫이 에이전트·스웜으로</span> 이동 &mdash; 멀티·팀 단위로 토큰을 태운 만큼 산출물 품질이 오르는 시대</p>
 </div>
 
 <!-- 19 최신 모델 라인업 + API 비용 -->
@@ -568,11 +595,18 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     </tr></thead>
     <tbody>
       <tr>
+        <td style="white-space:nowrap;"><strong style="color:#a78bfa;">Claude Fable 5</strong> <span style="color:rgba(167,139,250,0.7);font-size:0.8rem;">NEW</span></td>
+        <td style="text-align:center;">1M</td>
+        <td style="text-align:center; color:#fff; font-weight:700;">$10</td>
+        <td style="text-align:center; color:#fff; font-weight:700;">$50</td>
+        <td style="text-align:center; white-space:nowrap;">최상위 &middot; Mythos급</td>
+      </tr>
+      <tr>
         <td style="white-space:nowrap;"><strong style="color:#22d3ee;">Claude Opus 4.8</strong> <span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">(1M)</span></td>
         <td style="text-align:center;">1M</td>
         <td style="text-align:center; color:#fff; font-weight:700;">$5</td>
         <td style="text-align:center; color:#fff; font-weight:700;">$25</td>
-        <td style="text-align:center; white-space:nowrap;">프런티어</td>
+        <td style="text-align:center; white-space:nowrap;">주력 프런티어</td>
       </tr>
       <tr>
         <td style="white-space:nowrap;"><strong style="color:#60a5fa;">Claude Sonnet 4.6</strong></td>
@@ -598,8 +632,34 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     </tbody>
   </table>
   <div class="note tip" style="margin-top:2vh;">
-    <p>단가 = USD / 1M 토큰 &middot; <strong style="color:#22d3ee;">같은 가격·같은 1M 컨텍스트</strong>의 점진 업데이트 &middot; 캐싱 <strong>90%↓</strong> · 배치 <strong>50%↓</strong></p>
+    <p>단가 = USD / 1M 토큰 &middot; 기존 라인은 <strong style="color:#22d3ee;">같은 가격</strong>의 점진 업데이트 &middot; 캐싱 <strong>90%↓</strong> · 배치 <strong>50%↓</strong></p>
   </div>
+</div>
+
+<!-- 19b Claude Fable 5 — 첫 공개 Mythos급 모델 (2026.6.9) -->
+<div class="slide in-violet">
+  <h3 style="color:#a78bfa!important;">새 최상위 티어 &mdash; Claude Fable 5 (6/9 출시)</h3>
+  <div class="two-col" style="max-width:1140px; align-items:center; margin-top:2vh; gap:3vw;">
+    <div class="col" style="flex:1; display:flex; flex-direction:column;">
+      <img loading="lazy" src="../../assets/fable-5-benchmark.jpg" alt="Claude Fable 5 / Mythos 5 벤치마크 비교표" style="width:100%; max-height:58vh; object-fit:contain; border-radius:8px; background:#f6f4ee; padding:6px;" />
+      <p style="text-align:center; margin-top:8px; font-size:0.78rem; color:rgba(255,255,255,0.55);">출처: Anthropic &mdash; Claude Fable 5 and Mythos 5 (2026.6.9)</p>
+    </div>
+    <div class="col" style="flex:1.05; display:flex; flex-direction:column; gap:12px;">
+      <div style="border:1px solid rgba(167,139,250,0.25); border-left:3px solid #a78bfa; border-radius:4px; padding:14px 20px;">
+        <h4 style="color:#a78bfa; font-size:0.92rem; margin-bottom:6px; letter-spacing:0.08em;">무엇</h4>
+        <p style="color:rgba(255,255,255,0.9); font-size:0.95rem; line-height:1.55;">화제의 <strong>Mythos, 첫 일반 공개판</strong> &mdash; Opus 위 새 티어<br><strong style="color:#a78bfa;">$10 / $50</strong> &middot; 1M 컨텍스트 &middot; API·유료 플랜 사용 가능</p>
+      </div>
+      <div style="border:1px solid rgba(255,255,255,0.08); border-left:3px solid rgba(255,255,255,0.25); border-radius:4px; padding:14px 20px;">
+        <h4 style="color:rgba(255,255,255,0.6); font-size:0.92rem; margin-bottom:6px; letter-spacing:0.08em;">성능</h4>
+        <p style="color:#D0D8E8; font-size:0.95rem; line-height:1.55;">SWE-bench Pro <strong style="color:#fff;">80</strong> (Opus 4.8 <span style="color:rgba(255,255,255,0.55);">69.2</span>) &mdash;<br>코딩·비전·장기 컨텍스트 작업 전반 SOTA</p>
+      </div>
+      <div style="border:1px solid rgba(167,139,250,0.25); border-left:3px solid #a78bfa; border-radius:4px; padding:14px 20px;">
+        <h4 style="color:#a78bfa; font-size:0.92rem; margin-bottom:6px; letter-spacing:0.08em;">가드</h4>
+        <p style="color:rgba(255,255,255,0.9); font-size:0.95rem; line-height:1.55;">보안·생물학 고위험 질의는 <strong>Opus 4.8로 폴백</strong> (세션 5% 미만)<br>가드 없는 Mythos 5는 검증된 보안 파트너·연구자 한정</p>
+      </div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:1.6vh;">Mythos 5와 동일 아키텍처, 차이는 안전장치 &mdash; <span class="em">최상위 지능은 이제 가드를 달고 출시되는 시대</span></p>
 </div>
 
 <!-- 20 토큰을 더 쓰면 품질이 올라간다 (compute dial) -->
@@ -654,30 +714,117 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <div class="slide teal">
   <p class="meta" style="color:rgba(255,255,255,0.4);">부록 · 여담</p>
   <h1>왜 메모리 수요가<br>폭증하는가</h1>
-  <p class="sub">'토큰 = 성능'이 <span class="em">반도체 수요</span>로 번지는 이야기 &mdash; 짧게</p>
+  <p class="sub">학습에서 추론으로 &mdash; '토큰 = 성능'이 <span class="em">메모리 수요</span>로 번지는 이야기</p>
 </div>
 
-<!-- 23 에이전트 = 추론 상시화 → 토큰 폭증 → 메모리 -->
+<!-- 23 학습의 시대 → 추론의 시대 -->
 <div class="slide in-teal">
-  <h3>에이전트 시대 = 추론 상시화 시대</h3>
-  <div class="arch-layers" style="margin-top:2.4vh;">
-    <div class="arch-layer" style="border-left-color:rgba(255,255,255,0.15);padding-left:14px;">
-      <div class="role" style="color:rgba(255,255,255,0.55);">과거</div>
-      <div class="brand" style="font-size:1.1rem;">사람이 질문할 때만 AI가 잠깐 작동</div>
-      <div class="desc" style="color:rgba(255,255,255,0.5);">간헐적 추론</div>
+  <h3>성능을 만드는 축 &mdash; 학습에서 추론으로</h3>
+  <div class="comp" style="margin-top:2.6vh;">
+    <div class="comp-item" style="border-top-color:rgba(255,255,255,0.15);">
+      <i class="ph-fill ph-graduation-cap" style="font-size:2.4rem; color:rgba(255,255,255,0.32);"></i>
+      <div class="tag">예전 · 학습의 시대</div>
+      <p style="color:rgba(255,255,255,0.55);">성능 = 더 크게 <strong>학습</strong>한 모델<br>사전학습 스케일링이 주역</p>
     </div>
-    <div class="arch-layer" style="border-left-color:rgba(96,165,250,0.45);padding-left:14px;">
-      <div class="role" style="color:#60a5fa;">에이전트</div>
-      <div class="brand" style="font-size:1.1rem;">자율적으로 길게 작업</div>
-      <div class="desc" style="color:#60a5fa;">상시 추론</div>
-    </div>
-    <div class="arch-layer on" style="border-left:3px solid #a78bfa;padding-left:14px;">
-      <div class="role" style="color:#a78bfa;">현재 · 팀(스웜)</div>
-      <div class="brand" style="font-size:1.1rem; color:#a78bfa;">여러 에이전트가 동시에 병렬 작업</div>
-      <div class="desc" style="color:#a78bfa; font-weight:700;">폭발적 추론</div>
+    <div class="comp-item on" style="border-top-color:rgba(16,232,144,0.5); background:transparent;">
+      <i class="ph-fill ph-brain" style="font-size:2.4rem; color:#34d399;"></i>
+      <div class="tag" style="color:#34d399;">지금 · 추론의 시대</div>
+      <p style="color:#34d399;">성능 = 추론 때 <strong>토큰을 더 태움</strong><br>추론 스케일링 · 멀티에이전트</p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.4vh;">사용자 수가 같아도 &mdash; <span class="em">토큰 소모가 수 배~수십 배</span> &rarr; 추론 연산 × 저장 = 메모리 수요</p>
+  <div class="note tip" style="margin-top:2vh;">
+    <p>추론이 AI 연산에서 차지하는 비중 <strong style="color:#22d3ee;">1/3(2023) &rarr; 2/3(2026)</strong> &middot; Jensen Huang(GTC 2025): "추론 연산 수요는 <strong>1년 전 예상의 100배</strong>"</p>
+  </div>
+  <p class="sub" style="margin-top:1.8vh;">성능 레버가 <span class="em">학습(FLOP)에서 추론(토큰 = 메모리)으로</span> 이동</p>
+</div>
+
+<!-- 24 토큰을 태워 성능을 산다 — 추론 상시화·병렬화 -->
+<div class="slide in-teal">
+  <h3>토큰을 태워 성능을 산다 &mdash; 추론이 상시화·병렬화</h3>
+  <div class="arch-layers" style="margin-top:2.2vh;">
+    <div class="arch-layer" style="border-left-color:rgba(255,255,255,0.15); padding-left:14px;">
+      <div class="role" style="color:rgba(255,255,255,0.55);">과거</div>
+      <div class="brand" style="font-size:1.05rem;">사람이 물을 때만 잠깐 작동</div>
+      <div class="desc" style="color:rgba(255,255,255,0.5);">간헐적 추론</div>
+    </div>
+    <div class="arch-layer" style="border-left-color:rgba(96,165,250,0.45); padding-left:14px;">
+      <div class="role" style="color:#60a5fa;">추론 모델</div>
+      <div class="brand" style="font-size:1.05rem;">답 하나에 긴 사고과정을 펼침</div>
+      <div class="desc" style="color:#60a5fa;">토큰 10~100배</div>
+    </div>
+    <div class="arch-layer" style="border-left-color:rgba(96,165,250,0.45); padding-left:14px;">
+      <div class="role" style="color:#60a5fa;">에이전트</div>
+      <div class="brand" style="font-size:1.05rem;">루프를 돌며 스스로 길게 작업</div>
+      <div class="desc" style="color:#60a5fa;">상시 추론</div>
+    </div>
+    <div class="arch-layer on" style="border-left:3px solid #a78bfa; padding-left:14px;">
+      <div class="role" style="color:#a78bfa;">팀 · 스웜</div>
+      <div class="brand" style="font-size:1.05rem; color:#a78bfa;">여러 에이전트가 동시에 병렬 작업</div>
+      <div class="desc" style="color:#a78bfa; font-weight:700;">토큰 15배</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.6vh;">사용자 수가 같아도 &mdash; <span class="em">토큰 소모가 수~수십 배</span> &rarr; 동시 추론 세션 폭증</p>
+</div>
+
+<!-- 25 병목은 메모리 — KV Cache & Memory Wall -->
+<div class="slide surface">
+  <h3>병목은 결국 메모리 &mdash; KV Cache가 HBM을 먹는다</h3>
+  <p class="sub" style="margin-top:1vh; max-width:1000px; font-size:clamp(1rem,1.35vw,1.2rem); color:rgba(255,255,255,0.62);">KV Cache = 지금까지의 모든 토큰의 Key/Value를 HBM에 상주 &mdash; <strong>컨텍스트 길이 × 동시 요청 수</strong>에 정비례로 증가</p>
+  <table class="tbl" style="margin-top:1.8vh; width:100%; max-width:880px;">
+    <thead><tr>
+      <th style="width:280px;">컨텍스트 (Llama 3.1 70B)</th>
+      <th style="text-align:center;">KV Cache · 1요청</th>
+      <th style="text-align:center;">동시 4요청</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td>8K 토큰</td>
+        <td style="text-align:center;">~2.5 GB</td>
+        <td style="text-align:center;">~10 GB</td>
+      </tr>
+      <tr>
+        <td>128K 토큰</td>
+        <td style="text-align:center; color:#fff; font-weight:700;">~40 GB</td>
+        <td style="text-align:center; color:#fbbf24; font-weight:700;">~160 GB</td>
+      </tr>
+      <tr>
+        <td>1M 토큰</td>
+        <td style="text-align:center; color:#fff; font-weight:700;">~320 GB</td>
+        <td style="text-align:center; color:#fca5a5; font-weight:700;">~1.3 TB</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note warn" style="margin-top:1.8vh;">
+    <p>128K · 동시 4요청 &rarr; <strong>H200(141GB) 한 장 초과</strong> &middot; 1M KV Cache = 모델 가중치(140GB)의 <strong>2.3배</strong></p>
+  </div>
+  <p class="sub" style="margin-top:1.6vh;">연산력은 2년마다 3.0배지만 메모리 대역폭은 1.6배(Gholami, 2024) &mdash; <span class="em">추론은 메모리에 묶이고, 토큰 = 성능은 곧 HBM 수요</span></p>
+</div>
+
+<!-- 26 HBM만이 아니다 — DRAM·NAND도 함께 -->
+<div class="slide surface">
+  <h3>HBM만이 아니다 &mdash; DRAM·NAND가 함께 끌려 올라간다</h3>
+  <p class="sub" style="margin-top:1vh; max-width:1000px; font-size:clamp(1rem,1.35vw,1.2rem); color:rgba(255,255,255,0.62);">KV Cache가 HBM을 넘치면 &mdash; <strong>HBM &rarr; DDR5 &rarr; NAND(SSD)</strong> 계층을 타고 내려가며 전 계층 메모리를 소비</p>
+  <div class="arch-layers" style="margin-top:2vh;">
+    <div class="arch-layer" style="border-left:3px solid rgba(251,191,36,0.55); padding-left:14px;">
+      <div class="role" style="color:#fbbf24;">HBM · 핫</div>
+      <div class="brand" style="font-size:1.05rem;">활성 KV · 모델 가중치 상주</div>
+      <div class="desc" style="color:#fbbf24;">비트당 면적 3배</div>
+    </div>
+    <div class="arch-layer" style="border-left:3px solid rgba(96,165,250,0.5); padding-left:14px;">
+      <div class="role" style="color:#60a5fa;">DDR5 · 웜</div>
+      <div class="brand" style="font-size:1.05rem;">넘친 KV offload · 전송 스테이징</div>
+      <div class="desc" style="color:#60a5fa;">AI 서버 ~3TB</div>
+    </div>
+    <div class="arch-layer on" style="border-left:3px solid rgba(52,211,153,0.55); padding-left:14px;">
+      <div class="role" style="color:#34d399;">NAND · 콜드</div>
+      <div class="brand" style="font-size:1.05rem; color:#34d399;">prefix 캐시 · 데이터 · 체크포인트</div>
+      <div class="desc" style="color:#34d399; font-weight:700;">eSSD 연 105%</div>
+    </div>
+  </div>
+  <div class="note warn" style="margin-top:1.8vh;">
+    <p>공급도 압박 &mdash; HBM 증설이 2026년 DRAM 웨이퍼의 <strong>23%</strong>를 잠식 &rarr; 일반 DRAM 품귀·가격 <strong>+18~23% QoQ</strong></p>
+  </div>
+  <p class="sub" style="margin-top:1.6vh;">토큰 폭증 = <span class="em">HBM · DRAM · NAND 전 계층 동시 수요</span></p>
 </div>
 
 <!-- ════════ SECTION 04 · 역할의 변화 (핵심 인사이트) ════════ -->
@@ -1241,7 +1388,7 @@ alias claude=<span style="color:#34d399;">'claude --dangerously-skip-permissions
   <h3>Today&rsquo;s Takeaway</h3>
   <ul class="list" style="margin-top:1.5vh; max-width:1020px;">
     <li><strong>1.</strong> 챗봇 &ne; 에이전트 &mdash; 그리고 <span class="em">현재는 팀(스웜)</span></li>
-    <li><strong>2.</strong> 모델은 완만, <span class="em">에이전트는 가파르다</span> &mdash; 토큰 = 성능</li>
+    <li><strong>2.</strong> 모델은 꾸준한 직선, <span class="em">에이전트는 중반부터 가속</span> &mdash; 토큰 = 성능</li>
     <li><strong>3.</strong> 값이 올라가는 건 <span class="em">설계·판단·검증</span> &mdash; 사람의 몫</li>
     <li><strong>4.</strong> AI는 증폭기 &mdash; <span class="em">실수를 걸러내는 훈련</span>이 필요</li>
     <li><strong>5.</strong> 설정은 <span class="em">Claude에게 시키고</span>, 좋은 스킬은 <span class="em">찾아 쓴다</span></li>
@@ -1278,18 +1425,18 @@ const partMap=[
 {from:0,to:2,label:'Opening'},
 {from:3,to:8,label:'Section 01 · 업계 기준선'},
 {from:9,to:16,label:'Section 02 · 챗봇 ≠ 에이전트 → 팀'},
-{from:17,to:21,label:'Section 03 · 토큰 = 성능'},
-{from:22,to:23,label:'부록 · AI 인프라 병목'},
-{from:24,to:29,label:'Section 04 · 역할의 변화'},
-{from:30,to:34,label:'Section 05 · AI는 증폭기'},
-{from:35,to:38,label:'Section 06 · 현실 제약과 실천'},
-{from:39,to:42,label:'Part II · Claude Code 개요'},
-{from:43,to:48,label:'Part II · 환경 셋업'},
-{from:49,to:49,label:'Part II · Harness'},
-{from:50,to:52,label:'Part II · Skill'},
-{from:53,to:54,label:'Part II · Hands-on Lab'},
-{from:55,to:59,label:'Part II · 실무 Tips'},
-{from:60,to:62,label:'Closing'}
+{from:17,to:22,label:'Section 03 · 토큰 = 성능'},
+{from:23,to:27,label:'부록 · AI 인프라 병목'},
+{from:28,to:33,label:'Section 04 · 역할의 변화'},
+{from:34,to:38,label:'Section 05 · AI는 증폭기'},
+{from:39,to:42,label:'Section 06 · 현실 제약과 실천'},
+{from:43,to:46,label:'Part II · Claude Code 개요'},
+{from:47,to:52,label:'Part II · 환경 셋업'},
+{from:53,to:53,label:'Part II · Harness'},
+{from:54,to:56,label:'Part II · Skill'},
+{from:57,to:58,label:'Part II · Hands-on Lab'},
+{from:59,to:63,label:'Part II · 실무 Tips'},
+{from:64,to:66,label:'Closing'}
 ];
 function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI 리더십 핸즈온';}
 function update(){if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
