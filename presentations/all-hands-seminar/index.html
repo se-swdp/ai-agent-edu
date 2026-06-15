@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>AI 에이전트 세미나 · 2026.6</title>
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Figtree:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<script defer src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;width:100%;height:100%}
+body{font-family:'Noto Sans KR',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.slides{display:flex;transition:none}
+.slide{width:100vw;min-width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4vh 6vw;position:relative;overflow:hidden;background:#0D0D0D}
+.slide>*{position:relative;z-index:1;flex-shrink:0}
+.slide.surface,.slide.in-blue,.slide.in-indigo,.slide.in-violet,.slide.in-rose,.slide.in-mint,.slide.in-cyan,.slide.in-amber,.slide.in-orange,.slide.in-navy,.slide.in-teal{background:#0D0D0D}
+.slide.samsung{background:#0D0D0D}
+.slide.blue,.slide.navy,.slide.indigo,.slide.violet,.slide.rose,.slide.mint,.slide.teal,.slide.cyan,.slide.amber,.slide.orange{background:#0D0D0D}
+.slide.light{background:#F0F4FF;color:#0C0F1E}.slide.light .sub{color:#3A4A6A}
+h1{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:900;text-align:center;line-height:1.18;letter-spacing:-0.03em;color:#fff;padding-bottom:4px}
+h2{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;text-align:center;line-height:1.15;letter-spacing:-0.02em}
+h3{margin:0;font-size:clamp(0.9rem,1.2vw,1.1rem);font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:3vh}
+.sub{font-size:clamp(1.35rem,2vw,2rem);color:rgba(255,255,255,0.55);margin-top:2vh;text-align:center;line-height:1.5;font-weight:300}
+.sub strong{color:#fff;font-weight:700}
+.em{color:#60a5fa}.accent{color:#60a5fa}.red{color:#fca5a5}.green{color:#34d399}.yellow{color:#a78bfa}
+.meta{margin-top:2vh;font-size:0.8rem;color:rgba(255,255,255,0.55);font-weight:400;letter-spacing:0.18em;text-transform:uppercase}
+.comp{display:flex;gap:0;width:100%;max-width:1100px;margin:3vh 0;align-items:stretch}
+.comp-item{padding:4vh 3vw;text-align:center;flex:1;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+.comp-item:last-child{border-right:none}
+.comp-item.on,.comp-item.green-on,.comp-item.yellow-on,.comp-item.red-on{background:transparent}
+.comp-item .tag{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.45);font-weight:400}
+.comp-item.on .tag{color:rgba(255,255,255,0.4)}
+.comp-item p{font-size:clamp(1.05rem,1.4vw,1.3rem);font-weight:300;line-height:1.5;color:rgba(255,255,255,0.7)}
+.comp-item p strong{color:#fff;font-weight:700}
+.list{list-style:none;max-width:80vw;width:100%;margin:0 auto}
+.list li{font-size:clamp(1.15rem,1.7vw,1.5rem);padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);font-weight:300;line-height:1.5;text-align:center}
+.list li:last-child{border-bottom:none}
+.list strong{color:#fff;font-weight:700}
+.grid{display:flex;gap:0;margin-top:3vh;width:100%;max-width:1100px;align-items:stretch}
+.grid-item{padding:3vh 2.5vw;text-align:center;flex:1;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center}
+.grid-item:last-child{border-right:none}
+.grid-item .name{font-size:clamp(1.1rem,1.4vw,1.35rem);font-weight:700;margin-bottom:8px;color:#fff}
+.grid-item .desc{font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.5);font-weight:300;line-height:1.7}
+blockquote{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:300;max-width:780px;text-align:center;line-height:1.6;color:rgba(255,255,255,0.95);letter-spacing:-0.01em}
+cite{display:block;margin-top:24px;font-size:0.78rem;color:rgba(255,255,255,0.55);font-style:normal;letter-spacing:0.15em;text-transform:uppercase}
+.note{padding:1.4vh 2.5vw;margin-top:3vh;max-width:82vw;display:flex;align-items:center;gap:12px}
+.note.warn{border-left:2px solid rgba(255,255,255,0.2);background:transparent}.note.warn p{color:rgba(255,255,255,0.55);font-size:clamp(0.9rem,1.1vw,1.05rem);font-weight:300}
+.note.tip{border-left:2px solid rgba(96,165,250,0.4);background:transparent}.note.tip p{color:rgba(255,255,255,0.55);font-size:clamp(0.9rem,1.1vw,1.05rem);font-weight:300}
+.pipeline{display:flex;align-items:center;gap:0;margin:3vh 0;flex-wrap:nowrap}
+.pipeline-step{padding:1.4vh 2.4vw;font-size:clamp(0.85rem,1.1vw,1rem);font-weight:300;text-align:center;color:rgba(255,255,255,0.5);white-space:nowrap}
+.pipeline-step.on{color:#fff;font-weight:700}
+.pipeline-arrow{color:rgba(255,255,255,0.3);font-size:1rem;padding:0 4px}
+.tbl{margin-top:2vh;border-collapse:collapse;max-width:82vw}
+.tbl th,.tbl td{padding:1.2vh 2vw;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tbl th{color:rgba(255,255,255,0.4);font-weight:400;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase}
+.tbl td{font-size:clamp(1rem,1.3vw,1.2rem);color:rgba(255,255,255,0.55)}
+.tbl td strong{color:#fff}
+.stat-grid{display:flex;gap:0;width:100%;max-width:1100px;margin-top:3vh}
+.stat-card{flex:1;text-align:center;padding:0 2vw;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+.stat-card:last-child{border-right:none}
+.stat-card.on,.stat-card.green-on,.stat-card.yellow-on,.stat-card.red-on{background:transparent}
+.stat-card .label{font-size:0.75rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1.2vh}
+.stat-card .value{font-family:'Figtree',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.1;color:#fff;margin-bottom:6px;padding-bottom:2px}
+.stat-card .source{font-size:0.78rem;color:rgba(255,255,255,0.55);letter-spacing:0.05em}
+.arch-layers{display:flex;flex-direction:column;gap:0;width:100%;max-width:780px;margin-top:3vh}
+.arch-layer{display:flex;align-items:center;gap:2vw;padding:2.5vh 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.arch-layer:last-child{border-bottom:none}
+.arch-layer.on{border-bottom-color:rgba(96,165,250,0.2)}
+.arch-layer .role{width:auto;min-width:40px;margin-right:1.5vw;font-size:0.78rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.12em;text-align:left}
+.arch-layer .brand{flex:1;font-size:clamp(1.1rem,1.4vw,1.35rem);font-weight:700;color:#fff;text-align:left}
+.arch-layer .desc{flex-shrink:0;font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.5);text-align:right;font-weight:300}
+.two-col{display:flex;gap:4vw;width:100%;max-width:1100px;margin-top:3vh}
+.two-col .col{flex:1;text-align:left}
+.impact-text{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.2;letter-spacing:-0.03em;text-align:center;color:#fff;padding-bottom:4px}
+.impact-sub{font-size:clamp(1.25rem,1.8vw,1.8rem);font-weight:300;color:rgba(255,255,255,0.55);margin-top:2vh;text-align:center;letter-spacing:-0.01em;line-height:1.5}
+.impact-sub strong{color:#fff;font-weight:700}
+.formula{font-family:'Figtree',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;letter-spacing:0.02em}
+.stat{text-align:center}.stat .number{font-family:'Figtree',sans-serif;font-size:clamp(5rem,12vw,11rem);font-weight:900;letter-spacing:-0.05em;line-height:0.9;color:#fff}.stat .label{font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.4);margin-top:1.5vh;font-weight:300;letter-spacing:0.1em}
+kbd{display:inline-block;padding:2px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:rgba(255,255,255,0.7)}
+.nav{position:fixed;bottom:28px;left:44px;display:flex;gap:6px;z-index:100}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.45);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s}
+.nav button:hover{background:rgba(255,255,255,0.14);color:#fff}
+.nav button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
+.part-label{position:fixed;top:28px;left:44px;font-size:0.7rem;color:rgba(255,255,255,0.15);letter-spacing:0.14em;text-transform:uppercase;font-weight:400;z-index:100}
+.page-num{position:fixed;bottom:32px;right:44px;font-size:0.7rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;font-family:'Figtree',sans-serif;z-index:100}
+.progress{position:fixed;top:0;left:0;height:1px;background:rgba(255,255,255,0.3);z-index:200;transition:none}
+.slide:focus-visible{outline:none}
+@media(max-width:768px){.slide{padding:6vh 6vw 80px}.comp,.grid,.stat-grid{flex-direction:column;gap:0}.comp-item,.stat-card{border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);padding:2vh 0}.comp-item:last-child,.stat-card:last-child{border-bottom:none}.arch-layers{gap:0}.arch-layer{flex-direction:column;align-items:flex-start;padding:1.5vh 0;gap:4px}.arch-layer .role{width:auto;margin-bottom:2px}.arch-layer .desc{text-align:left}.two-col{flex-direction:column;gap:2vh}.tbl{display:block;overflow-x:auto}.nav{left:20px;bottom:20px}.pipeline{flex-wrap:wrap;gap:0}}
+@media print{body{background:#fff;color:#000;overflow:visible}.nav,.progress,.part-label,.page-num{display:none}.slides{display:block}.slide{min-height:auto;page-break-after:always;background:#fff!important;color:#000!important;padding:2cm}.em,.red,.green,.yellow{color:#000!important}.sub{color:#333!important}}
+@media(prefers-reduced-motion:reduce){.nav button{transition:none}}
+
+/* ===== VISIBILITY OVERRIDE ===== */
+html{font-size:160%}
+.meta{font-size:0.92rem!important;color:rgba(255,255,255,0.85)!important}
+.part-label{font-size:0.78rem!important;color:rgba(255,255,255,0.78)!important}
+.page-num{font-size:0.78rem!important;color:rgba(255,255,255,0.8)!important}
+cite{font-size:0.88rem!important;color:rgba(255,255,255,0.82)!important}
+.tbl th{font-size:0.85rem!important;color:rgba(255,255,255,0.85)!important}
+.tbl td{font-size:clamp(1rem,1.2vw,1.15rem)!important;color:rgba(255,255,255,0.93)!important}
+.comp-item .tag{font-size:0.85rem!important;color:rgba(255,255,255,0.88)!important}
+.comp-item p{color:rgba(255,255,255,0.95)!important}
+.grid-item .desc{font-size:clamp(0.92rem,1.1vw,1rem)!important;color:rgba(255,255,255,0.88)!important}
+.arch-layer .role{font-size:0.88rem!important;color:rgba(255,255,255,0.88)!important}
+.arch-layer .desc{font-size:1rem!important;color:rgba(255,255,255,0.92)!important}
+.stat-card .label{font-size:0.85rem!important;color:rgba(255,255,255,0.92)!important}
+.stat-card .source{font-size:0.85rem!important;color:rgba(255,255,255,0.82)!important}
+.sub{color:rgba(255,255,255,0.93)!important}
+.note.warn p,.note.tip p{font-size:clamp(0.98rem,1.2vw,1.12rem)!important;color:rgba(255,255,255,0.92)!important}
+.list li{font-size:clamp(1.2rem,1.8vw,1.55rem)!important;color:rgba(255,255,255,0.95)!important}
+.pipeline-step{font-size:clamp(0.95rem,1.2vw,1.1rem)!important;color:rgba(255,255,255,0.88)!important}
+[style*="rgba(255,255,255,0.25)"]{color:rgba(255,255,255,0.8)!important}
+[style*="rgba(255,255,255,0.3)"]{color:rgba(255,255,255,0.82)!important}
+[style*="rgba(255,255,255,0.35)"]{color:rgba(255,255,255,0.85)!important}
+[style*="rgba(255,255,255,0.4)"]{color:rgba(255,255,255,0.87)!important}
+[style*="rgba(255,255,255,0.45)"]{color:rgba(255,255,255,0.88)!important}
+[style*="rgba(255,255,255,0.5)"]{color:rgba(255,255,255,0.9)!important}
+[style*="rgba(255,255,255,0.55)"]{color:rgba(255,255,255,0.92)!important}
+[style*="rgba(255,255,255,0.6)"]{color:rgba(255,255,255,0.93)!important}
+[style*="rgba(255,255,255,0.65)"]{color:rgba(255,255,255,0.95)!important}
+[style*="rgba(255,255,255,0.7)"]{color:rgba(255,255,255,0.96)!important}
+.arch-layer .brand{font-size:clamp(1.15rem,1.5vw,1.38rem)!important;color:#fff!important}
+.arch-layer .desc{font-size:clamp(1rem,1.2vw,1.15rem)!important;line-height:1.5!important}
+.comp-item p{font-size:clamp(1.1rem,1.5vw,1.4rem)!important;line-height:1.55!important}
+.stat-card .source{font-size:clamp(0.82rem,1vw,0.95rem)!important;color:rgba(255,255,255,0.88)!important}
+.tbl td{font-size:clamp(1rem,1.3vw,1.2rem)!important;color:rgba(255,255,255,0.95)!important}
+.tbl th{font-size:clamp(0.82rem,1vw,0.95rem)!important;color:rgba(255,255,255,0.9)!important}
+.grid-item .name{font-size:clamp(1.2rem,1.5vw,1.5rem)!important}
+.grid-item .desc{font-size:clamp(1rem,1.2vw,1.15rem)!important;color:rgba(255,255,255,0.92)!important}
+.note.warn p,.note.tip p{font-size:clamp(1.05rem,1.3vw,1.2rem)!important;color:rgba(255,255,255,0.95)!important}
+h3{font-size:clamp(1rem,1.35vw,1.25rem)!important;color:rgba(255,255,255,0.78)!important}
+/* ===== SECTION ACCENT COLORS ===== */
+.slide.rose .em, .slide.in-rose .em { color:#fca5a5 !important }
+.slide.mint .em, .slide.in-mint .em { color:#34d399 !important }
+.slide.indigo .em, .slide.in-indigo .em { color:#818cf8 !important }
+.slide.cyan .em, .slide.in-cyan .em { color:#22d3ee !important }
+.slide.amber .em, .slide.in-amber .em { color:#fbbf24 !important }
+.slide.violet .em, .slide.in-violet .em { color:#a78bfa !important }
+.slide.teal .em, .slide.in-teal .em { color:#2dd4bf !important }
+.slide.blue .em, .slide.in-blue .em { color:#60a5fa !important }
+.slide.orange .em, .slide.in-orange .em { color:#fb923c !important }
+.slide.rose h1, .slide.mint h1, .slide.indigo h1, .slide.cyan h1,
+.slide.amber h1, .slide.violet h1, .slide.teal h1, .slide.blue h1 { position:relative }
+.slide.rose h1::after { content:""; display:block; width:48px; height:3px; background:#fca5a5; margin:2vh auto 0; border-radius:2px }
+.slide.mint h1::after { content:""; display:block; width:48px; height:3px; background:#34d399; margin:2vh auto 0; border-radius:2px }
+.slide.indigo h1::after { content:""; display:block; width:48px; height:3px; background:#818cf8; margin:2vh auto 0; border-radius:2px }
+.slide.cyan h1::after { content:""; display:block; width:48px; height:3px; background:#22d3ee; margin:2vh auto 0; border-radius:2px }
+.slide.amber h1::after { content:""; display:block; width:48px; height:3px; background:#fbbf24; margin:2vh auto 0; border-radius:2px }
+.slide.violet h1::after { content:""; display:block; width:48px; height:3px; background:#a78bfa; margin:2vh auto 0; border-radius:2px }
+.slide.teal h1::after { content:""; display:block; width:48px; height:3px; background:#2dd4bf; margin:2vh auto 0; border-radius:2px }
+.slide.blue h1::after { content:""; display:block; width:48px; height:3px; background:#60a5fa; margin:2vh auto 0; border-radius:2px }
+.slide.orange h1::after { content:""; display:block; width:48px; height:3px; background:#fb923c; margin:2vh auto 0; border-radius:2px }
+.em{font-weight:700}
+.slide.light .em{font-weight:800}
+/* ===== BACK-ROW LEGIBILITY PASS ===== */
+.comp-item{gap:12px;justify-content:flex-start;padding:3vh 1.6vw}
+.stat-card{justify-content:flex-start;padding-top:1.5vh}
+.stat-card .label{min-height:2.8em;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.3;margin-bottom:1.2vh}
+.stat-card .source{min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;line-height:1.35}
+.arch-layers{max-width:940px!important}
+.arch-layer{column-gap:1vw}
+.arch-layer .role{flex:0 0 184px;white-space:nowrap;margin-right:0.6vw}
+.arch-layer .brand{flex:1;text-align:left;padding-right:0.8vw}
+.arch-layer .desc{flex-shrink:0;text-align:right;white-space:nowrap}
+.note{max-width:64vw!important;margin-left:auto;margin-right:auto}
+.comp-item .tag{font-size:clamp(1rem,1.2vw,1.12rem)!important;color:rgba(255,255,255,0.72)!important;letter-spacing:0.12em}
+.comp-item p{font-size:clamp(1.2rem,1.5vw,1.48rem)!important;line-height:1.5!important;color:rgba(255,255,255,0.96)!important}
+.tbl td{font-size:clamp(1.14rem,1.4vw,1.34rem)!important;color:rgba(255,255,255,0.96)!important}
+.tbl th{font-size:clamp(0.95rem,1.1vw,1.05rem)!important;color:rgba(255,255,255,0.7)!important}
+.arch-layer .role{font-size:clamp(1.02rem,1.2vw,1.12rem)!important;color:rgba(255,255,255,0.78)!important}
+.arch-layer .brand{font-size:clamp(1.28rem,1.55vw,1.5rem)!important}
+.arch-layer .desc{font-size:clamp(1.1rem,1.3vw,1.24rem)!important}
+.stat-card .label{font-size:clamp(0.98rem,1.15vw,1.08rem)!important;color:rgba(255,255,255,0.78)!important}
+.stat-card .source{font-size:clamp(0.95rem,1.1vw,1.05rem)!important}
+.note.warn p,.note.tip p{font-size:clamp(1.12rem,1.35vw,1.28rem)!important;line-height:1.55!important}
+h3{font-size:clamp(1.2rem,1.55vw,1.46rem)!important;color:rgba(255,255,255,0.9)!important;margin-bottom:2.4vh}
+cite{font-size:clamp(1rem,1.15vw,1.08rem)!important}
+blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
+.sub{font-size:clamp(1.32rem,1.9vw,1.85rem)}
+.list li{font-size:clamp(1.3rem,1.9vw,1.62rem)!important}
+.note.exp{border-left:2px solid rgba(45,212,191,0.5)}
+.note.exp p{color:rgba(255,255,255,0.78)!important;font-style:italic}
+.note .xp{font-style:normal;font-weight:700;color:#2dd4bf;letter-spacing:0.08em;margin-right:8px;font-size:0.92em}
+</style>
+</head>
+<body>
+<div class="part-label" id="partLabel">AI 에이전트 세미나 · 2026. 6</div>
+<div class="progress" id="progress"></div>
+<div class="slides" id="slides">
+
+<!-- ════════ OPENING ════════ -->
+
+<!-- Cover -->
+<div class="slide samsung">
+  <h1>AI 에이전트와<br>일하는 법</h1>
+  <p class="sub">대답하는 도구에서 &mdash; <span class="em">일하는 동료</span>로</p>
+  <p class="meta" style="margin-top:4vh;">2026. 6</p>
+</div>
+
+<!-- Hook: 26분 vs 33초 -->
+<div class="slide">
+  <h3>"챗봇 써봤으니 안다"는 착각</h3>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5vw;width:100%;max-width:1000px;margin:3.5vh 0;">
+    <div style="text-align:center;">
+      <div style="font-family:'Figtree',sans-serif;font-size:clamp(3rem,7vw,6rem);font-weight:900;color:rgba(255,255,255,0.5);line-height:1;letter-spacing:-0.04em;">33초</div>
+      <div style="margin-top:1.2rem;color:rgba(255,255,255,0.6);font-size:1.05rem;">검색 &mdash; 한 번 묻고 답</div>
+    </div>
+    <div style="font-size:2.2rem;color:rgba(255,255,255,0.25);"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="text-align:center;">
+      <div style="font-family:'Figtree',sans-serif;font-size:clamp(3rem,7vw,6rem);font-weight:900;color:#22d3ee;line-height:1;letter-spacing:-0.04em;">26분</div>
+      <div style="margin-top:1.2rem;color:rgba(255,255,255,0.88);font-size:1.05rem;">에이전트 &mdash; 세션당 자율 작업</div>
+    </div>
+  </div>
+  <p class="sub">한 번 시키면 <span style="color:#22d3ee;font-weight:700;">48배</span> 더 오래 &mdash; 혼자 일한다</p>
+  <p class="meta" style="margin-top:2.4vh;">출처: Harvard &times; Perplexity, 2026. 6</p>
+</div>
+
+<!-- ════════ ① 이미 일어난 변화 ════════ -->
+
+<!-- divider -->
+<div class="slide indigo">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 01</p>
+  <h1>이미 일어난 변화</h1>
+  <p class="sub" style="margin-top:1vh;">먼 미래가 아니라 &mdash; <span class="em">지금, 과도기</span></p>
+</div>
+
+<!-- 지시 → 위임 -->
+<div class="slide in-indigo">
+  <h3>인터페이스의 축: 지시 &rarr; 위임</h3>
+  <div style="display:flex; align-items:center; justify-content:space-between; width:100%; max-width:980px; margin:5vh 0;">
+    <div style="text-align:center; flex:1;">
+      <i class="ph ph-magnifying-glass" style="font-size:3.2rem; color:rgba(255,255,255,0.4); margin-bottom:0.8rem;"></i>
+      <div style="color:rgba(255,255,255,0.5); font-weight:500; font-size:1rem;">검색</div>
+    </div>
+    <div style="font-size:1.3rem; color:rgba(255,255,255,0.15);"><i class="ph-bold ph-caret-right"></i></div>
+    <div style="text-align:center; flex:1;">
+      <i class="ph ph-chat-teardrop-dots" style="font-size:3.2rem; color:rgba(255,255,255,0.55); margin-bottom:0.8rem;"></i>
+      <div style="color:rgba(255,255,255,0.65); font-weight:500; font-size:1rem;">대화 (챗봇)</div>
+    </div>
+    <div style="font-size:1.3rem; color:rgba(255,255,255,0.15);"><i class="ph-bold ph-caret-right"></i></div>
+    <div style="text-align:center; flex:1;">
+      <i class="ph ph-robot" style="font-size:3.4rem; color:#818cf8; margin-bottom:0.7rem;"></i>
+      <div style="color:#818cf8; font-weight:600; font-size:1rem;">위임 (에이전트)</div>
+    </div>
+    <div style="font-size:1.3rem; color:rgba(255,255,255,0.2);"><i class="ph-bold ph-caret-right"></i></div>
+    <div style="text-align:center; flex:1;">
+      <i class="ph-fill ph-users-three" style="font-size:4rem; color:#34d399; margin-bottom:0.3rem;"></i>
+      <div style="color:#34d399; font-weight:800; font-size:1.1rem;">팀 (스웜)</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:1vh;">'어떻게'를 일일이 지시하다가 &mdash; <span class="em">'무엇을'만 위임</span>하는 단계로</p>
+</div>
+
+<!-- ARS vs 전담 비서 -->
+<div class="slide in-indigo">
+  <h3 style="margin-bottom:0.5vh;">콜센터 ARS vs 전담 비서</h3>
+  <p class="sub" style="margin-top:0; margin-bottom:3vh;">챗봇과 에이전트의 결정적 차이</p>
+  <div style="display:flex; gap:2.5vw; align-items:stretch; width:100%; max-width:920px;">
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:30px 24px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+      <i class="ph ph-phone" style="font-size:3.3rem; color:rgba(255,255,255,0.25);"></i>
+      <h4 style="color:rgba(255,255,255,0.4); font-size:1.2rem;">ARS (챗봇)</h4>
+      <div style="width:100%; display:flex; flex-direction:column; gap:8px;">
+        <p style="color:rgba(255,255,255,0.4); font-size:0.95rem; padding:8px 12px; background:rgba(255,255,255,0.02); border-radius:6px;">정해진 메뉴 안에서만 응답</p>
+        <p style="color:rgba(255,255,255,0.4); font-size:0.95rem; padding:8px 12px; background:rgba(255,255,255,0.02); border-radius:6px;">한 번 묻고 한 번 답</p>
+        <p style="color:rgba(255,255,255,0.4); font-size:0.95rem; padding:8px 12px; background:rgba(255,255,255,0.02); border-radius:6px;">매번 처음부터 다시 설명</p>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.12); font-size:2rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(52,211,153,0.2); border-radius:4px; padding:30px 24px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+      <i class="ph-fill ph-user-circle-gear" style="font-size:3.3rem; color:#34d399;"></i>
+      <h4 style="color:#34d399; font-size:1.2rem;">전담 비서 (에이전트)</h4>
+      <div style="width:100%; display:flex; flex-direction:column; gap:8px;">
+        <p style="color:rgba(255,255,255,0.5); font-size:0.95rem; padding:8px 12px;">맥락을 이해하고 알아서 조사</p>
+        <p style="color:rgba(255,255,255,0.5); font-size:0.95rem; padding:8px 12px;">판단 &middot; 실행 &middot; 중간 보고</p>
+        <p style="color:rgba(255,255,255,0.5); font-size:0.95rem; padding:8px 12px;">피드백 반영 &middot; 후속 조치까지</p>
+      </div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:3vh;">에이전트 = 알아서 일하는 디지털 일꾼 &mdash; 챗봇과는 <span class="em">구조적으로 다른 체험</span></p>
+</div>
+
+<!-- 단발성 → 자율 루프 -->
+<div class="slide in-indigo">
+  <h3>단발성 &rarr; 밤새 도는 자율 루프</h3>
+  <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:940px; margin-top:1vh;">
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:3vh 2vw;">
+      <div style="font-size:0.95rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; margin-bottom:1.4vh;">과거 &mdash; 단발성</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:1.02rem; line-height:1.9;">지시 &rarr; 생성<br>막히면 멈춤<br>사람이 다시 개입</p>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.15); font-size:1.8rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(129,140,248,0.25); border-radius:6px; padding:3vh 2vw;">
+      <div style="font-size:0.95rem; color:#818cf8; letter-spacing:0.1em; margin-bottom:1.4vh;">지금 &mdash; 자율 루프</div>
+      <p style="color:rgba(255,255,255,0.7); font-size:1.02rem; line-height:1.9;">목표만 주면 스스로 점검<br>에러 인지 &middot; 맥락 기록<br><span class="em">밤새 수백 번 고쳐 완성</span></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.4vh;">사람 손 없이 한 번에 끝낼 일의 분량이 &mdash; <span class="em">4~7개월마다 두 배</span>, 이미 수 시간</p>
+  <p class="meta" style="margin-top:1.2vh;">출처: METR, 2026 (코딩·추론 과제 기준 &mdash; 다른 사무 업무도 같은 곡선)</p>
+</div>
+
+<!-- 한 명 → 에이전트 군단 -->
+<div class="slide in-indigo">
+  <h3>한 명 &rarr; 에이전트 군단</h3>
+  <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:920px; margin-top:1vh;">
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <i class="ph ph-user" style="font-size:2.8rem; color:rgba(255,255,255,0.4);"></i>
+      <div style="margin-top:1.2rem; font-weight:700; color:rgba(255,255,255,0.7); font-size:1.15rem;">혼자 &middot; 순차</div>
+      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.55); font-size:1rem; line-height:1.6;">한 번에 하나씩</p>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.15); font-size:1.8rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(129,140,248,0.25); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <i class="ph-fill ph-users-three" style="font-size:2.8rem; color:#818cf8;"></i>
+      <div style="margin-top:1.2rem; font-weight:800; color:#818cf8; font-size:1.15rem;">팀(스웜) &middot; 병렬</div>
+      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.65); font-size:1rem; line-height:1.6;">여러 에이전트가 동시에<br>한 사람이 지휘</p>
+    </div>
+  </div>
+  <div class="note tip" style="margin-top:2vh;"><p>요즘은 한 사람이 <strong>수천~수만 개의 에이전트</strong>를 동시에 굴린다<br><span style="color:rgba(255,255,255,0.62);">&mdash; Claude를 만든 Anthropic의 실제 이야기 (2026)</span></p></div>
+</div>
+
+<!-- ════════ ② 숫자가 말하는 전환기 ════════ -->
+
+<!-- divider -->
+<div class="slide cyan">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 02</p>
+  <h1>숫자가 말하는 전환기</h1>
+  <p class="sub" style="margin-top:1vh;">개인의 체감이 아니라 &mdash; <span class="em">측정된 현실</span></p>
+</div>
+
+<!-- GDPval -->
+<div class="slide in-cyan">
+  <h3>전문가의 일을 &mdash; 분 단위로</h3>
+  <div class="stat-grid">
+    <div class="stat-card on">
+      <div class="label">실제 직무 과제로 평가</div>
+      <div class="value">44<span style="font-size:1.6rem">직종</span></div>
+      <div class="source">1,320개 실무 과제</div>
+    </div>
+    <div class="stat-card on">
+      <div class="label">전문가 7시간 작업 대비</div>
+      <div class="value">~100<span style="font-size:1.6rem">배</span></div>
+      <div class="source">더 빠르고 저렴</div>
+    </div>
+    <div class="stat-card on">
+      <div class="label">사람 결과물과 비교 &mdash; 동급 이상</div>
+      <div class="value" style="color:#22d3ee;">71<span style="font-size:1.6rem">%</span></div>
+      <div class="source">구세대 48% &rarr; 최신 71%</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2vh;">핵심은 한 숫자가 아니라 &mdash; <span class="em">빠르게 오르는 기울기</span></p>
+  <p class="meta" style="margin-top:1.4vh;">출처: GDPval, OpenAI (모델 세대별 향상)</p>
+</div>
+
+<!-- 결론: 전환기 -->
+<div class="slide cyan">
+  <p class="impact-text">도구는 도착했다</p>
+  <p class="impact-sub" style="margin-top:3.5vh;">아직 못 따라온 건 &mdash;<br><strong>우리가 일하고, 평가하는 방식</strong></p>
+  <p class="sub" style="margin-top:3vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.6);">능력과 관성 사이의 틈 &mdash; 지금이 <span class="em">과도기</span></p>
+</div>
+
+<!-- ════════ ③ 역할의 전환 ════════ -->
+
+<!-- divider -->
+<div class="slide violet">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 03</p>
+  <h1>실행자 &rarr; 조율자</h1>
+  <p class="sub" style="margin-top:1vh;">직접 하는 사람에서 &mdash; <span class="em">시키고 판단하는 사람</span>으로</p>
+</div>
+
+<!-- 반전: 개발자가 먼저? → 모두가 개발자처럼 -->
+<div class="slide in-violet">
+  <h3>한때의 예상은 &mdash; 빗나갔다</h3>
+  <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:960px; margin-top:1vh;">
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <div style="font-size:0.95rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; margin-bottom:1.2vh;">예상</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:1.12rem; line-height:1.6;">개발자가<br><span style="font-weight:700;">먼저 대체된다</span></p>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.15); font-size:1.8rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(167,139,250,0.28); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <div style="font-size:0.95rem; color:#a78bfa; letter-spacing:0.1em; margin-bottom:1.2vh;">실상</div>
+      <p style="color:#fff; font-size:1.12rem; line-height:1.6;"><span class="em">모두가</span><br>개발자처럼 일한다</p>
+      <div style="margin-top:1.2vh; font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.5;">'엔지니어'라는 직함이 흐려지고 &mdash;<br>누구나 만드는 사람이 된다</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">'개발자처럼' = 코딩이 아니라 &mdash; 일을 잘게 나눠 맡기고 <span class="em">결과를 판단하는 사고</span></p>
+  <div class="note exp" style="margin-top:1.4vh;"><p><span class="xp">경험</span>솔직히 저도 우리 개발 일이 먼저 사라질 줄 알았다 &mdash; 지금은 정반대로 본다</p></div>
+</div>
+
+<!-- 만드는 비용의 붕괴 -->
+<div class="slide in-violet">
+  <h2 style="max-width:1040px;">이제 &mdash; <span class="em">만드는 비용</span>이 무너졌다</h2>
+  <p class="sub" style="margin-top:4vh;">코딩을 몰라도, 디자이너가 없어도 &mdash; 누구나 <span class="em">의도</span>로 결과를 만든다</p>
+  <p class="sub" style="margin-top:1.2vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.6);">인간의 언어가 &mdash; 새로운 프로그래밍 언어가 된 셈</p>
+</div>
+
+<!-- 가치 사슬의 이동 -->
+<div class="slide in-violet">
+  <h3>가치 사슬의 이동 &mdash; 기술에서 '문제를 가진 사람'에게로</h3>
+  <div class="arch-layers" style="max-width:1000px;">
+    <div class="arch-layer">
+      <div class="role">과거</div>
+      <div class="brand">불편함 &rarr; 전문가 번역 &rarr; 비싼 솔루션</div>
+      <div class="desc">병목 = 기술력</div>
+    </div>
+    <div class="arch-layer">
+      <div class="role">지금</div>
+      <div class="brand">불편함 &rarr; AI로 바로 해결 &rarr; 솔루션</div>
+      <div class="desc">번역이 사라진다</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.4vh;">값어치가 '기술'에서 &mdash; <span class="em">'문제를 가진 도메인 오너'</span>에게로 이동</p>
+</div>
+
+<!-- 성과 공식 -->
+<div class="slide in-violet">
+  <h3>성과를 만드는 식</h3>
+  <p class="formula" style="margin:3vh 0 1vh;">성과 = 모델 <span style="color:#a78bfa;">&times;</span> 에이전트 <span style="color:#a78bfa;">&times;</span> <span class="em">나</span></p>
+  <div class="comp" style="margin-top:1vh;">
+    <div class="comp-item on">
+      <div class="tag">모델</div>
+      <p>두뇌<br><span style="color:rgba(255,255,255,0.55);font-size:0.95rem;">갈수록 평준화</span></p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag">에이전트</div>
+      <p>실행<br><span style="color:rgba(255,255,255,0.55);font-size:0.95rem;">갈수록 흔해짐</span></p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag" style="color:#a78bfa;">나 (Pilot)</div>
+      <p style="color:#fff;">판단 &middot; 도메인<br><span style="color:#a78bfa;font-size:0.95rem;">결정적 변수</span></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:1.4vh;">모델·에이전트는 평준화되고 &mdash; 차이를 만드는 건 <span class="em">나</span></p>
+</div>
+
+<!-- 직무별 전환 -->
+<div class="slide in-violet">
+  <h3>직무가 무엇이든 &mdash; 실행은 AI, 판단은 사람</h3>
+  <table class="tbl" style="margin-top:2.4vh; width:100%; max-width:1000px;">
+    <thead><tr>
+      <th style="text-align:left;">직무</th>
+      <th style="text-align:left;">AI가 맡는 실행</th>
+      <th style="text-align:left; color:#a78bfa;">사람이 키우는 판단</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><strong>기획</strong></td><td>자료 수집 · 시장 요약 · 초안</td><td>무엇을 풀 문제로 정의할지</td></tr>
+      <tr><td><strong>마케팅</strong></td><td>카피 변형 · 세그먼트 · 성과 집계</td><td>브랜드에 어떤 메시지가 가치인지</td></tr>
+      <tr><td><strong>설계</strong></td><td>대안 생성 · 검토 · 문서화</td><td>제약 조건과 트레이드오프 결정</td></tr>
+      <tr><td><strong>제조</strong></td><td>데이터 정리 · 이상 탐지 · 리포트</td><td>현장 맥락 해석 · 조치 우선순위</td></tr>
+    </tbody>
+  </table>
+  <p class="sub" style="margin-top:2vh;">손으로 만드는 시간은 줄고 &mdash; <span class="em">판단·검증의 밀도</span>가 오른다</p>
+</div>
+
+<!-- ════════ ④ AI를 위한 HR ════════ -->
+
+<!-- divider -->
+<div class="slide teal">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 04</p>
+  <h1>AI와 일하는 법</h1>
+  <p class="sub" style="margin-top:1vh;">이름은 계속 바뀌어도 &mdash; 본질은 하나, <span class="em">AI를 위한 HR</span></p>
+</div>
+
+<!-- 계보 타임라인 -->
+<div class="slide in-teal">
+  <h3>방법론은 이름을 갈아입어 왔다</h3>
+  <div style="display:flex; align-items:flex-start; justify-content:space-between; width:100%; max-width:1040px; margin:4vh 0 2vh;">
+    <div style="text-align:center; flex:1;">
+      <div style="font-weight:700; color:rgba(255,255,255,0.55); font-size:clamp(1.05rem,1.3vw,1.25rem);">프롬프트<br>엔지니어링</div>
+      <div style="margin-top:0.9rem; color:rgba(255,255,255,0.5); font-size:0.92rem;">잘 묻는 법</div>
+    </div>
+    <div style="color:rgba(255,255,255,0.2); font-size:1.3rem; padding-top:0.4rem;"><i class="ph-bold ph-caret-right"></i></div>
+    <div style="text-align:center; flex:1;">
+      <div style="font-weight:700; color:rgba(255,255,255,0.62); font-size:clamp(1.05rem,1.3vw,1.25rem);">컨텍스트<br>엔지니어링</div>
+      <div style="margin-top:0.9rem; color:rgba(255,255,255,0.5); font-size:0.92rem;">맥락을 채우는 법</div>
+    </div>
+    <div style="color:rgba(255,255,255,0.2); font-size:1.3rem; padding-top:0.4rem;"><i class="ph-bold ph-caret-right"></i></div>
+    <div style="text-align:center; flex:1;">
+      <div style="font-weight:700; color:rgba(255,255,255,0.72); font-size:clamp(1.05rem,1.3vw,1.25rem);">하네스<br>엔지니어링</div>
+      <div style="margin-top:0.9rem; color:rgba(255,255,255,0.5); font-size:0.92rem;">일할 도구·권한을 쥐여주는 법</div>
+    </div>
+    <div style="color:rgba(255,255,255,0.2); font-size:1.3rem; padding-top:0.4rem;"><i class="ph-bold ph-caret-right"></i></div>
+    <div style="text-align:center; flex:1;">
+      <div style="font-weight:800; color:#2dd4bf; font-size:clamp(1.1rem,1.4vw,1.35rem);">루프<br>엔지니어링</div>
+      <div style="margin-top:0.9rem; color:rgba(255,255,255,0.65); font-size:0.92rem;">스스로 돌게 설계</div>
+    </div>
+  </div>
+  <p class="sub">용어와 기법은 갈아입지만 &mdash; 묻는 건 늘 같다: <span class="em">"AI에게 일을 어떻게 맡길까"</span></p>
+</div>
+
+<!-- AI를 위한 HR -->
+<div class="slide in-teal">
+  <h3>결국 &mdash; <strong style="color:#2dd4bf;">'AI를 위한 HR'</strong></h3>
+  <div class="arch-layers" style="max-width:1000px;">
+    <div class="arch-layer">
+      <div class="role">분해</div>
+      <div class="brand">직무 기술서</div>
+      <div class="desc">무엇을 맡길지 잘게 나눈다</div>
+    </div>
+    <div class="arch-layer">
+      <div class="role">완료 기준</div>
+      <div class="brand">KPI</div>
+      <div class="desc">무엇이 '잘된 것'인지 정의</div>
+    </div>
+    <div class="arch-layer">
+      <div class="role">오케스트레이션</div>
+      <div class="brand">인력 배치</div>
+      <div class="desc">단계마다 알맞은 일꾼을</div>
+    </div>
+    <div class="arch-layer">
+      <div class="role">루프</div>
+      <div class="brand">관리 사이클</div>
+      <div class="desc">스스로 점검·반복 · 사람은 체크포인트</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2vh;">사람을 뽑아 일을 맡기고 평가하듯 &mdash; <span class="em">AI를 브리핑·위임·관리</span></p>
+</div>
+
+<!-- HITL 진화: 루프 안 → 위 → 설계자 -->
+<div class="slide in-teal">
+  <h3>사람의 자리 &mdash; 루프 안에서, 루프 위로</h3>
+  <img src="../assets/images/hitl_evolution_in_on_above_loop.png" alt="HITL 진화 — 루프 안의 인간(결과 검증·수정) → 루프 위의 인간(예외만 감독·개입) → 루프 위의 설계자(루프·가치를 정의)" style="width:100%; max-width:1200px; max-height:48vh; object-fit:contain; border-radius:8px;" />
+  <p class="sub" style="margin-top:2.6vh;">AI 자율성이 오를수록 &mdash; 사람은 <span class="em">'루프 위의 설계자'</span>로</p>
+  <p class="sub" style="margin-top:0.6vh; font-size:clamp(1.05rem,1.3vw,1.25rem); color:rgba(255,255,255,0.62);">매번 끼어드는 대신 &mdash; 일이 돌아가는 판을 짜는 사람</p>
+</div>
+
+<!-- 새 역할: 브리핑·위임·검토 사이클 -->
+<div class="slide in-teal">
+  <h3>그래서, 당신의 새 역할</h3>
+  <p class="impact-text" style="margin-top:1vh;">브리핑 &middot; 위임 &middot; <span class="em">검토</span></p>
+  <p class="sub" style="margin-top:2.6vh;">사람을 뽑아 맡기고 평가하듯 &mdash; <span class="em">AI를 그렇게 다룬다</span></p>
+  <div class="note exp" style="margin-top:1.6vh;"><p><span class="xp">경험</span>요즘 저는 아침에 출근하면 &mdash; 밤새 돌려둔 에이전트들의 결과부터 검토한다</p></div>
+</div>
+
+<!-- AI가 스스로 점검·제안 → ⑤로 다리 -->
+<div class="slide in-teal">
+  <h3>그리고 &mdash; AI가 다음 할 일까지 스스로 제안한다</h3>
+  <div class="comp" style="margin-top:1vh;">
+    <div class="comp-item on">
+      <div class="tag">스스로 점검</div>
+      <p>자기가 한 일을<br>스스로 되짚어 고치고</p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag">스스로 제안</div>
+      <p>"다음엔 이걸 해볼까"<br>먼저 제안하기 시작</p>
+    </div>
+  </div>
+  <p class="sub">맡길수록 &mdash; <span class="em">한 사람이 굴리는 일의 양이 늘어난다</span></p>
+  <div class="note warn" style="margin-top:1.6vh;"><p>"넘었다"가 아니라 <strong>"문턱 앞"</strong> &mdash; 큰 변화이자 신중히 다룰 영역</p></div>
+</div>
+
+<!-- ════════ ⑤ 산출물의 폭발 ════════ -->
+
+<!-- 산출물 폭발 -->
+<div class="slide in-amber">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 05</p>
+  <h3 style="margin-top:1vh;">한 사람이 만들 수 있는 양 &mdash; 폭이 넓어진다</h3>
+  <div class="pipeline" style="margin:3vh 0; justify-content:center; flex-wrap:wrap;">
+    <span class="pipeline-step on">한 사람이 여러 루프</span>
+    <span class="pipeline-arrow"><i class="ph-bold ph-arrow-right"></i></span>
+    <span class="pipeline-step on" style="color:#fbbf24;">개인 산출물의 폭 ↑</span>
+    <span class="pipeline-arrow"><i class="ph-bold ph-arrow-right"></i></span>
+    <span class="pipeline-step">기대치도 함께 ↑</span>
+  </div>
+  <p class="sub">레버리지를 먼저 잡는 사람에게 &mdash; <span class="em">몇 배의 기회</span></p>
+  <div class="note warn" style="margin-top:1.6vh;"><p>피할 흐름이 아니라 올라탈 흐름 &mdash; 빠르냐 늦냐의 차이</p></div>
+</div>
+
+<!-- AI가 기본 기대치 -->
+<div class="slide in-amber">
+  <h2 style="max-width:1040px;">AI를 쓰는 건 &mdash; 이제 <span class="em">기본값</span>이다</h2>
+  <p class="sub" style="margin-top:4vh;">"사람을 더 뽑기 전에, 왜 그 일을 AI로는 못 하는지부터" &mdash; 이미 이런 사규를 둔 회사도 있다</p>
+  <p class="sub" style="margin-top:1.2vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">AI 활용이 어느새 &mdash; 일하는 방식의 기준선</p>
+</div>
+
+<!-- ════════ ⑥ 일을 잘한다의 새 정의 ════════ -->
+
+<!-- divider -->
+<div class="slide violet">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 06</p>
+  <h1>'일을 잘한다'의 새 정의</h1>
+  <p class="sub" style="margin-top:1vh;">답이 흔해진 시대 &mdash; 무엇을 묻고, <span class="em">무엇을 고를까</span></p>
+</div>
+
+<!-- 질문하는 사람 -->
+<div class="slide in-violet">
+  <h2 style="max-width:1040px;">답은 흔해졌다 &mdash; 값이 오르는 건 <span class="em">'질문'</span></h2>
+  <p class="sub" style="margin-top:4vh;">AI가 100배 속도로 답을 쏟아낼수록 &mdash; '무엇을 물을 것인가'가 실력이 된다</p>
+  <p class="meta" style="margin-top:2.4vh;">오래된 말 &mdash; "옳은 답보다, 옳은 질문"</p>
+</div>
+
+<!-- 비즈니스 가치를 정의하는 사람 -->
+<div class="slide in-violet">
+  <h2 style="max-width:1040px;">AI가 '올바르게 하기'를 &mdash; <span class="em">공짜로</span> 만든다</h2>
+  <p class="sub" style="margin-top:4vh;">그래서 남는 일은 &mdash; <span class="em">'올바른 일'을 고르는 것</span></p>
+  <p class="sub" style="margin-top:1.2vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">과제는 주어지지 않는다 &mdash; 스스로 정의하는 것</p>
+</div>
+
+<!-- ════════ ⑦ 끝까지 남는 것 ════════ -->
+
+<!-- 도메인 해자인가 -->
+<div class="slide orange">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 07</p>
+  <h3 style="margin-top:1vh;">질문·가치가 남는다면 &mdash; 그럼 내 도메인 지식은?</h3>
+  <div class="comp" style="margin-top:2vh;">
+    <div class="comp-item on">
+      <div class="tag">AI만</div>
+      <p>현장의 맥락을<br>모른다</p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag">도메인만</div>
+      <p>직접 실행이<br>느리다</p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag" style="color:#fb923c;">도메인 &times; AI</div>
+      <p style="color:#fff;">현장의 불편함을<br><span class="em">직접 푼다</span></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:1.4vh;">절반은 맞다 &mdash; 그래도 정직하게 본다: <span class="em">무엇을 더 키울까</span></p>
+</div>
+
+<!-- 녹는 해자 -->
+<div class="slide in-orange">
+  <h3>도메인 지식도 &mdash; 녹는 해자 <span style="font-weight:400;color:rgba(255,255,255,0.5);font-size:0.78em;">(해자 = 남이 못 넘어오는 진입장벽)</span></h3>
+  <div style="display:flex; align-items:center; justify-content:center; gap:5vw; width:100%; max-width:1000px; margin:3.2vh 0;">
+    <div style="text-align:center;">
+      <div style="font-family:'Figtree',sans-serif; font-size:clamp(2.6rem,5.5vw,4.6rem); font-weight:900; color:rgba(255,255,255,0.55); line-height:1; letter-spacing:-0.04em;">~10배</div>
+      <div style="margin-top:1rem; color:rgba(255,255,255,0.6); font-size:1.02rem;">업무 효율 &mdash; 같은 일을 빠르게</div>
+    </div>
+    <div style="font-size:1.8rem; color:rgba(255,255,255,0.25);">vs</div>
+    <div style="text-align:center;">
+      <div style="font-family:'Figtree',sans-serif; font-size:clamp(2.6rem,5.5vw,4.6rem); font-weight:900; color:#fb923c; line-height:1; letter-spacing:-0.04em;">~100배</div>
+      <div style="margin-top:1rem; color:rgba(255,255,255,0.88); font-size:1.02rem;">학습 효율 &mdash; 새 분야를 흡수</div>
+    </div>
+  </div>
+  <p class="sub">새 분야를 흡수하는 속도가 &mdash; <span class="em">그 안에서 익숙하게 일하는 속도를 추월</span></p>
+  <div class="note warn" style="margin-top:1.4vh;"><p>멈춘 지식은 천천히 가치를 잃는다 &mdash; 그래서 무엇이 끝까지 남나</p></div>
+</div>
+
+<!-- 끝까지 남는 것 -->
+<div class="slide in-orange">
+  <h3>끝까지 안 흔해지는 것 &mdash; 주관성과 심미안</h3>
+  <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:920px; margin-top:1vh;">
+    <div style="flex:1; border:1px solid rgba(251,146,60,0.28); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <i class="ph ph-fingerprint" style="font-size:2.6rem; color:#fb923c;"></i>
+      <div style="margin-top:1rem; font-weight:700; color:#fff; font-size:1.1rem;">나만의 불편함</div>
+      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6;">내가 어떤 순간 무엇 때문에<br>막히는지 &mdash; 누구도 모른다</p>
+    </div>
+    <div style="flex:1; border:1px solid rgba(251,146,60,0.28); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <i class="ph ph-magnifying-glass" style="font-size:2.6rem; color:#fb923c;"></i>
+      <div style="margin-top:1rem; font-weight:700; color:#fff; font-size:1.1rem;">전문가적 심미안</div>
+      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6;">10초 만에 나온 결과가<br>명품인지 그럴듯한 오답인지</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.4vh;">쉽게 흉내 못 내는 <span class="em">안목과 책임</span> &mdash; 끝까지 사람의 몫</p>
+</div>
+
+<!-- ════════ DEMO · 직접 본다 ════════ -->
+
+<!-- divider -->
+<div class="slide mint">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">DEMO</p>
+  <h1>직접 본다</h1>
+  <p class="sub" style="margin-top:1vh;">남의 데이터지만 &mdash; <span class="em">우리 월간 보고서</span>와 다르지 않다</p>
+  <div class="note exp" style="margin-top:1.8vh;"><p><span class="xp">경험</span>반나절 걸리던 부서 보고서 통일을, 처음 맡겨보고 30초에 끝났을 때의 그 황당함</p></div>
+</div>
+
+<!-- 매핑표 -->
+<div class="slide in-mint">
+  <h3>데모 속 작업 &mdash; 결국 우리가 매일 하는 일</h3>
+  <table class="tbl" style="margin-top:2.4vh; width:100%; max-width:980px;">
+    <thead><tr>
+      <th style="text-align:left;">데모 작업</th>
+      <th style="text-align:left;">실제 사무 업무</th>
+      <th style="text-align:right; color:#34d399;">시간 절감</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>데이터 정제</td><td>부서별 보고서 형식 통일</td><td style="text-align:right;"><strong>1~2시간 &rarr; 1분</strong></td></tr>
+      <tr><td>피벗 &middot; 차트</td><td>월별 KPI 추이 시각화</td><td style="text-align:right;"><strong>2~3시간 &rarr; 5분</strong></td></tr>
+      <tr><td>대시보드</td><td>경영 현황판 제작</td><td style="text-align:right;"><strong>1~2일 &rarr; 10분</strong></td></tr>
+      <tr><td>이상치 분석</td><td>이상 거래처 탐지</td><td style="text-align:right;"><strong>반나절 &rarr; 5분</strong></td></tr>
+      <tr><td>보고서 초안</td><td>월간 경영 분석 리포트</td><td style="text-align:right;"><strong>3~4시간 &rarr; 10분</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 데모 정제 -->
+<div class="slide in-mint">
+  <h3>지저분한 데이터 &rarr; 바로 보고서 표</h3>
+  <div class="two-col" style="max-width:1000px; align-items:stretch;">
+    <div class="col" style="border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:2.4vh 1.8vw;">
+      <div style="font-size:0.95rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; margin-bottom:1.2vh;">BEFORE &mdash; 부서 raw</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.92rem; color:rgba(255,255,255,0.6); line-height:1.9;">단위 제각각 (0.62 / 62%)<br>빈 칸 · 오류값 혼재<br>열 이름 통일 안 됨</div>
+    </div>
+    <div class="col" style="border:1px solid rgba(52,211,153,0.25); border-radius:6px; padding:2.4vh 1.8vw;">
+      <div style="font-size:0.95rem; color:#34d399; letter-spacing:0.1em; margin-bottom:1.2vh;">AFTER &mdash; 30초 뒤</div>
+      <div style="font-size:0.98rem; color:rgba(255,255,255,0.75); line-height:1.9;">정제된 표 + "이슈 요약 3줄"<br>오류값 자동 감지<br>바로 붙여넣기 가능</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.6vh;">데이터만 주면 &mdash; <span class="em">정리·검증·요약까지 한 번에</span></p>
+</div>
+
+<!-- 영상 -->
+<div class="slide in-mint">
+  <h3>실제 시연 &mdash; 데이터를 다루고, 일을 끝낸다</h3>
+  <video src="../assets/videos/claude-excel-demo.mp4" controls preload="metadata" playsinline style="width:100%; max-width:1120px; max-height:68vh; border-radius:8px; border:1px solid rgba(255,255,255,0.12);"></video>
+  <p class="sub" style="margin-top:2vh;">말이 아니라 &mdash; <span class="em">실제로 끝까지 해낸다</span></p>
+</div>
+
+<!-- ════════ ⑧ AI는 증폭기 ════════ -->
+
+<!-- divider -->
+<div class="slide rose">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 08</p>
+  <h1>좋기만 한 건 아니다</h1>
+  <p class="sub" style="margin-top:1vh;">도구를 쥔다고 &mdash; <span class="em">저절로 좋아지지 않는다</span></p>
+</div>
+
+<!-- AI 만능론 곡선 -->
+<div class="slide in-rose">
+  <h3>AI 만능론의 감정 곡선</h3>
+  <img src="../assets/images/ai-hype-cycle.png" alt="AI 만능론의 감정 곡선 — 첫 경험·과열·실망·정체·평정심" style="width:100%; max-width:1060px; max-height:58vh; object-fit:contain; border-radius:8px;" />
+  <div class="note exp" style="margin-top:1.6vh;"><p><span class="xp">경험</span>저도 처음엔 "이제 다 되겠다" 싶다가 곧 실망했고 &mdash; 지금은 담담하게 쓴다</p></div>
+</div>
+
+<!-- AI는 증폭기 -->
+<div class="slide in-rose">
+  <h3>AI는 증폭기 &mdash; 요술봉이 아니다</h3>
+  <div class="comp" style="margin-top:1vh;">
+    <div class="comp-item on">
+      <div class="tag" style="color:#34d399;">기반이 갖춰진 팀</div>
+      <p style="color:#fff;">강점을<br><span style="color:#34d399;">가속</span></p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag" style="color:#fca5a5;">정리 안 된 팀</div>
+      <p style="color:#fff;">기존 혼란을<br><span style="color:#fca5a5;">증폭</span></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:1.4vh;">잘못 맡긴 일은 &mdash; <span class="em">틀린 결과를 더 빨리, 더 많이</span></p>
+  <p class="meta" style="margin-top:1.4vh;">출처: Google DORA 2025</p>
+</div>
+
+<!-- 환각 + 인지 소진 -->
+<div class="slide in-rose">
+  <h3>두 가지 비용 &mdash; 환각과 인지 소진</h3>
+  <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:920px; margin-top:1vh;">
+    <div style="flex:1; border:1px solid rgba(252,165,165,0.22); border-radius:6px; padding:2.6vh 2vw; text-align:center;">
+      <i class="ph ph-ghost" style="font-size:2.5rem; color:#fca5a5;"></i>
+      <div style="margin-top:1rem; font-weight:700; color:#fff; font-size:1.12rem;">환각</div>
+      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6;">없는 사실·수치를<br>자신 있게 지어낸다 &rarr; 검증 필수</p>
+    </div>
+    <div style="flex:1; border:1px solid rgba(252,165,165,0.22); border-radius:6px; padding:2.6vh 2vw; text-align:center;">
+      <i class="ph ph-battery-low" style="font-size:2.5rem; color:#fca5a5;"></i>
+      <div style="margin-top:1rem; font-weight:700; color:#fff; font-size:1.12rem;">인지 소진</div>
+      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6;">검토량이 폭증한다<br>생성과 판단 시간 분리 · 휴식</p>
+    </div>
+  </div>
+  <div class="note exp" style="margin-top:1.6vh;"><p><span class="xp">경험</span>저도 검토량이 폭증해 지친 시기가 있었다 &mdash; 만드는 시간과 판단하는 시간을 나누고서 풀렸다</p></div>
+</div>
+
+<!-- 파워포인트의 바다 -->
+<div class="slide in-rose">
+  <h2 style="max-width:1040px;">AI에게 시키면 &mdash; <span class="em">아무도 안 읽는 보고서</span>도 무한히</h2>
+  <p class="sub" style="margin-top:4vh;">속도가 아니라 질문 &mdash; <span class="em">무엇을 위한 생산성인가</span></p>
+  <div class="note warn" style="margin-top:1.6vh;"><p>쏟아내기 쉬워질수록 &mdash; '왜 만드는가'를 안 물으면 일만 늘어난다</p></div>
+</div>
+
+<!-- Shadow AI -->
+<div class="slide in-rose">
+  <h3>직원은 이미 쓴다 &mdash; 조직만 모른다</h3>
+  <div class="stat-grid">
+    <div class="stat-card on">
+      <div class="label">개인 AI 도구 업무 사용 직원</div>
+      <div class="value">90<span style="font-size:1.6rem">%</span></div>
+      <div class="source">개인 계정으로</div>
+    </div>
+    <div class="stat-card on">
+      <div class="label">공식 도입한 기업</div>
+      <div class="value" style="color:#fca5a5;">&lt;40<span style="font-size:1.6rem">%</span></div>
+      <div class="source">절반에도 못 미침</div>
+    </div>
+    <div class="stat-card on">
+      <div class="label">손익에 영향 못 준 파일럿</div>
+      <div class="value" style="color:#fca5a5;">95<span style="font-size:1.6rem">%</span></div>
+      <div class="source">"GenAI Divide"</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:1.6vh;">숨어서 쓰는 <span class="em">'Shadow AI'</span> &mdash; 직원은 앞서가고, 조직만 뒤늦다</p>
+  <div class="note exp" style="margin-top:1.4vh;"><p><span class="xp">경험</span>사실 저도 한동안은 조용히 썼다 &mdash; "드러내도 괜찮다"가 먼저였다</p></div>
+</div>
+
+<!-- Secret Cyborgs / 평가체계 -->
+<div class="slide in-rose">
+  <h3>왜 숨길까 &mdash; 몰래 쓰는 직원들(Secret Cyborgs)과 낡은 평가체계</h3>
+  <div class="arch-layers">
+    <div class="arch-layer">
+      <div class="role">현상</div>
+      <div class="brand">몰래 써서 몇 배 빠르게</div>
+      <div class="desc">드러내면 일만 늘 텐데</div>
+    </div>
+    <div class="arch-layer">
+      <div class="role">뿌리</div>
+      <div class="brand">시간·산출량 위주 평가</div>
+      <div class="desc">드러낼수록 손해</div>
+    </div>
+    <div class="arch-layer">
+      <div class="role">해법</div>
+      <div class="brand">처벌 아닌 보상·안전감</div>
+      <div class="desc">가치를 재는 평가로</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2vh;">결국 AI 전환은 IT가 아니라 &mdash; <span class="em">사람과 평가의 문제</span></p>
+</div>
+
+<!-- ════════ CLOSING ════════ -->
+
+<!-- 정해진 미래 -->
+<div class="slide blue">
+  <h3>경고를 다 감안해도 &mdash; 방향은 분명하다</h3>
+  <p class="impact-text">미래는 <span class="em">정해졌다</span></p>
+  <p class="impact-sub" style="margin-top:3.2vh;">만드는 비용은 0으로, 한 사람의 산출은 폭발하고 &mdash;<br><strong>일의 무게중심은 실행에서 판단·설계로</strong></p>
+</div>
+
+<!-- 당신은 AI의 매니저 -->
+<div class="slide blue">
+  <p class="impact-text">당신은 AI의 <span class="em">매니저</span>다</p>
+  <p class="impact-sub" style="margin-top:4vh;">프롬프트든 루프든, 이름은 바뀌어도 &mdash;<br><strong>결국 AI를 브리핑·위임·관리하는 사람</strong></p>
+</div>
+
+<!-- 계속 배우는 능력 -->
+<div class="slide blue">
+  <h3>정해지지 않은 단 하나</h3>
+  <p class="impact-text" style="margin-top:1vh; font-size:clamp(2.2rem,4.2vw,3.8rem);">계속 <span class="em">배우는 능력</span></p>
+  <p class="sub" style="margin-top:3vh;">학습 100배는 양날의 칼 &mdash; 내 해자를 녹이는 동시에, <span class="em">새 영역으로 건너갈 무기</span></p>
+  <p class="sub" style="margin-top:1.2vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">유일하게 영구적인 자산은 &mdash; '계속 움직이는 능력'</p>
+</div>
+
+<!-- 당장 해볼 것 -->
+<div class="slide blue">
+  <h3>월요일 아침, 당장 해볼 것</h3>
+  <ul class="list" style="margin-top:1.5vh; max-width:1000px;">
+    <li><strong>1.</strong> 이번 주 반복 업무 하나를 &mdash; 순서대로 적어 <span class="em">"어떻게 자동화할까"</span> 묻기</li>
+    <li><strong>2.</strong> 늘 쓰던 보고서 하나를 &mdash; 데이터만 주고 <span class="em">초안 시키기</span></li>
+    <li><strong>3.</strong> AI가 낸 결과는 &mdash; 그대로 쓰기 전에 <span class="em">한 번 검증</span></li>
+  </ul>
+  <p class="sub" style="margin-top:2vh;">크게 시작할 필요는 없다 &mdash; <span class="em">한 가지부터</span></p>
+</div>
+
+<!-- Q&A -->
+<div class="slide blue">
+  <h1>Q &amp; A</h1>
+  <p class="sub" style="margin-top:2vh;">질의 &middot; 토론</p>
+  <ul class="list" style="margin-top:2.4vh; max-width:920px;">
+    <li>우리 팀에서 &mdash; 가장 먼저 <strong>맡길 반복 업무</strong>는?</li>
+    <li>"무엇을 위한 생산성인가?" &mdash; 우리 부서의 답은?</li>
+    <li>AI에 넘기고, 사람이 지킬 &mdash; <strong>마지막 판단</strong>은?</li>
+  </ul>
+  <p class="meta" style="margin-top:4vh; color:rgba(255,255,255,0.55);">AI 에이전트 세미나 &middot; 2026. 6</p>
+</div>
+
+</div>
+<nav aria-label="Slide navigation" class="nav"><button aria-label="Previous slide" onclick="prev()">&larr;</button><button aria-label="Next slide" onclick="next()">&rarr;</button></nav>
+<div class="page-num" id="pageNum">1 / 1</div>
+<script>
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let current=0;
+const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress'),partLabelEl=document.getElementById('partLabel');
+const partMap=[
+{from:0,to:1,label:'Opening'},
+{from:2,to:6,label:'① 이미 일어난 변화'},
+{from:7,to:9,label:'② 숫자가 말하는 전환기'},
+{from:10,to:15,label:'③ 실행자 → 조율자'},
+{from:16,to:21,label:'④ AI를 위한 HR'},
+{from:22,to:23,label:'⑤ 산출물의 폭발'},
+{from:24,to:26,label:'⑥ 일을 잘한다의 새 정의'},
+{from:27,to:29,label:'⑦ 끝까지 남는 것'},
+{from:30,to:33,label:'Demo · 직접 본다'},
+{from:34,to:40,label:'⑧ AI는 증폭기'},
+{from:41,to:45,label:'Closing'}
+];
+function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI 에이전트 세미나';}
+function update(){if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;document.getElementById('slides').style.transform=`translateX(-${current*100}vw)`;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
+function next(){goTo(current+1);}
+function prev(){goTo(current-1);}
+document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});
+let tx=0,ty=0;
+document.addEventListener('touchstart',e=>{if(e.touches.length>1)return;tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches.length>1)return;const dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx>0)next();else prev();}},{passive:true});
+const initSlide=parseInt(location.hash.slice(1))-1;
+if(!isNaN(initSlide)&&initSlide>=0)goTo(initSlide);else update();
+</script>
+</body>
+</html>

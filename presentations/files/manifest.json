@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-10T01:08:42.580Z",
-  "count": 7,
-  "slides": 7,
+  "generatedAt": "2026-06-15T08:07:22.780Z",
+  "count": 8,
+  "slides": 8,
   "files": 0,
   "items": [
     {
@@ -65,6 +65,15 @@
       "title": "AI 개발 도구 Hands-on · 2026.6",
       "subtitle": "에이전트 · 토큰=성능 · 리더십 핸즈온 · 4h",
       "url": "./presentations/dev-seminar-06/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "category": "비개발",
+      "catClass": "biz",
+      "title": "AI 에이전트와 일하는 법",
+      "subtitle": "대답하는 도구에서 일하는 동료로 · 전 직군",
+      "url": "./presentations/all-hands-seminar/",
       "ext": "html"
     }
   ]
