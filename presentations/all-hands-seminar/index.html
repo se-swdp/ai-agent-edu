@@ -216,6 +216,14 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="meta" style="margin-top:2.4vh;">출처: Harvard &times; Perplexity, 2026. 6</p>
 </div>
 
+<!-- 왜 지금인가 — 에이전트 시대의 의의 -->
+<div class="slide in-indigo">
+  <h3>왜 하필 지금인가</h3>
+  <p class="impact-text" style="font-size:clamp(2.4rem,4.6vw,4.2rem);">방법이 아니라 &mdash; <span class="em">'무엇을'</span>만 맡긴다</p>
+  <p class="sub" style="margin-top:3.4vh;">명령어로 하나하나 시키던 도구가 &mdash; 의도만 주면 스스로 일하는 쪽으로</p>
+  <p class="sub" style="margin-top:1vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.6);">먼 미래가 아니라 &mdash; 최근 1~2년에 실제로 일어난 전환</p>
+</div>
+
 <!-- ════════ ① 이미 일어난 변화 ════════ -->
 
 <!-- divider -->
@@ -382,14 +390,14 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     </div>
   </div>
   <p class="sub" style="margin-top:2.2vh;">'개발자처럼' = 코딩이 아니라 &mdash; 일을 잘게 나눠 맡기고 <span class="em">결과를 판단하는 사고</span></p>
-  <div class="note exp" style="margin-top:1.4vh;"><p><span class="xp">경험</span>솔직히 저도 우리 개발 일이 먼저 사라질 줄 알았다 &mdash; 지금은 정반대로 본다</p></div>
+  <div class="note exp" style="margin-top:1.4vh;"><p><span class="xp">경험</span>개발자가 가장 먼저 없어질 줄 알았는데 &mdash; 오히려 모두가 개발자처럼 일하는 쪽</p></div>
 </div>
 
 <!-- 만드는 비용의 붕괴 -->
 <div class="slide in-violet">
   <h2 style="max-width:1040px;">이제 &mdash; <span class="em">만드는 비용</span>이 무너졌다</h2>
   <p class="sub" style="margin-top:4vh;">코딩을 몰라도, 디자이너가 없어도 &mdash; 누구나 <span class="em">의도</span>로 결과를 만든다</p>
-  <p class="sub" style="margin-top:1.2vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.6);">인간의 언어가 &mdash; 새로운 프로그래밍 언어가 된 셈</p>
+  <p class="meta" style="margin-top:2vh;">"인간의 언어가 새로운 프로그래밍 언어가 됐다" &mdash; Jensen Huang, NVIDIA</p>
 </div>
 
 <!-- 가치 사슬의 이동 -->
@@ -517,14 +525,32 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <!-- HITL 진화: 루프 안 → 위 → 설계자 -->
 <div class="slide in-teal">
   <h3>사람의 자리 &mdash; 루프 안에서, 루프 위로</h3>
-  <img src="../assets/images/hitl_evolution_in_on_above_loop.png" alt="HITL 진화 — 루프 안의 인간(결과 검증·수정) → 루프 위의 인간(예외만 감독·개입) → 루프 위의 설계자(루프·가치를 정의)" style="width:100%; max-width:1200px; max-height:48vh; object-fit:contain; border-radius:8px;" />
+  <div style="display:flex; align-items:stretch; justify-content:center; gap:1.2vw; width:100%; max-width:1080px; margin:3vh 0;">
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:2.8vh 1.4vw; text-align:center; display:flex; flex-direction:column; gap:0.8vh;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.12em; color:rgba(255,255,255,0.45); text-transform:uppercase;">In the loop</div>
+      <div style="font-weight:700; color:rgba(255,255,255,0.82); font-size:clamp(1.15rem,1.45vw,1.4rem);">루프 안의 인간</div>
+      <div style="color:rgba(255,255,255,0.6); font-size:1.02rem; line-height:1.55;">매 결과를<br>검증하고 수정</div>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.25); font-size:1.6rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.16); border-radius:8px; padding:2.8vh 1.4vw; text-align:center; display:flex; flex-direction:column; gap:0.8vh;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.12em; color:rgba(255,255,255,0.5); text-transform:uppercase;">On the loop</div>
+      <div style="font-weight:700; color:rgba(255,255,255,0.9); font-size:clamp(1.15rem,1.45vw,1.4rem);">루프 위의 인간</div>
+      <div style="color:rgba(255,255,255,0.62); font-size:1.02rem; line-height:1.55;">예외 상황만<br>감독·개입</div>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(45,212,191,0.4); font-size:1.6rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(45,212,191,0.45); border-radius:8px; padding:2.8vh 1.4vw; text-align:center; display:flex; flex-direction:column; gap:0.8vh; background:rgba(45,212,191,0.05);">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.12em; color:#2dd4bf; text-transform:uppercase;">Above the loop</div>
+      <div style="font-weight:800; color:#2dd4bf; font-size:clamp(1.2rem,1.5vw,1.45rem);">루프 위의 설계자</div>
+      <div style="color:rgba(255,255,255,0.72); font-size:1.02rem; line-height:1.55;">루프와 가치를<br>설계·정의</div>
+    </div>
+  </div>
   <p class="sub" style="margin-top:2.6vh;">AI 자율성이 오를수록 &mdash; 사람은 <span class="em">'루프 위의 설계자'</span>로</p>
   <p class="sub" style="margin-top:0.6vh; font-size:clamp(1.05rem,1.3vw,1.25rem); color:rgba(255,255,255,0.62);">매번 끼어드는 대신 &mdash; 일이 돌아가는 판을 짜는 사람</p>
 </div>
 
 <!-- 새 역할: 브리핑·위임·검토 사이클 -->
 <div class="slide in-teal">
-  <h3>그래서, 당신의 새 역할</h3>
+  <h3>그래서 &mdash; 일하는 방식이 이렇게 바뀐다</h3>
   <p class="impact-text" style="margin-top:1vh;">브리핑 &middot; 위임 &middot; <span class="em">검토</span></p>
   <p class="sub" style="margin-top:2.6vh;">사람을 뽑아 맡기고 평가하듯 &mdash; <span class="em">AI를 그렇게 다룬다</span></p>
   <div class="note exp" style="margin-top:1.6vh;"><p><span class="xp">경험</span>요즘 저는 아침에 출근하면 &mdash; 밤새 돌려둔 에이전트들의 결과부터 검토한다</p></div>
@@ -547,11 +573,73 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <div class="note warn" style="margin-top:1.6vh;"><p>"넘었다"가 아니라 <strong>"문턱 앞"</strong> &mdash; 큰 변화이자 신중히 다룰 영역</p></div>
 </div>
 
-<!-- ════════ ⑤ 산출물의 폭발 ════════ -->
+<!-- ════════ ⑤ 레버리지 — 태운 만큼 ════════ -->
+
+<!-- ⑤ divider -->
+<div class="slide amber">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 05</p>
+  <h1>레버리지 &mdash; 태운 만큼</h1>
+  <p class="sub" style="margin-top:1vh;">더 많이, 더 좋게 &mdash; <span class="em">그리고 책임지고</span></p>
+</div>
+
+<!-- 토큰 = 성능 -->
+<div class="slide in-amber">
+  <h3 style="margin-top:1vh;">'토큰'을 태워 &mdash; 성과를 산다</h3>
+  <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:940px; margin-top:1.5vh;">
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <div style="font-size:0.95rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; margin-bottom:1.2vh;">예전</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:1.05rem; line-height:1.7;">더 좋은 모델이<br>나올 때까지 기다림</p>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.2); font-size:1.8rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(251,191,36,0.28); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <div style="font-size:0.95rem; color:#fbbf24; letter-spacing:0.1em; margin-bottom:1.2vh;">지금</div>
+      <p style="color:#fff; font-size:1.05rem; line-height:1.7;">지금 AI에게 <span class="em">더 굴려</span><br>품질을 끌어올림</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.4vh;">더 오래 생각하고, 더 여러 번 시도할수록 &mdash; <span class="em">결과가 좋아진다</span></p>
+  <p class="meta" style="margin-top:1.2vh;">토큰 = AI가 생각·작업하는 데 드는 '연산의 양' &mdash; 태운 만큼 성능</p>
+</div>
+
+<!-- 품질 다이얼 + 한계 -->
+<div class="slide in-amber">
+  <h3>토큰은 이제 &mdash; 돌릴 수 있는 '품질 다이얼'</h3>
+  <div class="comp" style="margin-top:1.5vh;">
+    <div class="comp-item on">
+      <div class="tag">적게 태우기</div>
+      <p>빠른 초안<br><span style="color:rgba(255,255,255,0.55);font-size:0.95rem;">가볍게 한 번</span></p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag" style="color:#fbbf24;">더 태우기</div>
+      <p>여러 번 검토·개선<br><span style="color:#fbbf24;font-size:0.95rem;">품질 &uarr;</span></p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag" style="color:#fbbf24;">팀으로 태우기</div>
+      <p>여러 에이전트 교차검증<br><span style="color:#fbbf24;font-size:0.95rem;">품질 &uarr;&uarr;</span></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:1.8vh;">기다리지 않고 &mdash; <span class="em">지금 더 태워 품질을 산다</span></p>
+  <div class="note warn" style="margin-top:1.4vh;"><p>단, 무한정은 아니다 &mdash; 사람의 판단이 빠지면 그냥 토큰만 태우는 셈</p></div>
+</div>
+
+<!-- AI로 일한다 = 양산이 아니다 (책임·통제) -->
+<div class="slide in-amber">
+  <h3>'AI로 일한다'는 것 &mdash; 양산이 아니다</h3>
+  <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:940px; margin-top:1.5vh;">
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <div style="font-size:0.95rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; margin-bottom:1.2vh;">이건 아니다</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:1.05rem; line-height:1.7;">AI 티 나는, 신뢰 안 가는 문서를<br>그냥 대량으로 찍어내기</p>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.2); font-size:1.8rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(251,191,36,0.28); border-radius:6px; padding:3vh 2vw; text-align:center;">
+      <div style="font-size:0.95rem; color:#fbbf24; letter-spacing:0.1em; margin-bottom:1.2vh;">이게 핵심</div>
+      <p style="color:#fff; font-size:1.05rem; line-height:1.7;">산출물을 <span class="em">본인이 책임지고</span><br>엄격히 통제(Harness)하며 다루기</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.4vh;">AI를 '쓰는' 사람이 아니라 &mdash; <span class="em">결과를 책임지고 다스리는</span> 사람</p>
+</div>
 
 <!-- 산출물 폭발 -->
 <div class="slide in-amber">
-  <p class="meta" style="color:rgba(255,255,255,0.4);">SECTION 05</p>
   <h3 style="margin-top:1vh;">한 사람이 만들 수 있는 양 &mdash; 폭이 넓어진다</h3>
   <div class="pipeline" style="margin:3vh 0; justify-content:center; flex-wrap:wrap;">
     <span class="pipeline-step on">한 사람이 여러 루프</span>
@@ -571,6 +659,53 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="sub" style="margin-top:1.2vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">AI 활용이 어느새 &mdash; 일하는 방식의 기준선</p>
 </div>
 
+<!-- ════════ 여담 · 메모리 쇼티지 ════════ -->
+
+<!-- 여담 1 — 토큰을 태우면 어디가 막히나 -->
+<div class="slide surface">
+  <p class="meta" style="color:#22d3ee;">여담 · SIDE NOTE</p>
+  <h3 style="margin-top:1vh;">잠깐 곁길 &mdash; 그 '토큰'은 결국 어디서 타나</h3>
+  <p class="sub" style="margin-top:1.4vh;">AI가 길게 생각할수록(토큰↑) &mdash; 그만큼 <span class="em">메모리에 쌓아두고 계산</span>한다</p>
+  <div style="display:flex; align-items:stretch; justify-content:center; gap:1.4vw; width:100%; max-width:1000px; margin:2.4vh 0;">
+    <div style="flex:1; border:1px solid rgba(34,211,238,0.3); border-radius:8px; padding:2.4vh 1.4vw; text-align:center;">
+      <div style="font-weight:700; color:#22d3ee; font-size:1.1rem;">HBM</div>
+      <div style="font-size:0.9rem; color:rgba(255,255,255,0.5); margin:0.4vh 0 1vh;">책상 위</div>
+      <p style="color:rgba(255,255,255,0.7); font-size:0.96rem; line-height:1.6;">지금 쓰는 것<br>가장 빠른 메모리</p>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.25); font-size:1.4rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:2.4vh 1.4vw; text-align:center;">
+      <div style="font-weight:700; color:rgba(255,255,255,0.85); font-size:1.1rem;">DRAM</div>
+      <div style="font-size:0.9rem; color:rgba(255,255,255,0.5); margin:0.4vh 0 1vh;">옆 선반</div>
+      <p style="color:rgba(255,255,255,0.7); font-size:0.96rem; line-height:1.6;">넘친 것<br>임시로 쌓아두기</p>
+    </div>
+    <div style="display:flex; align-items:center; color:rgba(255,255,255,0.25); font-size:1.4rem;"><i class="ph-bold ph-arrow-right"></i></div>
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:2.4vh 1.4vw; text-align:center;">
+      <div style="font-weight:700; color:rgba(255,255,255,0.85); font-size:1.1rem;">NAND</div>
+      <div style="font-size:0.9rem; color:rgba(255,255,255,0.5); margin:0.4vh 0 1vh;">창고</div>
+      <p style="color:rgba(255,255,255,0.7); font-size:0.96rem; line-height:1.6;">오래 보관<br>데이터·기록</p>
+    </div>
+  </div>
+  <p class="meta" style="margin-top:0.6vh;">대화가 길수록 · 동시에 일하는 AI가 많을수록 &mdash; 세 칸이 동시에 채워진다</p>
+</div>
+
+<!-- 여담 2 — AI 호황 = 메모리 쇼티지 -->
+<div class="slide surface">
+  <p class="meta" style="color:#22d3ee;">여담 · SIDE NOTE</p>
+  <h3 style="margin-top:1vh;">그래서 &mdash; AI가 늘수록 메모리가 모자란다</h3>
+  <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:960px; margin-top:1.5vh;">
+    <div style="flex:1; border:1px solid rgba(34,211,238,0.28); border-radius:6px; padding:2.8vh 2vw; text-align:center;">
+      <div style="font-size:0.95rem; color:#22d3ee; letter-spacing:0.1em; margin-bottom:1.2vh;">수요</div>
+      <p style="color:rgba(255,255,255,0.7); font-size:1.02rem; line-height:1.7;">토큰 폭증 &rarr;<br>HBM·DRAM·NAND<br>세 계층 동시 수요</p>
+    </div>
+    <div style="flex:1; border:1px solid rgba(252,165,165,0.28); border-radius:6px; padding:2.8vh 2vw; text-align:center;">
+      <div style="font-size:0.95rem; color:#fca5a5; letter-spacing:0.1em; margin-bottom:1.2vh;">공급</div>
+      <p style="color:rgba(255,255,255,0.7); font-size:1.02rem; line-height:1.7;">HBM 더 만드느라<br>일반 메모리 생산 라인까지<br>잠식 &rarr; 품귀</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">에이전트가 토큰을 태울수록 &mdash; <span class="em">메모리 세 계층이 동시에 부족</span></p>
+  <div class="note exp" style="margin-top:1.4vh;"><p><span class="xp">경험</span>제가 토큰을 태우며 일하는 게 &mdash; 결국 여러분 라인 가동률로 돌아오더라</p></div>
+</div>
+
 <!-- ════════ ⑥ 일을 잘한다의 새 정의 ════════ -->
 
 <!-- divider -->
@@ -584,14 +719,14 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <div class="slide in-violet">
   <h2 style="max-width:1040px;">답은 흔해졌다 &mdash; 값이 오르는 건 <span class="em">'질문'</span></h2>
   <p class="sub" style="margin-top:4vh;">AI가 100배 속도로 답을 쏟아낼수록 &mdash; '무엇을 물을 것인가'가 실력이 된다</p>
-  <p class="meta" style="margin-top:2.4vh;">오래된 말 &mdash; "옳은 답보다, 옳은 질문"</p>
+  <p class="meta" style="margin-top:2.4vh;">"어떤 질문을 할지가 &mdash; 답을 찾는 것보다 중요해진다" · Sam Altman, OpenAI</p>
 </div>
 
 <!-- 비즈니스 가치를 정의하는 사람 -->
 <div class="slide in-violet">
   <h2 style="max-width:1040px;">AI가 '올바르게 하기'를 &mdash; <span class="em">공짜로</span> 만든다</h2>
   <p class="sub" style="margin-top:4vh;">그래서 남는 일은 &mdash; <span class="em">'올바른 일'을 고르는 것</span></p>
-  <p class="sub" style="margin-top:1.2vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">과제는 주어지지 않는다 &mdash; 스스로 정의하는 것</p>
+  <p class="meta" style="margin-top:2.4vh;">"효율은 일을 올바르게, 효과는 올바른 일을 하는 것" &mdash; Peter Drucker</p>
 </div>
 
 <!-- ════════ ⑦ 끝까지 남는 것 ════════ -->
@@ -659,44 +794,10 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <div class="slide mint">
   <p class="meta" style="color:rgba(255,255,255,0.4);">DEMO</p>
   <h1>직접 본다</h1>
-  <p class="sub" style="margin-top:1vh;">남의 데이터지만 &mdash; <span class="em">우리 월간 보고서</span>와 다르지 않다</p>
-  <div class="note exp" style="margin-top:1.8vh;"><p><span class="xp">경험</span>반나절 걸리던 부서 보고서 통일을, 처음 맡겨보고 30초에 끝났을 때의 그 황당함</p></div>
+  <p class="sub" style="margin-top:1vh;">데이터를 다루는 &mdash; <span class="em">실제 작업</span></p>
 </div>
 
-<!-- 매핑표 -->
-<div class="slide in-mint">
-  <h3>데모 속 작업 &mdash; 결국 우리가 매일 하는 일</h3>
-  <table class="tbl" style="margin-top:2.4vh; width:100%; max-width:980px;">
-    <thead><tr>
-      <th style="text-align:left;">데모 작업</th>
-      <th style="text-align:left;">실제 사무 업무</th>
-      <th style="text-align:right; color:#34d399;">시간 절감</th>
-    </tr></thead>
-    <tbody>
-      <tr><td>데이터 정제</td><td>부서별 보고서 형식 통일</td><td style="text-align:right;"><strong>1~2시간 &rarr; 1분</strong></td></tr>
-      <tr><td>피벗 &middot; 차트</td><td>월별 KPI 추이 시각화</td><td style="text-align:right;"><strong>2~3시간 &rarr; 5분</strong></td></tr>
-      <tr><td>대시보드</td><td>경영 현황판 제작</td><td style="text-align:right;"><strong>1~2일 &rarr; 10분</strong></td></tr>
-      <tr><td>이상치 분석</td><td>이상 거래처 탐지</td><td style="text-align:right;"><strong>반나절 &rarr; 5분</strong></td></tr>
-      <tr><td>보고서 초안</td><td>월간 경영 분석 리포트</td><td style="text-align:right;"><strong>3~4시간 &rarr; 10분</strong></td></tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- 데모 정제 -->
-<div class="slide in-mint">
-  <h3>지저분한 데이터 &rarr; 바로 보고서 표</h3>
-  <div class="two-col" style="max-width:1000px; align-items:stretch;">
-    <div class="col" style="border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:2.4vh 1.8vw;">
-      <div style="font-size:0.95rem; color:rgba(255,255,255,0.45); letter-spacing:0.1em; margin-bottom:1.2vh;">BEFORE &mdash; 부서 raw</div>
-      <div style="font-family:'JetBrains Mono',monospace; font-size:0.92rem; color:rgba(255,255,255,0.6); line-height:1.9;">단위 제각각 (0.62 / 62%)<br>빈 칸 · 오류값 혼재<br>열 이름 통일 안 됨</div>
-    </div>
-    <div class="col" style="border:1px solid rgba(52,211,153,0.25); border-radius:6px; padding:2.4vh 1.8vw;">
-      <div style="font-size:0.95rem; color:#34d399; letter-spacing:0.1em; margin-bottom:1.2vh;">AFTER &mdash; 30초 뒤</div>
-      <div style="font-size:0.98rem; color:rgba(255,255,255,0.75); line-height:1.9;">정제된 표 + "이슈 요약 3줄"<br>오류값 자동 감지<br>바로 붙여넣기 가능</div>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.6vh;">데이터만 주면 &mdash; <span class="em">정리·검증·요약까지 한 번에</span></p>
-</div>
+<!-- (데모는 영상 한 컷으로 — 부연 설명은 발표자가 구두로) -->
 
 <!-- 영상 -->
 <div class="slide in-mint">
@@ -738,22 +839,54 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="meta" style="margin-top:1.4vh;">출처: Google DORA 2025</p>
 </div>
 
-<!-- 환각 + 인지 소진 -->
+<!-- 인지 노동의 심화 -->
 <div class="slide in-rose">
-  <h3>두 가지 비용 &mdash; 환각과 인지 소진</h3>
+  <h3>AI가 빨라질수록 &mdash; 다음 결정을 내리는 사람이 '병목'</h3>
+  <div style="display:flex; align-items:center; justify-content:center; gap:2vw; width:100%; max-width:1040px; margin:3vh 0;">
+    <div style="flex:1; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:2.6vh 1.6vw;">
+      <div style="font-size:0.9rem; color:rgba(255,255,255,0.5); letter-spacing:0.1em; margin-bottom:1.2vh;">AI가 쏟아낸다</div>
+      <p style="color:rgba(255,255,255,0.7); font-size:1.02rem; line-height:1.9;">초고속 초안<br>수십 개 시안·분석<br>"어느 걸 고를까" 요청</p>
+    </div>
+    <div style="text-align:center; color:#fca5a5; flex-shrink:0;"><i class="ph-bold ph-funnel" style="font-size:2.6rem;"></i><div style="font-size:0.85rem; margin-top:0.6vh;">사람의 판단</div></div>
+    <div style="flex:1; border:1px solid rgba(252,165,165,0.3); border-radius:8px; padding:2.6vh 1.6vw;">
+      <div style="font-size:0.9rem; color:#fca5a5; letter-spacing:0.1em; margin-bottom:1.2vh;">사람만 할 수 있는 일</div>
+      <p style="color:#fff; font-size:1.02rem; line-height:1.9;">맞는지 확인<br>맥락·판단 더하기<br>결정하고 책임</p>
+    </div>
+  </div>
+  <p class="sub">실행이 AI로 갈수록 &mdash; <span class="em">판단·검증의 밀도</span>가 오른다</p>
+</div>
+
+<!-- 인지 소진 -->
+<div class="slide in-rose">
+  <h3>역설 &mdash; AI가 빨라질수록 사람은 더 지친다</h3>
+  <div class="pipeline" style="margin:3vh 0; justify-content:center; flex-wrap:wrap;">
+    <span class="pipeline-step on">즉각 완성의 쾌감</span>
+    <span class="pipeline-arrow"><i class="ph-bold ph-arrow-right"></i></span>
+    <span class="pipeline-step">쉴 새 없이 다음 작업</span>
+    <span class="pipeline-arrow"><i class="ph-bold ph-arrow-right"></i></span>
+    <span class="pipeline-step on" style="color:#fca5a5;">인지 소진</span>
+  </div>
+  <p class="sub">100건의 산출물 = 예전 같으면 <span class="em">몇 주치 검토량</span> &mdash; 시간은 압축, 피로는 누적</p>
+  <div class="note exp" style="margin-top:1.6vh;"><p><span class="xp">경험</span>저도 편해질 줄 알았는데 검토가 산더미였다 &mdash; 만드는 시간과 판단하는 시간을 나누고, 3건씩 끊어 보니 한결 나았다</p></div>
+</div>
+
+<!-- AI 실수 걸러내기 = 사람의 일 -->
+<div class="slide in-rose">
+  <h3>AI의 실수를 걸러내는 것까지가 &mdash; 사람의 일</h3>
   <div style="display:flex; gap:3vw; align-items:stretch; width:100%; max-width:920px; margin-top:1vh;">
     <div style="flex:1; border:1px solid rgba(252,165,165,0.22); border-radius:6px; padding:2.6vh 2vw; text-align:center;">
       <i class="ph ph-ghost" style="font-size:2.5rem; color:#fca5a5;"></i>
-      <div style="margin-top:1rem; font-weight:700; color:#fff; font-size:1.12rem;">환각</div>
-      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6;">없는 사실·수치를<br>자신 있게 지어낸다 &rarr; 검증 필수</p>
+      <div style="margin-top:1rem; font-weight:700; color:#fff; font-size:1.12rem;">그럴듯한 거짓말</div>
+      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6;">없는 사실·가짜 출처·틀린 수치를<br>자신 있게 지어낸다</p>
     </div>
-    <div style="flex:1; border:1px solid rgba(252,165,165,0.22); border-radius:6px; padding:2.6vh 2vw; text-align:center;">
-      <i class="ph ph-battery-low" style="font-size:2.5rem; color:#fca5a5;"></i>
-      <div style="margin-top:1rem; font-weight:700; color:#fff; font-size:1.12rem;">인지 소진</div>
-      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6;">검토량이 폭증한다<br>생성과 판단 시간 분리 · 휴식</p>
+    <div style="flex:1; border:1px solid rgba(52,211,153,0.25); border-radius:6px; padding:2.6vh 2vw; text-align:center;">
+      <i class="ph ph-eye" style="font-size:2.5rem; color:#34d399;"></i>
+      <div style="margin-top:1rem; font-weight:700; color:#fff; font-size:1.12rem;">걸러내는 감식안</div>
+      <p style="margin-top:0.8rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.6;">쓸수록 &mdash; 어디서 거짓말하는지<br>눈에 들어온다</p>
     </div>
   </div>
-  <div class="note exp" style="margin-top:1.6vh;"><p><span class="xp">경험</span>저도 검토량이 폭증해 지친 시기가 있었다 &mdash; 만드는 시간과 판단하는 시간을 나누고서 풀렸다</p></div>
+  <p class="sub" style="margin-top:1.6vh;">속도가 오른 만큼 &mdash; <span class="em">검증을 빠뜨리는 비용</span>도 커진다</p>
+  <div class="note exp" style="margin-top:1.4vh;"><p><span class="xp">경험</span>그럴듯해서 넘어갈 뻔한 적이 있다 &mdash; 틀린 수치 하나가 그대로 보고로 나갔으면 큰일이었다</p></div>
 </div>
 
 <!-- 파워포인트의 바다 -->
@@ -783,31 +916,93 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
       <div class="source">"GenAI Divide"</div>
     </div>
   </div>
-  <p class="sub" style="margin-top:1.6vh;">숨어서 쓰는 <span class="em">'Shadow AI'</span> &mdash; 직원은 앞서가고, 조직만 뒤늦다</p>
-  <div class="note exp" style="margin-top:1.4vh;"><p><span class="xp">경험</span>사실 저도 한동안은 조용히 썼다 &mdash; "드러내도 괜찮다"가 먼저였다</p></div>
+  <p class="sub" style="margin-top:1.6vh;">숨어서 쓰는 <span class="em">'Shadow AI'</span> &mdash; 직원은 앞서가고, 조직은 뒤늦다</p>
+  <p class="sub" style="margin-top:0.8vh; font-size:clamp(1.05rem,1.3vw,1.25rem); color:rgba(255,255,255,0.62);">아직 'AI로 했다'는 말이 어쩐지 어색하고 &mdash; 일하는 방식이 도구 속도를 못 따라간 신호</p>
 </div>
 
-<!-- Secret Cyborgs / 평가체계 -->
+<!-- 왜 숨길까 — 생각해볼 질문 -->
 <div class="slide in-rose">
-  <h3>왜 숨길까 &mdash; 몰래 쓰는 직원들(Secret Cyborgs)과 낡은 평가체계</h3>
+  <h3>왜 숨길까 &mdash; 잠깐, 생각해볼 질문</h3>
+  <div style="display:flex; flex-direction:column; gap:2vh; max-width:1020px; margin:2.5vh auto 0; width:100%;">
+    <div style="border-left:2px solid rgba(252,165,165,0.45); padding:1vh 0 1vh 2vw; text-align:left;">
+      <p style="color:rgba(255,255,255,0.88); font-size:clamp(1.2rem,1.55vw,1.48rem); line-height:1.5;">40시간 걸리던 일을 AI로 <span class="em">3시간</span>에 끝내면 &mdash;<br>남는 시간은 '보상'으로 올까, 내가 '잉여'가 될까?</p>
+    </div>
+    <div style="border-left:2px solid rgba(252,165,165,0.45); padding:1vh 0 1vh 2vw; text-align:left;">
+      <p style="color:rgba(255,255,255,0.88); font-size:clamp(1.2rem,1.55vw,1.48rem); line-height:1.5;">빨라진 걸 솔직히 드러내면 &mdash; 일만 더 늘어나진 않을까?</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">드러낼수록 손해라면 &mdash; <span class="em">누구나 숨긴다</span></p>
+</div>
+
+<!-- Secret Cyborgs → 양지로 -->
+<div class="slide in-rose">
+  <h3>'Secret Cyborgs'를 양지로 &mdash; 무엇이 바뀌면 될까</h3>
   <div class="arch-layers">
     <div class="arch-layer">
-      <div class="role">현상</div>
-      <div class="brand">몰래 써서 몇 배 빠르게</div>
-      <div class="desc">드러내면 일만 늘 텐데</div>
+      <div class="role">평가</div>
+      <div class="brand">시간·산출량 &rarr; 가치</div>
+      <div class="desc">무엇을 만들었나로</div>
     </div>
     <div class="arch-layer">
-      <div class="role">뿌리</div>
-      <div class="brand">시간·산출량 위주 평가</div>
-      <div class="desc">드러낼수록 손해</div>
+      <div class="role">태도</div>
+      <div class="brand">처벌 &rarr; 보상</div>
+      <div class="desc">드러내면 이득이 되게</div>
     </div>
     <div class="arch-layer">
-      <div class="role">해법</div>
-      <div class="brand">처벌 아닌 보상·안전감</div>
-      <div class="desc">가치를 재는 평가로</div>
+      <div class="role">분위기</div>
+      <div class="brand">숨김 &rarr; 안전하게 공유</div>
+      <div class="desc">드러내도 괜찮은</div>
     </div>
   </div>
   <p class="sub" style="margin-top:2vh;">결국 AI 전환은 IT가 아니라 &mdash; <span class="em">사람과 평가의 문제</span></p>
+  <div class="note exp" style="margin-top:1.4vh;"><p><span class="xp">경험</span>사실 저도 한동안 조용히 썼다 &mdash; "드러내도 괜찮다"가 먼저였다</p></div>
+</div>
+
+<!-- ════════ AI로 일 잘하는 법 (정리) ════════ -->
+
+<!-- divider -->
+<div class="slide teal">
+  <p class="meta" style="color:rgba(255,255,255,0.4);">정리</p>
+  <h1>AI로 일 잘하는 법</h1>
+  <p class="sub" style="margin-top:1vh;">흩어진 이야기를 &mdash; <span class="em">여섯 가지로</span></p>
+</div>
+
+<!-- 여섯 가지 실천 -->
+<div class="slide in-teal">
+  <h3>결국 &mdash; 이 여섯 가지로 모인다</h3>
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.6vh 1.2vw; width:100%; max-width:1080px; margin-top:2.2vh;">
+    <div style="flex:0 0 30%; border:1px solid rgba(45,212,191,0.22); border-radius:8px; padding:2.2vh 1.3vw; text-align:left;">
+      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#2dd4bf;">01</div>
+      <div style="font-weight:700; color:#fff; font-size:1.08rem; margin-top:0.4vh;">질문 던지기</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:0.92rem; margin-top:0.4vh; line-height:1.5;">무엇을 풀지부터 정한다</p>
+    </div>
+    <div style="flex:0 0 30%; border:1px solid rgba(45,212,191,0.22); border-radius:8px; padding:2.2vh 1.3vw; text-align:left;">
+      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#2dd4bf;">02</div>
+      <div style="font-weight:700; color:#fff; font-size:1.08rem; margin-top:0.4vh;">잘게 나누기</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:0.92rem; margin-top:0.4vh; line-height:1.5;">AI가 할 수 있는 단위로</p>
+    </div>
+    <div style="flex:0 0 30%; border:1px solid rgba(45,212,191,0.22); border-radius:8px; padding:2.2vh 1.3vw; text-align:left;">
+      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#2dd4bf;">03</div>
+      <div style="font-weight:700; color:#fff; font-size:1.08rem; margin-top:0.4vh;">완료 기준 정하기</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:0.92rem; margin-top:0.4vh; line-height:1.5;">뭐가 '잘된' 건지 미리</p>
+    </div>
+    <div style="flex:0 0 30%; border:1px solid rgba(45,212,191,0.22); border-radius:8px; padding:2.2vh 1.3vw; text-align:left;">
+      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#2dd4bf;">04</div>
+      <div style="font-weight:700; color:#fff; font-size:1.08rem; margin-top:0.4vh;">결과 검증하기</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:0.92rem; margin-top:0.4vh; line-height:1.5;">실수를 걸러내는 감식안</p>
+    </div>
+    <div style="flex:0 0 30%; border:1px solid rgba(45,212,191,0.22); border-radius:8px; padding:2.2vh 1.3vw; text-align:left;">
+      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#2dd4bf;">05</div>
+      <div style="font-weight:700; color:#fff; font-size:1.08rem; margin-top:0.4vh;">루프로 굴리기</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:0.92rem; margin-top:0.4vh; line-height:1.5;">스스로 돌게 설계</p>
+    </div>
+    <div style="flex:0 0 30%; border:1px solid rgba(45,212,191,0.22); border-radius:8px; padding:2.2vh 1.3vw; text-align:left;">
+      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#2dd4bf;">06</div>
+      <div style="font-weight:700; color:#fff; font-size:1.08rem; margin-top:0.4vh;">도메인 &times; AI</div>
+      <p style="color:rgba(255,255,255,0.6); font-size:0.92rem; margin-top:0.4vh; line-height:1.5;">현장 지식을 얹는다</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">전부 코딩이 아니라 &mdash; <span class="em">AI를 다루는 사고방식</span></p>
 </div>
 
 <!-- ════════ CLOSING ════════ -->
@@ -819,10 +1014,11 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="impact-sub" style="margin-top:3.2vh;">만드는 비용은 0으로, 한 사람의 산출은 폭발하고 &mdash;<br><strong>일의 무게중심은 실행에서 판단·설계로</strong></p>
 </div>
 
-<!-- 당신은 AI의 매니저 -->
+<!-- 일의 무게중심 이동 -->
 <div class="slide blue">
-  <p class="impact-text">당신은 AI의 <span class="em">매니저</span>다</p>
-  <p class="impact-sub" style="margin-top:4vh;">프롬프트든 루프든, 이름은 바뀌어도 &mdash;<br><strong>결국 AI를 브리핑·위임·관리하는 사람</strong></p>
+  <p class="impact-text">일의 무게중심이 &mdash; <span class="em">옮겨간다</span></p>
+  <p class="impact-sub" style="margin-top:3.6vh;">직접 하던 일에서 &mdash;<br><strong>AI를 브리핑·위임·관리하는 일로</strong></p>
+  <p class="sub" style="margin-top:2.6vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">프롬프트든 루프든, 이름은 바뀌어도 &mdash; 본질은 그대로</p>
 </div>
 
 <!-- 계속 배우는 능력 -->
@@ -833,15 +1029,15 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="sub" style="margin-top:1.2vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">유일하게 영구적인 자산은 &mdash; '계속 움직이는 능력'</p>
 </div>
 
-<!-- 당장 해볼 것 -->
+<!-- 같이 생각해볼 것 -->
 <div class="slide blue">
-  <h3>월요일 아침, 당장 해볼 것</h3>
-  <ul class="list" style="margin-top:1.5vh; max-width:1000px;">
-    <li><strong>1.</strong> 이번 주 반복 업무 하나를 &mdash; 순서대로 적어 <span class="em">"어떻게 자동화할까"</span> 묻기</li>
-    <li><strong>2.</strong> 늘 쓰던 보고서 하나를 &mdash; 데이터만 주고 <span class="em">초안 시키기</span></li>
-    <li><strong>3.</strong> AI가 낸 결과는 &mdash; 그대로 쓰기 전에 <span class="em">한 번 검증</span></li>
+  <h3>같이 생각해볼 것</h3>
+  <ul class="list" style="margin-top:1.5vh; max-width:1040px;">
+    <li>나는 AI를 &mdash; <span class="em">동료로 받아들일 준비</span>가 됐나</li>
+    <li>AI를 잘못 쓰면 &mdash; <span class="em">나는 어떻게 될까</span></li>
+    <li>내가 하는 일은 &mdash; 정말 <span class="em">나만 할 수 있는 일</span>일까</li>
+    <li>40시간짜리 일을 2시간에 끝내는 동료가 &mdash; <span class="em">옆자리에 생긴다면</span></li>
   </ul>
-  <p class="sub" style="margin-top:2vh;">크게 시작할 필요는 없다 &mdash; <span class="em">한 가지부터</span></p>
 </div>
 
 <!-- Q&A -->
@@ -864,17 +1060,19 @@ const slides=document.querySelectorAll('.slide'),total=slides.length;
 let current=0;
 const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress'),partLabelEl=document.getElementById('partLabel');
 const partMap=[
-{from:0,to:1,label:'Opening'},
-{from:2,to:6,label:'① 이미 일어난 변화'},
-{from:7,to:9,label:'② 숫자가 말하는 전환기'},
-{from:10,to:15,label:'③ 실행자 → 조율자'},
-{from:16,to:21,label:'④ AI를 위한 HR'},
-{from:22,to:23,label:'⑤ 산출물의 폭발'},
-{from:24,to:26,label:'⑥ 일을 잘한다의 새 정의'},
-{from:27,to:29,label:'⑦ 끝까지 남는 것'},
-{from:30,to:33,label:'Demo · 직접 본다'},
-{from:34,to:40,label:'⑧ AI는 증폭기'},
-{from:41,to:45,label:'Closing'}
+{from:0,to:2,label:'Opening'},
+{from:3,to:7,label:'① 이미 일어난 변화'},
+{from:8,to:10,label:'② 숫자가 말하는 전환기'},
+{from:11,to:16,label:'③ 실행자 → 조율자'},
+{from:17,to:22,label:'④ AI를 위한 HR'},
+{from:23,to:28,label:'⑤ 레버리지 — 태운 만큼'},
+{from:29,to:30,label:'여담 · 메모리 쇼티지'},
+{from:31,to:33,label:'⑥ 일을 잘한다의 새 정의'},
+{from:34,to:36,label:'⑦ 끝까지 남는 것'},
+{from:37,to:38,label:'Demo · 직접 본다'},
+{from:39,to:48,label:'⑧ AI는 증폭기'},
+{from:49,to:50,label:'AI로 일 잘하는 법'},
+{from:51,to:55,label:'Closing'}
 ];
 function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI 에이전트 세미나';}
 function update(){if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
