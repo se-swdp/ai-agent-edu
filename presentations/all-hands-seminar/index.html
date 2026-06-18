@@ -638,6 +638,24 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="sub" style="margin-top:2.4vh;">AI를 '쓰는' 사람이 아니라 &mdash; <span class="em">결과를 책임지고 다스리는</span> 사람</p>
 </div>
 
+<!-- 완벽한 한 번보다 빠른 반복 -->
+<div class="slide in-amber">
+  <h3>완벽한 한 번보다 &mdash; 빠른 반복</h3>
+  <div style="display:flex; align-items:center; justify-content:center; gap:5vw; width:100%; max-width:1000px; margin:3.2vh 0;">
+    <div style="text-align:center;">
+      <div style="font-family:'Figtree',sans-serif; font-size:clamp(2.6rem,5.5vw,4.6rem); font-weight:900; color:rgba(255,255,255,0.5); line-height:1; letter-spacing:-0.04em;">0.2배</div>
+      <div style="margin-top:1rem; color:rgba(255,255,255,0.6); font-size:1.02rem;">느린 완벽주의 &middot; 98% 완성</div>
+    </div>
+    <div style="font-size:1.8rem; color:rgba(255,255,255,0.25);">vs</div>
+    <div style="text-align:center;">
+      <div style="font-family:'Figtree',sans-serif; font-size:clamp(2.6rem,5.5vw,4.6rem); font-weight:900; color:#fbbf24; line-height:1; letter-spacing:-0.04em;">8배</div>
+      <div style="margin-top:1rem; color:rgba(255,255,255,0.88); font-size:1.02rem;">빠른 반복 &middot; 75% 완성</div>
+    </div>
+  </div>
+  <p class="sub">대부분의 일에선 &mdash; <span class="em">빨리 내놓고 고치는 쪽</span>이 이긴다 <span style="color:rgba(255,255,255,0.55); font-size:0.85em;">(단, 검증과 책임은 내 몫)</span></p>
+  <div class="note warn" style="margin-top:1.4vh;"><p>규제·안전이 생명인 일은 예외 &mdash; 거기선 꼼꼼함이 이긴다</p></div>
+</div>
+
 <!-- 산출물 폭발 -->
 <div class="slide in-amber">
   <h3 style="margin-top:1vh;">한 사람이 만들 수 있는 양 &mdash; 폭이 넓어진다</h3>
@@ -1065,14 +1083,14 @@ const partMap=[
 {from:8,to:10,label:'② 숫자가 말하는 전환기'},
 {from:11,to:16,label:'③ 실행자 → 조율자'},
 {from:17,to:22,label:'④ AI를 위한 HR'},
-{from:23,to:28,label:'⑤ 레버리지 — 태운 만큼'},
-{from:29,to:30,label:'여담 · 메모리 쇼티지'},
-{from:31,to:33,label:'⑥ 일을 잘한다의 새 정의'},
-{from:34,to:36,label:'⑦ 끝까지 남는 것'},
-{from:37,to:38,label:'Demo · 직접 본다'},
-{from:39,to:48,label:'⑧ AI는 증폭기'},
-{from:49,to:50,label:'AI로 일 잘하는 법'},
-{from:51,to:55,label:'Closing'}
+{from:23,to:29,label:'⑤ 레버리지 — 태운 만큼'},
+{from:30,to:31,label:'여담 · 메모리 쇼티지'},
+{from:32,to:34,label:'⑥ 일을 잘한다의 새 정의'},
+{from:35,to:37,label:'⑦ 끝까지 남는 것'},
+{from:38,to:39,label:'Demo · 직접 본다'},
+{from:40,to:49,label:'⑧ AI는 증폭기'},
+{from:50,to:51,label:'AI로 일 잘하는 법'},
+{from:52,to:56,label:'Closing'}
 ];
 function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI 에이전트 세미나';}
 function update(){if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
