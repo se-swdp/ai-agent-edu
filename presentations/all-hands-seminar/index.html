@@ -706,33 +706,6 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="sub" style="margin-top:2vh;">말이 아니라 &mdash; <span class="em">실제로 끝까지 해내는 모습</span></p>
 </div>
 
-<!-- 실제 현장 사례 -->
-<div class="slide in-mint">
-  <h3>영상은 한 예시 &mdash; 실제 현장에선 이렇게</h3>
-  <div style="display:flex; gap:2.5vw; align-items:stretch; width:100%; max-width:1040px; margin-top:2vh;">
-    <div style="flex:1; border:1px solid rgba(52,211,153,0.25); border-radius:8px; padding:3.2vh 1.6vw; text-align:center; display:flex; flex-direction:column; align-items:center; gap:0.6vh;">
-      <div style="font-weight:700; color:#fff; font-size:clamp(1.1rem,1.4vw,1.35rem);">데이터 정제</div>
-      <div style="color:rgba(255,255,255,0.5); font-size:1rem; margin-top:0.6vh;">손으로 1~2시간</div>
-      <div style="color:#34d399; font-size:1.5rem;"><i class="ph-bold ph-arrow-down"></i></div>
-      <div style="font-family:'Figtree',sans-serif; font-weight:900; color:#34d399; font-size:clamp(1.9rem,2.8vw,2.6rem); line-height:1;">30초</div>
-    </div>
-    <div style="flex:1; border:1px solid rgba(52,211,153,0.25); border-radius:8px; padding:3.2vh 1.6vw; text-align:center; display:flex; flex-direction:column; align-items:center; gap:0.6vh;">
-      <div style="font-weight:700; color:#fff; font-size:clamp(1.1rem,1.4vw,1.35rem);">경영 대시보드</div>
-      <div style="color:rgba(255,255,255,0.5); font-size:1rem; margin-top:0.6vh;">손으로 1~2일</div>
-      <div style="color:#34d399; font-size:1.5rem;"><i class="ph-bold ph-arrow-down"></i></div>
-      <div style="font-family:'Figtree',sans-serif; font-weight:900; color:#34d399; font-size:clamp(1.9rem,2.8vw,2.6rem); line-height:1;">5분</div>
-    </div>
-    <div style="flex:1; border:1px solid rgba(52,211,153,0.25); border-radius:8px; padding:3.2vh 1.6vw; text-align:center; display:flex; flex-direction:column; align-items:center; gap:0.6vh;">
-      <div style="font-weight:700; color:#fff; font-size:clamp(1.1rem,1.4vw,1.35rem);">임원 보고서 초안</div>
-      <div style="color:rgba(255,255,255,0.5); font-size:1rem; margin-top:0.6vh;">손으로 3~4시간</div>
-      <div style="color:#34d399; font-size:1.5rem;"><i class="ph-bold ph-arrow-down"></i></div>
-      <div style="font-family:'Figtree',sans-serif; font-weight:900; color:#34d399; font-size:clamp(1.9rem,2.8vw,2.6rem); line-height:1;">10분</div>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.6vh;">손이 하던 일이 분 단위로 &mdash; <span class="em">사람은 판단·검증에 집중</span></p>
-  <p class="meta" style="margin-top:1.2vh;">실무 데모 기준 &mdash; 데이터 정제·대시보드·보고서 자동화</p>
-</div>
-
 <!-- ════════ ⑧ AI는 증폭기 ════════ -->
 
 <!-- divider -->
@@ -970,10 +943,10 @@ const partMap=[
 {from:23,to:23,label:'여담 · 메모리 쇼티지'},
 {from:24,to:25,label:'⑥ 일을 잘한다의 새 정의'},
 {from:26,to:28,label:'⑦ 끝까지 남는 것'},
-{from:29,to:31,label:'Demo · 직접 본다'},
-{from:32,to:39,label:'⑧ AI는 증폭기'},
-{from:40,to:41,label:'AI로 일 잘하는 법'},
-{from:42,to:45,label:'Closing'}
+{from:29,to:30,label:'Demo · 직접 본다'},
+{from:31,to:38,label:'⑧ AI는 증폭기'},
+{from:39,to:40,label:'AI로 일 잘하는 법'},
+{from:41,to:44,label:'Closing'}
 ];
 function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI 에이전트 세미나';}
 function update(){if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
