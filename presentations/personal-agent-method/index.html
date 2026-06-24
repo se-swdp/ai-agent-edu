@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>AI 에이전트 활용법 — 개인 활동 기반</title>
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Figtree:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<script defer src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;width:100%;height:100%}
+body{font-family:'Noto Sans KR',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.slides{display:flex;transition:none}
+.slide{width:100vw;min-width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4vh 6vw;position:relative;overflow:hidden;background:#0D0D0D}
+.slide>*{position:relative;z-index:1;flex-shrink:0}
+.slide.surface,.slide.in-blue,.slide.in-indigo,.slide.in-violet,.slide.in-rose,.slide.in-mint,.slide.in-cyan,.slide.in-amber,.slide.in-orange,.slide.in-navy,.slide.in-teal{background:#0D0D0D}
+.slide.samsung{background:#0D0D0D}
+.slide.blue,.slide.navy,.slide.indigo,.slide.violet,.slide.rose,.slide.mint,.slide.teal,.slide.cyan,.slide.amber,.slide.orange{background:#0D0D0D}
+.slide.light{background:#F0F4FF;color:#0C0F1E}.slide.light .sub{color:#3A4A6A}
+h1{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:900;text-align:center;line-height:1.18;letter-spacing:-0.03em;color:#fff;padding-bottom:4px}
+h2{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;text-align:center;line-height:1.15;letter-spacing:-0.02em}
+h3{margin:0;font-size:clamp(0.9rem,1.2vw,1.1rem);font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:3vh}
+.sub{font-size:clamp(1.35rem,2vw,2rem);color:rgba(255,255,255,0.55);margin-top:2vh;text-align:center;line-height:1.5;font-weight:300}
+.sub strong{color:#fff;font-weight:700}
+.em{color:#60a5fa}.accent{color:#60a5fa}.red{color:#fca5a5}.green{color:#34d399}.yellow{color:#a78bfa}
+.meta{margin-top:2vh;font-size:0.8rem;color:rgba(255,255,255,0.55);font-weight:400;letter-spacing:0.18em;text-transform:uppercase}
+.comp{display:flex;gap:0;width:100%;max-width:1100px;margin:3vh 0;align-items:stretch}
+.comp-item{padding:4vh 3vw;text-align:center;flex:1;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+.comp-item:last-child{border-right:none}
+.comp-item.on,.comp-item.green-on,.comp-item.yellow-on,.comp-item.red-on{background:transparent}
+.comp-item .tag{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.45);font-weight:400}
+.comp-item.on .tag{color:rgba(255,255,255,0.4)}
+.comp-item p{font-size:clamp(1.05rem,1.4vw,1.3rem);font-weight:300;line-height:1.5;color:rgba(255,255,255,0.7)}
+.comp-item p strong{color:#fff;font-weight:700}
+.list{list-style:none;max-width:80vw;width:100%;margin:0 auto}
+.list li{font-size:clamp(1.15rem,1.7vw,1.5rem);padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);font-weight:300;line-height:1.5;text-align:center}
+.list li:last-child{border-bottom:none}
+.list strong{color:#fff;font-weight:700}
+.grid{display:flex;gap:0;margin-top:3vh;width:100%;max-width:1100px;align-items:stretch}
+.grid-item{padding:3vh 2.5vw;text-align:center;flex:1;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center}
+.grid-item:last-child{border-right:none}
+.grid-item .name{font-size:clamp(1.1rem,1.4vw,1.35rem);font-weight:700;margin-bottom:8px;color:#fff}
+.grid-item .desc{font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.5);font-weight:300;line-height:1.7}
+blockquote{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:300;max-width:780px;text-align:center;line-height:1.6;color:rgba(255,255,255,0.95);letter-spacing:-0.01em}
+cite{display:block;margin-top:24px;font-size:0.78rem;color:rgba(255,255,255,0.55);font-style:normal;letter-spacing:0.15em;text-transform:uppercase}
+.note{padding:1.4vh 2.5vw;margin-top:3vh;max-width:82vw;display:flex;align-items:center;gap:12px}
+.note.warn{border-left:2px solid rgba(255,255,255,0.2);background:transparent}.note.warn p{color:rgba(255,255,255,0.55);font-size:clamp(0.9rem,1.1vw,1.05rem);font-weight:300}
+.note.tip{border-left:2px solid rgba(96,165,250,0.4);background:transparent}.note.tip p{color:rgba(255,255,255,0.55);font-size:clamp(0.9rem,1.1vw,1.05rem);font-weight:300}
+.pipeline{display:flex;align-items:center;gap:0;margin:3vh 0;flex-wrap:nowrap}
+.pipeline-step{padding:1.4vh 2.4vw;font-size:clamp(0.85rem,1.1vw,1rem);font-weight:300;text-align:center;color:rgba(255,255,255,0.5);white-space:nowrap}
+.pipeline-step.on{color:#fff;font-weight:700}
+.pipeline-arrow{color:rgba(255,255,255,0.3);font-size:1rem;padding:0 4px}
+.tbl{margin-top:2vh;border-collapse:collapse;max-width:82vw}
+.tbl th,.tbl td{padding:1.2vh 2vw;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tbl th{color:rgba(255,255,255,0.4);font-weight:400;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase}
+.tbl td{font-size:clamp(1rem,1.3vw,1.2rem);color:rgba(255,255,255,0.55)}
+.tbl td strong{color:#fff}
+.stat-grid{display:flex;gap:0;width:100%;max-width:1100px;margin-top:3vh}
+.stat-card{flex:1;text-align:center;padding:0 2vw;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+.stat-card:last-child{border-right:none}
+.stat-card.on,.stat-card.green-on,.stat-card.yellow-on,.stat-card.red-on{background:transparent}
+.stat-card .label{font-size:0.75rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1.2vh}
+.stat-card .value{font-family:'Figtree',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.1;color:#fff;margin-bottom:6px;padding-bottom:2px}
+.stat-card .source{font-size:0.78rem;color:rgba(255,255,255,0.55);letter-spacing:0.05em}
+.arch-layers{display:flex;flex-direction:column;gap:0;width:100%;max-width:780px;margin-top:3vh}
+.arch-layer{display:flex;align-items:center;gap:2vw;padding:2.5vh 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.arch-layer:last-child{border-bottom:none}
+.arch-layer.on{border-bottom-color:rgba(96,165,250,0.2)}
+.arch-layer .role{width:auto;min-width:40px;margin-right:1.5vw;font-size:0.78rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.12em;text-align:left}
+.arch-layer .brand{flex:1;font-size:clamp(1.1rem,1.4vw,1.35rem);font-weight:700;color:#fff;text-align:left}
+.arch-layer .desc{flex-shrink:0;font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.5);text-align:right;font-weight:300}
+.two-col{display:flex;gap:4vw;width:100%;max-width:1100px;margin-top:3vh}
+.two-col .col{flex:1;text-align:left}
+.impact-text{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.2;letter-spacing:-0.03em;text-align:center;color:#fff;padding-bottom:4px}
+.impact-sub{font-size:clamp(1.25rem,1.8vw,1.8rem);font-weight:300;color:rgba(255,255,255,0.55);margin-top:2vh;text-align:center;letter-spacing:-0.01em;line-height:1.5}
+.impact-sub strong{color:#fff;font-weight:700}
+.formula{font-family:'Figtree',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;letter-spacing:0.02em}
+.stat{text-align:center}.stat .number{font-family:'Figtree',sans-serif;font-size:clamp(5rem,12vw,11rem);font-weight:900;letter-spacing:-0.05em;line-height:0.9;color:#fff}.stat .label{font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.4);margin-top:1.5vh;font-weight:300;letter-spacing:0.1em}
+kbd{display:inline-block;padding:2px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:rgba(255,255,255,0.7)}
+.nav{position:fixed;bottom:28px;left:44px;display:flex;gap:6px;z-index:100}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.45);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s}
+.nav button:hover{background:rgba(255,255,255,0.14);color:#fff}
+.nav button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
+.part-label{position:fixed;top:28px;left:44px;font-size:0.7rem;color:rgba(255,255,255,0.15);letter-spacing:0.14em;text-transform:uppercase;font-weight:400;z-index:100}
+.page-num{position:fixed;bottom:32px;right:44px;font-size:0.7rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;font-family:'Figtree',sans-serif;z-index:100}
+.progress{position:fixed;top:0;left:0;height:1px;background:rgba(255,255,255,0.3);z-index:200;transition:none}
+.slide:focus-visible{outline:none}
+@media(max-width:768px){.slide{padding:6vh 6vw 80px}.comp,.grid,.stat-grid{flex-direction:column;gap:0}.comp-item,.stat-card{border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);padding:2vh 0}.comp-item:last-child,.stat-card:last-child{border-bottom:none}.arch-layers{gap:0}.arch-layer{flex-direction:column;align-items:flex-start;padding:1.5vh 0;gap:4px}.arch-layer .role{width:auto;margin-bottom:2px}.arch-layer .desc{text-align:left}.two-col{flex-direction:column;gap:2vh}.tbl{display:block;overflow-x:auto}.nav{left:20px;bottom:20px}.pipeline{flex-wrap:wrap;gap:0}}
+@media print{body{background:#fff;color:#000;overflow:visible}.nav,.progress,.part-label,.page-num{display:none}.slides{display:block}.slide{min-height:auto;page-break-after:always;background:#fff!important;color:#000!important;padding:2cm}.em,.red,.green,.yellow{color:#000!important}.sub{color:#333!important}}
+@media(prefers-reduced-motion:reduce){.nav button{transition:none}}
+
+/* ===== VISIBILITY OVERRIDE ===== */
+html{font-size:160%}
+.meta{font-size:0.92rem!important;color:rgba(255,255,255,0.85)!important}
+.part-label{font-size:0.78rem!important;color:rgba(255,255,255,0.78)!important}
+.page-num{font-size:0.78rem!important;color:rgba(255,255,255,0.8)!important}
+cite{font-size:0.88rem!important;color:rgba(255,255,255,0.82)!important}
+.tbl th{font-size:0.85rem!important;color:rgba(255,255,255,0.85)!important}
+.tbl td{font-size:clamp(1rem,1.2vw,1.15rem)!important;color:rgba(255,255,255,0.93)!important}
+.comp-item .tag{font-size:0.85rem!important;color:rgba(255,255,255,0.88)!important}
+.comp-item p{color:rgba(255,255,255,0.95)!important}
+.grid-item .desc{font-size:clamp(0.92rem,1.1vw,1rem)!important;color:rgba(255,255,255,0.88)!important}
+.arch-layer .role{font-size:0.88rem!important;color:rgba(255,255,255,0.88)!important}
+.arch-layer .desc{font-size:1rem!important;color:rgba(255,255,255,0.92)!important}
+.stat-card .label{font-size:0.85rem!important;color:rgba(255,255,255,0.92)!important}
+.stat-card .source{font-size:0.85rem!important;color:rgba(255,255,255,0.82)!important}
+.sub{color:rgba(255,255,255,0.93)!important}
+.note.warn p,.note.tip p{font-size:clamp(0.98rem,1.2vw,1.12rem)!important;color:rgba(255,255,255,0.92)!important}
+.list li{font-size:clamp(1.2rem,1.8vw,1.55rem)!important;color:rgba(255,255,255,0.95)!important}
+.pipeline-step{font-size:clamp(0.95rem,1.2vw,1.1rem)!important;color:rgba(255,255,255,0.88)!important}
+[style*="rgba(255,255,255,0.25)"]{color:rgba(255,255,255,0.8)!important}
+[style*="rgba(255,255,255,0.3)"]{color:rgba(255,255,255,0.82)!important}
+[style*="rgba(255,255,255,0.35)"]{color:rgba(255,255,255,0.85)!important}
+[style*="rgba(255,255,255,0.4)"]{color:rgba(255,255,255,0.87)!important}
+[style*="rgba(255,255,255,0.45)"]{color:rgba(255,255,255,0.88)!important}
+[style*="rgba(255,255,255,0.5)"]{color:rgba(255,255,255,0.9)!important}
+[style*="rgba(255,255,255,0.55)"]{color:rgba(255,255,255,0.92)!important}
+[style*="rgba(255,255,255,0.6)"]{color:rgba(255,255,255,0.93)!important}
+[style*="rgba(255,255,255,0.65)"]{color:rgba(255,255,255,0.95)!important}
+[style*="rgba(255,255,255,0.7)"]{color:rgba(255,255,255,0.96)!important}
+.arch-layer .brand{font-size:clamp(1.15rem,1.5vw,1.38rem)!important;color:#fff!important}
+.arch-layer .desc{font-size:clamp(1rem,1.2vw,1.15rem)!important;line-height:1.5!important}
+.comp-item p{font-size:clamp(1.1rem,1.5vw,1.4rem)!important;line-height:1.55!important}
+.stat-card .source{font-size:clamp(0.82rem,1vw,0.95rem)!important;color:rgba(255,255,255,0.88)!important}
+.tbl td{font-size:clamp(1rem,1.3vw,1.2rem)!important;color:rgba(255,255,255,0.95)!important}
+.tbl th{font-size:clamp(0.82rem,1vw,0.95rem)!important;color:rgba(255,255,255,0.9)!important}
+.grid-item .name{font-size:clamp(1.2rem,1.5vw,1.5rem)!important}
+.grid-item .desc{font-size:clamp(1rem,1.2vw,1.15rem)!important;color:rgba(255,255,255,0.92)!important}
+.note.warn p,.note.tip p{font-size:clamp(1.05rem,1.3vw,1.2rem)!important;color:rgba(255,255,255,0.95)!important}
+h3{font-size:clamp(1rem,1.35vw,1.25rem)!important;color:rgba(255,255,255,0.78)!important}
+/* ===== SECTION ACCENT COLORS ===== */
+.slide.rose .em, .slide.in-rose .em { color:#fca5a5 !important }
+.slide.mint .em, .slide.in-mint .em { color:#34d399 !important }
+.slide.indigo .em, .slide.in-indigo .em { color:#818cf8 !important }
+.slide.cyan .em, .slide.in-cyan .em { color:#22d3ee !important }
+.slide.amber .em, .slide.in-amber .em { color:#fbbf24 !important }
+.slide.violet .em, .slide.in-violet .em { color:#a78bfa !important }
+.slide.teal .em, .slide.in-teal .em { color:#2dd4bf !important }
+.slide.blue .em, .slide.in-blue .em { color:#60a5fa !important }
+.slide.orange .em, .slide.in-orange .em { color:#fb923c !important }
+.slide.rose h1, .slide.mint h1, .slide.indigo h1, .slide.cyan h1,
+.slide.amber h1, .slide.violet h1, .slide.teal h1, .slide.blue h1 { position:relative }
+.slide.rose h1::after { content:""; display:block; width:48px; height:3px; background:#fca5a5; margin:2vh auto 0; border-radius:2px }
+.slide.mint h1::after { content:""; display:block; width:48px; height:3px; background:#34d399; margin:2vh auto 0; border-radius:2px }
+.slide.indigo h1::after { content:""; display:block; width:48px; height:3px; background:#818cf8; margin:2vh auto 0; border-radius:2px }
+.slide.cyan h1::after { content:""; display:block; width:48px; height:3px; background:#22d3ee; margin:2vh auto 0; border-radius:2px }
+.slide.amber h1::after { content:""; display:block; width:48px; height:3px; background:#fbbf24; margin:2vh auto 0; border-radius:2px }
+.slide.violet h1::after { content:""; display:block; width:48px; height:3px; background:#a78bfa; margin:2vh auto 0; border-radius:2px }
+.slide.teal h1::after { content:""; display:block; width:48px; height:3px; background:#2dd4bf; margin:2vh auto 0; border-radius:2px }
+.slide.blue h1::after { content:""; display:block; width:48px; height:3px; background:#60a5fa; margin:2vh auto 0; border-radius:2px }
+.slide.orange h1::after { content:""; display:block; width:48px; height:3px; background:#fb923c; margin:2vh auto 0; border-radius:2px }
+.em{font-weight:700}
+.slide.light .em{font-weight:800}
+/* ===== BACK-ROW LEGIBILITY PASS ===== */
+.comp-item{gap:12px;justify-content:flex-start;padding:3vh 1.6vw}
+.stat-card{justify-content:flex-start;padding-top:1.5vh}
+.stat-card .label{min-height:2.8em;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.3;margin-bottom:1.2vh}
+.stat-card .source{min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;line-height:1.35}
+.arch-layers{max-width:940px!important}
+.arch-layer{column-gap:1vw}
+.arch-layer .role{flex:0 0 184px;white-space:nowrap;margin-right:0.6vw}
+.arch-layer .brand{flex:1;text-align:left;padding-right:0.8vw}
+.arch-layer .desc{flex-shrink:0;text-align:right;white-space:nowrap}
+.note{max-width:64vw!important;margin-left:auto;margin-right:auto}
+.comp-item .tag{font-size:clamp(1rem,1.2vw,1.12rem)!important;color:rgba(255,255,255,0.72)!important;letter-spacing:0.12em}
+.comp-item p{font-size:clamp(1.2rem,1.5vw,1.48rem)!important;line-height:1.5!important;color:rgba(255,255,255,0.96)!important}
+.tbl td{font-size:clamp(1.14rem,1.4vw,1.34rem)!important;color:rgba(255,255,255,0.96)!important}
+.tbl th{font-size:clamp(0.95rem,1.1vw,1.05rem)!important;color:rgba(255,255,255,0.7)!important}
+.arch-layer .role{font-size:clamp(1.02rem,1.2vw,1.12rem)!important;color:rgba(255,255,255,0.78)!important}
+.arch-layer .brand{font-size:clamp(1.28rem,1.55vw,1.5rem)!important}
+.arch-layer .desc{font-size:clamp(1.1rem,1.3vw,1.24rem)!important}
+.stat-card .label{font-size:clamp(0.98rem,1.15vw,1.08rem)!important;color:rgba(255,255,255,0.78)!important}
+.stat-card .source{font-size:clamp(0.95rem,1.1vw,1.05rem)!important}
+.note.warn p,.note.tip p{font-size:clamp(1.12rem,1.35vw,1.28rem)!important;line-height:1.55!important}
+h3{font-size:clamp(1.2rem,1.55vw,1.46rem)!important;color:rgba(255,255,255,0.9)!important;margin-bottom:2.4vh}
+cite{font-size:clamp(1rem,1.15vw,1.08rem)!important}
+blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
+.sub{font-size:clamp(1.32rem,1.9vw,1.85rem)}
+.list li{font-size:clamp(1.3rem,1.9vw,1.62rem)!important}
+.note.exp{border-left:2px solid rgba(45,212,191,0.5)}
+.note.exp p{color:rgba(255,255,255,0.78)!important;font-style:italic}
+.note .xp{font-style:normal;font-weight:700;color:#2dd4bf;letter-spacing:0.08em;margin-right:8px;font-size:0.92em}
+</style>
+</head>
+<body>
+<div class="part-label" id="partLabel">개인 활동 기반 AI 에이전트 활용법</div>
+<div class="progress" id="progress"></div>
+<div class="slides" id="slides">
+
+<!-- ════════ OPENING ════════ -->
+
+<!-- 1 Cover -->
+<div class="slide samsung">
+  <h1>개인 활동으로 익히는<br>AI 에이전트 활용법</h1>
+  <p class="sub">강의가 아니라 &mdash; <span class="em">실제로 부리는 방식</span>에서 뽑은 8가지</p>
+  <p class="meta" style="margin-top:4vh;">2026</p>
+</div>
+
+<!-- 2 Hook -->
+<div class="slide">
+  <h3>한 사람, 다섯 영역</h3>
+  <div class="grid" style="margin-top:3.5vh;">
+    <div class="grid-item"><div class="name">개발 파이프라인</div><div class="desc">SWDP · 마이그레이션</div></div>
+    <div class="grid-item"><div class="name">사내 인프라</div><div class="desc">토큰 비용 · 게이트웨이</div></div>
+    <div class="grid-item"><div class="name">AI 교육</div><div class="desc">세미나 · 자료</div></div>
+    <div class="grid-item"><div class="name">도구 제작</div><div class="desc">스킬 · 워크플로</div></div>
+    <div class="grid-item"><div class="name">거실 매트</div><div class="desc">배치 · 생활</div></div>
+  </div>
+  <p class="sub" style="margin-top:3.4vh;">완전히 다른 영역인데 &mdash; 전부 <span class="em">같은 방식</span>으로 부린다</p>
+</div>
+
+<!-- 3 Thesis (reframed) -->
+<div class="slide in-indigo">
+  <h3>한 줄로</h3>
+  <p class="impact-text">질문이 아니라 &mdash; <span class="em">그다음</span>이 가른다</p>
+  <p class="sub" style="margin-top:3.4vh;">초심자는 묻고 <strong>받아쓴다.</strong> 숙련자는 묻되 &mdash; 가설을 얹고, 첫 답을 의심하고, <strong>완료를 심문한다.</strong></p>
+</div>
+
+<!-- 4 Roadmap -->
+<div class="slide in-blue">
+  <h3>오늘의 8가지</h3>
+  <ul class="list" style="max-width:1000px;">
+    <li><strong>①</strong> AI를 비판적 동료로 세팅 &nbsp;·&nbsp; <strong>②</strong> 가설을 던진다</li>
+    <li><strong>③</strong> 첫 답은 초안, 표면을 뚫는다 &nbsp;·&nbsp; <strong>④</strong> 완료를 심문한다</li>
+    <li><strong>⑤</strong> 크게 맡기되 끝은 쥔다 &nbsp;·&nbsp; <strong>⑥</strong> 도구를 다시 만든다</li>
+    <li><strong>⑦</strong> 정성을 차등 배분한다 &nbsp;·&nbsp; <strong>⑧</strong> 멈출 줄 안다</li>
+  </ul>
+  <p class="sub" style="margin-top:2.6vh;">세팅 &rarr; 위임 &rarr; <span class="em">검증</span> &rarr; 운영 &mdash; 무게중심은 검증이다</p>
+</div>
+
+<!-- ════════ ① 비판적 동료로 세팅 ════════ -->
+
+<!-- 5 -->
+<div class="slide in-teal">
+  <h3>① AI의 체급을 먼저 정해라</h3>
+  <div class="comp">
+    <div class="comp-item"><span class="tag">그냥 질문</span><p>"최신 기술 트렌드 알려줘"</p></div>
+    <div class="comp-item on"><span class="tag">프로토콜 부여</span><p>"너는 <strong>깐깐한 수석 검토자</strong>다 &mdash; 칭찬은 빼고, 내 <span class="em">논리적 맹점</span>을 근거와 함께 즉시 반박해라"</p></div>
+  </div>
+  <p class="sub">AI를 부하가 아니라 &mdash; 나보다 꼼꼼한 '깐깐한 사수'로 세팅한다</p>
+</div>
+
+<!-- 6 -->
+<div class="slide in-teal">
+  <h3>① 매 턴 주입 대신, 한 번 박아둔다</h3>
+  <div class="comp">
+    <div class="comp-item"><span class="tag">채팅</span><p>대화마다 페르소나·원칙을 다시 주입</p></div>
+    <div class="comp-item on"><span class="tag">코드</span><p><span class="em">CLAUDE.md · 에이전트 · 룰</span>에 영구 코드화 &mdash; 한 번 정하면 매번 적용</p></div>
+  </div>
+  <p class="sub">AI의 체급은 &mdash; 내가 깔아준 <strong>프로토콜</strong>이 결정한다</p>
+</div>
+
+<!-- ════════ ② 가설을 던져라 ════════ -->
+
+<!-- 7 -->
+<div class="slide in-indigo">
+  <h3>② 빈 질문이 아니라, 가설을 얹는다</h3>
+  <div class="comp">
+    <div class="comp-item"><span class="tag">빈 명령</span><p>"이 모듈 리팩토링해줘"</p></div>
+    <div class="comp-item on"><span class="tag">가설을 얹은 위임</span><p>"결제 모듈이 <strong>중복 로직 때문에 느린 것 같거든</strong> &mdash; 원인 짚고 리팩토링한 다음, <span class="em">실제로 돌려서</span> 빨라졌는지 보여줘"</p></div>
+  </div>
+  <p class="sub"><span class="em">[현재 상태] + [내 가설] + [제약]</span> &mdash; 채워야 할 빈칸이 있는 브리핑</p>
+</div>
+
+<!-- 8 -->
+<div class="slide in-indigo">
+  <h3>② 도메인이 달라도, 모양은 같다</h3>
+  <ul class="list" style="max-width:1000px;">
+    <li><span style="color:rgba(255,255,255,0.5);">개발</span> &mdash; "마이그레이션이 <strong>뭔가 조용히 떨군 것 같거든</strong>, 베이스라인이랑 비교해줘"</li>
+    <li><span style="color:rgba(255,255,255,0.5);">인프라</span> &mdash; "토큰 비용이 너무 들어서, <strong>내부망 모델을 붙여쓰는거야</strong>"</li>
+    <li><span style="color:rgba(255,255,255,0.5);">거실 매트</span> &mdash; "두 개 붙은 하나짜리야, <strong>어떤 식이 좋을지</strong>"</li>
+  </ul>
+  <p class="sub" style="margin-top:2.6vh;">사람한테 일 넘기듯 &mdash; 중간에 "이해했지?"로 맥락을 맞춘다</p>
+</div>
+
+<!-- ════════ ③ 표면 뚫기 ════════ -->
+
+<!-- 9 -->
+<div class="slide in-blue">
+  <h3>③ 첫 답은 결과물이 아니라 초안이다</h3>
+  <ul class="list" style="max-width:920px;">
+    <li><strong>되묻는다</strong> &mdash; "방금 답에서 가장 약한 가정이 뭐야?"</li>
+    <li><strong>반대시킨다</strong> &mdash; "이 결론을 가장 세게 반박하면?"</li>
+    <li><strong>구체를 강제한다</strong> &mdash; "일반론 말고, 숫자와 사례로"</li>
+  </ul>
+  <div class="note tip" style="margin-top:3vh;"><p>표면적인 답이 나올 자리엔 미리 못을 박는다 &mdash; <span class="em">"뻔한거 말고"</span></p></div>
+</div>
+
+<!-- ════════ ④ 완료 심문 ════════ -->
+
+<!-- 10 -->
+<div class="slide in-rose">
+  <p class="impact-text">"실제로 <span class="em">돌려봤어?</span>"</p>
+  <p class="sub" style="margin-top:3.4vh;"><strong>④</strong> "다 했습니다"라는 말 <strong>자체를</strong> 안 믿는다 &mdash; 증거를 요구한다</p>
+  <p class="meta" style="margin-top:2.4vh;">빌드 출력 · 통과 테스트 수 · 스크린샷 · 실제 데이터</p>
+</div>
+
+<!-- 11 -->
+<div class="slide in-rose">
+  <h3>④ 단일 숫자에 속지 마라</h3>
+  <blockquote>"line이야 function이야? TC가 몇 개고 어떻게 구성돼 있어?"</blockquote>
+  <p class="sub" style="margin-top:3.4vh;">단일 숫자는 <span class="em">claim</span>이고 &mdash; TC 개수 &times; 분기 구성이 <span class="em">evidence</span>다</p>
+</div>
+
+<!-- ════════ ⑤ 크게 맡기기 ════════ -->
+
+<!-- 12 -->
+<div class="slide in-amber">
+  <h3>⑤ 스텝이 아니라 스코프를 위임한다</h3>
+  <div class="comp">
+    <div class="comp-item"><span class="tag">마이크로매니징</span><p>"먼저 이 파일 열고, 그다음…" &mdash; AI가 그냥 <strong>느린 손</strong>이 된다</p></div>
+    <div class="comp-item on"><span class="tag">스코프 위임</span><p>"이 세 화면 모바일까지, 단 <span class="em">외부 라이브러리는 추가 금지</span>" &mdash; 경계가 분명하다</p></div>
+  </div>
+  <p class="sub">방법은 AI가 더 잘 정한다 / 방향(무엇을·어디까지·무엇은 절대 안 됨)은 끝까지 내가 쥔다</p>
+</div>
+
+<!-- ════════ ⑥ 도구를 다시 ════════ -->
+
+<!-- 13 -->
+<div class="slide in-mint">
+  <h3>⑥ 도구를 쓰지 말고, 다시 만든다</h3>
+  <div class="arch-layers" style="margin-top:2vh;">
+    <div class="arch-layer on"><span class="role">고비용 작업</span><span class="brand">고성능 모델</span><span class="desc">&rarr; 외부 API</span></div>
+    <div class="arch-layer on"><span class="role">대량·경량 작업</span><span class="brand">내부망 모델</span><span class="desc">&rarr; 사내 게이트웨이</span></div>
+  </div>
+  <p class="sub" style="margin-top:3vh;">비용이 마음에 안 들면 &mdash; <span class="em">밑단을 바꾼다.</span> 스킬·게이트웨이를 직접 짜서 작업별로 분기</p>
+</div>
+
+<!-- ════════ ⑦ 정성 배분 ════════ -->
+
+<!-- 14 -->
+<div class="slide in-violet">
+  <h3>⑦ 정성을 차등 배분한다</h3>
+  <div class="comp">
+    <div class="comp-item"><span class="tag">되면 OK</span><p>거실 매트 · 일회성 스크립트 · 나만 보는 것</p></div>
+    <div class="comp-item on"><span class="tag">1000점</span><p>발표자료 · 고객 문서 · 재사용 자산 &mdash; <span class="em">만점에 만점</span></p></div>
+  </div>
+  <p class="sub">같은 사람이 정반대 기준을 의식적으로 고른다 &mdash; 그리고 <strong>넣을 정보와 뺄 정보를 가른다</strong></p>
+</div>
+
+<!-- ════════ ⑧ 멈출 줄 알기 ════════ -->
+
+<!-- 15 -->
+<div class="slide in-cyan">
+  <h3>⑧ 자율은, 멈출 줄 알아야 책임이다</h3>
+  <ul class="list" style="max-width:960px;">
+    <li><strong>정지 조건</strong>을 명령 출력으로 채점 &mdash; "좋아질 때까지"는 반드시 후퇴한다</li>
+    <li>매 턴 <strong>점수표</strong>를 출력 &mdash; 안 보이는 자율은 자율이 아니라 도박</li>
+    <li>멈춤은 <strong>외과수술</strong>로 &mdash; 이름이 아니라 포트로</li>
+  </ul>
+  <div class="note warn" style="margin-top:3vh;"><p>켜는 건 한 줄 &mdash; <span class="em">어려운 건 멈출 줄 아는 것</span>이다</p></div>
+</div>
+
+<!-- ════════ 마치며 ════════ -->
+
+<!-- 16 credibility -->
+<div class="slide in-indigo">
+  <h3>이건 내 느낌이 아니다</h3>
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.4vw,4rem);">서로 다른 <span class="em">AI 여섯</span>이 내 대화를 분석했고</p>
+  <p class="sub" style="margin-top:3vh;">같은 결론에 수렴했다 &mdash; 위 8가지는 기법이 아니라 <strong>관찰된 행동</strong>이다</p>
+</div>
+
+<!-- 17 synthesis -->
+<div class="slide in-indigo">
+  <h3>한 줄로 묶으면</h3>
+  <blockquote>AI를 답변기가 아니라 &mdash; <span class="em">비판적 동료</span>로 설계해서 부린다</blockquote>
+  <p class="sub" style="margin-top:3.4vh;">가설을 던지고, 증거와 숫자에 닿을 때까지 심문하고, 재사용 가능한 산출물로 닫는다</p>
+</div>
+
+<!-- 18 today -->
+<div class="slide in-mint">
+  <h3>오늘 한 가지만 가져간다면</h3>
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.4vw,4rem);">다음 위임에 <span class="em">[상태]+[가설]+[제약]</span>을 붙이고</p>
+  <p class="sub" style="margin-top:3vh;">끝은 &mdash; <strong>"증거 보여줘"</strong>로 닫아라</p>
+</div>
+
+<!-- 19 closing -->
+<div class="slide blue">
+  <h1>부려 보면, 안다</h1>
+  <p class="sub" style="margin-top:2vh;">읽어서가 아니라 &mdash; 직접 위임하고 의심하고 다시 시키면서 몸에 붙는다</p>
+  <p class="meta" style="margin-top:4vh; color:rgba(255,255,255,0.55);">개인 활동 기반 AI 에이전트 활용법 &middot; 2026</p>
+</div>
+
+</div>
+<nav aria-label="Slide navigation" class="nav"><button aria-label="Previous slide" onclick="prev()">&larr;</button><button aria-label="Next slide" onclick="next()">&rarr;</button></nav>
+<div class="page-num" id="pageNum">1 / 1</div>
+<script>
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let current=0;
+const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress'),partLabelEl=document.getElementById('partLabel');
+const partMap=[
+{from:0,to:1,label:'Opening'},
+{from:2,to:3,label:'들어가며'},
+{from:4,to:5,label:'① 비판적 동료로 세팅'},
+{from:6,to:7,label:'② 가설을 던져라'},
+{from:8,to:8,label:'③ 표면을 뚫어라'},
+{from:9,to:10,label:'④ 완료를 심문하라'},
+{from:11,to:11,label:'⑤ 크게 맡기되 끝은 쥐어라'},
+{from:12,to:12,label:'⑥ 도구를 다시 만든다'},
+{from:13,to:13,label:'⑦ 정성을 차등 배분'},
+{from:14,to:14,label:'⑧ 멈출 줄 알기'},
+{from:15,to:18,label:'마치며'}
+];
+function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI 에이전트 세미나';}
+function update(){if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;document.getElementById('slides').style.transform=`translateX(-${current*100}vw)`;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
+function next(){goTo(current+1);}
+function prev(){goTo(current-1);}
+document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});
+let tx=0,ty=0;
+document.addEventListener('touchstart',e=>{if(e.touches.length>1)return;tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches.length>1)return;const dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx>0)next();else prev();}},{passive:true});
+const initSlide=parseInt(location.hash.slice(1))-1;
+if(!isNaN(initSlide)&&initSlide>=0)goTo(initSlide);else update();
+</script>
+</body>
+</html>
