@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<title>AI Agent 잘 쓰기 · Solution 개발실 · 2026.7</title>
+<title>AI Agent 잘 쓰기 · 2026.7</title>
 <link href="https://fonts.googleapis.com" rel="preconnect" />
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Figtree:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
@@ -231,15 +231,15 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <div class="slide samsung" style="background:#0D0D0D url('/presentations/assets/images/agent-hero.jpg') center/cover no-repeat;">
   <h1>AI Agent<br>잘 쓰기</h1>
   <p class="sub">같은 도구에서 &mdash; <span class="em">다른 결과</span>가 나오는 이유</p>
-  <p class="meta" style="margin-top:4vh;">Solution 개발실 세미나 &middot; 2026. 7</p>
+  <p class="meta" style="margin-top:4vh;">김학민 &middot; 2026. 7</p>
 </div>
 
-<!-- 01 Hook: 같은 도구, 다른 결과 -->
+<!-- 01 Hook: 채팅창 하나 vs 작은 팀 하나 -->
 <div class="slide">
-  <h3>보급 이후 &mdash; 눈에 들어오는 것</h3>
-  <p class="impact-text" style="font-size:clamp(2.6rem,5vw,4.6rem);">같은 도구 &mdash; <span class="em">다른 결과</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">어떤 사람에게는 <strong>작은 팀이 하나</strong> 생겼고 &mdash; 어떤 사람에게는 채팅창이 하나 늘었을 뿐</p>
-  <p class="sub" style="margin-top:2.4vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">라이선스도, 모델도, 환경도 같은 조건 &mdash; 차이는 다른 곳에서</p>
+  <h3>도구는 똑같이 지급됐는데</h3>
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem); line-height:1.35;">누군가에겐 <span style="color:rgba(255,255,255,0.5);">채팅창이 하나</span> 늘었고<br>누군가에겐 <span class="em">작은 팀이 하나</span> 생겼다</p>
+  <img src="/presentations/assets/images/hook-contrast.jpg" alt="채팅창 하나와 작은 팀의 대비" style="width:100%; max-width:1060px; max-height:34vh; object-fit:cover; border-radius:10px; margin-top:2.6vh; border:1px solid rgba(255,255,255,0.08);" />
+  <p class="sub" style="margin-top:2.2vh;">같은 지원, 같은 도구 &mdash; <span class="em">이 차이는 어디서 생겼을까</span></p>
 </div>
 
 <!-- 02 오늘의 흐름 -->
@@ -252,16 +252,16 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">도구가 아니라 &mdash; 쓰는 방식</span>
     <span style="font-size:0.86rem;color:rgba(255,255,255,0.4);letter-spacing:0.14em;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);">02</span>
     <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">도구의 지도</span>
-    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">Plan &middot; 컨텍스트 &middot; 위임 &middot; 스킬 &middot; 훅</span>
+    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">에이전트를 부리는 기본기</span>
     <span style="font-size:0.86rem;color:#a78bfa;letter-spacing:0.14em;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);">03</span>
-    <span style="font-size:1.24rem;font-weight:700;color:#a78bfa;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">업무에 녹이기</span>
-    <span style="font-size:0.98rem;color:rgba(167,139,250,0.85);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">SWDP &middot; JIRA &middot; WIKI &mdash; 실전 BP &middot; 데모</span>
+    <span style="font-size:1.24rem;font-weight:700;color:#a78bfa;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">하나의 인터페이스</span>
+    <span style="font-size:0.98rem;color:rgba(167,139,250,0.85);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">Jira &middot; Confluence &middot; SWDP &mdash; 한 자리에서</span>
     <span style="font-size:0.86rem;color:rgba(255,255,255,0.4);letter-spacing:0.14em;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);">04</span>
-    <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">잘 쓰는 사람의 습관</span>
-    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">위임과 검증의 감각</span>
+    <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">실사례</span>
+    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">운영 개선 &middot; 자동화 &mdash; 직접 보기</span>
     <span style="font-size:0.86rem;color:rgba(255,255,255,0.4);letter-spacing:0.14em;padding:1.8vh 0;">05</span>
-    <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;white-space:nowrap;">개인에서 팀으로</span>
-    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;text-align:right;white-space:nowrap;">노하우의 자산화 &middot; 오늘부터 할 것</span>
+    <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;white-space:nowrap;">습관, 그리고 팀</span>
+    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;text-align:right;white-space:nowrap;">위임과 검증 &middot; 노하우의 자산화</span>
   </div>
 </div>
 
@@ -336,8 +336,8 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
       <div class="source">전면 개편</div>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">사내 포털 전면 개편 &mdash; 이미 공유된 <span class="em">결과(WHAT)</span></p>
-  <div class="note tip" style="margin-top:1.4vh;"><p>오늘 이야기는 그 뒤에 있던 <strong>방법(HOW)</strong> &mdash; 워크플로와 설정을 그대로 공개</p></div>
+  <p class="sub" style="margin-top:2.2vh;">사내 포털 전면 개편 &mdash; 이미 공유된 <span class="em">결과</span></p>
+  <div class="note tip" style="margin-top:1.4vh;"><p>오늘 이야기는 그 뒤에 있던 <strong>방법</strong> &mdash; 연결과 워크플로를 그대로 공개</p></div>
 </div>
 
 <!-- 07 두 함정 -->
@@ -350,7 +350,7 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     </div>
     <div class="comp-item on">
       <div class="tag">TUNE</div>
-      <p>"프롬프트를 더<br>잘 써야 하나" &mdash;<br><strong>고쳐 쓰는 루프</strong></p>
+      <p>"질문을 더<br>잘 써야 하나" &mdash;<br><strong>고쳐 쓰는 루프</strong></p>
     </div>
   </div>
   <p class="sub" style="margin-top:2.2vh;">둘 다 익숙한 대응 &mdash; 그런데 격차를 만든 변수는 <span class="em">둘 다 아닌 편</span></p>
@@ -359,9 +359,9 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <!-- 08 명제 -->
 <div class="slide in-amber">
   <h3>관찰해 보면</h3>
-  <p class="impact-text" style="font-size:clamp(2.3rem,4.4vw,4rem);">격차는 프롬프트가 아니라 &mdash; <span class="em">그다음</span>에서</p>
+  <p class="impact-text" style="font-size:clamp(2.3rem,4.4vw,4rem);">격차는 질문이 아니라 &mdash; <span class="em">그다음</span>에서</p>
   <p class="impact-sub" style="margin-top:3vh;">답을 받은 뒤 <strong>무엇을 하는가</strong> &mdash; 도구 바깥에 <strong>무엇을 깔아두는가</strong></p>
-  <p class="sub" style="margin-top:2.4vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">오늘 다룰 두 축 &mdash; 환경(하네스)과 습관(위임 &middot; 검증)</p>
+  <p class="sub" style="margin-top:2.4vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">오늘 다룰 두 축 &mdash; 깔아두는 환경과 일하는 습관</p>
 </div>
 
 <!-- 09 코드만이 아니다 -->
@@ -393,33 +393,24 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="meta" style="margin-top:2.4vh;">Claude Code &middot; CCN &middot; Codemate</p>
 </div>
 
-<!-- 11 [FILL] 에이전트 라인업 -->
-<!-- FILL-IN: CCN·Codemate의 사내 포지션(망·용도·대상)을 실제 한 줄씩으로 교체. -->
+<!-- 11 에이전트 라인업 -->
 <div class="slide in-cyan">
   <h3>우리 손에 있는 에이전트</h3>
-  <div class="comp" style="margin-top:2vh;">
+  <div class="comp" style="margin-top:2.4vh;">
     <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.5);">
       <div class="tag" style="color:#22d3ee !important;">Claude Code</div>
-      <p style="color:#22d3ee;">터미널 자율 에이전트<br><strong>오늘 예시의 기준</strong></p>
+      <p style="color:#22d3ee;">AWS Bedrock 기반<br><strong>오늘 예시의 기준</strong></p>
     </div>
     <div class="comp-item on">
       <div class="tag">CCN</div>
-      <p class="sample-dim">사내 포지션 &middot; 용도<br>(한 줄 &mdash; 채움)</p>
+      <p>Claude Code<br>with <strong>Narrans</strong></p>
     </div>
     <div class="comp-item on">
       <div class="tag">Codemate</div>
-      <p class="sample-dim">사내 포지션 &middot; 용도<br>(한 줄 &mdash; 채움)</p>
+      <p class="sample-dim">한 줄 소개<br>(채움)</p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2vh;">도구는 달라도 &mdash; <span class="em">루프 &middot; 하네스 &middot; 습관의 원리는 동일</span></p>
-  <div class="fill-wrap" style="max-width:1100px;">
-    <div class="fill-box">
-      <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
-      <ul>
-        <li>CCN &middot; Codemate의 <strong>사내 포지션(망 &middot; 용도 &middot; 대상)</strong>을 한 줄씩 &mdash; 비교표가 아니라 <strong>선택 가이드</strong>로</li>
-      </ul>
-    </div>
-  </div>
+  <p class="sub" style="margin-top:2.4vh;">도구는 달라도 &mdash; <span class="em">루프 &middot; 환경 &middot; 습관의 원리는 동일</span></p>
 </div>
 
 <!-- 12 Agent Loop -->
@@ -430,9 +421,9 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     <div class="pipeline-arrow">&rarr;</div>
     <div class="pipeline-step">계획</div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="color:#22d3ee;">실행 (도구 호출)</div>
+    <div class="pipeline-step on" style="color:#22d3ee;">실행 (도구 사용)</div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">관찰</div>
+    <div class="pipeline-step">확인</div>
     <div class="pipeline-arrow">&#8635;</div>
     <div class="pipeline-step">다시 계획</div>
   </div>
@@ -440,51 +431,13 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <div class="note tip" style="margin-top:1.6vh;"><p>이후 나오는 기능 전부 &mdash; 이 루프를 <strong>더 길게, 더 안전하게</strong> 굴리는 장치</p></div>
 </div>
 
-<!-- 12 기능 지도 -->
-<div class="slide in-cyan">
-  <h3>오늘 짚을 여섯 가지</h3>
-  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.6vh 1.3vw; width:100%; max-width:1240px; margin-top:2.2vh;">
-    <div style="flex:0 0 30%; background:rgba(255,255,255,0.028); border:1px solid rgba(34,211,238,0.22); border-radius:12px; padding:2.2vh 1.4vw; text-align:left;">
-      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#22d3ee;">01</div>
-      <div style="font-weight:700; color:#fff; font-size:1.18rem; margin-top:0.4vh;">Plan Mode</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">큰 작업은 계획부터</p>
-    </div>
-    <div style="flex:0 0 30%; background:rgba(255,255,255,0.028); border:1px solid rgba(34,211,238,0.22); border-radius:12px; padding:2.2vh 1.4vw; text-align:left;">
-      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#22d3ee;">02</div>
-      <div style="font-weight:700; color:#fff; font-size:1.18rem; margin-top:0.4vh;">컨텍스트 관리</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">한 세션 &mdash; 한 작업</p>
-    </div>
-    <div style="flex:0 0 30%; background:rgba(255,255,255,0.028); border:1px solid rgba(34,211,238,0.22); border-radius:12px; padding:2.2vh 1.4vw; text-align:left;">
-      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#22d3ee;">03</div>
-      <div style="font-weight:700; color:#fff; font-size:1.18rem; margin-top:0.4vh;">위임 &middot; 병렬</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">언제 &middot; 무엇으로 맡길지</p>
-    </div>
-    <div style="flex:0 0 30%; background:rgba(255,255,255,0.028); border:1px solid rgba(34,211,238,0.22); border-radius:12px; padding:2.2vh 1.4vw; text-align:left;">
-      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#22d3ee;">04</div>
-      <div style="font-weight:700; color:#fff; font-size:1.18rem; margin-top:0.4vh;">CLAUDE.md</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">규칙 파일 &mdash; 실수의 기록</p>
-    </div>
-    <div style="flex:0 0 30%; background:rgba(255,255,255,0.028); border:1px solid rgba(34,211,238,0.22); border-radius:12px; padding:2.2vh 1.4vw; text-align:left;">
-      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#22d3ee;">05</div>
-      <div style="font-weight:700; color:#fff; font-size:1.18rem; margin-top:0.4vh;">Skills</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">반복 절차의 명령화</p>
-    </div>
-    <div style="flex:0 0 30%; background:rgba(255,255,255,0.028); border:1px solid rgba(34,211,238,0.22); border-radius:12px; padding:2.2vh 1.4vw; text-align:left;">
-      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#22d3ee;">06</div>
-      <div style="font-weight:700; color:#fff; font-size:1.18rem; margin-top:0.4vh;">Hooks &middot; 권한</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">자동 집행과 안전선</p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">목적은 전부 하나 &mdash; <span class="em">루프를 믿고 맡길 수 있게</span></p>
-</div>
-
 <!-- 13 Plan Mode -->
 <div class="slide in-cyan">
-  <h3>큰 작업은 &mdash; 코드보다 계획 먼저</h3>
+  <h3>큰 작업은 &mdash; 결과물보다 계획 먼저</h3>
   <div class="arch-layers" style="max-width:1000px; margin-top:2.4vh;">
     <div class="arch-layer">
       <div class="role">제출</div>
-      <div class="brand">코드 대신 계획서부터</div>
+      <div class="brand">작업 대신 계획서부터</div>
       <div class="desc">어디를 어떻게 고칠지 먼저 제시</div>
     </div>
     <div class="arch-layer">
@@ -494,25 +447,24 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     </div>
     <div class="arch-layer on">
       <div class="role">실행</div>
-      <div class="brand">승인된 계획대로 구현</div>
+      <div class="brand">승인된 계획대로 진행</div>
       <div class="desc">되돌리기 비싼 작업일수록 유효</div>
     </div>
   </div>
   <p class="sub" style="margin-top:2.2vh;">가장 비싼 실패 유형 &mdash; <span class="em">잘못된 방향으로 빨리 가는 것</span></p>
-  <p class="meta" style="margin-top:1vh;"><kbd>Shift+Tab</kbd>으로 모드 전환 &middot; 프롬프트 앞 <kbd>/plan</kbd>도 가능</p>
 </div>
 
 <!-- 14 컨텍스트 관리 -->
 <div class="slide in-cyan">
-  <h3>컨텍스트 &mdash; 세션은 짧게, 기억은 파일로</h3>
+  <h3>대화는 짧게 &mdash; 기억은 파일로</h3>
   <div class="comp" style="margin-top:2.2vh;">
     <div class="comp-item on">
       <div class="tag">원칙</div>
-      <p>한 세션 &mdash; <strong>한 작업</strong><br>주제가 바뀌면 새로</p>
+      <p>한 번에 &mdash; <strong>한 가지 일</strong><br>주제가 바뀌면 새로</p>
     </div>
     <div class="comp-item on">
-      <div class="tag">명령</div>
-      <p><kbd>/compact</kbd> 압축<br><kbd>/clear</kbd> 초기화</p>
+      <div class="tag">정리</div>
+      <p>길어진 대화는<br><strong>요약하거나 초기화</strong></p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.5);">
       <div class="tag" style="color:#22d3ee !important;">기억</div>
@@ -532,476 +484,319 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
       <th>이유</th>
     </tr></thead>
     <tbody>
-      <tr><td style="white-space:nowrap;"><strong>파일 두세 개 수정</strong></td><td style="white-space:nowrap;">메인 세션에서 직접</td><td>가장 빠르고 맥락 유지</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>넓은 코드 탐색</strong></td><td style="white-space:nowrap;">탐색 에이전트</td><td>읽기 전용 &mdash; 결론만 회수</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>독립 작업 3개+</strong></td><td style="white-space:nowrap;">병렬 서브에이전트</td><td>동시에 &mdash; 서로 간섭 없이</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>리서치 &middot; 의사결정</strong></td><td style="white-space:nowrap;">여러 관점 fan-out</td><td>관점별로 던져 종합</td></tr>
+      <tr><td style="white-space:nowrap;"><strong>작은 수정</strong></td><td style="white-space:nowrap;">메인 대화에서 직접</td><td>가장 빠르고 맥락 유지</td></tr>
+      <tr><td style="white-space:nowrap;"><strong>넓은 탐색</strong></td><td style="white-space:nowrap;">탐색 에이전트</td><td>읽기 전용 &mdash; 결론만 회수</td></tr>
+      <tr><td style="white-space:nowrap;"><strong>독립 작업 여러 개</strong></td><td style="white-space:nowrap;">병렬 에이전트</td><td>동시에 &mdash; 간섭 없이</td></tr>
+      <tr><td style="white-space:nowrap;"><strong>조사 &middot; 의사결정</strong></td><td style="white-space:nowrap;">관점별로 나눠 던짐</td><td>결과를 종합</td></tr>
     </tbody>
   </table>
-  <p class="sub" style="margin-top:2vh;">병렬은 토큰도 몇 배 &mdash; <span class="em">얻는 게 분명할 때만</span></p>
-  <div class="note tip" style="margin-top:1.2vh;"><p>파일을 고치는 병렬 작업은 <strong>git worktree로 격리</strong> &mdash; 서로 밟지 않게</p></div>
+  <p class="sub" style="margin-top:2vh;">병렬은 비용도 몇 배 &mdash; <span class="em">얻는 게 분명할 때만</span></p>
 </div>
 
-<!-- 16 모델 티어 -->
+<!-- 16 기억: 규칙·메모리 -->
 <div class="slide in-cyan">
-  <h3>모델 선택 &mdash; 판단은 크게, 볼륨은 가볍게</h3>
-  <div class="arch-layers" style="max-width:1000px; margin-top:2.4vh;">
+  <h3>가르친 것은 &mdash; 파일로 남긴다</h3>
+  <div class="arch-layers" style="max-width:1020px; margin-top:2.4vh;">
     <div class="arch-layer on">
-      <div class="role">판단</div>
-      <div class="brand">설계 &middot; 종합 &middot; 최종 검토</div>
-      <div class="desc">상위 모델 &mdash; 아끼지 않는 영역</div>
+      <div class="role">수칙</div>
+      <div class="brand">CLAUDE.md &mdash; 작업 수칙</div>
+      <div class="desc">같은 지적 두 번째면 &mdash; 한 줄 추가</div>
     </div>
     <div class="arch-layer">
-      <div class="role">구현</div>
-      <div class="brand">코드 작성 &middot; 리뷰 &middot; 리서치</div>
-      <div class="desc">중간 모델 &mdash; 대부분의 손일</div>
+      <div class="role">분류</div>
+      <div class="brand">주제별 규칙 파일</div>
+      <div class="desc">코딩 &middot; 보안 &middot; 절차 &mdash; 나눠서 관리</div>
     </div>
     <div class="arch-layer">
-      <div class="role">볼륨</div>
-      <div class="brand">대량 스캔 &middot; 기계적 변환</div>
-      <div class="desc">경량 모델 &mdash; 빠르고 저렴하게</div>
+      <div class="role">기억</div>
+      <div class="brand">프로젝트 메모리</div>
+      <div class="desc">결정 &middot; 피드백 &mdash; 계속 유지</div>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">전부 최상위로 돌리는 건 &mdash; 품질이 아니라 <span class="em">비용과 대기열</span>만 늘리는 편</p>
+  <p class="sub" style="margin-top:2.2vh;">매번 다시 설명하는 내용이 있다면 &mdash; <span class="em">이미 파일이 되어 있어야 할 내용</span></p>
 </div>
 
-<!-- 17 CLAUDE.md -->
+<!-- 17 Skills -->
 <div class="slide in-cyan">
-  <h3>CLAUDE.md &mdash; 매뉴얼이 아니라, 반복된 실수의 기록</h3>
-  <div class="arch-layers" style="max-width:1060px; margin-top:2.4vh;">
-    <div class="arch-layer">
-      <div class="role">개인</div>
-      <div class="brand">~/.claude/CLAUDE.md</div>
-      <div class="desc">내 습관 &middot; 안전선 &mdash; 모든 프로젝트 공통</div>
-    </div>
-    <div class="arch-layer on">
-      <div class="role">프로젝트</div>
-      <div class="brand">저장소 루트 CLAUDE.md</div>
-      <div class="desc">팀 규약 &middot; 빌드 방법 &mdash; git으로 함께 공유</div>
-    </div>
-    <div class="arch-layer">
-      <div class="role">모듈</div>
-      <div class="brand">하위 폴더 CLAUDE.md</div>
-      <div class="desc">그 영역에서만 필요한 규칙</div>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">같은 지적을 두 번 하게 될 때 &mdash; <span class="em">그때가 한 줄 적을 때</span></p>
-</div>
-
-<!-- 18 Rules · Memory -->
-<div class="slide in-cyan">
-  <h3>커지면 쪼갠다 &mdash; 규칙 모듈화와 메모리</h3>
-  <div class="comp" style="margin-top:2.4vh; max-width:1000px;">
-    <div class="comp-item on">
-      <div class="tag">Rules</div>
-      <p>주제별 파일로 분리<br><strong>@import로 연결</strong><br>코딩 &middot; git &middot; 보안 &hellip;</p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">Memory</div>
-      <p>세션이 끝나도 남는<br><strong>프로젝트 기억</strong><br>결정 &middot; 피드백 &middot; 맥락</p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.4vh;">매번 다시 설명하는 내용이 있다면 &mdash; <span class="em">이미 파일이 되어 있어야 할 내용</span></p>
-</div>
-
-<!-- 19 Skills -->
-<div class="slide in-cyan">
-  <h3>Skills &mdash; 반복 절차를 한 단어 명령으로</h3>
+  <h3>반복 절차는 &mdash; 한 단어 명령으로</h3>
   <div class="comp" style="margin-top:2.2vh; max-width:1000px;">
     <div class="comp-item on">
       <div class="tag">어제까지</div>
-      <p>잘 나온 프롬프트를<br>메모장에서 복붙<br><strong>매번 조금씩 다르게</strong></p>
+      <p>잘 나온 지시문을<br>메모장에서 복붙<br><strong>매번 조금씩 다르게</strong></p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.5);">
       <div class="tag" style="color:#22d3ee !important;">오늘부터</div>
       <p style="color:#22d3ee;">절차를 스킬로 고정<br><kbd>/명령</kbd> 하나로 재현<br><strong>팀에도 그대로 공유</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">좋은 프롬프트의 종착지는 &mdash; <span class="em">복붙이 아니라 스킬</span></p>
+  <p class="sub" style="margin-top:2.2vh;">좋은 지시문의 종착지는 &mdash; <span class="em">복붙이 아니라 스킬</span></p>
+  <div class="note tip" style="margin-top:1.4vh;"><p>산출물을 손보는 대신 절차를 고치면 &mdash; <strong>다음 백 번</strong>에 적용</p></div>
 </div>
 
-<!-- 20 Hooks -->
+<!-- 18 안전장치 -->
 <div class="slide in-cyan">
-  <h3>Hooks &mdash; 문서는 참고되지만, 훅은 집행된다</h3>
+  <h3>안전장치 &mdash; 사람이 안 봐도 지켜지는 선</h3>
   <div class="comp" style="margin-top:2.2vh;">
     <div class="comp-item on">
-      <div class="tag">실행 전</div>
-      <p>위험 명령 차단<br>보호 경로 접근 금지</p>
+      <div class="tag">사전 차단</div>
+      <p>위험한 명령은<br><strong>실행 전에 차단</strong></p>
     </div>
     <div class="comp-item on">
-      <div class="tag">실행 후</div>
-      <p>포매터 &middot; 린터<br><strong>자동 실행</strong></p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">마칠 때</div>
-      <p>완료 전 검증<br>알림 &middot; 기록</p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">규칙은 한 번 읽히고 끝 &mdash; <span class="em">훅은 매번 강제</span></p>
-</div>
-
-<!-- 21 권한 -->
-<div class="slide in-cyan">
-  <h3>권한 &mdash; 전권 모드는 빠른 길이 아니다</h3>
-  <div class="comp" style="margin-top:2.2vh; max-width:1000px;">
-    <div class="comp-item on">
-      <div class="tag">전부 허용</div>
-      <p>확인 없이 전부 실행<br><strong>되돌리기 어려운 실수</strong>에<br>무방비</p>
+      <div class="tag">자동 점검</div>
+      <p>작업 후 검사 &middot; 정리<br><strong>매번 자동 실행</strong></p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.5);">
-      <div class="tag" style="color:#22d3ee !important;">명시적 allow &middot; deny</div>
-      <p style="color:#22d3ee;">안전한 명령만 미리 허용<br>위험한 명령은 차단<br><strong>빠르고 안전한 기본값</strong></p>
+      <div class="tag" style="color:#22d3ee !important;">허용 범위</div>
+      <p style="color:#22d3ee;">안전한 것만 미리 허용<br><strong>나머지는 물어보게</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">허용 목록은 한 번 다듬으면 &mdash; 그 뒤로는 <span class="em">묻지 않고 달리는 구간</span></p>
+  <p class="sub" style="margin-top:2.2vh;">문서 규칙은 참고되는 것 &mdash; <span class="em">장치는 강제되는 것</span></p>
 </div>
 
-<!-- ════════ ③ 업무에 녹이기 ════════ -->
+<!-- ════════ ③ 하나의 인터페이스 ════════ -->
 
-<!-- 22 divider -->
+<!-- 19 divider -->
 <div class="slide violet">
-  <h1>업무에 녹이기</h1>
-  <p class="sub" style="margin-top:1vh;">도구를 옆에 두는 게 아니라 &mdash; <span class="em">일 속에 심는 것</span></p>
-  <p class="meta" style="margin-top:2.4vh;">SWDP &middot; JIRA &middot; WIKI &middot; 사내 서비스</p>
+  <h1>하나의 인터페이스</h1>
+  <p class="sub" style="margin-top:1vh;">모든 서비스를 &mdash; <span class="em">한 자리에서</span></p>
+  <p class="meta" style="margin-top:2.4vh;">Jira &middot; Confluence &middot; SWDP &middot; Prometheus &middot; Splunk &middot; Knox</p>
 </div>
 
-<!-- 23 MCP 한 장 -->
+<!-- 20 연결 지도 -->
 <div class="slide in-violet">
-  <h3>MCP &mdash; 사내 시스템으로 통하는 표준 통로</h3>
-  <div class="arch-layers" style="max-width:1060px; margin-top:2.4vh;">
-    <div class="arch-layer on">
-      <div class="role">역할</div>
-      <div class="brand">외부 시스템을 도구로 연결</div>
-      <div class="desc">JIRA &middot; WIKI &middot; DB &middot; 사내 API</div>
-    </div>
-    <div class="arch-layer">
-      <div class="role">한계</div>
-      <div class="brand">판단까지 해주진 않음</div>
-      <div class="desc">검증 &middot; 보안 &middot; 품질은 여전히 설계의 몫</div>
-    </div>
-    <div class="arch-layer">
-      <div class="role">오해</div>
-      <div class="brand">"붙이면 끝"은 아님</div>
-      <div class="desc">채널이 열린 것 &mdash; 일은 워크플로가 함</div>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">연결은 시작점 &mdash; <span class="em">그 위에 얹는 워크플로</span>가 오늘의 본론</p>
-</div>
-
-<!-- 24 [FILL] 통합 지도 -->
-<!-- FILL-IN: 실제 연동 아키텍처로 교체. 중앙 Claude Code ↔ SWDP/JIRA/WIKI/메신저. 다이어그램 이미지로 승격 권장(절대경로 /presentations/assets/images/...) -->
-<div class="slide in-violet">
-  <h3>내 작업 환경 &mdash; 통합 지도</h3>
-  <div class="arch-layers sample-dim" style="max-width:1020px; margin-top:1vh;">
+  <h3>API가 있는 서비스는 &mdash; 전부 도구가 된다</h3>
+  <div class="arch-layers" style="max-width:1080px; margin-top:1.8vh;">
     <div class="arch-layer">
       <div class="role">업무</div>
-      <div class="brand">JIRA <span style="font-weight:400;color:rgba(255,255,255,0.45);font-size:0.85em;">(예시 자리)</span></div>
-      <div class="desc">티켓 &rarr; 작업 단위 &middot; 완료 조건</div>
+      <div class="brand">Jira</div>
+      <div class="desc">티켓 조회 &middot; 생성 &middot; 갱신</div>
     </div>
     <div class="arch-layer">
       <div class="role">지식</div>
-      <div class="brand">WIKI <span style="font-weight:400;color:rgba(255,255,255,0.45);font-size:0.85em;">(예시 자리)</span></div>
-      <div class="desc">설계 문서 &rarr; 작업 컨텍스트</div>
+      <div class="brand">Confluence</div>
+      <div class="desc">문서 검색 &middot; 작성 &middot; 갱신</div>
+    </div>
+    <div class="arch-layer on">
+      <div class="role">시스템</div>
+      <div class="brand">SWDP &middot; SWDP DB</div>
+      <div class="desc">빌드 &middot; 배포 상태 &middot; 데이터 조회</div>
     </div>
     <div class="arch-layer">
-      <div class="role">시스템</div>
-      <div class="brand">SWDP</div>
-      <div class="desc">빌드 &middot; 배포 &middot; 검증 &middot; 보고 &middot; 알림</div>
+      <div class="role">관측</div>
+      <div class="brand">Prometheus &middot; Splunk</div>
+      <div class="desc">지표 &middot; 로그 분석</div>
+    </div>
+    <div class="arch-layer">
+      <div class="role">알림</div>
+      <div class="brand">Knox 메신저</div>
+      <div class="desc">운영진 노티 &middot; 보고</div>
     </div>
   </div>
-  <div class="fill-wrap">
-    <div class="fill-box">
-      <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
-      <ul>
-        <li>위 표를 <strong>실제 연동 상태</strong>로 교체 &mdash; 시스템명 &middot; MCP/스킬명 &middot; 오가는 데이터 한 줄씩</li>
-        <li>가능하면 <strong>다이어그램 한 장</strong>(중앙 Claude Code &harr; 주변 시스템)으로 승격</li>
-      </ul>
-    </div>
-    <div class="fill-prompt"><span class="fp-label">채움 프롬프트</span>내 ~/.claude 설정과 MCP 구성, 스킬 목록을 읽고 — Claude Code를 중심에 두고 SWDP·JIRA·WIKI·기타 사내 서비스가 어떻게 연결돼 있는지 한 장 아키텍처로 정리해줘. 각 연결에 "무슨 데이터가 오가는지" 한 줄씩.</div>
-  </div>
+  <p class="sub" style="margin-top:1.8vh;">에이전트가 <span class="em">직접 조회하고, 직접 처리</span> &mdash; 사람이 복붙으로 나르던 일</p>
+  <p class="meta" style="margin-top:0.8vh;">MCP = 서비스를 에이전트의 도구로 만들어 주는 표준 연결 방식</p>
 </div>
 
-<!-- 25 [FILL] 연동 인벤토리 -->
-<!-- FILL-IN: 실제 운용 중인 MCP·스킬 목록으로 교체. 전부 나열하지 말고 대표 6~8개. -->
+<!-- 21 세 가지 치환 -->
 <div class="slide in-violet">
-  <h3>연동 인벤토리 &mdash; MCP &middot; 스킬</h3>
-  <table class="tbl sample-dim" style="margin-top:1vh; width:100%; max-width:1080px;">
-    <thead><tr>
-      <th>분류</th>
-      <th>이름</th>
-      <th>하는 일</th>
-    </tr></thead>
-    <tbody>
-      <tr><td>MCP</td><td style="white-space:nowrap;"><strong>jira-mcp</strong> (예시)</td><td>티켓 조회 &middot; 생성 &middot; 상태 전환</td></tr>
-      <tr><td>MCP</td><td style="white-space:nowrap;"><strong>wiki-mcp</strong> (예시)</td><td>문서 검색 &middot; 페이지 작성</td></tr>
-      <tr><td>Skill</td><td style="white-space:nowrap;"><strong>/ticket-to-pr</strong> (예시)</td><td>티켓 &rarr; 브랜치 &rarr; 구현 &rarr; PR</td></tr>
-    </tbody>
-  </table>
-  <div class="fill-wrap" style="max-width:1080px;">
-    <div class="fill-box">
-      <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
-      <ul>
-        <li>실제 운용 목록으로 교체 &mdash; 전부가 아니라 <strong>청중이 따라 만들 수 있는 대표 6~8개</strong></li>
-        <li>각 행에 "도입 후 무엇이 줄었는지" 한 줄이 붙으면 설득력 상승</li>
-      </ul>
-    </div>
-    <div class="fill-prompt"><span class="fp-label">채움 프롬프트</span>내 스킬 디렉토리와 .mcp.json을 읽고, 사내 업무와 연결된 MCP·스킬을 표로 정리해줘. 열: 분류 / 이름 / 하는 일 / 줄여준 것. 대표성 있는 8개만.</div>
-  </div>
-</div>
-
-<!-- 26 연동의 의미 -->
-<div class="slide in-violet">
-  <h3>연동이 만드는 세 가지 치환</h3>
+  <h3>연결이 만드는 세 가지 치환</h3>
   <div class="arch-layers" style="max-width:1060px; margin-top:2.4vh;">
     <div class="arch-layer">
       <div class="role">티켓</div>
-      <div class="brand">JIRA가 곧 스펙</div>
-      <div class="desc">요구사항 &middot; 완료 조건을 에이전트가 직접 읽음</div>
+      <div class="brand">Jira가 곧 스펙</div>
+      <div class="desc">요구사항 &middot; 완료 조건을 직접 읽음</div>
     </div>
     <div class="arch-layer">
       <div class="role">문서</div>
-      <div class="brand">WIKI가 곧 컨텍스트</div>
+      <div class="brand">Confluence가 곧 컨텍스트</div>
       <div class="desc">설계 배경 &middot; 도메인 지식 참조</div>
     </div>
     <div class="arch-layer on">
       <div class="role">시스템</div>
       <div class="brand">SWDP가 곧 검증</div>
-      <div class="desc">빌드 &middot; 테스트 &middot; 배포 상태로 완료를 판정</div>
+      <div class="desc">빌드 &middot; 테스트 상태로 완료를 판정</div>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">사람이 복붙으로 나르던 맥락 &mdash; <span class="em">이제 에이전트가 직접 가지러 감</span></p>
-  <div class="note tip" style="margin-top:1.4vh;"><p>문서의 독자가 사람만이 아닌 시대 &mdash; <strong>에이전트가 읽기 좋은 위키</strong>가 곧 자산</p></div>
+  <p class="sub" style="margin-top:2.2vh;">일감도, 배경지식도, 완료 판정도 &mdash; <span class="em">에이전트가 직접 가지러 감</span></p>
+  <div class="note tip" style="margin-top:1.4vh;"><p>문서의 독자가 사람만이 아닌 시대 &mdash; <strong>에이전트가 읽기 좋은 문서</strong>가 곧 자산</p></div>
 </div>
 
-<!-- 27 [FILL] BP 1 — 티켓에서 PR까지 -->
-<!-- FILL-IN: 실제 티켓 번호·명령·시간이 있는 케이스로 교체. 스크린샷 1~2장(티켓·PR) 권장. -->
+<!-- 22 핵심 메시지 -->
 <div class="slide in-violet">
-  <h3>BP 1 &mdash; 티켓에서 PR까지</h3>
-  <div class="pipeline sample-dim" style="margin-top:2vh;">
-    <div class="pipeline-step">JIRA 티켓</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">컨텍스트 수집</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="color:#a78bfa;">구현</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">자체 검증</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">PR &middot; 티켓 갱신</div>
-  </div>
-  <div class="fill-wrap">
-    <div class="fill-box">
-      <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
-      <ul>
-        <li>실제 케이스 하나를 <strong>처음부터 끝까지</strong> &mdash; 티켓 번호 &middot; 실제 지시문 &middot; 걸린 시간</li>
-        <li>각 단계에서 <strong>사람이 개입한 지점</strong> 표시 &mdash; 전자동처럼 보이면 오히려 신뢰가 깎임</li>
-        <li>스크린샷은 티켓 &middot; PR 각 1장이면 충분 &mdash; 코드 diff 전체는 불필요</li>
-      </ul>
-    </div>
-    <div class="fill-prompt"><span class="fp-label">채움 프롬프트</span>최근 JIRA 티켓→PR까지 Claude Code로 처리한 실제 사례 하나를 골라, 단계별로 무엇을 시켰고 내가 어디서 개입했는지 타임라인으로 정리해줘. 티켓 번호·소요 시간 포함.</div>
-  </div>
+  <h3>그래서 &mdash; 내가 일하는 방식</h3>
+  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">하나의 인터페이스로 &mdash; <span class="em">모든 서비스를 컨트롤</span></p>
+  <img src="/presentations/assets/images/one-interface-hub.jpg" alt="하나의 중심에서 여러 서비스로 뻗는 연결" style="width:100%; max-width:1020px; max-height:40vh; object-fit:cover; border-radius:10px; margin-top:2.2vh; border:1px solid rgba(255,255,255,0.08);" />
+  <p class="sub" style="margin-top:2vh;">에이전트들은 &mdash; <span class="em">나의 손과 발</span>이 되어 움직인다</p>
 </div>
 
-<!-- 28 [FILL] BP 2 — 문서에서 스펙으로 -->
-<!-- FILL-IN: WIKI 문서를 컨텍스트로 쓴 사례 + 결과를 문서로 역갱신한 사례. -->
-<div class="slide in-violet">
-  <h3>BP 2 &mdash; 문서에서 스펙으로, 결과는 다시 문서로</h3>
-  <div class="pipeline sample-dim" style="margin-top:2vh;">
-    <div class="pipeline-step">WIKI 설계 문서</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">스펙 추출</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">계획 승인</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="color:#a78bfa;">구현</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">문서 역갱신</div>
-  </div>
-  <div class="fill-wrap">
-    <div class="fill-box">
-      <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
-      <ul>
-        <li>위키를 읽혀서 작업한 사례 &mdash; <strong>문서가 없었다면 못 했을 부분</strong>을 강조</li>
-        <li>반대 방향(작업 결과 &rarr; 문서 자동 갱신)이 있다면 <strong>그쪽이 더 강한 BP</strong></li>
-      </ul>
-    </div>
-    <div class="fill-prompt"><span class="fp-label">채움 프롬프트</span>WIKI 문서를 컨텍스트로 쓴 작업 사례 하나와, 작업 결과로 문서를 갱신한 사례 하나를 정리해줘. 문서 제목·작업 내용·결과 중심으로.</div>
-  </div>
-</div>
+<!-- ════════ ④ 실사례 ════════ -->
 
-<!-- 29 [FILL] BP 3 — 운영 속으로 -->
-<!-- FILL-IN: SWDP 운영 자동화 중 실제 운용 중인 것만. -->
-<div class="slide in-violet">
-  <h3>BP 3 &mdash; 운영 속으로 &middot; SWDP</h3>
-  <div class="pipeline sample-dim" style="margin-top:2vh;">
-    <div class="pipeline-step">SWDP 이벤트</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">상태 조회</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="color:#a78bfa;">원인 분석</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">조치안 &middot; 보고</div>
-  </div>
-  <div class="fill-wrap">
-    <div class="fill-box">
-      <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
-      <ul>
-        <li>SWDP 운영 업무 중 에이전트가 맡은 것 &mdash; 모니터링 &middot; 빌드 실패 분석 &middot; 배포 점검 등 <strong>실제 운용 중인 것만</strong></li>
-        <li>이 장의 핵심 인상 &mdash; <strong>"사람이 안 보는 시간에 무엇을 해두는가"</strong></li>
-      </ul>
-    </div>
-    <div class="fill-prompt"><span class="fp-label">채움 프롬프트</span>SWDP 관련 자동화 중 Claude Code(스킬·훅·MCP)가 수행하는 것들을 목록화하고, 그중 발표용으로 임팩트 있는 1개를 타임라인 시나리오로 써줘.</div>
-  </div>
-</div>
-
-<!-- 30 [FILL] DEMO -->
-<!-- FILL-IN: 데모 영상 준비 후 아래 video 태그 주석 해제, fill-wrap 삭제.
-<video src="/presentations/assets/videos/solution-dev-demo.mp4" controls preload="metadata" playsinline style="width:100%; max-width:1060px; max-height:56vh; margin-top:2.6vh; border-radius:8px; border:1px solid rgba(255,255,255,0.12);"></video>
--->
-<div class="slide in-violet">
-  <p class="meta" style="color:rgba(255,255,255,0.4);">DEMO</p>
-  <h2 style="font-size:clamp(1.9rem,3.2vw,2.7rem);">통합 워크플로 &mdash; 실제 화면</h2>
-  <div class="fill-wrap" style="max-width:1060px;">
-    <div class="fill-box">
-      <div class="fill-tag">채움 가이드 &middot; FILL-IN &mdash; 데모 영상 자리</div>
-      <ul>
-        <li><strong>3~5분</strong> 분량 &mdash; 티켓 하나로 시작해 PR 생성까지의 흐름 추천</li>
-        <li>영상은 <code style="color:#a78bfa;">/presentations/assets/videos/</code> 아래 &middot; <strong>절대경로</strong> 참조 &middot; faststart 인코딩</li>
-        <li>터미널 폰트 크게 &middot; 대기 구간은 편집으로 압축 &middot; <strong>실패&rarr;복구 장면 하나</strong>는 오히려 신뢰 상승</li>
-        <li>준비되면 이 안내 박스를 지우고 &mdash; 주석 처리된 video 태그 활성화</li>
-      </ul>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:1.8vh;">말보다 &mdash; <span class="em">실제로 돌아가는 화면</span></p>
-</div>
-
-<!-- 31 [FILL] 효과 측정 -->
-<!-- FILL-IN: 측정 가능한 수치만. 없으면 이 슬라이드 삭제 권장. -->
-<div class="slide in-violet">
-  <h3>효과 &mdash; 체감이 아니라 숫자로</h3>
-  <div class="stat-grid sample-dim" style="max-width:1060px; margin-top:1.6vh;">
-    <div class="stat-card on">
-      <div class="label">반복 업무 시간 (예시)</div>
-      <div class="value" style="color:#a78bfa;">&minus;N시간</div>
-      <div class="source">주 단위 절감</div>
-    </div>
-    <div class="stat-card on">
-      <div class="label">티켓 리드타임 (예시)</div>
-      <div class="value" style="color:#a78bfa;">&minus;N%</div>
-      <div class="source">접수 &rarr; 종료</div>
-    </div>
-    <div class="stat-card on">
-      <div class="label">문서 최신화 (예시)</div>
-      <div class="value">+N%p</div>
-      <div class="source">작업 후 자동 갱신</div>
-    </div>
-  </div>
-  <div class="fill-wrap" style="max-width:1060px;">
-    <div class="fill-box">
-      <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
-      <ul>
-        <li><strong>측정 가능한 것만</strong> &mdash; "훨씬 빨라짐" 같은 체감 표현은 숫자 하나보다 약함</li>
-        <li>수치가 없다면 이 장은 <strong>빼는 쪽이 나음</strong> &mdash; 과장된 수치는 역효과</li>
-      </ul>
-    </div>
-    <div class="fill-prompt"><span class="fp-label">채움 프롬프트</span>최근 한 달 작업 기록에서 에이전트가 수행한 작업 수·유형·대략의 절감 시간을 보수적으로 집계해줘. 근거 없는 추정은 표시.</div>
-  </div>
-</div>
-
-<!-- 32 생성기 원칙 -->
-<div class="slide in-violet">
-  <h3>이 모든 연동의 한 줄 요약</h3>
-  <p class="impact-text" style="font-size:clamp(2.4rem,4.6vw,4.2rem);">결과물이 아니라 &mdash; <span class="em">생성기를 고친다</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">산출물 손질은 <strong>이번 한 번</strong> &mdash; 프롬프트 &middot; 스킬 &middot; 규칙 개선은 <strong>다음 백 번</strong>에 적용</p>
-  <p class="sub" style="margin-top:2.4vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">오늘 본 BP 전부 &mdash; 이 원칙의 반복</p>
-</div>
-
-<!-- 33 시어터 경고 -->
-<div class="slide in-violet">
-  <h3>다만 &mdash; 측정 없는 구성요소는 장식이 되기 쉽다</h3>
-  <div class="comp" style="margin-top:2.2vh;">
-    <div class="comp-item on">
-      <div class="tag">문서</div>
-      <p>아무도 안 읽는<br>규칙 파일</p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">훅</div>
-      <p>한 번도 발동 안 한<br>자동화</p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">스킬</div>
-      <p>효과를 모르는 채<br>쌓이는 명령</p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">하나를 더할 때 &mdash; <span class="em">하나를 재는 습관</span>이 같이 필요</p>
-</div>
-
-<!-- ════════ ④ 잘 쓰는 사람의 습관 ════════ -->
-
-<!-- 34 divider -->
+<!-- 23 divider -->
 <div class="slide mint">
+  <h1>실사례</h1>
+  <p class="sub" style="margin-top:1vh;">말보다 &mdash; <span class="em">실제로 돌아가는 것</span> 세 가지</p>
+  <p class="meta" style="margin-top:2.4vh;">시연 포함 &middot; LIVE</p>
+</div>
+
+<!-- 24 사례 1 개요 -->
+<div class="slide in-mint">
+  <h3>사례 1 &mdash; "SWDP API, 왜 느리지?"</h3>
+  <div class="arch-layers" style="max-width:1060px; margin-top:2.2vh;">
+    <div class="arch-layer">
+      <div class="role">지시</div>
+      <div class="brand">"API 느린 구간 검토해줘"</div>
+      <div class="desc">시작은 한 줄</div>
+    </div>
+    <div class="arch-layer on">
+      <div class="role">발견</div>
+      <div class="brand">화면마다 SQL 순차 실행</div>
+      <div class="desc">1회 2초 &mdash; 하루 1,700회+</div>
+    </div>
+    <div class="arch-layer">
+      <div class="role">조치</div>
+      <div class="brand">캐싱 도입 패치</div>
+      <div class="desc">이슈 &middot; 문서 기록까지 에이전트가</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">사람이 한 일은 &mdash; <span class="em">방향 제시와 패치 승인</span></p>
+</div>
+
+<!-- 25 사례 1 결과 -->
+<div class="slide in-mint">
+  <h3>사례 1 &mdash; 숫자로</h3>
+  <div class="stat-grid" style="max-width:1060px;">
+    <div class="stat-card on">
+      <div class="label">화면당 응답</div>
+      <div class="value" style="color:#34d399;">2초 &rarr; 0.1초</div>
+      <div class="source">캐싱 도입</div>
+    </div>
+    <div class="stat-card on">
+      <div class="label">하루 호출</div>
+      <div class="value">1,700<span style="font-size:1.2rem">회+</span></div>
+      <div class="source">누적되던 비효율</div>
+    </div>
+    <div class="stat-card on">
+      <div class="label">하루 누적 절감</div>
+      <div class="value" style="color:#34d399;">~55분</div>
+      <div class="source">약 3,300초</div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">한 번엔 티끌 같은 2초 &mdash; <span class="em">쌓이면 하루 한 시간</span></p>
+</div>
+
+<!-- 26 사례 2 before/after -->
+<div class="slide in-mint">
+  <h3>사례 2 &mdash; 아침 루틴의 교대</h3>
+  <div class="comp" style="margin-top:2.2vh; max-width:1060px;">
+    <div class="comp-item on">
+      <div class="tag">예전</div>
+      <p>출근하면 대시보드 &middot; 로그<br><strong>직접 확인</strong><br>에러 나면 코드 추적</p>
+    </div>
+    <div class="comp-item on" style="border-top-color:rgba(52,211,153,0.5);">
+      <div class="tag" style="color:#34d399 !important;">지금</div>
+      <p style="color:#34d399;">밤새 워크플로가 확인<br><strong>정리된 제안</strong>으로<br>하루 시작</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">같은 일 &mdash; <span class="em">사람이 돌던 것에서, 루프가 도는 것으로</span></p>
+</div>
+
+<!-- 27 사례 2 흐름 -->
+<div class="slide in-mint">
+  <h3>사례 2 &mdash; 자동화된 흐름</h3>
+  <div class="pipeline" style="margin-top:2.8vh;">
+    <div class="pipeline-step">감시<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">빌드 &middot; 로그</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">분석<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">느린 케이스 &middot; 예외</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">제안<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">수정 방향</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="color:#34d399;">판단 &middot; 실행<br><span style="font-size:0.8em;color:rgba(52,211,153,0.7);">사람</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">기록 &middot; 알림<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">Jira &middot; Confluence &middot; Knox</span></div>
+  </div>
+  <p class="sub" style="margin-top:2.4vh;">지난 기간 로그까지 에이전트가 종합 분석 &mdash; <span class="em">제안은 에이전트, 실행 버튼은 사람</span></p>
+  <div class="note tip" style="margin-top:1.4vh;"><p>이슈 생성 &middot; 문서 작성 &middot; 운영진 노티까지 &mdash; <strong>후처리 전부 자동</strong></p></div>
+</div>
+
+<!-- 28 [FILL] 사례 3 -->
+<!-- FILL-IN: 세 번째 사례 — 제목 + 3단계 흐름으로 교체. -->
+<div class="slide in-mint">
+  <h3>사례 3 &mdash; <span class="sample-dim">(제목 채움)</span></h3>
+  <div class="pipeline sample-dim" style="margin-top:2.4vh;">
+    <div class="pipeline-step">시작</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">에이전트의 일</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on">결과</div>
+  </div>
+  <div class="fill-wrap" style="max-width:1040px;">
+    <div class="fill-box">
+      <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
+      <ul>
+        <li>세 번째로 보여줄 사례 &mdash; <strong>제목 한 줄 + 흐름 3단계</strong>면 충분 (현장 시연이 본체)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 29 사례 정리 -->
+<div class="slide in-mint">
+  <h3>세 사례에서 &mdash; 내가 실제로 한 일</h3>
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);">도구를 연결하고 &mdash; <span class="em">워크플로를 설계한 것</span></p>
+  <p class="impact-sub" style="margin-top:3vh;">실행은 에이전트가 &mdash; <strong>판단과 책임은 사람이</strong></p>
+  <p class="sub" style="margin-top:2.4vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">그리고 그 연결은 &mdash; 한 번 해두면 계속 일하는 자산</p>
+</div>
+
+<!-- ════════ ⑤ 잘 쓰는 사람의 습관 ════════ -->
+
+<!-- 30 divider -->
+<div class="slide sky">
   <h1>잘 쓰는 사람의 습관</h1>
   <p class="sub" style="margin-top:1vh;">도구 지식보다 &mdash; <span class="em">일하는 방식</span>의 차이</p>
 </div>
 
-<!-- 35 가설을 얹는다 -->
-<div class="slide in-mint">
+<!-- 31 가설을 얹는다 -->
+<div class="slide in-sky">
   <h3>빈 요청이 아니라 &mdash; 가설을 얹는다</h3>
   <div class="comp" style="margin-top:2vh; max-width:1060px;">
     <div class="comp-item on">
       <div class="tag">빈 요청</div>
-      <p>"이 모듈<br>리팩토링해줘"</p>
+      <p>"이거<br>개선해줘"</p>
     </div>
-    <div class="comp-item on" style="border-top-color:rgba(52,211,153,0.5);">
-      <div class="tag" style="color:#34d399 !important;">가설을 얹은 위임</div>
-      <p style="color:#34d399;">"결제 모듈, <strong>중복 로직 때문에</strong> 느린 듯 &mdash; 원인 짚고, 고친 뒤 <strong>실제로 돌려서</strong> 확인"</p>
+    <div class="comp-item on" style="border-top-color:rgba(56,189,248,0.5);">
+      <div class="tag" style="color:#38bdf8 !important;">가설을 얹은 위임</div>
+      <p style="color:#38bdf8;">"이 화면, <strong>조회가 겹쳐서</strong> 느린 듯 &mdash; 원인 짚고, 고친 뒤 <strong>실제로 돌려서</strong> 확인"</p>
     </div>
   </div>
   <p class="formula" style="margin-top:2.4vh; font-size:clamp(1.3rem,2.4vw,2rem); color:rgba(255,255,255,0.85);">[현재 상태] + [내 가설] + [제약 조건]</p>
   <p class="sub" style="margin-top:1.8vh;">사람에게 일 넘길 때와 같은 모양 &mdash; <span class="em">맥락을 같이 넘긴다</span></p>
 </div>
 
-<!-- 36 스코프 위임 -->
-<div class="slide in-mint">
-  <h3>스텝이 아니라 &mdash; 스코프를 위임한다</h3>
+<!-- 32 스코프 위임 -->
+<div class="slide in-sky">
+  <h3>순서가 아니라 &mdash; 범위를 위임한다</h3>
   <div class="comp" style="margin-top:2.2vh; max-width:1060px;">
     <div class="comp-item on">
-      <div class="tag">스텝 지시</div>
-      <p>"먼저 이 파일 열고,<br>그다음 저기 고치고&hellip;"<br><strong>AI가 느린 손이 됨</strong></p>
+      <div class="tag">순서 지시</div>
+      <p>"먼저 이거 열고,<br>그다음 저거 고치고&hellip;"<br><strong>AI가 느린 손이 됨</strong></p>
     </div>
-    <div class="comp-item on" style="border-top-color:rgba(52,211,153,0.5);">
-      <div class="tag" style="color:#34d399 !important;">스코프 위임</div>
-      <p style="color:#34d399;">"이 세 화면, 모바일까지 &mdash;<br>단, 새 라이브러리 금지"<br><strong>방법은 AI, 경계는 나</strong></p>
+    <div class="comp-item on" style="border-top-color:rgba(56,189,248,0.5);">
+      <div class="tag" style="color:#38bdf8 !important;">범위 위임</div>
+      <p style="color:#38bdf8;">"여기까지, 이건 금지 &mdash;<br>방법은 알아서"<br><strong>방법은 AI, 경계는 나</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">무엇을 &middot; 어디까지 &middot; 절대 안 되는 것 &mdash; <span class="em">경계만 분명하면 방법은 맡겨도 됨</span></p>
+  <p class="sub" style="margin-top:2.2vh;">무엇을 &middot; 어디까지 &middot; 절대 안 되는 것 &mdash; <span class="em">경계만 분명하면 맡겨도 됨</span></p>
 </div>
 
-<!-- 37 완료 심문 -->
-<div class="slide in-mint">
+<!-- 33 완료 심문 -->
+<div class="slide in-sky">
   <h3>완료 보고는 &mdash; 검증 대상</h3>
   <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);">"다 했습니다"를 &mdash; <span class="em">그대로 믿지 않는다</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">빌드 출력 &middot; 통과한 테스트 수 &middot; 실행 화면 &mdash; <strong>증거로 확인</strong></p>
+  <p class="impact-sub" style="margin-top:3vh;">실행 결과 &middot; 통과한 검사 &middot; 실제 화면 &mdash; <strong>증거로 확인</strong></p>
   <p class="sub" style="margin-top:2.4vh; font-size:clamp(1.1rem,1.4vw,1.35rem); color:rgba(255,255,255,0.62);">실행이 빨라진 만큼 &mdash; 검증을 건너뛴 비용도 같이 커진 상태</p>
 </div>
 
-<!-- 38 단일 숫자 심문 -->
-<div class="slide in-mint">
-  <h3>단일 숫자도 &mdash; 한 번 더</h3>
-  <div class="comp" style="margin-top:2.2vh; max-width:1060px;">
-    <div class="comp-item on">
-      <div class="tag">주장 &middot; claim</div>
-      <p>"테스트 커버리지<br><strong>90% 달성했습니다</strong>"</p>
-    </div>
-    <div class="comp-item on" style="border-top-color:rgba(52,211,153,0.5);">
-      <div class="tag" style="color:#34d399 !important;">증거 &middot; evidence</div>
-      <p style="color:#34d399;">"line이야, function이야?<br>TC 몇 개 &mdash; <strong>구성은 어떻게?</strong>"</p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">숫자 하나는 주장 &mdash; <span class="em">구성까지 나와야 증거</span></p>
-</div>
-
-<!-- 39 첫 답은 초안 -->
-<div class="slide in-mint">
+<!-- 34 첫 답은 초안 -->
+<div class="slide in-sky">
   <h3>첫 답은 결과가 아니라 &mdash; 초안</h3>
   <div class="comp" style="margin-top:2.2vh;">
     <div class="comp-item on">
@@ -1020,90 +815,66 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="sub" style="margin-top:2.2vh;">두 번째 답부터 &mdash; <span class="em">표면 아래가 나오기 시작</span></p>
 </div>
 
-<!-- 40 멈춤 신호 -->
-<div class="slide in-mint">
-  <h3>이 신호가 보이면 &mdash; 멈춘다</h3>
-  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.6vh 1.3vw; width:100%; max-width:1100px; margin-top:2.2vh;">
-    <div style="flex:0 0 46%; background:rgba(255,255,255,0.028); border:1px solid rgba(52,211,153,0.22); border-radius:12px; padding:2.2vh 1.6vw; text-align:left;">
-      <div style="font-weight:700; color:#fff; font-size:1.15rem;">같은 파일만 반복 수정</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">고쳤다 되돌렸다 &mdash; 제자리 맴돌기</p>
-    </div>
-    <div style="flex:0 0 46%; background:rgba(255,255,255,0.028); border:1px solid rgba(52,211,153,0.22); border-radius:12px; padding:2.2vh 1.6vw; text-align:left;">
-      <div style="font-weight:700; color:#fff; font-size:1.15rem;">placeholder &middot; TODO 남발</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">겉만 채우고 속은 비워두기</p>
-    </div>
-    <div style="flex:0 0 46%; background:rgba(255,255,255,0.028); border:1px solid rgba(52,211,153,0.22); border-radius:12px; padding:2.2vh 1.6vw; text-align:left;">
-      <div style="font-weight:700; color:#fff; font-size:1.15rem;">테스트를 끄거나 우회</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">통과가 목적이 된 상태</p>
-    </div>
-    <div style="flex:0 0 46%; background:rgba(255,255,255,0.028); border:1px solid rgba(52,211,153,0.22); border-radius:12px; padding:2.2vh 1.6vw; text-align:left;">
-      <div style="font-weight:700; color:#fff; font-size:1.15rem;">설명만 길어짐</div>
-      <p style="color:rgba(255,255,255,0.62); font-size:0.95rem; margin-top:0.4vh; line-height:1.5;">말은 느는데 코드는 제자리</p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">그대로 밀기보다 &mdash; <span class="em">세션을 정리하고 접근을 바꾸는 쪽이 빠름</span></p>
-</div>
-
-<!-- 41 사람이 쥐는 것 -->
-<div class="slide in-mint">
+<!-- 35 사람이 쥐는 것 -->
+<div class="slide in-sky">
   <h3>어디까지 맡겨도 &mdash; 손에서 안 놓는 것</h3>
   <div class="arch-layers" style="max-width:1020px; margin-top:1.8vh;">
     <div class="arch-layer">
       <div class="role">뼈대</div>
-      <div class="brand">아키텍처</div>
-      <div class="desc">모듈 경계 &middot; 의존 방향</div>
+      <div class="brand">구조 &middot; 설계</div>
+      <div class="desc">시스템의 큰 그림</div>
     </div>
     <div class="arch-layer">
       <div class="role">계약</div>
-      <div class="brand">스키마 &middot; API</div>
+      <div class="brand">데이터 &middot; 인터페이스 규격</div>
       <div class="desc">되돌리기 비싼 결정</div>
     </div>
     <div class="arch-layer on">
       <div class="role">관문</div>
-      <div class="brand">최종 리뷰</div>
-      <div class="desc">머지 직전 &mdash; 책임의 마지막 확인</div>
+      <div class="brand">최종 확인</div>
+      <div class="desc">책임의 마지막 관문</div>
     </div>
     <div class="arch-layer">
       <div class="role">크기</div>
-      <div class="brand">스코프</div>
+      <div class="brand">일의 범위</div>
       <div class="desc">이번엔 어디까지</div>
     </div>
     <div class="arch-layer">
       <div class="role">감각</div>
-      <div class="brand">테이스트</div>
-      <div class="desc">품질 &middot; 도메인 적합성의 기준</div>
+      <div class="brand">품질 기준</div>
+      <div class="desc">좋고 나쁨의 최종 판단</div>
     </div>
   </div>
-  <p class="sub" style="margin-top:1.8vh;">"이해하지 못한 코드는 내보내지 않는다" &mdash; <span class="em">이 원칙은 그대로</span></p>
+  <p class="sub" style="margin-top:1.8vh;">"이해하지 못한 결과는 내보내지 않는다" &mdash; <span class="em">이 원칙은 그대로</span></p>
 </div>
 
-<!-- 42 병목 이동 -->
-<div class="slide in-mint">
-  <h3>생성이 빨라진 만큼 &mdash; 검토가 크리티컬 패스</h3>
+<!-- 36 병목 이동 -->
+<div class="slide in-sky">
+  <h3>생성이 빨라진 만큼 &mdash; 확인이 병목</h3>
   <div class="comp" style="margin-top:2.2vh; max-width:1000px;">
     <div class="comp-item on">
       <div class="tag">생성</div>
       <p>분 단위로<br><strong>쏟아지는 산출물</strong></p>
     </div>
-    <div class="comp-item on" style="border-top-color:rgba(52,211,153,0.5);">
-      <div class="tag" style="color:#34d399 !important;">검토</div>
-      <p style="color:#34d399;">여전히 사람의 시간<br><strong>여기서 막히기 시작</strong></p>
+    <div class="comp-item on" style="border-top-color:rgba(56,189,248,0.5);">
+      <div class="tag" style="color:#38bdf8 !important;">확인</div>
+      <p style="color:#38bdf8;">여전히 사람의 시간<br><strong>여기서 막히기 시작</strong></p>
     </div>
   </div>
   <p class="sub" style="margin-top:2.2vh;">잘 쓴다는 것에는 &mdash; <span class="em">만들 것을 거르는 판단</span>까지 포함</p>
 </div>
 
-<!-- ════════ ⑤ 개인에서 팀으로 ════════ -->
+<!-- ════════ ⑥ 개인에서 팀으로 ════════ -->
 
-<!-- 43 divider -->
+<!-- 37 divider -->
 <div class="slide orange">
   <h1>개인에서 팀으로</h1>
   <p class="sub" style="margin-top:1vh;">한 사람의 노하우로 &mdash; <span class="em">끝나지 않게</span></p>
 </div>
 
-<!-- 44 성숙도 사다리 -->
+<!-- 38 성숙도 사다리 -->
 <div class="slide in-orange">
-  <h3>지금 어디쯤 &mdash; 하네스 성숙도</h3>
+  <h3>지금 어디쯤 &mdash; 에이전트 활용 성숙도</h3>
   <div class="arch-layers" style="max-width:1020px; margin-top:1.8vh;">
     <div class="arch-layer">
       <div class="role">Lv 0</div>
@@ -1113,94 +884,71 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     <div class="arch-layer">
       <div class="role">Lv 1</div>
       <div class="brand">기본 설정</div>
-      <div class="desc">CLAUDE.md &middot; 자주 쓰는 명령</div>
+      <div class="desc">작업 수칙 &middot; 자주 쓰는 명령</div>
     </div>
     <div class="arch-layer on">
       <div class="role">Lv 2</div>
-      <div class="brand">자동 집행</div>
-      <div class="desc">훅 &middot; 권한 &middot; 서브에이전트</div>
+      <div class="brand">자동 장치</div>
+      <div class="desc">안전장치 &middot; 위임 &middot; 병렬</div>
     </div>
     <div class="arch-layer on">
       <div class="role">Lv 3</div>
-      <div class="brand">측정 운영</div>
-      <div class="desc">효과 측정 &middot; 팀 표준 &middot; 연동</div>
+      <div class="brand">서비스 연동</div>
+      <div class="desc">업무 시스템과 연결된 워크플로</div>
     </div>
     <div class="arch-layer">
       <div class="role">Lv 4</div>
       <div class="brand">자율 루프</div>
-      <div class="desc">장시간 무인 작업 &middot; 다중 세션</div>
+      <div class="desc">사람 없이 도는 장시간 작업</div>
     </div>
   </div>
-  <p class="sub" style="margin-top:1.8vh;">현실적인 팀 목표는 <span class="em">Lv 2~3</span> &mdash; 오늘 본 BP가 그 구간</p>
+  <p class="sub" style="margin-top:1.8vh;">현실적인 목표는 <span class="em">Lv 2~3</span> &mdash; 오늘 본 사례가 그 구간</p>
 </div>
 
-<!-- 45 팀 자산화 -->
+<!-- 39 팀 자산화 -->
 <div class="slide in-orange">
-  <h3>개인 설정을 &mdash; 팀 자산으로</h3>
+  <h3>개인의 것을 &mdash; 팀의 것으로</h3>
   <div class="comp" style="margin-top:2.2vh;">
     <div class="comp-item on">
-      <div class="tag">규칙</div>
-      <p>내 CLAUDE.md에서<br><strong>팀 표준</strong>으로</p>
+      <div class="tag">수칙</div>
+      <p>내 작업 수칙에서<br><strong>팀 표준</strong>으로</p>
     </div>
     <div class="comp-item on">
       <div class="tag">스킬</div>
-      <p>내 스킬에서<br><strong>공용 레포</strong>로</p>
+      <p>내 스킬에서<br><strong>공용 저장소</strong>로</p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(251,146,60,0.5);">
       <div class="tag" style="color:#fb923c !important;">발견</div>
-      <p style="color:#fb923c;">내 삽질에서<br><strong>팀의 BP</strong>로</p>
+      <p style="color:#fb923c;">내 삽질에서<br><strong>팀의 사례</strong>로</p>
     </div>
   </div>
   <p class="sub" style="margin-top:2.2vh;">핵심은 전파 속도 &mdash; <span class="em">같은 실수를 각자 반복하지 않는 것</span></p>
+  <div class="note tip" style="margin-top:1.4vh;"><p>경험 &rarr; 지식 &rarr; 문화 &mdash; 오늘 세미나는 그 <strong>두 번째 단계</strong>의 시도</p></div>
 </div>
 
-<!-- 46 확산 3단계 -->
-<div class="slide in-orange">
-  <h3>확산의 세 단계</h3>
-  <div class="arch-layers" style="max-width:1000px; margin-top:2.4vh;">
-    <div class="arch-layer">
-      <div class="role">1단계</div>
-      <div class="brand">경험</div>
-      <div class="desc">각자 써보고 &mdash; 이야기하는 단계</div>
-    </div>
-    <div class="arch-layer on">
-      <div class="role">2단계</div>
-      <div class="brand">지식</div>
-      <div class="desc">재사용 가능한 형태로 &mdash; 스킬 &middot; 문서 &middot; BP</div>
-    </div>
-    <div class="arch-layer">
-      <div class="role">3단계</div>
-      <div class="brand">문화</div>
-      <div class="desc">쓰는 게 자연스러운 기본값</div>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">오늘 세미나는 &mdash; <span class="em">두 번째 단계</span>의 시도</p>
-</div>
-
-<!-- 47 [FILL] 우리 개발실 제안 -->
+<!-- 40 [FILL] 우리가 시작할 수 있는 것 -->
 <!-- FILL-IN: 조직 상황에 맞는 실행 가능한 제안 2~3개로 교체. -->
 <div class="slide in-orange">
-  <h3>우리 개발실에서 &mdash; 시작할 수 있는 것</h3>
+  <h3>우리가 &mdash; 시작할 수 있는 것</h3>
   <ul class="list sample-dim" style="margin-top:1.4vh; max-width:1040px;">
-    <li><strong>공용 스킬 레포</strong> &mdash; 검증된 스킬 모음 (예시)</li>
-    <li><strong>표준 CLAUDE.md 템플릿</strong> &mdash; 신규 프로젝트 기본값 (예시)</li>
-    <li><strong>BP 공유 릴레이</strong> &mdash; 월 1회, 한 사람씩 (예시)</li>
+    <li><strong>공용 스킬 저장소</strong> &mdash; 검증된 절차 모음 (예시)</li>
+    <li><strong>표준 작업 수칙 템플릿</strong> &mdash; 새 프로젝트 기본값 (예시)</li>
+    <li><strong>사례 공유 릴레이</strong> &mdash; 월 1회, 한 사람씩 (예시)</li>
   </ul>
   <div class="fill-wrap" style="max-width:1040px;">
     <div class="fill-box">
       <div class="fill-tag">채움 가이드 &middot; FILL-IN</div>
       <ul>
-        <li>조직 상황에 맞는 <strong>실행 가능한 제안 2~3개</strong>로 교체 &mdash; 승인 필요한 것과 당장 되는 것 구분</li>
-        <li>발표자가 직접 오너십을 잡을 <strong>1개</strong>가 있으면 가장 강함</li>
+        <li>조직 상황에 맞는 <strong>실행 가능한 제안 2~3개</strong>로 교체 &mdash; 당장 되는 것과 승인 필요한 것 구분</li>
+        <li>발표자가 직접 맡을 <strong>1개</strong>가 있으면 가장 강함</li>
       </ul>
     </div>
-    <div class="fill-prompt"><span class="fp-label">채움 프롬프트</span>우리 팀 현황 기준으로, 개발실 단위에서 바로 시작할 수 있는 AI 워크플로 공유 체계 제안 3개를 초안으로. 각 제안에 "첫 액션"과 "한 달 뒤 기대 상태"를 붙여줘.</div>
   </div>
 </div>
 
 <!-- ════════ CLOSING ════════ -->
 
-<!-- 48 오늘부터 한 가지 -->
+<!-- 41 오늘부터 한 가지 -->
 <div class="slide blue">
   <h3>거창하게 말고 &mdash; 오늘부터 한 가지</h3>
   <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.6vh 1.3vw; width:100%; max-width:1240px; margin-top:2.2vh;">
@@ -1210,37 +958,37 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     </div>
     <div style="flex:0 0 38%; min-width:420px; background:rgba(255,255,255,0.028); border:1px solid rgba(96,165,250,0.25); border-radius:12px; padding:2.4vh 1.8vw; text-align:left;">
       <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#60a5fa;">적기</div>
-      <p style="color:rgba(255,255,255,0.72); font-size:1rem; margin-top:0.8vh; line-height:1.55;">같은 지적 두 번 했다면<br><strong style="color:#fff;">CLAUDE.md 한 줄</strong></p>
+      <p style="color:rgba(255,255,255,0.72); font-size:1rem; margin-top:0.8vh; line-height:1.55;">같은 지적 두 번 했다면<br><strong style="color:#fff;">작업 수칙에 한 줄</strong></p>
     </div>
     <div style="flex:0 0 38%; min-width:420px; background:rgba(255,255,255,0.028); border:1px solid rgba(96,165,250,0.25); border-radius:12px; padding:2.4vh 1.8vw; text-align:left;">
-      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#60a5fa;">막기</div>
-      <p style="color:rgba(255,255,255,0.72); font-size:1rem; margin-top:0.8vh; line-height:1.55;">아찔했던 명령 하나<br><strong style="color:#fff;">deny 목록에</strong></p>
+      <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#60a5fa;">잇기</div>
+      <p style="color:rgba(255,255,255,0.72); font-size:1rem; margin-top:0.8vh; line-height:1.55;">매일 여는 시스템 하나<br><strong style="color:#fff;">에이전트에 연결</strong></p>
     </div>
     <div style="flex:0 0 38%; min-width:420px; background:rgba(255,255,255,0.028); border:1px solid rgba(96,165,250,0.25); border-radius:12px; padding:2.4vh 1.8vw; text-align:left;">
       <div style="font-family:'Figtree',sans-serif; font-size:1.3rem; font-weight:900; color:#60a5fa;">나누기</div>
-      <p style="color:rgba(255,255,255,0.72); font-size:1rem; margin-top:0.8vh; line-height:1.55;">써먹은 프롬프트 하나<br><strong style="color:#fff;">팀에 공유</strong></p>
+      <p style="color:rgba(255,255,255,0.72); font-size:1rem; margin-top:0.8vh; line-height:1.55;">써먹은 지시문 하나<br><strong style="color:#fff;">팀에 공유</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.4vh;">하네스는 한 번에 안 생김 &mdash; <span class="em">한 줄씩 쌓이는 것</span></p>
+  <p class="sub" style="margin-top:2.4vh;">환경은 한 번에 안 생김 &mdash; <span class="em">한 줄씩 쌓이는 것</span></p>
 </div>
 
-<!-- 49 핵심 메시지 -->
+<!-- 42 핵심 메시지 -->
 <div class="slide blue">
   <h3>오늘의 한 줄</h3>
   <p class="impact-text">도구의 차이가 아니라 &mdash; <span class="em">방식의 차이</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">그리고 방식은 &mdash; <strong>오늘부터 바꿀 수 있는 것</strong></p>
+  <p class="impact-sub" style="margin-top:3vh;">하나의 인터페이스, 그리고 나의 손발 &mdash; <strong>오늘부터 만들 수 있는 것</strong></p>
 </div>
 
-<!-- 50 Q&A -->
+<!-- 43 Q&A -->
 <div class="slide blue">
   <h1>Q &amp; A</h1>
   <p class="sub" style="margin-top:1.6vh;">같이 이야기해볼 것</p>
   <ul class="list" style="margin-top:2vh; max-width:1040px;">
-    <li>내 워크플로에서 &mdash; <span class="em">가장 먼저 심을 지점</span>은 어디일까</li>
-    <li>우리 팀의 <span class="em">공용 스킬 1호</span>는 무엇이 좋을까</li>
-    <li>어디까지 자율로 &mdash; <strong>어디부터 사람 승인</strong>으로 둘까</li>
+    <li>내 업무에서 &mdash; <span class="em">가장 먼저 연결할 시스템</span>은 무엇일까</li>
+    <li>우리 팀이 함께 쓸 <span class="em">자동화 1호</span>는 무엇이 좋을까</li>
+    <li>어디까지 자율로 &mdash; <strong>어디부터 사람 판단</strong>으로 둘까</li>
   </ul>
-  <p class="meta" style="margin-top:3vh; color:rgba(255,255,255,0.55);">AI Agent 세미나 &middot; Solution 개발실 &middot; 2026. 7</p>
+  <p class="meta" style="margin-top:3vh; color:rgba(255,255,255,0.55);">AI Agent 세미나 &middot; 김학민 &middot; 2026. 7</p>
 </div>
 
 </div>
@@ -1253,11 +1001,12 @@ const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElemen
 const partMap=[
 {from:0,to:2,label:'Opening'},
 {from:3,to:9,label:'격차의 정체'},
-{from:10,to:22,label:'도구의 지도'},
-{from:23,to:34,label:'업무에 녹이기'},
-{from:35,to:43,label:'잘 쓰는 사람의 습관'},
-{from:44,to:48,label:'개인에서 팀으로'},
-{from:49,to:51,label:'Closing'}
+{from:10,to:18,label:'도구의 지도'},
+{from:19,to:22,label:'하나의 인터페이스'},
+{from:23,to:29,label:'실사례'},
+{from:30,to:36,label:'잘 쓰는 사람의 습관'},
+{from:37,to:40,label:'개인에서 팀으로'},
+{from:41,to:43,label:'Closing'}
 ];
 function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI Agent 세미나';}
 function update(){slides.forEach((s,i)=>s.classList.toggle('active',i===current));if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
