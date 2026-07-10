@@ -228,7 +228,7 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <!-- ════════ OPENING ════════ -->
 
 <!-- 00 Cover -->
-<div class="slide samsung" style="background:#0D0D0D url('/presentations/assets/images/agent-hero.jpg') center/cover no-repeat;">
+<div class="slide samsung" style="background:#0D0D0D url('/presentations/assets/images/cover-min.jpg') center/cover no-repeat;">
   <h1>AI Agent로<br>일하는 방법</h1>
   <p class="sub">같은 도구, <span class="em">다른 결과</span></p>
   <p class="meta" style="margin-top:4vh;">S/W개발팀 S/W 혁신 P/J SE 김학민 &middot; 2026. 7</p>
@@ -236,9 +236,9 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 
 <!-- 01 Hook -->
 <div class="slide">
-  <h3>Claude Code &middot; CCN &middot; Codemate &mdash; 도구는 이미 보급</h3>
+  <h3>Claude Code &middot; CCN &middot; CodeMate &mdash; 도구는 이미 보급</h3>
   <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem); line-height:1.35;">누군가에겐 <span style="color:rgba(255,255,255,0.5);">채팅창이 하나</span> 늘었고<br>누군가에겐 <span class="em">작은 팀이 하나</span> 생겼다</p>
-  <img src="/presentations/assets/images/hook-contrast.jpg" alt="채팅창 하나와 작은 팀의 대비" style="width:100%; max-width:1060px; max-height:34vh; object-fit:cover; border-radius:10px; margin-top:2.6vh; border:1px solid rgba(255,255,255,0.08);" />
+  <img src="/presentations/assets/images/hook-min.jpg" alt="채팅창 하나와 작은 팀의 대비" style="width:100%; max-width:1060px; max-height:34vh; object-fit:cover; border-radius:10px; margin-top:2.6vh; border:1px solid rgba(255,255,255,0.08);" />
   <p class="sub" style="margin-top:2.2vh;">같은 도구 &mdash; <span class="em">왜 다를까</span></p>
 </div>
 
@@ -312,7 +312,7 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     </div>
     <div class="stat-card on">
       <div class="label">다룬 규모</div>
-      <div class="value">10만<span style="font-size:1.2rem">줄+</span></div>
+      <div class="value">10만<span style="font-size:1.2rem; position:static; margin-left:4px; bottom:auto;">줄+</span></div>
       <div class="source">전면 개편</div>
     </div>
   </div>
@@ -367,24 +367,21 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <!-- 09 divider -->
 <div class="slide cyan">
   <h1>도구 기본기</h1>
-  <p class="meta" style="margin-top:2.8vh;">Claude Code &middot; CCN &middot; Codemate</p>
+  <p class="meta" style="margin-top:2.8vh;">Claude Code &middot; CCN &middot; CodeMate</p>
 </div>
 
 <!-- 10 에이전트 라인업 -->
 <div class="slide in-cyan">
   <h3>우리 손에 있는 에이전트</h3>
   <div class="comp" style="margin-top:2.4vh;">
-    <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.5);">
-      <div class="tag" style="color:#22d3ee !important;">Claude Code</div>
-      <p style="color:#22d3ee;">AWS Bedrock 기반<br><strong>오늘 예시의 기준</strong></p>
+    <div class="comp-item on">
+      <p style="font-size:clamp(1.4rem,1.8vw,1.7rem); font-weight:700; color:#fff;">Claude Code<br><span style="font-size:0.68em; font-weight:300; color:rgba(255,255,255,0.6);">AWS Bedrock</span></p>
     </div>
     <div class="comp-item on">
-      <div class="tag">CCN</div>
-      <p>Claude Code<br>with <strong>Narrans</strong></p>
+      <p style="font-size:clamp(1.4rem,1.8vw,1.7rem); font-weight:700; color:#fff;">CCN<br><span style="font-size:0.68em; font-weight:300; color:rgba(255,255,255,0.6);">Claude Code with Narrans</span></p>
     </div>
     <div class="comp-item on">
-      <div class="tag">Codemate</div>
-      <p class="sample-dim">한 줄 소개<br>(채움)</p>
+      <p style="font-size:clamp(1.4rem,1.8vw,1.7rem); font-weight:700; color:#fff;">CodeMate</p>
     </div>
   </div>
   <p class="sub" style="margin-top:2.4vh;">도구는 달라도 &mdash; <span class="em">부리는 원리는 동일</span></p>
@@ -393,18 +390,37 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <!-- 11 Agent Loop -->
 <div class="slide in-cyan">
   <h3>모든 기능의 뿌리 &mdash; 에이전트 루프</h3>
-  <div class="pipeline" style="margin-top:3vh;">
-    <div class="pipeline-step">지시</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">계획</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="color:#22d3ee;">실행</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">확인</div>
-    <div class="pipeline-arrow">&#8635;</div>
-    <div class="pipeline-step">다시 계획</div>
-  </div>
-  <p class="sub" style="margin-top:2.6vh;">사람이 매 단계 붙지 않아도 &mdash; <span class="em">루프가 일을 끌고 감</span></p>
+  <svg viewBox="0 0 1240 400" style="width:100%; max-width:1080px; margin-top:2vh;" role="img" aria-label="에이전트 루프: 지시, 계획, 실행, 확인, 다시 계획">
+    <defs>
+      <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <marker id="arwc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="rgba(34,211,238,0.75)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <!-- nodes -->
+    <g font-family="'Noto Sans KR',sans-serif" font-size="34" text-anchor="middle">
+      <rect x="40" y="120" width="220" height="110" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+      <text x="150" y="187" fill="rgba(255,255,255,0.92)">지시</text>
+      <rect x="360" y="120" width="220" height="110" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+      <text x="470" y="187" fill="rgba(255,255,255,0.92)">계획</text>
+      <rect x="680" y="120" width="220" height="110" rx="14" fill="rgba(34,211,238,0.06)" stroke="rgba(34,211,238,0.65)" stroke-width="2"/>
+      <text x="790" y="187" fill="#22d3ee" font-weight="700">실행</text>
+      <rect x="1000" y="120" width="220" height="110" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+      <text x="1110" y="187" fill="rgba(255,255,255,0.92)">확인</text>
+    </g>
+    <!-- forward arrows -->
+    <g stroke="rgba(255,255,255,0.45)" stroke-width="2" fill="none">
+      <line x1="265" y1="175" x2="348" y2="175" marker-end="url(#arw)"/>
+      <line x1="585" y1="175" x2="668" y2="175" marker-end="url(#arw)"/>
+      <line x1="905" y1="175" x2="988" y2="175" marker-end="url(#arw)"/>
+    </g>
+    <!-- loop back: 확인 -> 계획 -->
+    <path d="M 1110 236 L 1110 320 Q 1110 340 1090 340 L 490 340 Q 470 340 470 320 L 470 244" fill="none" stroke="rgba(34,211,238,0.55)" stroke-width="2" marker-end="url(#arwc)"/>
+    <text x="790" y="326" font-family="'Noto Sans KR',sans-serif" font-size="27" text-anchor="middle" fill="rgba(34,211,238,0.85)">다시 계획</text>
+  </svg>
+  <p class="sub" style="margin-top:2vh;">사람이 매 단계 붙지 않아도 &mdash; <span class="em">루프가 일을 끌고 감</span></p>
 </div>
 
 <!-- 12 Plan -->
@@ -630,7 +646,7 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 <!-- 23 핵심 -->
 <div class="slide in-violet">
   <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">하나의 인터페이스로 &mdash; <span class="em">모든 서비스를</span></p>
-  <img src="/presentations/assets/images/one-interface-hub.jpg" alt="하나의 중심에서 여러 서비스로 뻗는 연결" style="width:100%; max-width:1020px; max-height:42vh; object-fit:cover; border-radius:10px; margin-top:2.4vh; border:1px solid rgba(255,255,255,0.08);" />
+  <img src="/presentations/assets/images/hub-min.jpg" alt="하나의 중심에서 여러 서비스로 뻗는 연결" style="width:100%; max-width:1020px; max-height:42vh; object-fit:cover; border-radius:10px; margin-top:2.4vh; border:1px solid rgba(255,255,255,0.08);" />
   <p class="sub" style="margin-top:2vh;">에이전트가 &mdash; <span class="em">손과 발</span></p>
 </div>
 
