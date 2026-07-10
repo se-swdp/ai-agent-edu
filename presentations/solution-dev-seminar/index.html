@@ -544,6 +544,19 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
   <p class="sub" style="margin-top:2.2vh;">문서는 참고되는 것 &mdash; <span class="em">장치는 강제되는 것</span></p>
 </div>
 
+<!-- 18 뜻밖의 반전 -->
+<div class="slide in-cyan">
+  <h3>여기까지의 공통점</h3>
+  <div style="display:flex; gap:1vw; justify-content:center; flex-wrap:wrap; margin-top:1.6vh;">
+    <kbd style="font-size:clamp(0.95rem,1.2vw,1.15rem); padding:8px 18px;">settings.json</kbd>
+    <kbd style="font-size:clamp(0.95rem,1.2vw,1.15rem); padding:8px 18px;">.env</kbd>
+    <kbd style="font-size:clamp(0.95rem,1.2vw,1.15rem); padding:8px 18px;">규칙 파일</kbd>
+    <kbd style="font-size:clamp(0.95rem,1.2vw,1.15rem); padding:8px 18px;">git</kbd>
+  </div>
+  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem); margin-top:3vh;">"개발자가 먼저 망한다"더니 &mdash;<br>다루기엔 <span class="em">전공자가 유리</span></p>
+  <p class="sub" style="margin-top:2.4vh;">에이전트를 부리는 재료가 &mdash; <span class="em">전부 SW의 모양</span></p>
+</div>
+
 <!-- ════════ ③ 말로 시키고, 결과만 본다 ════════ -->
 
 <!-- 18 divider -->
@@ -924,12 +937,12 @@ const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElemen
 const partMap=[
 {from:0,to:2,label:'Opening'},
 {from:3,to:8,label:'격차의 정체'},
-{from:9,to:17,label:'도구 기본기'},
-{from:18,to:23,label:'말로 시키고, 결과만 본다'},
-{from:24,to:32,label:'실사례'},
-{from:33,to:37,label:'잘 쓰는 사람의 습관'},
-{from:38,to:41,label:'혼자에서, 같이'},
-{from:42,to:43,label:'Closing'}
+{from:9,to:18,label:'도구 기본기'},
+{from:19,to:24,label:'말로 시키고, 결과만 본다'},
+{from:25,to:33,label:'실사례'},
+{from:34,to:38,label:'잘 쓰는 사람의 습관'},
+{from:39,to:42,label:'혼자에서, 같이'},
+{from:43,to:44,label:'Closing'}
 ];
 function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI Agent 세미나';}
 function update(){slides.forEach((s,i)=>s.classList.toggle('active',i===current));if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
