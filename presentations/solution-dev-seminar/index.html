@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<title>AI Agent로 일하는 방법 · 2026.7</title>
+<title>AI Agent와 일해보니 · 2026.7</title>
 <link href="https://fonts.googleapis.com" rel="preconnect" />
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Figtree:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-<script defer src="https://unpkg.com/@phosphor-icons/web"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{overflow:hidden;width:100%;height:100%}
@@ -17,7 +16,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:#000;color:#fff;-webkit-fo
 .slide>*{position:relative;z-index:1;flex-shrink:0}
 .slide.surface,.slide.in-blue,.slide.in-indigo,.slide.in-violet,.slide.in-rose,.slide.in-mint,.slide.in-cyan,.slide.in-sky,.slide.in-amber,.slide.in-orange,.slide.in-navy,.slide.in-teal{background:#0D0D0D}
 .slide.samsung{background:#0D0D0D}
-.slide.blue,.slide.navy,.slide.indigo,.slide.violet,.slide.rose,.slide.mint,.slide.teal,.slide.cyan,.slide.sky,.slide.amber,.slide.orange{background:#0D0D0D}
+.slide.blue{background:radial-gradient(circle at 50% 48%,rgba(96,165,250,0.14),transparent 58%),#0D0D0D}
+.slide.navy{background:radial-gradient(circle at 50% 48%,rgba(96,165,250,0.10),transparent 58%),#0D0D0D}
+.slide.indigo{background:radial-gradient(circle at 50% 48%,rgba(129,140,248,0.12),transparent 58%),#0D0D0D}
+.slide.violet{background:radial-gradient(circle at 50% 48%,rgba(167,139,250,0.13),transparent 58%),#0D0D0D}
+.slide.rose{background:radial-gradient(circle at 50% 48%,rgba(252,165,165,0.10),transparent 58%),#0D0D0D}
+.slide.mint{background:radial-gradient(circle at 50% 48%,rgba(52,211,153,0.12),transparent 58%),#0D0D0D}
+.slide.teal{background:radial-gradient(circle at 50% 48%,rgba(45,212,191,0.11),transparent 58%),#0D0D0D}
+.slide.cyan{background:radial-gradient(circle at 50% 48%,rgba(34,211,238,0.12),transparent 58%),#0D0D0D}
+.slide.sky{background:radial-gradient(circle at 50% 48%,rgba(56,189,248,0.12),transparent 58%),#0D0D0D}
+.slide.amber{background:radial-gradient(circle at 50% 48%,rgba(251,191,36,0.12),transparent 58%),#0D0D0D}
+.slide.orange{background:radial-gradient(circle at 50% 48%,rgba(251,146,60,0.12),transparent 58%),#0D0D0D}
 .slide.light{background:#F0F4FF;color:#0C0F1E}.slide.light .sub{color:#3A4A6A}
 h1{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:900;text-align:center;line-height:1.18;letter-spacing:-0.03em;color:#fff;padding-bottom:4px}
 h2{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;text-align:center;line-height:1.15;letter-spacing:-0.02em}
@@ -26,6 +35,7 @@ h3{margin:0;font-size:clamp(0.9rem,1.2vw,1.1rem);font-weight:400;letter-spacing:
 .sub strong{color:#fff;font-weight:700}
 .em{color:#60a5fa}.accent{color:#60a5fa}.red{color:#fca5a5}.green{color:#34d399}.violet{color:#a78bfa}
 .meta{margin-top:2vh;font-size:0.8rem;color:rgba(255,255,255,0.55);font-weight:400;letter-spacing:0.18em;text-transform:uppercase}
+.meta a{color:inherit;text-decoration-color:rgba(255,255,255,0.35);text-underline-offset:0.18em}
 .comp{display:flex;gap:0;width:100%;max-width:1100px;margin:3vh 0;align-items:stretch}
 .comp-item{padding:4vh 3vw;text-align:center;flex:1;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
 .comp-item:last-child{border-right:none}
@@ -43,6 +53,10 @@ h3{margin:0;font-size:clamp(0.9rem,1.2vw,1.1rem);font-weight:400;letter-spacing:
 .grid-item:last-child{border-right:none}
 .grid-item .name{font-size:clamp(1.1rem,1.4vw,1.35rem);font-weight:700;margin-bottom:8px;color:#fff}
 .grid-item .desc{font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.5);font-weight:300;line-height:1.7}
+.code{background:#090B12;border:1px solid rgba(255,255,255,0.10);padding:2vh 2vw;font-family:'JetBrains Mono','Noto Sans KR',monospace;font-size:clamp(0.82rem,0.95vw,0.92rem);line-height:1.65;max-width:1080px;width:100%;margin:2vh auto;white-space:pre-wrap;color:rgba(255,255,255,0.88);text-align:left;border-radius:12px;box-shadow:none}
+.code .comment{color:rgba(255,255,255,0.55)}.code .keyword{color:#a78bfa}.code .string{color:#34d399}
+.hook-visual{display:block;width:min(960px,74vw);height:auto;margin-top:1.6vh;border:1px solid rgba(96,165,250,0.16)}
+.hub-visual{display:block;width:min(1100px,82vw);height:auto;margin-top:2vh;border:1px solid rgba(167,139,250,0.18)}
 blockquote{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:300;max-width:780px;text-align:center;line-height:1.6;color:rgba(255,255,255,0.95);letter-spacing:-0.01em}
 cite{display:block;margin-top:24px;font-size:0.78rem;color:rgba(255,255,255,0.55);font-style:normal;letter-spacing:0.15em;text-transform:uppercase}
 .note{padding:1.4vh 2.5vw;margin-top:3vh;max-width:82vw;display:flex;align-items:center;gap:12px}
@@ -78,17 +92,15 @@ cite{display:block;margin-top:24px;font-size:0.78rem;color:rgba(255,255,255,0.55
 .impact-sub strong{color:#fff;font-weight:700}
 .formula{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;letter-spacing:0.02em}
 .stat{text-align:center}.stat .number{font-family:'Figtree',sans-serif;font-size:clamp(5rem,12vw,11rem);font-weight:900;letter-spacing:-0.05em;line-height:0.9;color:#fff}.stat .label{font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.4);margin-top:1.5vh;font-weight:300;letter-spacing:0.1em}
-kbd{display:inline-block;padding:2px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:rgba(255,255,255,0.7)}
+kbd{display:inline-block;padding:2px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:rgba(255,255,255,0.7)}
 .nav{position:fixed;bottom:28px;left:44px;display:flex;gap:6px;z-index:100}
 .nav button{width:36px;height:36px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.45);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s}
 .nav button:hover{background:rgba(255,255,255,0.14);color:#fff}
 .nav button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
-.part-label{position:fixed;top:28px;left:44px;font-size:0.7rem;color:rgba(255,255,255,0.15);letter-spacing:0.14em;text-transform:uppercase;font-weight:400;z-index:100}
 .page-num{position:fixed;bottom:32px;right:44px;font-size:0.7rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;font-family:'Figtree',sans-serif;z-index:100}
 .progress{position:fixed;top:0;left:0;height:1px;background:rgba(255,255,255,0.3);z-index:200;transition:none}
 .slide:focus-visible{outline:none}
 @media(max-width:768px){.slide{padding:6vh 6vw 80px}.comp,.grid,.stat-grid{flex-direction:column;gap:0}.comp-item,.stat-card{border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);padding:2vh 0}.comp-item:last-child,.stat-card:last-child{border-bottom:none}.arch-layers{gap:0}.arch-layer{flex-direction:column;align-items:flex-start;padding:1.5vh 0;gap:4px}.arch-layer .role{width:auto;margin-bottom:2px}.arch-layer .desc{text-align:left}.two-col{flex-direction:column;gap:2vh}.tbl{display:block;overflow-x:auto}.nav{left:20px;bottom:20px}.pipeline{flex-wrap:wrap;gap:0}}
-@media print{body{background:#fff;color:#000;overflow:visible}.nav,.progress,.part-label,.page-num{display:none}.slides{display:block}.slide{min-height:auto;page-break-after:always;background:#fff!important;color:#000!important;padding:2cm}.em,.red,.green,.violet{color:#000!important}.sub{color:#333!important}}
 @media(prefers-reduced-motion:reduce){.nav button{transition:none}}
 
 /* ===== VISIBILITY OVERRIDE ===== */
@@ -96,8 +108,8 @@ html{font-size:207.5%}
 /* smaller projection screens: step the scale down */
 @media (min-width:769px) and (max-height:880px){html{font-size:182%}}
 @media (min-width:769px) and (max-height:790px){html{font-size:158%}}
-.meta{font-size:0.92rem!important;color:rgba(255,255,255,0.85)!important;letter-spacing:0!important;text-transform:none!important}
-.part-label{font-size:0.78rem!important;color:rgba(255,255,255,0.78)!important;letter-spacing:0!important;text-transform:none!important}
+.meta{font-size:clamp(0.78rem,0.86vw,0.82rem)!important;color:rgba(255,255,255,0.7)!important;letter-spacing:0!important;text-transform:none!important}
+.meta.byline{font-size:0.92rem!important;color:rgba(255,255,255,0.85)!important}
 .page-num{font-size:0.78rem!important;color:rgba(255,255,255,0.8)!important;letter-spacing:0!important}
 cite{font-size:0.88rem!important;color:rgba(255,255,255,0.82)!important}
 .tbl th{font-size:0.85rem!important;color:rgba(255,255,255,0.85)!important;letter-spacing:0!important;text-transform:none!important}
@@ -112,7 +124,8 @@ cite{font-size:0.88rem!important;color:rgba(255,255,255,0.82)!important}
 .sub{color:rgba(255,255,255,0.93)!important}
 .note.warn p,.note.tip p{font-size:clamp(0.98rem,1.2vw,1.12rem)!important;color:rgba(255,255,255,0.92)!important}
 .list li{font-size:clamp(1.2rem,1.8vw,1.55rem)!important;color:rgba(255,255,255,0.95)!important}
-.pipeline-step{font-size:clamp(0.95rem,1.2vw,1.1rem)!important;color:rgba(255,255,255,0.88)!important}
+.pipeline-step{font-size:clamp(1.06rem,1.32vw,1.22rem)!important;color:rgba(255,255,255,0.88)!important}
+.pipeline-step span{font-size:0.84em!important}
 [style*="rgba(255,255,255,0.25)"]{color:rgba(255,255,255,0.8)!important}
 [style*="rgba(255,255,255,0.3)"]{color:rgba(255,255,255,0.82)!important}
 [style*="rgba(255,255,255,0.35)"]{color:rgba(255,255,255,0.85)!important}
@@ -157,7 +170,7 @@ h3{font-size:clamp(1rem,1.35vw,1.25rem)!important;color:rgba(255,255,255,0.78)!i
 .em{font-weight:700}
 .slide.light .em{font-weight:800}
 /* ===== BACK-ROW LEGIBILITY PASS ===== */
-.comp-item{gap:12px;justify-content:flex-start;padding:3vh 1.6vw}
+.comp-item{gap:12px;justify-content:center;padding:3vh 1.6vw}
 .stat-card{justify-content:flex-start;padding-top:1.5vh}
 .stat-card .label{min-height:2.8em;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.3;margin-bottom:1.2vh}
 .stat-card .source{min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;line-height:1.35}
@@ -188,40 +201,49 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 /* stat value: optically center the digits, let the small unit overhang right */
 .stat-card .value{position:relative}
 .stat-card .value span{position:absolute;left:100%;bottom:0.12em;margin-left:2px;white-space:nowrap}
-/* ===== CARD SYSTEM: subtle borders + faint fills so groups read as cards, not floating text ===== */
+/* ===== CARD SYSTEM: rounded geometry + restrained edge accents ===== */
 .comp{gap:1.1vw;max-width:1300px}
-.comp-item,.comp-item:last-child{background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:3vh 1.2vw}
-.comp-item[style*="border-top-color"]{border-top-width:3px}
+.comp-item,.comp-item:last-child{background:rgba(255,255,255,0.022);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:3vh 1.2vw;box-shadow:none;display:grid;grid-template-rows:minmax(1.5em,auto) minmax(4.8em,1fr);align-items:center;justify-items:center;gap:1.2vh}
+.comp-item .tag{align-self:start;display:flex;align-items:center;justify-content:center;min-height:1.5em}
+.comp-item>p,.comp-item>div:not(.tag){align-self:center}
+.comp-item[style*="border-top-color"]{border-top-width:2px}
 .stat-grid{gap:1.1vw}
-.stat-card,.stat-card:last-child{background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:2.6vh 1.6vw 2.8vh}
+.stat-card,.stat-card:last-child{background:rgba(255,255,255,0.022);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:2.6vh 1.6vw 2.8vh;box-shadow:none}
 .arch-layers{gap:1.2vh;max-width:min(1260px,88vw)!important}
-.arch-layer,.arch-layer:last-child{background:rgba(255,255,255,0.024);border:1px solid rgba(255,255,255,0.07);border-radius:12px}
+.arch-layer,.arch-layer:last-child{background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.07);border-radius:10px;box-shadow:none}
 .arch-layer.on{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.05)}
 @media (max-width: 768px){
   body{overflow:auto}.slides{height:auto;display:block;transform:none!important;width:100%}.slide{position:relative;min-height:100vh;width:100vw;padding:72px 22px 92px;display:none!important}.slide.active{display:flex!important}
   html,body{max-width:100%;overflow-x:hidden;word-break:normal}.slide{align-items:center;text-align:center;overflow-x:hidden}.slide,.slide *{overflow-wrap:anywhere;word-break:normal}.slide>*{max-width:100%;min-width:0}.slide>h1,.slide>h2,.slide>h3,.slide>.sub,.slide>.meta,.slide>p{width:100%}
   h1{font-size:clamp(2.25rem,11vw,3.1rem);line-height:1.12} h2{font-size:clamp(1.75rem,8vw,2.6rem);line-height:1.16} h3{max-width:100%;font-size:clamp(.78rem,3.4vw,1rem);letter-spacing:.04em;line-height:1.45;text-align:center}.sub{font-size:clamp(.95rem,4vw,1.2rem);line-height:1.45}.meta{font-size:.72rem;letter-spacing:.08em;line-height:1.5}
-  img,video{max-width:100%!important;max-height:58vh!important}.stat-grid,.comp,.two-col,.arch-layers{grid-template-columns:1fr!important;display:grid!important;width:100%!important}.tbl{font-size:.8rem}.page-num{right:18px;bottom:18px}.nav{left:18px;bottom:18px}.part-label{left:22px;top:18px}
+  img,video{max-width:100%!important;max-height:58vh!important}.stat-grid,.comp,.two-col,.arch-layers{grid-template-columns:1fr!important;display:grid!important;width:100%!important}.tbl{font-size:.8rem}.page-num{right:18px;bottom:18px}.nav{left:18px;bottom:18px}
   .slide>div[style*="display:flex"]{max-width:100%!important;min-width:0!important}.slide>div[style*="display:flex"]>div{width:100%!important;max-width:100%!important;min-width:0!important}.slide>div[style*="display:flex"]>div>*{max-width:100%!important;white-space:normal!important}.slide>div[style*="gap:5vw"]{flex-direction:column!important;gap:1.4vh!important}.slide>div[style*="gap:5vw"]>div[style*="font-size:2.2rem"]{font-size:1.4rem!important;transform:rotate(90deg)}
   .slide [style*="font-size:clamp(3rem"]{font-size:clamp(2.25rem,13vw,3.25rem)!important}.slide [style*="font-size:clamp(2.6rem"]{font-size:clamp(2rem,12vw,3rem)!important}
   .slide [style*="font-size:1.05rem"]{font-size:.92rem!important;line-height:1.4!important}
 }
 
-/* ===== FILL-IN GUIDE (presenter placeholders — replace before presenting) ===== */
-.fill-wrap{width:100%;max-width:1240px;margin-top:1.2vh;display:flex;flex-direction:column;gap:0.9vh}
-.fill-box{border:2px dashed rgba(167,139,250,0.45);background:rgba(167,139,250,0.05);border-radius:14px;padding:1.5vh 2vw;text-align:left}
-.fill-box .fill-tag{display:inline-block;font-size:0.82rem;font-weight:800;letter-spacing:0.1em;color:#a78bfa;margin-bottom:0.7vh}
-.fill-box ul{list-style:none;display:flex;flex-direction:column;gap:0.45vh;margin:0;padding:0}
-.fill-box li{font-size:clamp(0.94rem,1.1vw,1.05rem);color:rgba(255,255,255,0.85);line-height:1.45;text-align:left}
-.fill-box li strong{color:#fff}
-.fill-prompt{font-family:'JetBrains Mono','Noto Sans KR',monospace;font-size:clamp(0.8rem,0.92vw,0.9rem);line-height:1.55;color:rgba(255,255,255,0.78);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:1.1vh 1.3vw;text-align:left;white-space:pre-wrap}
-.fill-prompt .fp-label{display:block;font-family:'Noto Sans KR',sans-serif;font-weight:700;color:#a78bfa;margin-bottom:0.5vh;letter-spacing:0.04em}
-.sample-dim{opacity:0.55}
+@media (min-width:769px) and (max-width:1100px){
+  .pipeline{width:100%;justify-content:center}
+  .pipeline-step{padding:1.2vh 1vw!important;font-size:clamp(0.82rem,1.05vw,0.96rem)!important}
+  .pipeline-arrow{padding:0 1px}
+}
+@media (min-width:769px) and (max-height:880px){.hook-visual{width:min(800px,78vw)}.hub-visual{width:min(850px,78vw)}}
+
+@page{size:landscape;margin:0}
+@media print{
+  html{font-size:100%!important}
+  html,body{width:100%;height:auto;overflow:visible!important;background:#fff!important;color:#111!important}
+  .nav,.progress,.page-num{display:none!important}
+  .slides{display:block!important;transform:none!important}
+  .slide,.slide.active{display:flex!important;width:100%!important;min-width:0!important;height:100vh!important;min-height:100vh!important;page-break-after:always;break-after:page;background:#fff!important;color:#111!important;overflow:visible!important;padding:4vh 5vw!important}
+  .slide *{color:#111!important;text-shadow:none!important}
+  .slide img{filter:none!important}
+  .comp-item,.stat-card,.arch-layer,.grid-item,.code{background:#fff!important;border-color:#c8c8c8!important;box-shadow:none!important}
+}
 
 </style>
 </head>
 <body>
-<div class="part-label" id="partLabel">AI Agent 세미나 · 2026. 7</div>
 <div class="progress" id="progress"></div>
 <div class="slides" id="slides">
 
@@ -229,86 +251,64 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 
 <!-- 00 Cover -->
 <div class="slide samsung" style="background:#0D0D0D url('/presentations/assets/images/cover-orbit.jpg') center/cover no-repeat;">
-  <h1>AI Agent로<br>일하는 방법</h1>
-  <p class="sub">같은 도구, <span class="em">다른 결과</span></p>
-  <p class="meta" style="margin-top:4vh;">S/W개발팀 S/W 혁신 P/J SE 김학민 &middot; 2026. 7</p>
+  <h1>AI Agent와<br>일해보니</h1>
+  <p class="sub">잘 시키고 &middot; 잘 확인하고 &middot; <span class="em">내 일에 맞추는 이야기</span></p>
+  <p class="meta byline" style="margin-top:4vh;">S/W개발팀 S/W 혁신 P/J SE 김학민 &middot; 2026. 7</p>
 </div>
 
 <!-- 01 Hook -->
 <div class="slide">
-  <h3>Claude Code &middot; CCN &middot; CodeMate &mdash; 도구는 이미 보급</h3>
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem); line-height:1.35;">누군가에겐 <span style="color:rgba(255,255,255,0.5);">채팅창이 하나</span> 늘었고<br>누군가에겐 <span class="em">작은 팀이 하나</span> 생겼다</p>
-  <img src="/presentations/assets/images/hook-min.jpg" alt="채팅창 하나와 작은 팀의 대비" style="width:100%; max-width:1060px; max-height:34vh; object-fit:cover; border-radius:10px; margin-top:2.6vh; border:1px solid rgba(255,255,255,0.08);" />
-  <p class="sub" style="margin-top:2.2vh;">같은 도구 &mdash; <span class="em">왜 다를까</span></p>
+  <h3>같은 AI 도구 &mdash; 쓰는 방식은 다르다</h3>
+  <p class="impact-text" style="font-size:clamp(1.9rem,3.6vw,3.2rem); line-height:1.25;"><span style="color:rgba(255,255,255,0.62);">한쪽은 답을 받고</span><br>한쪽은 <span class="em">일을 맡긴다</span></p>
+  <img class="hook-visual" src="/presentations/assets/images/hook-min.jpg" alt="혼자 주고받는 말풍선 하나와 서로 연결된 에이전트 팀 클러스터의 대비" />
+  <p class="sub" style="margin-top:1.6vh;">질문 &middot; 답변에서 &mdash; <span class="em">계획 &middot; 실행 &middot; 검증으로</span></p>
 </div>
 
-<!-- 02 오늘의 흐름 -->
-<div class="slide surface">
-  <h2 style="font-size:clamp(1.9rem,3.2vw,2.7rem);">오늘의 흐름</h2>
-  <div style="display:grid;grid-template-columns:44px 1fr auto;column-gap:2.5vw;row-gap:0;width:100%;max-width:1150px;margin-top:3.4vh;">
-    <span style="font-size:0.86rem;color:rgba(255,255,255,0.4);letter-spacing:0.14em;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);">01</span>
-    <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">격차의 정체</span>
-    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">도구가 아니라 &mdash; 쓰는 방식</span>
-    <span style="font-size:0.86rem;color:rgba(255,255,255,0.4);letter-spacing:0.14em;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);">02</span>
-    <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">도구 기본기</span>
-    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">에이전트를 부리는 기본기</span>
-    <span style="font-size:0.86rem;color:#a78bfa;letter-spacing:0.14em;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);">03</span>
-    <span style="font-size:1.24rem;font-weight:700;color:#a78bfa;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">말로 시키고, 결과만 본다</span>
-    <span style="font-size:0.98rem;color:rgba(167,139,250,0.85);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">Jira &middot; Confluence &middot; SWDP &mdash; 한 자리에서</span>
-    <span style="font-size:0.86rem;color:rgba(255,255,255,0.4);letter-spacing:0.14em;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);">04</span>
-    <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap;">실사례</span>
-    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap;">운영 개선 &middot; 자동화 &mdash; 직접 보기</span>
-    <span style="font-size:0.86rem;color:rgba(255,255,255,0.4);letter-spacing:0.14em;padding:1.8vh 0;">05</span>
-    <span style="font-size:1.24rem;font-weight:700;color:#fff;padding:1.8vh 0;white-space:nowrap;">습관, 그리고 나누기</span>
-    <span style="font-size:0.98rem;color:rgba(255,255,255,0.55);font-weight:300;padding:1.8vh 0;text-align:right;white-space:nowrap;">위임 &middot; 검증 &middot; 공유</span>
-  </div>
-</div>
-
-<!-- ════════ ① 격차의 정체 ════════ -->
+<!-- ════════ ① 좋은 도구로 잘 일하는 조건 ════════ -->
 
 <!-- 03 divider -->
 <div class="slide amber">
-  <h1>격차의 정체</h1>
-  <p class="sub" style="margin-top:1vh;">도구 보급은 끝이 아니라 &mdash; <span class="em">시작</span></p>
+  <h1>좋은 도구로<br>잘 일하는 조건</h1>
+  <p class="sub" style="margin-top:1vh;">좋은 도구는 시작 &mdash; <span class="em">편하게 잘 일하려면 사용 방식과 연결 설계가 필요</span></p>
 </div>
 
 <!-- 04 숫자 한 장 -->
 <div class="slide in-amber">
-  <h3>바깥 이야기는 &mdash; 한 장으로</h3>
+  <h3>AI가 좋아져도 &mdash; 일하는 방식은 저절로 바뀌지 않는다</h3>
   <div class="stat-grid" style="max-width:1120px;">
     <div class="stat-card on">
-      <div class="label">자율 작업 길이</div>
+      <div class="label">50% 성공 시간지평</div>
       <div class="value" style="color:#fbbf24;">2배</div>
-      <div class="source">약 7개월마다</div>
+      <div class="source">약 7개월마다 &middot; SW/연구 과제</div>
     </div>
     <div class="stat-card on">
-      <div class="label">개인적으로 AI 사용</div>
-      <div class="value">90%</div>
-      <div class="source">직원 비율</div>
+      <div class="label">직원 AI 사용 보고</div>
+      <div class="value">90%+</div>
+      <div class="source">조사 기업 비율</div>
     </div>
     <div class="stat-card on">
-      <div class="label">조직 성과는 별개</div>
-      <div class="value" style="color:#fbbf24;">95%</div>
-      <div class="source">파일럿 중 손익 무영향</div>
+      <div class="label">업무 통합의 난도</div>
+      <div class="value" style="color:#fbbf24;">5%</div>
+      <div class="source">특정업무형 도구의 성공적 구현</div>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">성능 논쟁은 지난 구간 &mdash; 남은 건 <span class="em">업무에 연결하는 방식</span></p>
-  <p class="meta" style="margin-top:1vh;">참고: METR &middot; MIT NANDA (2025)</p>
+  <p class="sub" style="margin-top:2.2vh;">모델은 빠르게 좋아져도 &mdash; 실제 일은 <span class="em">연결 &middot; 학습 &middot; 검증 설계</span>가 바꾼다</p>
+  <p style="margin-top:1vh; font-size:clamp(0.76rem,0.9vw,0.86rem); color:rgba(255,255,255,0.7); text-align:center;">출처: <a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">METR Time Horizon (2025)</a> &middot; <a href="https://mlq.ai/media/quarterly_decks/v0.1_State_of_AI_in_Business_2025_Report.pdf" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">MIT NANDA GenAI Divide v0.1 (2025, pp. 3&middot;8)</a></p>
 </div>
 
 <!-- 05 우리 콜백 -->
 <div class="slide in-amber">
-  <h3>우리 안의 숫자</h3>
+  <h3>SW Dev. Portal 개발 사례</h3>
   <div class="stat-grid" style="max-width:1000px;">
     <div class="stat-card on">
-      <div class="label">투입 인원</div>
+      <div class="label">계획 대비 투입 인원</div>
       <div class="value" style="color:#fbbf24;">1/5</div>
-      <div class="source">10명 &rarr; 2명</div>
+      <div class="source">10명 계획 &rarr; 2명 실제</div>
     </div>
     <div class="stat-card on">
-      <div class="label">소요 기간</div>
+      <div class="label">계획 대비 소요 기간</div>
       <div class="value" style="color:#fbbf24;">1/13</div>
-      <div class="source">1년 &rarr; 4주</div>
+      <div class="source">1년 계획 &rarr; 4주 실제</div>
     </div>
     <div class="stat-card on">
       <div class="label">다룬 규모</div>
@@ -316,50 +316,72 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
       <div class="source">전면 개편</div>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">사내 포털 전면 개편 &mdash; 오늘은 <span class="em">그 뒤에 있던 방법</span> 이야기</p>
+  <p class="sub" style="margin-top:2.2vh;">사내 포털 전면 개편 &mdash; 수치보다 <span class="em">작업 방식의 변화</span>에 주목</p>
+  <p class="meta" style="margin-top:1vh;">내부 프로젝트 사례 &middot; 범위 &middot; 조직 &middot; 품질 기준에 따라 결과는 달라질 수 있음</p>
 </div>
 
-<!-- 06 두 함정 -->
+<!-- 06 편하게 잘 일하는 세 가지 레버 -->
 <div class="slide in-amber">
-  <h3>잘 안 풀릴 때 &mdash; 빠지기 쉬운 두 루프</h3>
-  <div class="comp" style="margin-top:2vh; max-width:1000px;">
+  <h3>편하게 잘 일하는 세 가지 레버</h3>
+  <div class="comp" style="margin-top:2vh; max-width:1460px;">
     <div class="comp-item on">
-      <div class="tag">WAIT</div>
-      <p>"다음 모델 나오면<br>나아지려나"</p>
+      <div class="tag">MODEL &middot; AGENT</div>
+      <p>더 좋은 모델과 도구로<br><strong>할 수 있는 일</strong>을 넓힌다</p>
     </div>
     <div class="comp-item on">
-      <div class="tag">TUNE</div>
-      <p>"질문을 더<br>잘 써야 하나"</p>
+      <div class="tag">REQUEST</div>
+      <p>상태 &middot; 가설 &middot; 제약으로<br><strong>요청의 품질</strong>을 높인다</p>
+    </div>
+    <div class="comp-item on" style="border-top-color:rgba(251,191,36,0.55);">
+      <div class="tag" style="color:#fbbf24 !important;">WORKFLOW</div>
+      <p style="color:#fbbf24;">컨텍스트 &middot; 도구 &middot; 검증을<br><strong>업무 흐름</strong>에 연결한다</p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">둘 다 익숙한 대응 &mdash; 격차의 변수는 <span class="em">둘 다 아닌 편</span></p>
+  <p class="sub" style="margin-top:2.2vh;">셋 모두 중요 &mdash; <span class="em">업무 흐름에 연결할 때 비로소 내 일이 편해진다</span></p>
 </div>
 
-<!-- 07 명제 -->
+<!-- 07 실제 개발 업무의 구성 -->
 <div class="slide in-amber">
-  <h3>격차의 위치</h3>
-  <p class="impact-text" style="font-size:clamp(2.3rem,4.4vw,4rem);">격차는 질문이 아니라 &mdash; <span class="em">그다음</span>에서</p>
-  <p class="impact-sub" style="margin-top:3vh;">답을 받은 뒤 <strong>무엇을 하는가</strong> &mdash; 바깥에 <strong>무엇을 깔아두는가</strong></p>
+  <h3>실제 개발 업무를 분해하면 &mdash; 코딩은 한 구간</h3>
+  <div class="pipeline" style="margin-top:2.8vh;">
+    <div class="pipeline-step">요구사항<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">Jira &middot; 회의</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">조사 &middot; 설계<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">로그 &middot; 스펙</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="color:#fbbf24;">구현<br><span style="font-size:0.8em;color:rgba(251,191,36,0.75);">code</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">검증<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">test &middot; review</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">문서 &middot; 공유<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">wiki &middot; pptx</span></div>
+  </div>
+  <p class="sub" style="margin-top:2.4vh;">코드는 한 구간 &mdash; 많은 시간은 <span class="em">읽고 &middot; 판단하고 &middot; 설명하는 일</span></p>
+  <p style="margin-top:1.1vh; font-size:clamp(0.76rem,0.92vw,0.9rem); color:rgba(255,255,255,0.58); text-align:center;">텍스트와 파일로 남는 업무는 &mdash; 에이전트가 읽고 &middot; 만들고 &middot; 검증하기 좋다</p>
 </div>
 
-<!-- 08 코드만이 아니다 -->
+<!-- 08 문서도 코드다 -->
 <div class="slide in-amber">
-  <h3>코드만의 이야기도 아니다</h3>
-  <div class="comp" style="margin-top:2.4vh;">
-    <div class="comp-item on">
-      <div class="tag">코드</div>
-      <p>구현 &middot; 테스트<br>리뷰</p>
+  <h3>문서 작업도 &mdash; 문법과 구조를 다루는 일</h3>
+  <div class="two-col" style="max-width:1180px; align-items:center; gap:2.2vw; margin-top:1.4vh;">
+    <div class="col">
+      <div class="code" style="max-width:none; margin:0; font-size:clamp(0.78rem,0.9vw,0.88rem);"><span class="comment">// PptxGenJS &mdash; 슬라이드도 코드로 표현된다</span>
+<span class="keyword">const</span> slide = pptx.addSlide();
+slide.addText(<span class="string">"AI Agent와 일해보니"</span>, {
+  x: 0.8, y: 0.7, w: 11.7, h: 0.6,
+  fontFace: <span class="string">"Noto Sans KR"</span>,
+  fontSize: 28, bold: true,
+  color: <span class="string">"FFFFFF"</span>
+});</div>
     </div>
-    <div class="comp-item on">
-      <div class="tag">문서</div>
-      <p>스펙 &middot; 보고서<br>위키</p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">데이터</div>
-      <p>로그 &middot; 지표<br>리포트</p>
+    <div class="col">
+      <p class="impact-text" style="font-size:clamp(1.9rem,3.2vw,3rem); text-align:left;">문서도<br><span class="em">코드로 다룬다</span></p>
+      <ul class="list" style="margin-top:1.4vh; max-width:none;">
+        <li style="text-align:left; font-size:clamp(0.92rem,1.15vw,1.08rem)!important; line-height:1.35;"><strong>PPTX</strong> &mdash; 객체 &middot; 좌표 &middot; 스타일</li>
+        <li style="text-align:left; font-size:clamp(0.92rem,1.15vw,1.08rem)!important; line-height:1.35;"><strong>Confluence</strong> &mdash; XHTML &middot; 매크로 구조</li>
+        <li style="text-align:left; font-size:clamp(0.92rem,1.15vw,1.08rem)!important; line-height:1.35;"><strong>Wiki &middot; 보고서</strong> &mdash; Markdown &middot; HTML</li>
+      </ul>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.4vh;">파일로 남는 일은 전부 &mdash; <span class="em">에이전트가 다룰 수 있는 일</span></p>
+  <p class="sub" style="margin-top:2.2vh;">LLM은 텍스트를 읽고 &middot; 구조화하고 &middot; <span class="em">다른 문법으로 변환하는 데 강하다</span></p>
 </div>
 
 <!-- ════════ ② 도구의 지도 ════════ -->
@@ -404,7 +426,7 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     <path d="M 1110 236 L 1110 320 Q 1110 340 1090 340 L 490 340 Q 470 340 470 320 L 470 244" fill="none" stroke="rgba(34,211,238,0.55)" stroke-width="2" marker-end="url(#arwc)"/>
     <text x="790" y="326" font-family="'Noto Sans KR',sans-serif" font-size="27" text-anchor="middle" fill="rgba(34,211,238,0.85)">다시 계획</text>
   </svg>
-  <p class="sub" style="margin-top:2vh;">사람이 매 단계 붙지 않아도 &mdash; <span class="em">루프가 일을 끌고 감</span></p>
+  <p class="sub" style="margin-top:2vh;">사람이 매 단계 붙지 않아도 &mdash; <span class="em">검증 루프가 일을 끌고 감</span></p>
 </div>
 
 <!-- 12 Plan -->
@@ -466,7 +488,7 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
       <tr><td style="white-space:nowrap;"><strong>작은 수정</strong></td><td style="white-space:nowrap;">메인 대화에서 직접</td><td style="white-space:nowrap;">맥락 유지</td></tr>
       <tr><td style="white-space:nowrap;"><strong>넓은 탐색</strong></td><td style="white-space:nowrap;">탐색 에이전트</td><td style="white-space:nowrap;">결론만 회수</td></tr>
       <tr><td style="white-space:nowrap;"><strong>독립 작업 여러 개</strong></td><td style="white-space:nowrap;">병렬 에이전트</td><td style="white-space:nowrap;">동시 진행</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>조사 &middot; 의사결정</strong></td><td style="white-space:nowrap;">관점별로 나눠 던짐</td><td style="white-space:nowrap;">결과 종합</td></tr>
+      <tr><td style="white-space:nowrap;"><strong>조사 &middot; 의사결정</strong></td><td style="white-space:nowrap;">관점별 독립 검토</td><td style="white-space:nowrap;">결과 종합</td></tr>
     </tbody>
   </table>
   <p class="sub" style="margin-top:2vh;">병렬은 비용도 몇 배 &mdash; <span class="em">얻는 게 분명할 때만</span></p>
@@ -474,23 +496,23 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 
 <!-- 16 Skills -->
 <div class="slide in-cyan">
-  <h3>반복 절차는 &mdash; 한 단어 명령으로</h3>
+  <h3>반복해서 설명하던 방식은 &mdash; 실행 단위로 남긴다</h3>
   <div class="comp" style="margin-top:2.2vh; max-width:1000px;">
     <div class="comp-item on">
-      <div class="tag">어제까지</div>
-      <p>잘 나온 지시문을<br><strong>매번 복붙</strong></p>
+      <div class="tag">매번 다시 설명</div>
+      <p>같은 규칙<br>같은 순서<br><strong>같은 검증</strong></p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.5);">
-      <div class="tag" style="color:#22d3ee !important;">오늘부터</div>
-      <p style="color:#22d3ee;">스킬로 고정<br><kbd>/명령</kbd> 하나로 재현</p>
+      <div class="tag" style="color:#22d3ee !important;">한 번 정의</div>
+      <p style="color:#22d3ee;">규칙 파일<br>skill &middot; command<br><strong>workflow</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">절차를 고치면 &mdash; <span class="em">다음 백 번에 적용</span></p>
+  <p class="sub" style="margin-top:2.2vh;">한 번 고친 방식이 &mdash; <span class="em">이후 실행부터 계속 반영된다</span></p>
 </div>
 
 <!-- 17 안전장치 -->
 <div class="slide in-cyan">
-  <h3>안전장치 &mdash; 사람이 안 봐도 지켜지는 선</h3>
+  <h3>안전장치 &mdash; 반복해서 확인하지 않아도 지켜지는 선</h3>
   <div class="comp" style="margin-top:2.2vh;">
     <div class="comp-item on">
       <div class="tag">사전 차단</div>
@@ -501,65 +523,63 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
       <p>작업 후 검사<br><strong>매번 자동</strong></p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.5);">
-      <div class="tag" style="color:#22d3ee !important;">허용 범위</div>
-      <p style="color:#22d3ee;">안전한 것만 허용<br><strong>나머지는 물어보게</strong></p>
+      <div class="tag" style="color:#22d3ee !important;">최소 권한</div>
+      <p style="color:#22d3ee;">필요한 도구만 허용<br><strong>나머지는 물어보게</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">문서는 참고되는 것 &mdash; <span class="em">장치는 강제되는 것</span></p>
+  <p class="sub" style="margin-top:2.2vh;">문서는 안내하고 &mdash; <span class="em">장치는 강제한다</span></p>
 </div>
 
 <!-- 18 뜻밖의 반전 -->
 <div class="slide in-cyan">
-  <h3>여기까지의 공통점</h3>
-  <div style="display:flex; gap:1vw; justify-content:center; flex-wrap:wrap; margin-top:1.6vh;">
-    <kbd style="font-size:clamp(0.95rem,1.2vw,1.15rem); padding:8px 18px;">settings.json</kbd>
-    <kbd style="font-size:clamp(0.95rem,1.2vw,1.15rem); padding:8px 18px;">.env</kbd>
-    <kbd style="font-size:clamp(0.95rem,1.2vw,1.15rem); padding:8px 18px;">규칙 파일</kbd>
-    <kbd style="font-size:clamp(0.95rem,1.2vw,1.15rem); padding:8px 18px;">git</kbd>
+  <h3>개발자가 아니어도 &mdash; SW 엔지니어링을 조금 알면 유리하다</h3>
+  <p class="impact-text" style="font-size:clamp(1.8rem,3.3vw,3rem);">에이전트는 수많은 도구를<br><span class="em">만들고 &middot; 설정하고 &middot; 실행한다</span></p>
+  <div class="pipeline" style="margin-top:2.4vh;">
+    <div class="pipeline-step">규칙 읽기<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">rule</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">스펙 잡기<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">spec</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="color:#22d3ee;">도구 &middot; 설정 만들기<br><span style="font-size:0.8em;color:rgba(34,211,238,0.72);">program</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">실행 &middot; 테스트<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">verify</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">변경 기록<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">version</span></div>
   </div>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem); margin-top:3vh;">"개발자가 먼저 망한다"더니 &mdash;<br>다루기엔 <span class="em">전공자가 유리</span></p>
-  <p class="sub" style="margin-top:2.4vh;">에이전트를 부리는 재료가 &mdash; <span class="em">전부 SW의 모양</span></p>
+  <p class="sub" style="margin-top:2.4vh;">규칙 &middot; 스펙 &middot; 테스트 &middot; 버전 관리를 조금만 알아도 &mdash; <span class="em">에이전트를 훨씬 다루기 쉬워진다</span></p>
 </div>
 
-<!-- ════════ ③ 말로 시키고, 결과만 본다 ════════ -->
+<!-- ════════ ③ 말로 시키고, 근거로 확인한다 ════════ -->
 
 <!-- 18 divider -->
 <div class="slide violet">
-  <h1>말로 시키고,<br>결과만 본다</h1>
+  <h1>말로 시키고,<br>근거로 확인한다</h1>
   <p class="meta" style="margin-top:2.8vh;">Jira &middot; Confluence &middot; SWDP &middot; Prometheus &middot; Splunk &middot; Knox</p>
 </div>
 
-<!-- 19 내가 AI Agent로 일하는 방법 -->
-<!-- 이미지 자리: 실제 작업 화면 캡처 1장 (터미널 하나에서 Jira·Confluence·SWDP가 오가는 모습) — 프롬프트 없음, 사진으로 채움 -->
+<!-- 19 위임의 공통 형식 -->
 <div class="slide in-violet">
-  <h3>내가 AI Agent로 일하는 방법</h3>
-  <div class="arch-layers" style="max-width:940px; margin-top:1.6vh;">
-    <div class="arch-layer">
-      <div class="role">시작</div>
-      <div class="brand">터미널 하나를 엽니다</div>
-      <div class="desc">이 화면이 전부</div>
+  <h3>모든 업무에 쓰는 &mdash; 위임의 공통 형식</h3>
+  <p class="impact-text" style="font-size:clamp(2.4rem,4.6vw,4.2rem);"><span class="em">목표</span> + 경계 + 근거</p>
+  <div class="grid" style="max-width:1080px; margin-top:3vh;">
+    <div class="grid-item">
+      <p class="name">목표</p>
+      <p class="desc">무엇을 바꿀지<br>어디까지 끝낼지</p>
     </div>
-    <div class="arch-layer on">
-      <div class="role">지시</div>
-      <div class="brand">말로 시킵니다</div>
-      <div class="desc">티켓 번호 하나 &middot; 문장 하나</div>
+    <div class="grid-item">
+      <p class="name em">경계</p>
+      <p class="desc">다룰 범위<br>하면 안 되는 것</p>
     </div>
-    <div class="arch-layer">
-      <div class="role">확인</div>
-      <div class="brand">결과만 봅니다</div>
-      <div class="desc">중간 과정은 에이전트가</div>
+    <div class="grid-item">
+      <p class="name">근거</p>
+      <p class="desc">변경 &middot; 테스트 &middot; 로그<br>판단할 수 있는 증거</p>
     </div>
   </div>
-  <div class="fill-wrap" style="max-width:940px;">
-    <div class="fill-box" style="text-align:center;">
-      <ul><li style="text-align:center;">이미지 자리 &mdash; <strong>실제 작업 화면 한 장</strong> (터미널 하나에서 Jira &middot; Confluence &middot; SWDP가 오가는 모습)</li></ul>
-    </div>
-  </div>
+  <p class="sub" style="margin-top:2.6vh;">사람은 방향과 금지선을 정하고 &mdash; <span class="em">중간 작업은 에이전트에 맡긴다</span></p>
 </div>
 
 <!-- 20 연결 지도 -->
 <div class="slide in-violet">
-  <h3>API가 있는 서비스는 &mdash; 전부 도구가 된다</h3>
+  <h3>연결 조건이 갖춰진 서비스는 &mdash; 에이전트의 도구가 된다</h3>
   <div class="arch-layers" style="max-width:1080px; margin-top:1.8vh;">
     <div class="arch-layer">
       <div class="role">업무</div>
@@ -587,12 +607,12 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
       <div class="desc">노티 &middot; 보고</div>
     </div>
   </div>
-  <p class="meta" style="margin-top:1.4vh;">MCP = 서비스를 에이전트의 도구로 만들어 주는 표준 연결 방식</p>
+  <p class="meta" style="margin-top:1.4vh;">MCP = 모델이 외부 도구와 데이터에 접근하는 표준 연결 방식 &middot; 인증 &middot; 권한 &middot; 감사 로그는 별도 설계</p>
 </div>
 
 <!-- 21 세 가지 치환 -->
 <div class="slide in-violet">
-  <h3>연결이 만드는 세 가지 치환</h3>
+  <h3>Jira는 스펙, Confluence는 컨텍스트, SWDP는 검증</h3>
   <div class="arch-layers" style="max-width:1020px; margin-top:2.4vh;">
     <div class="arch-layer">
       <div class="role">티켓</div>
@@ -615,68 +635,73 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
 
 <!-- 23 핵심 -->
 <div class="slide in-violet">
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">하나의 인터페이스로 &mdash; <span class="em">모든 서비스를</span></p>
-  <img src="/presentations/assets/images/hub-min.jpg" alt="하나의 중심에서 여러 서비스로 뻗는 연결" style="width:100%; max-width:1020px; max-height:42vh; object-fit:cover; border-radius:10px; margin-top:2.4vh; border:1px solid rgba(255,255,255,0.08);" />
-  <p class="sub" style="margin-top:2vh;">에이전트가 &mdash; <span class="em">손과 발</span></p>
+  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">하나의 인터페이스로 &mdash; <span class="em">맥락부터 검증까지</span></p>
+  <img class="hub-visual" src="/presentations/assets/images/hub-min.jpg" alt="하나의 중심 인터페이스에서 여러 서비스로 뻗어 나가는 연결" />
+  <p class="sub" style="margin-top:1.8vh;">에이전트가 읽고 &middot; 실행하고 &middot; <span class="em">근거를 돌려준다</span></p>
 </div>
 
 <!-- ════════ ④ 실사례 ════════ -->
 
 <!-- 24 divider -->
 <div class="slide mint">
-  <h1>실사례</h1>
+  <h1>업무 적용 사례</h1>
   <p class="meta" style="margin-top:2.8vh;">개발 &middot; 운영 &middot; 문서 &mdash; 시연 포함</p>
 </div>
 
 <!-- 25 사례 1 개요 -->
 <div class="slide in-mint">
-  <h3>사례 1 &middot; 개발 &mdash; "SWDP API, 왜 느리지?"</h3>
-  <div class="arch-layers" style="max-width:1020px; margin-top:2.2vh;">
-    <div class="arch-layer">
-      <div class="role">지시</div>
-      <div class="brand">"느린 구간 검토해줘"</div>
-      <div class="desc">시작은 한 줄</div>
+  <h3>사례 1 &middot; 개발 &mdash; 에이전트가 개선 후보를 보고한다</h3>
+  <div class="comp" style="margin-top:2.2vh; max-width:1560px;">
+    <div class="comp-item on">
+      <div class="tag">OBSERVE</div>
+      <p>Prometheus 메트릭<br><strong>응답 &middot; 호출 지표</strong></p>
     </div>
-    <div class="arch-layer on">
-      <div class="role">발견</div>
-      <div class="brand">SQL 순차 실행</div>
-      <div class="desc">화면 1회 2초 &mdash; 하루 1,700회+</div>
+    <div class="comp-item on">
+      <div class="tag">ANALYZE</div>
+      <p>코드베이스 분석<br><strong>경로 &middot; 병목 원인</strong></p>
     </div>
-    <div class="arch-layer">
-      <div class="role">조치</div>
-      <div class="brand">캐싱 패치</div>
-      <div class="desc">이슈 &middot; 문서 기록까지 에이전트가</div>
+    <div class="comp-item on">
+      <div class="tag">CONTEXT</div>
+      <p>사용자 질의 파악<br><strong>반복 질문 &middot; 불편</strong></p>
+    </div>
+    <div class="comp-item on" style="border-top-color:rgba(52,211,153,0.55);">
+      <div class="tag" style="color:#34d399 !important;">REPORT</div>
+      <p style="color:#34d399;">개선 후보 리포트<br><strong>근거 &middot; 영향 &middot; 비용</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">사람이 한 일 &mdash; <span class="em">방향 제시와 패치 승인</span></p>
+  <p class="sub" style="margin-top:2.2vh;">에이전트 팀은 후보를 넓게 찾고 &mdash; <span class="em">판단할 근거를 압축한다</span></p>
 </div>
 
-<!-- 26 사례 1 숫자 -->
+<!-- 26 사례 1 리더의 판단 -->
 <div class="slide in-mint">
-  <h3>사례 1 &middot; 개발 &mdash; 숫자로</h3>
-  <div class="stat-grid" style="max-width:1060px;">
-    <div class="stat-card on">
-      <div class="label">화면당 응답</div>
-      <div class="value" style="color:#34d399;">0.1초</div>
-      <div class="source">2초 &rarr; 0.1초 &middot; 캐싱</div>
+  <h3>사례 1 &middot; 개발 &mdash; 사람은 평가하고 방향을 정한다</h3>
+  <div class="comp" style="margin-top:2.2vh; max-width:1080px;">
+    <div class="comp-item on">
+      <div class="tag">보류</div>
+      <p>호출 빈도가 낮고<br>사용자 영향이 제한적<br><strong>수정하지 않음</strong></p>
     </div>
-    <div class="stat-card on">
-      <div class="label">하루 호출</div>
-      <div class="value">1,700<span style="font-size:1.2rem">회+</span></div>
-      <div class="source">누적되던 비효율</div>
-    </div>
-    <div class="stat-card on">
-      <div class="label">하루 절감</div>
-      <div class="value" style="color:#34d399;">~55분</div>
-      <div class="source">약 3,300초</div>
+    <div class="comp-item on" style="border-top-color:rgba(52,211,153,0.55);">
+      <div class="tag" style="color:#34d399 !important;">진행</div>
+      <p style="color:#34d399;">반복 사용 구간이고<br>UX 개선 효과가 큼<br><strong>Jira 등록 &middot; 패치 생성</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">한 번엔 2초 &mdash; <span class="em">쌓이면 하루 한 시간</span></p>
+  <div class="pipeline" style="margin-top:1.2vh;">
+    <div class="pipeline-step">개선 리포트<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">에이전트</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="color:#34d399;">보류 &middot; 진행 결정<br><span style="font-size:0.8em;color:rgba(52,211,153,0.75);">사람</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">Jira &middot; 패치 &middot; 테스트<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">에이전트</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="color:#34d399;">근거 확인 &middot; 승인<br><span style="font-size:0.8em;color:rgba(52,211,153,0.75);">사람</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">다음 관찰<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">에이전트</span></div>
+  </div>
+  <p class="sub" style="margin-top:1.8vh;">에이전트 조직은 계속 분석 &mdash; <span class="em">사람은 평가하고 다음 방향을 정한다</span></p>
 </div>
 
 <!-- 27 사례 2 교대 -->
 <div class="slide in-mint">
-  <h3>사례 2 &middot; 운영 &mdash; 아침 루틴의 교대</h3>
+  <h3>사례 2 &middot; 운영 &mdash; 일일 점검의 자동화</h3>
   <div class="comp" style="margin-top:2.2vh; max-width:1060px;">
     <div class="comp-item on">
       <div class="tag">예전</div>
@@ -719,180 +744,263 @@ blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem)}
     <div class="pipeline-arrow">&rarr;</div>
     <div class="pipeline-step">아키텍처<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">draw.io 다이어그램</span></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">업로드<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">Confluence</span></div>
+    <div class="pipeline-step">검토 &middot; 게시<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">사람 승인</span></div>
   </div>
-  <p class="sub" style="margin-top:2.4vh;">스킬 하나로 &mdash; <span class="em">기획서 &middot; 다이어그램 &middot; 업로드까지</span></p>
+  <p class="sub" style="margin-top:2.4vh;">초안과 다이어그램은 에이전트 &mdash; <span class="em">공개 전 검토는 사람</span></p>
 </div>
 
 <!-- 31 완전 자동화의 꿈 -->
 <div class="slide in-mint">
-  <h3>완전 자동화의 꿈</h3>
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);">판단까지 맡기면 &mdash; <span class="em">완전 자동</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">감시 &middot; 분석 &middot; 기록은 이미 자동 &mdash; <strong>남은 한 칸이 판단</strong></p>
+  <h3>아직은 &mdash; 모듈 단위 자율화가 현실적</h3>
+  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">경계가 분명한 모듈은 <span class="em">자율화</span><br>전체 워크플로의 <span class="em">큰 판단은 사람</span></p>
+  <p class="impact-sub" style="margin-top:3vh;">감시 &middot; 분석 &middot; 기록은 맡겨도 &mdash; <strong>우선순위 &middot; 예외 &middot; 실행 결정은 아직 사람</strong></p>
 </div>
 
 <!-- 32 그건 아니다 -->
 <div class="slide in-mint">
-  <h3>판단을 넘기지 않는 이유 &mdash; 구조의 문제</h3>
-  <p class="impact-text" style="font-size:clamp(2.1rem,4vw,3.6rem);">1,000번 잘해도 &mdash; 이해 못 한 <span class="em">1번</span>이 사고로 남는다</p>
-  <p class="impact-sub" style="margin-top:3vh;">수치로는 맞는 제안도 &mdash; <strong>히스토리를 알면 다른 답</strong>일 때가 있다</p>
+  <h3>기술적으로는 전체 자동화도 가능하다 &mdash; 하지만</h3>
+  <p class="impact-text" style="font-size:clamp(2.1rem,4vw,3.6rem);">대부분 잘해도 &mdash; <span class="em">드문 한 번의 예외</span>가<br>큰 문제로 이어질 수 있다</p>
+  <p class="impact-sub" style="margin-top:3vh;">책임자가 맥락을 놓치면 &mdash; <strong>예외가 생겼을 때 판단과 복구가 어려워진다</strong></p>
+  <p class="meta" style="margin-top:1.8vh;">지금의 결론 &middot; 실행은 맡기되, 책임자는 맥락과 판단력을 유지한다</p>
 </div>
 
-<!-- ════════ ⑤ 잘 쓰는 사람의 습관 ════════ -->
+<!-- ════════ ⑤ AI Agent를 잘 쓰는 사람들의 습관 ════════ -->
 
 <!-- 33 divider -->
 <div class="slide sky">
-  <h1>잘 쓰는 사람의 습관</h1>
-  <p class="sub" style="margin-top:1vh;">도구 지식보다 &mdash; <span class="em">일하는 방식</span></p>
+  <h1>AI Agent를<br>잘 쓰는 사람들의 습관</h1>
+  <p class="sub" style="margin-top:1vh;">이해할수록 &mdash; <span class="em">좋은 잔소리가 많아진다</span></p>
 </div>
 
-<!-- 34 가설을 얹는다 -->
+<!-- 34 판단 맥락을 준다 -->
 <div class="slide in-sky">
-  <h3>빈 요청이 아니라 &mdash; 가설을 얹는다</h3>
-  <div class="comp" style="margin-top:2vh; max-width:1060px;">
+  <h3>로그를 던지지 말고 &mdash; 판단 환경을 준다</h3>
+  <div class="comp" style="margin-top:2vh; max-width:1120px;">
     <div class="comp-item on">
-      <div class="tag">빈 요청</div>
-      <p>"이거<br>개선해줘"</p>
+      <div class="tag">보통의 시작</div>
+      <div style="display:grid;grid-template-columns:78px 1fr;column-gap:1.2vw;row-gap:1.1vh;width:100%;max-width:430px;text-align:left;font-size:clamp(1.05rem,1.35vw,1.28rem);line-height:1.35;">
+        <span style="color:rgba(255,255,255,0.55);">첨부</span><strong>FW fail 로그 &middot; dump</strong>
+        <span style="color:rgba(255,255,255,0.55);">요청</span><strong>"원인 분석해줘"</strong>
+        <span style="color:rgba(255,255,255,0.55);">기대</span><strong>Agent가 알아서 탐색</strong>
+      </div>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(56,189,248,0.5);">
-      <div class="tag" style="color:#38bdf8 !important;">가설을 얹은 위임</div>
-      <p style="color:#38bdf8;">"조회가 겹쳐서 느린 듯 &mdash;<br>원인 짚고, <strong>돌려서 확인</strong>"</p>
+      <div class="tag" style="color:#38bdf8 !important;">맥락을 더한 위임</div>
+      <div style="display:grid;grid-template-columns:78px 1fr;column-gap:1.2vw;row-gap:1.1vh;width:100%;max-width:430px;text-align:left;font-size:clamp(1.05rem,1.35vw,1.28rem);line-height:1.35;">
+        <span style="color:rgba(56,189,248,0.72);">증거</span><strong>실패 전후 핵심 구간</strong>
+        <span style="color:rgba(56,189,248,0.72);">맥락</span><strong>정상 기준 &middot; 유사 사례</strong>
+        <span style="color:rgba(56,189,248,0.72);">경로</span><strong>원본 &middot; 도구 &middot; 재현</strong>
+      </div>
     </div>
   </div>
-  <p class="formula" style="margin-top:2.4vh; font-size:clamp(1.3rem,2.4vw,2rem); color:rgba(255,255,255,0.85);">[상태] + [가설] + [제약]</p>
+  <p class="sub" style="margin-top:2.2vh;">원인을 미리 단정하지 않고 &mdash; <span class="em">우선 볼 범위와 확인 수단을 준다</span></p>
 </div>
 
-<!-- 35 범위 위임 -->
+<!-- 35 sub-agent fan-out -->
 <div class="slide in-sky">
-  <h3>순서가 아니라 &mdash; 범위를 위임한다</h3>
-  <div class="comp" style="margin-top:2.2vh; max-width:1060px;">
+  <h3>복잡한 작업은 &mdash; sub-agent fan-out으로 더 꼼꼼하게</h3>
+  <div class="code" style="max-width:1180px; margin-top:1.2vh;"><span class="comment"># 복잡도와 조사 구조를 함께 알려준다</span>
+복잡한 작업이야. sub-agent를 fan-out해서 서로 다른 관점으로 분석하고,
+종합하기 전에 결과를 교차 검증해줘.</div>
+  <div class="comp" style="margin-top:1.2vh; max-width:1560px;">
     <div class="comp-item on">
-      <div class="tag">순서 지시</div>
-      <p>"먼저 이거, 그다음 저거&hellip;"<br><strong>AI가 느린 손이 됨</strong></p>
+      <div class="tag">01 &middot; 증거</div>
+      <p>로그 &middot; dump<br><strong>실패 시점과 패턴</strong></p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag">02 &middot; 원인</div>
+      <p>코드 &middot; 변경점<br><strong>실행 경로와 영향</strong></p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag">03 &middot; 사례</div>
+      <p>과거 장애 &middot; Jira<br><strong>유사점과 차이</strong></p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(56,189,248,0.5);">
-      <div class="tag" style="color:#38bdf8 !important;">범위 위임</div>
-      <p style="color:#38bdf8;">"여기까지, 이건 금지"<br><strong>방법은 AI, 경계는 나</strong></p>
+      <div class="tag" style="color:#38bdf8 !important;">04 &middot; 검증</div>
+      <p style="color:#38bdf8;">재현 &middot; 반증<br><strong>다른 가능성 확인</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">경계만 분명하면 &mdash; <span class="em">방법은 맡겨도 됨</span></p>
+  <p class="sub" style="margin-top:1.6vh;">독립 가능한 조사는 fan-out &mdash; <span class="em">근거 비교와 최종 판단은 다시 한곳에서</span></p>
 </div>
 
-<!-- 36 보고서로 받는다 -->
+<!-- 36 완료 증거 -->
 <div class="slide in-sky">
-  <h3>결과는 &mdash; 보고서로 받는다</h3>
-  <div class="comp" style="margin-top:2.2vh; max-width:1060px;">
+  <h3>"다 됐다"는 말보다 &mdash; 직접 실행한 근거</h3>
+  <div class="comp" style="margin-top:2.2vh; max-width:1080px;">
     <div class="comp-item on">
-      <div class="tag">받는 것</div>
-      <p>핵심만 담긴<br><strong>깔끔한 보고서</strong> &mdash; 항상</p>
+      <div class="tag">완료 선언</div>
+      <p>"수정 완료했습니다"<br>"통과할 것입니다"<br><strong>설명은 증거가 아님</strong></p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(56,189,248,0.5);">
-      <div class="tag" style="color:#38bdf8 !important;">파고드는 것</div>
-      <p style="color:#38bdf8;">의문 나는 부분은<br><strong>대화로 파고듦</strong></p>
+      <div class="tag" style="color:#38bdf8 !important;">완료 증거</div>
+      <p style="color:#38bdf8;">실행한 명령<br>PASS 결과<br><strong>로그 &middot; artifact</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">요약으로 훑고 &mdash; <span class="em">의심 가는 곳만 깊게</span></p>
+  <p class="formula" style="margin-top:2.1vh; font-size:clamp(1.25rem,2.25vw,1.9rem); color:rgba(255,255,255,0.88);">직접 실행해서 PASS가 확인되었을 때만 &mdash; <span class="em">완료</span></p>
 </div>
 
-<!-- 37 병목 이동 -->
+<!-- 37 결과 형식도 개인화 -->
 <div class="slide in-sky">
-  <h3>생성이 빨라진 만큼 &mdash; 확인이 병목</h3>
-  <div class="comp" style="margin-top:2.2vh; max-width:1000px;">
+  <h3>결과는 보고서로 &mdash; 형식은 내 취향대로</h3>
+  <div class="comp" style="margin-top:2.2vh; max-width:1180px;">
     <div class="comp-item on">
-      <div class="tag">생성</div>
-      <p>분 단위로<br><strong>쏟아지는 산출물</strong></p>
+      <div class="tag">HTML &middot; WEB</div>
+      <p>브라우저에서 탐색<br><strong>시각화 &middot; 링크</strong></p>
+    </div>
+    <div class="comp-item on">
+      <div class="tag">PDF</div>
+      <p>공유하고 보관<br><strong>고정된 보고서</strong></p>
     </div>
     <div class="comp-item on" style="border-top-color:rgba(56,189,248,0.5);">
-      <div class="tag" style="color:#38bdf8 !important;">확인</div>
-      <p style="color:#38bdf8;">여전히 사람의 시간<br><strong>여기서 막힘</strong></p>
+      <div class="tag" style="color:#38bdf8 !important;">JIRA</div>
+      <p style="color:#38bdf8;">바로 다음 업무로<br><strong>이슈 &middot; 패치 흐름</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">만들 것을 거르는 판단까지 &mdash; <span class="em">잘 쓰기의 일부</span></p>
+  <p class="sub" style="margin-top:2.2vh;">좋다는 방식을 하나씩 써 보고 &mdash; <span class="em">내가 편한 채널을 남긴다</span></p>
+  <p class="meta" style="margin-top:1.4vh;">마음에 들면 rule &middot; skill의 기본값으로 &middot; 안 맞으면 빼거나 고친다</p>
 </div>
 
-<!-- ════════ ⑥ 혼자에서, 같이 ════════ -->
+<!-- 38 좋은 잔소리를 시스템으로 -->
+<div class="slide in-sky">
+  <h3>좋은 잔소리가 &mdash; 결국 일하는 시스템이 된다</h3>
+  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">AI Agent를 이해할수록<br><span class="em">좋은 잔소리가 많아진다</span></p>
+  <div class="pipeline" style="margin-top:2.6vh;">
+    <div class="pipeline-step">맥락을 더 줌</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">fan-out을 시킴</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">PASS를 요구</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">반복을 발견</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="color:#38bdf8;">RULE &middot; SKILL</div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">같은 잔소리가 반복되면 &mdash; <span class="em">다음 작업의 기본 동작으로 고정한다</span></p>
+  <p class="meta" style="margin-top:1.4vh;">Rule = 항상 지킬 원칙과 경계 &middot; Skill = 다시 실행할 다단계 절차</p>
+</div>
+
+<!-- ════════ ⑥ 나에게 맞게 진화시키기 ════════ -->
 
 <!-- 38 divider -->
 <div class="slide orange">
-  <h1>혼자에서, 같이</h1>
+  <h1>나에게 맞게<br>진화시키기</h1>
+  <p class="sub" style="margin-top:1vh;">완벽한 세팅을 찾지 말고 &mdash; <span class="em">순정으로 시작</span></p>
 </div>
 
 <!-- 39 도메인 시너지 -->
 <div class="slide in-orange">
-  <h3>잘 됐던 곳의 공통점</h3>
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);">오래 만진 영역일수록 &mdash; <span class="em">시너지가 컸다</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">도메인 지식과 히스토리가 있는 곳 &mdash; <strong>가설도, 검증도, 판단도 빨라짐</strong></p>
+  <h3>도메인과 활용 능력은 &mdash; 곱으로 작동한다</h3>
+  <p class="impact-text" style="font-size:clamp(2.1rem,4vw,3.6rem);">도메인 지식 <span class="em">&times;</span> AI Agent 활용 능력</p>
+  <p class="impact-text" style="font-size:clamp(2.3rem,4.3vw,3.9rem); margin-top:2vh;">= <span class="em">더 큰 시너지</span></p>
+  <p class="impact-sub" style="margin-top:3vh;">내가 오래 만진 영역일수록 &mdash; <strong>가설 &middot; 검증 &middot; 판단이 더 빨라진다</strong></p>
 </div>
 
-<!-- 40 혼자 좋자고 만든 것들 -->
+<!-- 40 완벽한 세팅의 함정 -->
 <div class="slide in-orange">
-  <h3>혼자 좋자고 만든 것들</h3>
-  <div class="arch-layers" style="max-width:1000px; margin-top:2.2vh;">
-    <div class="arch-layer on">
-      <div class="role">도구</div>
-      <div class="brand">SWDP MCP</div>
-      <div class="desc">매번 하던 조회 &middot; 확인의 도구화</div>
+  <h3>AI의 핵심은 &mdash; 나에게 맞는 조합</h3>
+  <div class="comp" style="margin-top:2.2vh; max-width:1100px;">
+    <div class="comp-item on">
+      <div class="tag">세상에 넘치는 것</div>
+      <p>좋은 BP &middot; 도구 &middot; 스킬<br><strong>계속 바뀌고 &middot; 선택지는 충분하다</strong></p>
     </div>
-    <div class="arch-layer">
-      <div class="role">절차</div>
-      <div class="brand">스킬</div>
-      <div class="desc">반복 작업의 명령화</div>
-    </div>
-    <div class="arch-layer">
-      <div class="role">루틴</div>
-      <div class="brand">워크플로</div>
-      <div class="desc">아침 점검의 자동화</div>
+    <div class="comp-item on" style="border-top-color:rgba(251,146,60,0.55);">
+      <div class="tag" style="color:#fb923c !important;">내가 만들어야 할 것</div>
+      <p style="color:#fb923c;">내 성향과 업무에 맞는 조합<br><strong>붙이고 &middot; 빼고 &middot; 고치며 만든다</strong></p>
     </div>
   </div>
-  <p class="sub" style="margin-top:2.2vh;">다음 수순은 &mdash; <span class="em">같이 쓰는 것</span></p>
+  <p class="sub" style="margin-top:2.2vh;">한 번에 완벽히 세팅하려는 욕심을 버리고 &mdash; <span class="em">워크플로를 계속 수정한다</span></p>
 </div>
 
-<!-- 41 배운 건 나누자 -->
+<!-- 41 순정으로 시작 -->
 <div class="slide in-orange">
-  <h3>마지막으로</h3>
-  <p class="impact-text" style="font-size:clamp(2.3rem,4.4vw,4rem);">배운 건 나누자 &mdash; 특히 <span class="em">실패 경험</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">성공담보다 삽질 공유가 &mdash; <strong>서로의 시간을 가장 아껴줌</strong></p>
+  <h3>먼저 AI와 실제로 일하며 &mdash; 나의 패턴을 찾는다</h3>
+  <div class="pipeline" style="margin-top:2.8vh;">
+    <div class="pipeline-step on" style="color:#fb923c;">순정으로 사용<br><span style="font-size:0.8em;color:rgba(251,146,60,0.75);">Claude Code</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">반복 발견<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">같은 말 &middot; 같은 행동</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">AI에게 질문<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">히스토리 분석</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">나를 프로파일링<br><span style="font-size:0.8em;color:rgba(255,255,255,0.5);">skill &middot; workflow 후보</span></div>
+  </div>
+  <p class="sub" style="margin-top:2.4vh;">MBTI를 해보듯 &mdash; <span class="em">나의 AI 협업 성향과 일하는 방식을 본다</span></p>
 </div>
 
 <!-- ════════ CLOSING ════════ -->
 
-<!-- 42 오늘의 한 줄 -->
-<div class="slide blue">
-  <h3>오늘의 한 줄</h3>
-  <p class="impact-text">도구의 차이가 아니라 &mdash; <span class="em">방식의 차이</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">그리고 방식은 &mdash; <strong>오늘부터 바꿀 수 있는 것</strong></p>
+<!-- 42 개인화 시작 명령 -->
+<div class="slide in-orange">
+  <h3>충분히 써본 뒤 &mdash; 이렇게 요청한다</h3>
+  <div class="code" aria-label="나의 AI 협업 성향과 개인화 후보를 찾는 요청 예시" style="max-width:1120px; font-size:clamp(0.74rem,0.86vw,0.84rem);"><span class="comment"># 내 일하는 방식 프로파일링</span>
+접근 가능한 대화와 작업 히스토리, 프로젝트 파일을 찾아 분석해줘.
+
+내가 지시하고 &middot; 검증하고 &middot; 수정하는 방식에서 반복되는 패턴을 찾아,
+- 나의 AI 협업 성향과 일하는 방식
+- skill로 만들 반복 절차
+- workflow로 묶을 과정
+- 도구를 붙이면 좋은 지점
+을 근거와 함께 추천해줘.
+
+한 번에 구축하지 말고, 가장 작은 후보부터 하나씩 적용해보자.</div>
+  <p class="sub" style="margin-top:1.6vh;">필요한 BP와 도구는 그때 붙이고 &mdash; <span class="em">안 맞으면 빼거나 고친다</span></p>
 </div>
 
-<!-- 43 Q&A -->
+<!-- 43 개인에서 도메인으로 -->
+<div class="slide in-orange">
+  <h3>개인화한 방식이 검증되면 &mdash; 같은 도메인의 자산으로</h3>
+  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">개인의 검증된 방식 <span class="em">&times;</span> 동료의 재검증<br>= <span class="em">함께 개선하는 도메인 자산</span></p>
+  <div class="pipeline" style="margin-top:2.8vh;">
+    <div class="pipeline-step">실제 업무 반복</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="color:#fb923c;">범위 &middot; 근거 확인</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">동료 재검증</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">함께 개선</div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="color:#fb923c;">도메인 자산</div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">적용 범위와 검증 근거가 있는 것만 &mdash; <span class="em">공동의 실행 단위로</span></p>
+  <p class="meta" style="margin-top:1.4vh;">검증과 재검증이 쌓일수록 &middot; 좋은 결과를 더 넓게 증폭할 수 있다</p>
+</div>
+
+<!-- 44 실패 경험의 공유 -->
+<div class="slide in-orange">
+  <h3>공유할 때는 &mdash; 실패 경험까지 함께 남긴다</h3>
+  <div class="comp" style="margin-top:2.2vh; max-width:1120px;">
+    <div class="comp-item on">
+      <div class="tag">성공한 방법</div>
+      <p>어떤 입력과 경계였나<br>무엇으로 검증했나<br><strong>재현 가능한 workflow</strong></p>
+    </div>
+    <div class="comp-item on" style="border-top-color:rgba(251,146,60,0.55);">
+      <div class="tag" style="color:#fb923c !important;">실패한 조건</div>
+      <p style="color:#fb923c;">어디서 깨졌나<br>언제 쓰면 안 되나<br><strong>복구 방법 &middot; 다음 안전장치</strong></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">성공 사례는 출발점을 주고 &mdash; <span class="em">실패 경험은 적용 경계를 알려준다</span></p>
+  <p class="meta" style="margin-top:1.4vh;">공유 문서 = 환경 &middot; 버전 + 사용법 + 검증 근거 + 적용 금지 + 복구 절차</p>
+</div>
+
+<!-- 45 Q&A -->
 <div class="slide blue">
   <h1>Q &amp; A</h1>
   <ul class="list" style="margin-top:2.4vh; max-width:1000px;">
-    <li>내 업무에서 &mdash; <span class="em">가장 먼저 연결할 시스템</span>은</li>
-    <li>어디까지 자율로 &mdash; <strong>어디부터 사람 판단</strong>으로</li>
-    <li>나눌 만한 <span class="em">삽질 경험</span> 하나쯤</li>
+    <li>AI와 일할 때 &mdash; <span class="em">내가 반복하는 말과 행동</span>은</li>
+    <li>무엇을 <strong>skill</strong>로 &mdash; 무엇을 <strong>workflow</strong>로 묶을지</li>
+    <li>충분히 검증한 것은 동료와 &mdash; <strong>실패 조건까지 함께 공유</strong></li>
   </ul>
-  <p class="meta" style="margin-top:3vh; color:rgba(255,255,255,0.55);">AI Agent 세미나 &middot; 김학민 &middot; 2026. 7</p>
+  <p class="meta byline" style="margin-top:3vh; color:rgba(255,255,255,0.55);">AI Agent 세미나 &middot; 김학민 &middot; 2026. 7</p>
 </div>
 
 </div>
-<nav aria-label="Slide navigation" class="nav"><button aria-label="Previous slide" onclick="prev()">&larr;</button><button aria-label="Next slide" onclick="next()">&rarr;</button></nav>
-<div class="page-num" id="pageNum">1 / 1</div>
+<nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
+<div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
 <script>
 const slides=document.querySelectorAll('.slide'),total=slides.length;
 let current=0;
-const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress'),partLabelEl=document.getElementById('partLabel');
-const partMap=[
-{from:0,to:2,label:'Opening'},
-{from:3,to:8,label:'격차의 정체'},
-{from:9,to:16,label:'도구 기본기'},
-{from:17,to:21,label:'말로 시키고, 결과만 본다'},
-{from:22,to:29,label:'실사례'},
-{from:30,to:34,label:'잘 쓰는 사람의 습관'},
-{from:35,to:38,label:'혼자에서, 같이'},
-{from:39,to:40,label:'Closing'}
-];
-function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI Agent 세미나';}
-function update(){slides.forEach((s,i)=>s.classList.toggle('active',i===current));if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
+const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress');
+slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
+function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));if(active)s.removeAttribute('inert');else s.setAttribute('inert','');});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';}
 function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;document.getElementById('slides').style.transform=`translateX(-${current*100}vw)`;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
 function next(){goTo(current+1);}
 function prev(){goTo(current-1);}
