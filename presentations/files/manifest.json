@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-10T03:02:06.783Z",
-  "count": 10,
-  "slides": 10,
+  "generatedAt": "2026-07-11T10:45:31.604Z",
+  "count": 12,
+  "slides": 12,
   "files": 0,
   "items": [
     {
@@ -92,6 +92,24 @@
       "title": "AI Agent와 일해보니",
       "subtitle": "잘 시키고 · 잘 확인하고 · 내 일에 맞추는 이야기 · 90min",
       "url": "./presentations/solution-dev-seminar/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "category": "개발",
+      "catClass": "dev",
+      "title": "SWDP 개발·운영과 AI 에이전트 적용 방향",
+      "subtitle": "위임 · 검증 · 통제 구조 · AI-DLC",
+      "url": "./presentations/ai-dlc-swdp/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "category": "비개발",
+      "catClass": "biz",
+      "title": "AI Driven 전환은 왜 어려운가",
+      "subtitle": "도구 보급을 넘어 업무 운영체계의 문제 · AX 공유",
+      "url": "./presentations/ai-driven-transition/",
       "ext": "html"
     }
   ]
