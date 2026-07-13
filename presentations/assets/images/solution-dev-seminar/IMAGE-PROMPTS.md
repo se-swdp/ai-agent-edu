@@ -204,7 +204,7 @@ Constraints: render only these labels; no title; no subtitle; no paragraph text;
 Avoid: horizontal timeline, stock teamwork pose, celebration scene, cyberpunk, tiny pseudo-text
 ```
 
-## 28-personal-harness-loop.webp
+## 28-personal-harness-loop.webp (removed 2026-07-13 — replaced by 29-harness-workflow-map)
 
 ```text
 Use case: infographic-diagram
@@ -219,4 +219,21 @@ Composition/framing: wide 16:9; upper 16 percent quiet for HTML heading; left pe
 Text (verbatim): "swdp-ops-auto", "시작", "MCP 도구", "스킬", "확인 · 승인", "Jira", "패치", "위키", "알림"
 Constraints: render each label exactly once; no title; no subtitle; no paragraph text; no logos; no watermark; no dark background; no 3D
 Avoid: dense UI, tiny pseudo-text, cyberpunk, humanoid robot, robot swarms, more than one gate
+```
+
+## 29-harness-workflow-map.webp
+
+```text
+Use case: infographic-diagram
+Asset type: 16:9 presentation illustration for a Korean AI Agent seminar — a swimlane workflow map
+Input images: Image 1 is the strict visual style reference only
+Primary request: a full-frame swimlane diagram of one person's AI agent harness: six named workflow lanes, each showing what it takes in, what it does, and what it produces, using icons instead of sentences
+Scene/backdrop: clean off-white background; the diagram fills almost the whole frame like an architecture poster
+Subject: at the top, a slim foundation bar with a nameplate reading CCN · Claude Code and a row of five tiny docked modules (database cylinder, log sheet, metrics gauge, code window, small bell) — no labels on the modules; below the bar, three column headers over the lane area reading 받는 것, 하는 일, 만드는 것; then six horizontal swimlanes stacked and filling the rest of the frame, each lane starting with a small rounded nameplate on the left and a simple icon flow with two thin arrows (swdp-ops-auto / work-to-jira / org-activity-report / weekly-report / confluence-wiki / html-slides with per-lane input, action, output icons); one tiny friendly robot works at the center of the lane area as a single accent
+Concept distinction: lanes are parallel capabilities of one harness — each lane reads left to right as input icons, one action icon, output icons; no people anywhere
+Style/medium: match Image 1 exactly — crisp navy line art, flat pastel blue/teal/mint fills with a tiny yellow accent, subtle soft gradients, clean Korean business infographic cartoon, large readable icons
+Composition/framing: wide 16:9; only the top 10 percent quiet for an HTML heading; the diagram fills the frame edge to edge with slim margins; six lanes of equal height; strong horizontal rhythm
+Text (verbatim): "CCN · Claude Code", "받는 것", "하는 일", "만드는 것", "swdp-ops-auto", "work-to-jira", "org-activity-report", "weekly-report", "confluence-wiki", "html-slides"
+Constraints: render each label exactly once; no other text anywhere; no title; no paragraph text; no logos; no watermark; no dark background; no 3D
+Avoid: people, sentences inside lanes, tiny pseudo-text, cyberpunk, dense UI screenshots, more than one robot
 ```

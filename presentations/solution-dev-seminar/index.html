@@ -692,48 +692,11 @@ prs.save(<span class="string">"deck.pptx"</span>)</div>
   <p class="sub" style="margin-top:2.4vh;">초안과 다이어그램은 에이전트 &mdash; <span class="em">공개 전 검토는 사람</span></p>
 </div>
 
-<!-- 29.5 나만의 하네스 (시연 배경) -->
+<!-- 29.5 나만의 하네스 — 워크플로 동작 지도 (시연 배경) -->
 <div class="slide in-mint">
-  <h3>나만의 하네스</h3>
-  <img class="hub-visual" style="max-width:1160px; max-height:58vh; margin-top:0.4vh;" src="../assets/images/solution-dev-seminar/28-personal-harness-loop.webp" alt="사람이 시작 버튼을 누르면 swdp-ops-auto 루프가 MCP 도구와 스킬을 사용해 분석하고, 확인과 승인 게이트를 거쳐 Jira 이슈, 코드 패치, 위키 문서, 알림을 만들어내는 흐름" />
-  <p class="sub" style="margin-top:1.5vh;">사람이 하는 일은 둘 &mdash; <span class="em">시작하기 &middot; 확인하고 승인하기</span></p>
-</div>
-
-<!-- 29.7 워크플로 동작 지도 (drawio풍 HTML 다이어그램) -->
-<div class="slide in-mint">
-  <h3>각 스킬 &middot; 워크플로의 동작 &mdash; 받는 것 &middot; 하는 일 &middot; 만드는 것</h3>
-  <div style="width:100%; max-width:1500px; margin-top:1.6vh; display:flex; flex-direction:column; gap:1vh;">
-    <div style="background:rgba(255,255,255,0.88); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 20px rgba(42,78,125,0.05); padding:1.3vh 1.6vw; text-align:center;">
-      <div style="font-weight:700; color:var(--ink); font-size:clamp(1.05rem,1.3vw,1.22rem);">CCN &middot; Claude Code <span style="font-weight:300; color:var(--muted);">&mdash; 하나의 인터페이스</span></div>
-      <div style="font-family:'JetBrains Mono',monospace; font-size:clamp(0.8rem,0.98vw,0.92rem); color:var(--text); margin-top:0.6vh; white-space:nowrap;">swdp-db &middot; log &middot; prometheus &middot; codebase &middot; botbuilder &nbsp;+&nbsp; ims-jira &middot; confluence-mirror &middot; superpowers</div>
-    </div>
-    <div style="text-align:center; color:#7890ad; font-size:clamp(0.9rem,1.1vw,1rem); line-height:1;">&darr;</div>
-    <div style="display:flex; align-items:center; gap:1vw; background:rgba(255,255,255,0.88); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 20px rgba(42,78,125,0.05); padding:1.4vh 1.6vw;">
-      <span style="flex:0 0 11.5em; font-family:'JetBrains Mono',monospace; font-weight:600; color:#16776d; font-size:clamp(0.88rem,1.06vw,1rem); white-space:nowrap;">swdp-ops-auto</span>
-      <span style="font-size:clamp(0.95rem,1.15vw,1.08rem); color:var(--text); white-space:nowrap;">지표 &middot; 로그 &middot; DB 상시 분석 <span style="color:#7890ad;">&rarr;</span> 승인 요청 <span style="color:#7890ad;">&rarr;</span> <strong style="color:var(--ink);">Jira &middot; 패치 &middot; 위키 &middot; 알림</strong></span>
-    </div>
-    <div style="display:flex; align-items:center; gap:1vw; background:rgba(255,255,255,0.88); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 20px rgba(42,78,125,0.05); padding:1.4vh 1.6vw;">
-      <span style="flex:0 0 11.5em; font-family:'JetBrains Mono',monospace; font-weight:600; color:#16776d; font-size:clamp(0.88rem,1.06vw,1rem); white-space:nowrap;">work-to-jira</span>
-      <span style="font-size:clamp(0.95rem,1.15vw,1.08rem); color:var(--text); white-space:nowrap;">commit &middot; wiki &middot; chat 수집 <span style="color:#7890ad;">&rarr;</span> 업무 정리 <span style="color:#7890ad;">&rarr;</span> <strong style="color:var(--ink);">Jira 등록 &middot; 상태 추적</strong></span>
-    </div>
-    <div style="display:flex; align-items:center; gap:1vw; background:rgba(255,255,255,0.88); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 20px rgba(42,78,125,0.05); padding:1.4vh 1.6vw;">
-      <span style="flex:0 0 11.5em; font-family:'JetBrains Mono',monospace; font-weight:600; color:#16776d; font-size:clamp(0.88rem,1.06vw,1rem); white-space:nowrap;">org-activity-report</span>
-      <span style="font-size:clamp(0.95rem,1.15vw,1.08rem); color:var(--text); white-space:nowrap;">Jira &middot; 위키 &middot; commit &middot; 대화 <span style="color:#7890ad;">&rarr;</span> 기간 분석 <span style="color:#7890ad;">&rarr;</span> <strong style="color:var(--ink);">한 일 &middot; 할 일 리포트</strong></span>
-    </div>
-    <div style="display:flex; align-items:center; gap:1vw; background:rgba(255,255,255,0.88); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 20px rgba(42,78,125,0.05); padding:1.4vh 1.6vw;">
-      <span style="flex:0 0 11.5em; font-family:'JetBrains Mono',monospace; font-weight:600; color:#16776d; font-size:clamp(0.88rem,1.06vw,1rem); white-space:nowrap;">weekly-report</span>
-      <span style="font-size:clamp(0.95rem,1.15vw,1.08rem); color:var(--text); white-space:nowrap;">한 주의 활동 <span style="color:#7890ad;">&rarr;</span> 요약 &middot; 정리 <span style="color:#7890ad;">&rarr;</span> <strong style="color:var(--ink);">주간보고</strong></span>
-    </div>
-    <div style="display:flex; align-items:center; gap:1vw; background:rgba(255,255,255,0.88); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 20px rgba(42,78,125,0.05); padding:1.4vh 1.6vw;">
-      <span style="flex:0 0 11.5em; font-family:'JetBrains Mono',monospace; font-weight:600; color:#16776d; font-size:clamp(0.88rem,1.06vw,1rem); white-space:nowrap;">confluence-wiki</span>
-      <span style="font-size:clamp(0.95rem,1.15vw,1.08rem); color:var(--text); white-space:nowrap;">초안 &middot; 구상 <span style="color:#7890ad;">&rarr;</span> 위키 문법 &middot; draw.io 도식 <span style="color:#7890ad;">&rarr;</span> <strong style="color:var(--ink);">Confluence 게시</strong></span>
-    </div>
-    <div style="display:flex; align-items:center; gap:1vw; background:rgba(255,255,255,0.88); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 20px rgba(42,78,125,0.05); padding:1.4vh 1.6vw;">
-      <span style="flex:0 0 11.5em; font-family:'JetBrains Mono',monospace; font-weight:600; color:#16776d; font-size:clamp(0.88rem,1.06vw,1rem); white-space:nowrap;">html-slides</span>
-      <span style="font-size:clamp(0.95rem,1.15vw,1.08rem); color:var(--text); white-space:nowrap;">내용 &middot; 아웃라인 <span style="color:#7890ad;">&rarr;</span> 구성 &middot; 생성 <span style="color:#7890ad;">&rarr;</span> <strong style="color:var(--ink);">발표자료</strong></span>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:1.6vh;">전부 내 업무의 모양대로 &mdash; <span class="em">받는 것과 만드는 것이 분명한 실행 단위</span></p>
+  <h3>나만의 하네스 &mdash; 각 워크플로의 동작</h3>
+  <img class="hub-visual" style="max-width:1280px; max-height:64vh; margin-top:0.4vh;" src="../assets/images/solution-dev-seminar/29-harness-workflow-map.webp" alt="CCN과 Claude Code 기반 위에 swdp-ops-auto, work-to-jira, org-activity-report, weekly-report, confluence-wiki, html-slides 여섯 워크플로가 받는 것, 하는 일, 만드는 것 흐름으로 정리된 스윔레인 지도" />
+  <p class="sub" style="margin-top:1.4vh;">사람이 하는 일은 둘 &mdash; <span class="em">시작하기 &middot; 확인하고 승인하기</span></p>
 </div>
 
 <!-- 31 완전 자동화의 꿈 -->
