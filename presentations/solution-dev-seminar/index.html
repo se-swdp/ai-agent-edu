@@ -263,6 +263,10 @@ h1,h2,h3,.impact-text,.formula,.stat .number{color:var(--ink)!important}
 kbd{background:#eef4fb;border-color:#ccd9ea;color:var(--ink)}
 .pipeline-step{background:rgba(255,255,255,0.9);border:1px solid var(--line);border-top:2px solid #c4d5e9;color:var(--text)!important;box-shadow:0 8px 20px rgba(42,78,125,0.05)}
 .pipeline-step.on{background:#eaf3ff;border-top-color:#6aa5e4;color:#236bbd!important}
+.slide.in-amber .pipeline-step.on{background:#fff8e9;border-top-color:#dca614;color:#9d6600!important}
+.slide.in-mint .pipeline-step.on,.slide.in-teal .pipeline-step.on{background:#eefaf7;border-top-color:#5ab9a9;color:#16776d!important}
+.slide.in-violet .pipeline-step.on,.slide.in-indigo .pipeline-step.on{background:#f6f2ff;border-top-color:#9a82cf;color:#7257b2!important}
+.slide.in-orange .pipeline-step.on{background:#fff3e7;border-top-color:#d97a2e;color:#b15b1e!important}
 .pipeline-step.green{background:#eaf8f4;border-top-color:#5ab9a9;color:#117f74!important}
 .pipeline-step.red{background:#fff0f3;border-top-color:#d994a6;color:#a4465e!important}
 .pipeline-step.violet{background:#f1edff;border-top-color:#9a82cf;color:#684ba8!important}
@@ -345,9 +349,9 @@ kbd{background:#eef4fb;border-color:#ccd9ea;color:var(--ink)}
   <h3>AI가 좋아져도 &mdash; 일하는 방식은 저절로 바뀌지 않는다</h3>
   <div class="stat-grid" style="max-width:1120px;">
     <div class="stat-card on">
-      <div class="label">50% 성공 시간지평</div>
+      <div class="label">AI가 혼자 끝낼 수 있는 작업 길이</div>
       <div class="value" style="color:#fbbf24;">2배</div>
-      <div class="source">약 7개월마다 &middot; SW/연구 과제</div>
+      <div class="source">약 7개월마다 &middot; 성공 확률 50% 기준</div>
     </div>
     <div class="stat-card on">
       <div class="label">직원의 개인 AI 사용</div>
@@ -375,8 +379,8 @@ kbd{background:#eef4fb;border-color:#ccd9ea;color:var(--ink)}
     </div>
     <div class="stat-card on">
       <div class="label">계획 대비 소요 기간</div>
-      <div class="value" style="color:#fbbf24;">1/13</div>
-      <div class="source">1년 계획 &rarr; 4주 실제</div>
+      <div class="value" style="color:#fbbf24;">1/12</div>
+      <div class="source">1년 계획 &rarr; 약 4주 실제</div>
     </div>
     <div class="stat-card on">
       <div class="label">다룬 규모</div>
@@ -439,6 +443,29 @@ slide.addText(<span class="string">"AI Agent와 일해보니"</span>, {
     </div>
   </div>
   <p class="sub" style="margin-top:2.2vh;">LLM은 텍스트를 읽고 &middot; 구조화하고 &middot; <span class="em">다른 문법으로 변환하는 데 강하다</span></p>
+</div>
+
+<!-- 08.5 PPTX 요청의 실제 동작 -->
+<div class="slide in-amber">
+  <h3>"PPTX로 만들어줘" &mdash; 뒤에서 벌어지는 일</h3>
+  <div class="pipeline" style="margin-top:2vh;">
+    <div class="pipeline-step">구조 설계<br><span style="font-size:0.8em;">outline.md</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">라이브러리 선택<br><span style="font-size:0.8em;">python-pptx 설치</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on">도구 제작<br><span style="font-size:0.8em;">build_deck.py</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">실행 &middot; 생성<br><span style="font-size:0.8em;">deck.pptx</span></div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">검증 &middot; 수정<br><span style="font-size:0.8em;">깨짐 확인 &middot; 재실행</span></div>
+  </div>
+  <div class="code" style="max-width:1060px; margin-top:1.4vh; font-size:clamp(0.78rem,0.9vw,0.88rem);"><span class="comment"># build_deck.py &mdash; 요청 즉석에서 태어나는 일회용 변환 도구</span>
+<span class="keyword">from</span> pptx <span class="keyword">import</span> Presentation
+prs = Presentation()
+<span class="keyword">for</span> sec <span class="keyword">in</span> load(<span class="string">"outline.md"</span>):        <span class="comment"># 중간 산출물(구조)을 읽어</span>
+    add_slide(prs, sec.title, sec.bullets)   <span class="comment"># 슬라이드로 변환</span>
+prs.save(<span class="string">"deck.pptx"</span>)</div>
+  <p class="sub" style="margin-top:1.6vh;">슬라이드를 직접 그리는 게 아니라 &mdash; <span class="em">만드는 도구를 코드로 지어서 실행</span></p>
 </div>
 
 <!-- ════════ ② 도구의 지도 ════════ -->
