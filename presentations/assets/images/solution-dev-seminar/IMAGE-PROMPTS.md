@@ -60,20 +60,20 @@ Constraints: no written text anywhere, no logos, no watermark, no title inside t
 Avoid: clutter in the left half, tiny UI text, humanoid robots, dramatic lighting
 ```
 
-## 07-whole-workflow.webp
+## 07-whole-workflow-isometric.webp
 
 ```text
 Use case: infographic-diagram
 Asset type: 16:9 presentation illustration for a Korean AI Agent seminar
 Input images: Image 1 is the strict visual style reference only
-Primary request: show that coding is only one small station inside a much wider real-work workflow, and that an AI agent can work with every text-and-file stage
-Scene/backdrop: clean off-white to very pale blue background
-Subject: one wide left-to-right workplace conveyor with five clearly separated large stations; requirement ticket, investigation and design with logs and documents, a deliberately narrower implementation station with one code window, verification with a test checklist, and documentation and sharing with wiki and slides; the same small friendly robot agent reads, creates, and checks files at every station; a long visual bracket below connects all five as text-and-file work
-Style/medium: match Image 1 exactly — crisp navy outlines, flat pastel blue/teal/mint fills, tiny yellow accent, subtle soft gradients, friendly Korean office infographic cartoon, large simple objects, professional and approachable
-Composition/framing: wide 16:9; upper 16 percent quiet for an HTML heading; five stations centered; implementation station visibly narrower than the others; generous safe margins
-Text (verbatim): "요구사항", "조사·설계", "구현", "검증", "문서·공유", "텍스트·파일"
-Constraints: render only these short Korean labels; no title; no subtitle; no paragraph text; no logos; no watermark; no dark background; no 3D; no cyberpunk
-Avoid: dense pseudo-code, tiny UI, realistic photography, abstract brain, excessive decoration
+Primary request: show the full real development workflow from a high three-quarter isometric viewpoint, replacing the previous flat horizontal row of panels
+Scene/backdrop: clean off-white office floor shown as a simple open dollhouse or cutaway workspace, very pale blue and mint zones
+Subject: five work zones are arranged around a loose U-shaped path inside one shared office space: requirement ticket desk, investigation and design table with logs and documents, a deliberately small implementation desk with one code window, verification bench with test checklist, and documentation and sharing corner with wiki and slide pages; the same friendly small robot moves between the zones carrying files; implementation occupies visibly less floor area than the other work
+Style/medium: match Image 1 exactly — crisp navy outlines, flat pastel blue/teal/mint with tiny yellow accent, subtle soft gradients, friendly Korean business infographic cartoon; flat 2.5D cutaway, not glossy 3D
+Composition/framing: wide 16:9; camera high above at a three-quarter diagonal angle; upper 16 percent quiet for HTML heading; one coherent environment rather than five rectangular cards; generous margins
+Text (verbatim): "요구사항", "조사·설계", "구현", "검증", "문서·공유"
+Constraints: render each label exactly once; no title; no subtitle; no paragraph text; no logos; no watermark; no dark background
+Avoid: front-facing row of boxes, left-to-right conveyor, photorealism, cyberpunk, dense pseudo-code, glossy 3D
 ```
 
 ## 10-agent-loop-radial.webp
@@ -92,37 +92,36 @@ Constraints: render each label exactly once; no title; no subtitle; no paragraph
 Avoid: four horizontal cards, glowing brain, abstract sphere, cyberpunk, dense UI
 ```
 
-## 16-agent-sw-engineering.webp
+## 16-sw-engineering-toolbox.webp
 
 ```text
 Use case: infographic-diagram
 Asset type: 16:9 presentation illustration for a Korean AI Agent seminar
 Input images: Image 1 is the strict visual style reference only
-Primary request: explain to non-developers why learning a little software engineering helps them use AI agents
-Scene/backdrop: clean off-white to very pale mint background, ordinary modern office
-Subject: a friendly non-developer Korean office worker on the left gives a natural-language task brief to the small friendly AI robot; behind the robot is a clean workshop of five large connected modules: a rule document, a specification blueprint, tool and settings gears, a test bench with check mark, and a change-history drawer; the person is not coding, only understanding and checking the module signposts while the agent creates and configures the tools
-Style/medium: match Image 1 exactly — clean navy line art, flat pastel blue/teal/mint, very small yellow accent, subtle gradients, friendly Korean business infographic cartoon
-Composition/framing: wide 16:9; upper 16 percent quiet for HTML heading; person and task brief left, robot center, five modules extending right; clear arrow flow; generous margins
+Primary request: explain why a non-developer benefits from learning a little software engineering using one open toolbox metaphor, replacing a horizontal sequence of modules
+Scene/backdrop: clean off-white to very pale blue background, close three-quarter view of a large open professional toolbox on a workbench
+Subject: a large open toolbox dominates the frame; inside are five clearly organized compartments and drawers containing a rule book, a specification blueprint, tool and settings gears, a test gauge with check mark, and a change-history file drawer; a friendly small AI robot is working from inside the toolbox; only the hands and upper torso of an ordinary Korean office worker are visible at the edge, calmly checking the compartment labels rather than writing code
+Style/medium: match Image 1 exactly — crisp navy line art, flat pastel blue/teal/mint with tiny yellow accents, subtle gradients, friendly Korean business infographic cartoon; tactile editorial still life, not a flat flowchart
+Composition/framing: wide 16:9; camera close and slightly above the toolbox at a three-quarter diagonal angle; upper 16 percent quiet for HTML heading; strong single-object composition; generous margins
 Text (verbatim): "규칙", "스펙", "도구·설정", "테스트", "변경 기록"
-Constraints: render each label exactly once; no title; no subtitle; no paragraphs; no brand logos; no watermark; no dark background; no 3D
-Avoid: programmer stereotype, walls of code, cyberpunk, humanoid robot, tiny pseudo-text
+Constraints: render each label exactly once; no title; no subtitle; no paragraph text; no logos; no watermark; no dark background; no 3D realism
+Avoid: horizontal modules, programmer stereotype, walls of code, cyberpunk, tiny pseudo-text, five separate panels
 ```
 
-## 21-one-interface-many-tools.webp
+## 22-one-interface-backstage.webp
 
 ```text
 Use case: infographic-diagram
-Asset type: 16:9 presentation illustration for slide 21 of a Korean AI Agent seminar
+Asset type: 16:9 presentation illustration for a Korean AI Agent seminar
 Input images: Image 1 is the strict visual style reference only
-Primary request: show that a person watches one AI Agent interface while the agent works through many tools behind it and returns evidence
-Scene/backdrop: clean white to very pale mint background
-Subject: on the left, the same friendly Korean office worker from the reference calmly checks one laptop screen; in the center, a friendly AI hub robot orchestrates four large tool modules; on the right, a checked evidence folder returns to the worker
-Tool modules: ticket card, document page, code window, log and test checklist
-Style/medium: match Image 1 exactly — crisp navy line art, flat pastel blue/teal/mint, clean Korean business infographic cartoon, simple friendly office worker and robot, large readable objects, subtle soft gradient panels
-Composition/framing: wide 16:9 left-to-right flow; person and laptop on left, AI hub center, four tool modules grouped around it, evidence folder on right, return arrow back to the person
+Primary request: show one simple AI Agent interface in front and many coordinated tools working behind it using a theater backstage cutaway metaphor
+Scene/backdrop: clean off-white to very pale blue and mint background; side cutaway of a small stage or service counter with visible backstage depth
+Subject: in the foreground left, one Korean office worker calmly watches a single clean laptop screen labeled one screen; a thin stage wall separates the visible front from the backstage; behind the wall, a friendly AI robot orchestrates four different workstations arranged in depth rather than a row: ticket, document, code, and logs with tests; a checked evidence folder travels through a small return hatch back to the foreground person
+Style/medium: match Image 1 exactly — crisp navy outlines, flat pastel blue/teal/mint with tiny yellow accent, subtle gradients, friendly Korean business infographic cartoon; clear architectural cutaway with depth
+Composition/framing: wide 16:9; camera from an elevated side angle so foreground and backstage are both visible; upper 16 percent quiet for HTML heading; foreground occupies one third, backstage two thirds; no central hub-and-spokes diagram; generous margins
 Text (verbatim): "한 화면", "티켓", "문서", "코드", "로그·테스트", "근거"
-Constraints: render only these short Korean labels; no title; no subtitle; no brand logos; no Claude or Codex logos; no watermark; actions understandable even without reading
-Avoid: realistic photography, cyberpunk, humanoid robot, dense micro-cards, tiny pseudo-text, dark background
+Constraints: render only these labels; no title; no subtitle; no paragraph text; no brand logos; no watermark; no dark background; no 3D realism
+Avoid: flat left-to-right pipeline, person-left hub-center tools-right composition, theater costumes, photorealism, cyberpunk, tiny pseudo-text
 ```
 
 ## 24-swdp-improvement-desk.webp
