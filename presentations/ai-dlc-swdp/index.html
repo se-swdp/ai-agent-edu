@@ -138,10 +138,16 @@ cite{display:block;margin-top:24px;font-size:clamp(1rem,1.15vw,1.08rem);color:va
 .pipeline-step{padding:1.4vh 2.4vw;font-size:clamp(1.06rem,1.32vw,1.22rem);font-weight:300;text-align:center;color:var(--text);white-space:nowrap;background:rgba(255,255,255,0.9);border:1px solid var(--line);border-top:2px solid #c4d5e9;border-radius:var(--radius);box-shadow:0 8px 20px rgba(42,78,125,0.05)}
 .pipeline-step span{display:block;font-size:0.84em;color:var(--muted);margin-top:2px}
 .pipeline-step.on{background:#eaf3ff;border-top-color:#6aa5e4;color:#236bbd;font-weight:700}
-.pipeline-step.on span{color:#4a7cb0}
+.pipeline-step.on span{color:inherit;opacity:0.72}
 .pipeline-step.green{background:#eaf8f4;border-top-color:#5ab9a9;color:#117f74}
 .pipeline-step.violet{background:#f1edff;border-top-color:#9a82cf;color:#684ba8}
+.slide.in-amber .pipeline-step.on{background:var(--amber-soft);border-top-color:#dca614;color:var(--amber-ink)}
+.slide.in-mint .pipeline-step.on,.slide.in-teal .pipeline-step.on{background:var(--mint-soft);border-top-color:#5ab9a9;color:var(--teal-ink)}
+.slide.in-violet .pipeline-step.on,.slide.in-indigo .pipeline-step.on{background:var(--violet-soft);border-top-color:#9a82cf;color:var(--violet-ink)}
+.slide.in-orange .pipeline-step.on{background:#fff3e7;border-top-color:#d97a2e;color:var(--orange-ink)}
 .pipeline-arrow{color:#7890ad;font-size:1rem;padding:0 2px}
+/* deck-local: bare single-line steps need more presence */
+.pipeline-step{font-size:clamp(1.16rem,1.45vw,1.34rem)}
 
 /* ===== TABLE / LIST ===== */
 .tbl{margin-top:2vh;border-collapse:collapse;max-width:82vw}
