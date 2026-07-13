@@ -2,685 +2,606 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SWDP 개발·운영과 AI 에이전트 적용 방향 · 2026.7</title>
-<link rel="icon" href="data:," />
+<script>
+if(location.protocol==='http:'||location.protocol==='https:'){
+  const base=document.createElement('base');
+  base.href='/presentations/ai-dlc-swdp/';
+  document.head.appendChild(base);
+}
+</script>
 <link href="https://fonts.googleapis.com" rel="preconnect" />
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Figtree:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-<script defer src="https://unpkg.com/@phosphor-icons/web"></script>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@700;900&family=Noto+Sans+KR:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <style>
-/* ============================================================
-   FLAT DARK DECK SYSTEM — typography-first, one accent per section
-   bg #0D0D0D flat · faint line cards · no glass, no gradients
-   ============================================================ */
+/* ===== TOKENS ===== */
+:root{
+  --ink:#0b1b4d;        /* headings, strong text — deep navy ink */
+  --text:#314665;       /* body text */
+  --muted:#5d6e8b;      /* labels, meta, captions */
+  --line:#d6e2f1;       /* card borders, hairlines */
+  --paper:#f8fbff;      /* slide surface */
+  --bg:#f4f8fd;         /* page behind slides */
+  --blue-soft:#eef5ff; --mint-soft:#eefaf7; --violet-soft:#f6f2ff; --amber-soft:#fff8e9;
+  --blue:#2f73bd;       /* default .em accent */
+  --blue-ink:#2868ad; --teal-ink:#16776d; --violet-ink:#7257b2; --amber-ink:#9d6600; --orange-ink:#b15b1e;
+  --radius:12px;
+  --card-shadow:0 10px 30px rgba(42,78,125,0.07);
+}
+
+/* ===== BASE ===== */
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{overflow:hidden;width:100%;height:100%}
-body{font-family:'Noto Sans KR',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased;word-break:keep-all}
-
-/* projection legibility: scale whole deck up; step down on shorter screens */
-html{font-size:207.5%}
-@media (min-width:769px) and (max-height:880px){html{font-size:182%}}
+html{font-size:207.5%}   /* presentation scale (1920px beam). Never lower globally to fit content. */
+@media (min-width:769px) and (max-height:880px){html{font-size:182%}}  /* smaller projection screens */
 @media (min-width:769px) and (max-height:790px){html{font-size:158%}}
-
-/* ---------- deck scaffolding ---------- */
+html,body{overflow:hidden;width:100%;height:100%}
+body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;word-break:keep-all}
 .slides{display:flex;transition:none}
-.slide{width:100vw;min-width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4vh 6vw;position:relative;overflow:hidden;background:#0D0D0D}
+.slide{width:100vw;min-width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4vh 6vw;position:relative;overflow:hidden;background:radial-gradient(circle at 8% 8%,rgba(71,130,210,0.07),transparent 32%),var(--paper)}
 .slide>*{position:relative;z-index:1;flex-shrink:0}
 .slide:focus-visible{outline:none}
-/* every theme class shares the same flat ground — theme only changes the accent */
-.slide.samsung,.slide.surface,
-.slide.blue,.slide.navy,.slide.indigo,.slide.violet,.slide.rose,.slide.mint,.slide.teal,.slide.cyan,.slide.sky,.slide.amber,.slide.orange,
-.slide.in-blue,.slide.in-navy,.slide.in-indigo,.slide.in-violet,.slide.in-rose,.slide.in-mint,.slide.in-teal,.slide.in-cyan,.slide.in-sky,.slide.in-amber,.slide.in-orange{background:#0D0D0D}
-.slide.light{background:#F0F4FF;color:#0C0F1E}.slide.light .sub{color:#3A4A6A}.slide.light .em{font-weight:800}
 
-/* ---------- typography ---------- */
-h1{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:900;text-align:center;line-height:1.18;letter-spacing:0;color:#fff;padding-bottom:4px}
-h2{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;text-align:center;line-height:1.15;letter-spacing:0}
-/* h3 = eyebrow: the claim/context line above every content slide */
-h3{margin:0 0 2.2vh;font-size:clamp(1.08rem,1.35vw,1.28rem);font-weight:400;color:rgba(255,255,255,0.9);line-height:1.45}
-.sub{font-size:clamp(1.18rem,1.65vw,1.58rem);color:rgba(255,255,255,0.93);margin-top:2vh;text-align:center;line-height:1.5;font-weight:300}
-.sub strong{color:#fff;font-weight:700}
-.em{color:#60a5fa;font-weight:700}.accent{color:#60a5fa}.red{color:#fca5a5}.green{color:#34d399}.violet{color:#a78bfa}
-.meta{margin-top:2vh;font-size:0.92rem;color:rgba(255,255,255,0.85);font-weight:400}
-.impact-text{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.2;letter-spacing:0;text-align:center;color:#fff;padding-bottom:4px}
-.impact-sub{font-size:clamp(1.25rem,1.8vw,1.8rem);font-weight:300;color:rgba(255,255,255,0.55);margin-top:2vh;text-align:center;letter-spacing:0;line-height:1.5}
-.impact-sub strong{color:#fff;font-weight:700}
-.formula{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;letter-spacing:0.02em}
-kbd{display:inline-block;padding:2px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:rgba(255,255,255,0.7)}
+/* ===== SECTION SYSTEM =====
+   divider slide  = .slide.<color>     (stronger tint gradient, h1 + underline tick)
+   body slide     = .slide.in-<color>  (soft tint wash)
+   Families: blue/sky/cyan · mint/teal · violet/indigo · amber · orange. No rose. */
+.slide.blue,.slide.sky,.slide.cyan{background:radial-gradient(circle at 77% 30%,rgba(91,157,230,0.19),transparent 35%),linear-gradient(145deg,#eaf3ff 0%,#f8fbff 72%)}
+.slide.mint,.slide.teal{background:radial-gradient(circle at 77% 30%,rgba(21,157,152,0.17),transparent 35%),linear-gradient(145deg,#eafaf6 0%,#f8fffd 72%)}
+.slide.violet,.slide.indigo{background:radial-gradient(circle at 77% 30%,rgba(114,87,178,0.16),transparent 35%),linear-gradient(145deg,#f0ecff 0%,#fbfaff 72%)}
+.slide.amber{background:radial-gradient(circle at 77% 30%,rgba(229,169,20,0.18),transparent 35%),linear-gradient(145deg,#fff5db 0%,#fffdf7 72%)}
+.slide.orange{background:radial-gradient(circle at 77% 30%,rgba(222,138,60,0.16),transparent 35%),linear-gradient(145deg,#fff1e2 0%,#fffdf9 72%)}
+.slide.in-blue,.slide.in-sky,.slide.in-cyan{background:radial-gradient(circle at 88% 18%,rgba(91,157,230,0.12),transparent 34%),var(--blue-soft)}
+.slide.in-mint,.slide.in-teal{background:radial-gradient(circle at 88% 18%,rgba(21,157,152,0.11),transparent 34%),var(--mint-soft)}
+.slide.in-violet,.slide.in-indigo{background:radial-gradient(circle at 88% 18%,rgba(114,87,178,0.10),transparent 34%),var(--violet-soft)}
+.slide.in-amber{background:radial-gradient(circle at 88% 18%,rgba(229,169,20,0.11),transparent 34%),var(--amber-soft)}
+.slide.in-orange{background:radial-gradient(circle at 88% 18%,rgba(222,138,60,0.10),transparent 34%),#fff4e9}
 
-/* ---------- section accent system ----------
-   divider slide: class = accent name (h1 gets underline bar)
-   content slide: class = in-{accent} (.em takes accent color)   */
-.slide.sky .em,.slide.in-sky .em{color:#38bdf8}
-.slide.mint .em,.slide.in-mint .em{color:#34d399}
-.slide.indigo .em,.slide.in-indigo .em{color:#818cf8}
-.slide.cyan .em,.slide.in-cyan .em{color:#22d3ee}
-.slide.amber .em,.slide.in-amber .em{color:#fbbf24}
-.slide.violet .em,.slide.in-violet .em{color:#a78bfa}
-.slide.teal .em,.slide.in-teal .em{color:#2dd4bf}
-.slide.blue .em,.slide.in-blue .em{color:#60a5fa}
-.slide.orange .em,.slide.in-orange .em{color:#fb923c}
-.slide.sky h1,.slide.mint h1,.slide.indigo h1,.slide.cyan h1,.slide.amber h1,.slide.violet h1,.slide.teal h1,.slide.blue h1,.slide.orange h1{position:relative}
-.slide.sky h1::after{content:"";display:block;width:48px;height:3px;background:#38bdf8;margin:2vh auto 0;border-radius:2px}
-.slide.mint h1::after{content:"";display:block;width:48px;height:3px;background:#34d399;margin:2vh auto 0;border-radius:2px}
-.slide.indigo h1::after{content:"";display:block;width:48px;height:3px;background:#818cf8;margin:2vh auto 0;border-radius:2px}
-.slide.cyan h1::after{content:"";display:block;width:48px;height:3px;background:#22d3ee;margin:2vh auto 0;border-radius:2px}
-.slide.amber h1::after{content:"";display:block;width:48px;height:3px;background:#fbbf24;margin:2vh auto 0;border-radius:2px}
-.slide.violet h1::after{content:"";display:block;width:48px;height:3px;background:#a78bfa;margin:2vh auto 0;border-radius:2px}
-.slide.teal h1::after{content:"";display:block;width:48px;height:3px;background:#2dd4bf;margin:2vh auto 0;border-radius:2px}
-.slide.blue h1::after{content:"";display:block;width:48px;height:3px;background:#60a5fa;margin:2vh auto 0;border-radius:2px}
-.slide.orange h1::after{content:"";display:block;width:48px;height:3px;background:#fb923c;margin:2vh auto 0;border-radius:2px}
+/* section accents: .em ink + divider underline tick */
+.em{color:var(--blue);font-weight:700}
+.slide.blue .em,.slide.in-blue .em,.slide.sky .em,.slide.in-sky .em,.slide.cyan .em,.slide.in-cyan .em{color:var(--blue-ink)}
+.slide.mint .em,.slide.in-mint .em,.slide.teal .em,.slide.in-teal .em{color:var(--teal-ink)}
+.slide.violet .em,.slide.in-violet .em,.slide.indigo .em,.slide.in-indigo .em{color:var(--violet-ink)}
+.slide.amber .em,.slide.in-amber .em{color:var(--amber-ink)}
+.slide.orange .em,.slide.in-orange .em{color:var(--orange-ink)}
+.slide.blue h1::after,.slide.sky h1::after,.slide.cyan h1::after,.slide.mint h1::after,.slide.teal h1::after,.slide.violet h1::after,.slide.indigo h1::after,.slide.amber h1::after,.slide.orange h1::after{content:"";display:block;width:48px;height:3px;margin:2vh auto 0;border-radius:2px;background:#3f82d7}
+.slide.mint h1::after,.slide.teal h1::after{background:#159d98}
+.slide.violet h1::after,.slide.indigo h1::after{background:#7257b2}
+.slide.amber h1::after{background:#dca614}
+.slide.orange h1::after{background:#d97a2e}
 
-/* ---------- list ---------- */
-.list{list-style:none;max-width:80vw;width:100%;margin:0 auto}
-.list li{font-size:clamp(1.18rem,1.62vw,1.42rem);padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.95);font-weight:300;line-height:1.5;text-align:center}
-.list li:last-child{border-bottom:none}
-.list strong{color:#fff;font-weight:700}
-
-/* ---------- comp: 2-4 way contrast cards ---------- */
-.comp{display:flex;gap:1.1vw;width:100%;max-width:1300px;margin:3vh 0;align-items:stretch}
-.comp-item{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:12px;text-align:center;padding:3vh 1.2vw;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.09);border-radius:12px}
-.comp-item[style*="border-top-color"]{border-top-width:3px}
-.comp-item .tag{font-size:clamp(0.95rem,1.12vw,1.08rem);color:rgba(255,255,255,0.72);font-weight:400;letter-spacing:0.12em}
-.comp-item p{font-size:clamp(1.14rem,1.42vw,1.38rem);font-weight:300;line-height:1.46;color:rgba(255,255,255,0.96)}
-.comp-item p strong{color:#fff;font-weight:700}
-.comp-item.on{background:rgba(255,255,255,0.028)}
-
-/* ---------- grid: 3-4 up principles (divider look, no cards) ---------- */
-.grid{display:flex;gap:0;margin-top:3vh;width:100%;max-width:1100px;align-items:stretch}
-.grid-item{padding:3vh 2.5vw;text-align:center;flex:1;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center}
-.grid-item:last-child{border-right:none}
-.grid-item .name{font-size:clamp(1.2rem,1.5vw,1.5rem);font-weight:700;margin-bottom:8px;color:#fff}
-.grid-item .desc{font-size:clamp(1rem,1.2vw,1.15rem);color:rgba(255,255,255,0.92);font-weight:300;line-height:1.7}
-
-/* ---------- table ---------- */
-.tbl{margin-top:2vh;border-collapse:collapse;max-width:82vw}
-.tbl th,.tbl td{padding:1.2vh 2vw;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06)}
-.tbl th{color:rgba(255,255,255,0.7);font-weight:400;font-size:clamp(0.95rem,1.1vw,1.05rem)}
-.tbl td{font-size:clamp(1.14rem,1.4vw,1.34rem);color:rgba(255,255,255,0.96)}
-.tbl td strong{color:#fff}
-
-/* ---------- stat-grid ---------- */
-.stat-grid{display:flex;gap:1.1vw;width:100%;max-width:1100px;margin-top:3vh}
-.stat-card{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px;text-align:center;padding:2.6vh 1.6vw 2.8vh;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.09);border-radius:12px}
-.stat-card .label{font-size:clamp(0.9rem,1.04vw,1rem);color:rgba(255,255,255,0.78);min-height:2.8em;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.3;margin-bottom:1.2vh}
-.stat-card .value{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:0;line-height:1.1;color:#fff;margin-bottom:6px;padding-bottom:2px;position:relative}
-.stat-card .value span{position:absolute;left:100%;bottom:0.12em;margin-left:2px;white-space:nowrap}
-.stat-card .source{font-size:clamp(0.9rem,1.04vw,1rem);color:rgba(255,255,255,0.88);min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;line-height:1.35}
-.stat-card.on{background:rgba(255,255,255,0.028)}
-.stat-card.red-on .value{color:#fca5a5}.stat-card.green-on .value{color:#34d399}.stat-card.yellow-on .value{color:#fbbf24}
-
-/* big single stat */
+/* ===== TYPOGRAPHY ===== */
+h1{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:900;text-align:center;line-height:1.18;letter-spacing:-0.03em;color:var(--ink);padding-bottom:4px}
+h2{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;text-align:center;line-height:1.15;letter-spacing:-0.02em;color:var(--ink)}
+h3{font-size:clamp(1.08rem,1.35vw,1.28rem);font-weight:400;color:var(--ink);margin-bottom:2.2vh;text-align:center}
+.sub{font-size:clamp(1.18rem,1.65vw,1.58rem);color:var(--text);margin-top:2vh;text-align:center;line-height:1.5;font-weight:300}
+.sub strong,.impact-sub strong,.list strong{color:var(--ink);font-weight:700}
+.meta{margin-top:2vh;font-size:clamp(0.7rem,0.76vw,0.76rem);color:var(--muted);font-weight:400}
+.meta.byline{font-size:0.92rem}
+.meta a{color:inherit;text-decoration-color:rgba(93,110,139,0.4);text-underline-offset:0.18em}
+.impact-text{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.2;letter-spacing:-0.03em;text-align:center;color:var(--ink);padding-bottom:4px}
+.impact-sub{font-size:clamp(1.25rem,1.8vw,1.8rem);font-weight:300;color:var(--text);margin-top:2vh;text-align:center;letter-spacing:-0.01em;line-height:1.5}
+.formula{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;letter-spacing:0.02em;color:var(--ink)}
+blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem);font-weight:300;max-width:780px;text-align:center;line-height:1.6;color:var(--text);letter-spacing:-0.01em}
+cite{display:block;margin-top:24px;font-size:clamp(1rem,1.15vw,1.08rem);color:var(--muted);font-style:normal}
 .stat{text-align:center}
-.stat .number{font-family:'Figtree',sans-serif;font-size:clamp(5rem,12vw,11rem);font-weight:900;letter-spacing:0;line-height:0.9;color:#fff}
-.stat .label{font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.4);margin-top:1.5vh;font-weight:300;letter-spacing:0.1em}
+.stat .number{font-family:'Figtree',sans-serif;font-size:clamp(5rem,12vw,11rem);font-weight:900;letter-spacing:-0.05em;line-height:0.9;color:var(--ink)}
+.stat .label{font-size:clamp(0.85rem,1.1vw,1rem);color:var(--muted);margin-top:1.5vh;font-weight:300}
 
-/* ---------- arch-layers: the workhorse (role | brand | desc rows) ---------- */
+/* ===== CARDS: compare ===== */
+.comp{display:flex;gap:1.1vw;width:100%;max-width:1300px;margin:3vh 0;align-items:stretch}
+.comp-item{flex:1;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:3vh 1.2vw;text-align:center;display:grid;grid-template-rows:minmax(1.5em,auto) minmax(4.8em,1fr);align-items:center;justify-items:center;gap:1.2vh}
+.comp-item .tag{align-self:start;display:flex;align-items:center;justify-content:center;min-height:1.5em;font-size:clamp(0.95rem,1.12vw,1.08rem);letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.comp-item>p,.comp-item>div:not(.tag){align-self:center}
+.comp-item p{font-size:clamp(1.14rem,1.42vw,1.38rem);font-weight:300;line-height:1.46;color:var(--ink)}
+.comp-item p strong{font-weight:700}
+
+/* emphasis card (.on) auto-matches the slide's section color */
+.comp-item.on,.stat-card.on{background:var(--blue-soft);border-color:#bed5ef;border-top:2px solid #6aa5e4}
+.slide.in-mint .comp-item.on,.slide.in-teal .comp-item.on,.slide.in-mint .stat-card.on,.slide.in-teal .stat-card.on{background:var(--mint-soft);border-color:#b9e2d8;border-top-color:#5ab9a9}
+.slide.in-violet .comp-item.on,.slide.in-indigo .comp-item.on,.slide.in-violet .stat-card.on,.slide.in-indigo .stat-card.on{background:var(--violet-soft);border-color:#d8ccf2;border-top-color:#9a82cf}
+.slide.in-amber .comp-item.on,.slide.in-amber .stat-card.on{background:var(--amber-soft);border-color:#ead7a4;border-top-color:#dca614}
+.slide.in-orange .comp-item.on,.slide.in-orange .stat-card.on{background:#fff3e7;border-color:#eed0b0;border-top-color:#d97a2e}
+/* semantic variants for good/caution/bad compares */
+.comp-item.green-on,.stat-card.green-on{background:#edf9f5;border-color:#b9e2d8;border-top:2px solid #5ab9a9}
+.comp-item.yellow-on,.stat-card.yellow-on{background:#fff8e9;border-color:#ead7a4;border-top:2px solid #dca614}
+.comp-item.red-on,.stat-card.red-on{background:#fff2f4;border-color:#ebc7cf;border-top:2px solid #d994a6}
+
+/* ===== CARDS: stats ===== */
+.stat-grid{display:flex;gap:1.1vw;width:100%;max-width:1100px;margin-top:3vh}
+.stat-card{flex:1;text-align:center;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:2.6vh 1.6vw 2.8vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:center}
+.stat-card .label{font-size:clamp(0.9rem,1.04vw,1rem);color:var(--muted);min-height:2.8em;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.3;margin-bottom:1.2vh}
+.stat-card .value{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.1;color:var(--ink);margin-bottom:6px;padding-bottom:2px;position:relative}
+.stat-card .value span{position:absolute;left:100%;bottom:0.12em;margin-left:2px;white-space:nowrap}  /* small unit overhangs right, digits stay optically centered */
+.stat-card .source{font-size:clamp(0.9rem,1.04vw,1rem);color:var(--text);min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;line-height:1.35}
+
+/* ===== CARDS: layer rows ===== */
 .arch-layers{display:flex;flex-direction:column;gap:1.2vh;width:100%;max-width:min(1260px,88vw);margin-top:3vh}
-.arch-layer{display:grid;grid-template-columns:minmax(160px,0.24fr) minmax(250px,0.84fr) minmax(320px,1fr);column-gap:1.8vw;align-items:center;padding:2vh 1.8vw;background:rgba(255,255,255,0.024);border:1px solid rgba(255,255,255,0.07);border-radius:12px}
-.arch-layer.on{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.05)}
-.arch-layer .role{min-width:0;white-space:nowrap;font-size:clamp(0.98rem,1.12vw,1.08rem);color:rgba(255,255,255,0.78);text-align:left}
-.arch-layer .brand{min-width:0;font-size:clamp(1.28rem,1.5vw,1.46rem);font-weight:700;color:#fff;text-align:left}
-.arch-layer .desc{min-width:0;font-size:clamp(1.12rem,1.32vw,1.26rem);color:rgba(255,255,255,0.92);text-align:left;font-weight:300;white-space:normal;line-height:1.42}
+.arch-layer{display:grid;grid-template-columns:minmax(64px,0.16fr) minmax(280px,0.92fr) minmax(320px,1fr);column-gap:1.8vw;align-items:center;padding:2vh 1.8vw;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow)}
+.arch-layer .role{font-size:clamp(0.98rem,1.12vw,1.08rem);color:var(--muted);white-space:nowrap;text-align:left}
+.arch-layer .brand{font-size:clamp(1.28rem,1.5vw,1.46rem);font-weight:700;color:var(--ink);text-align:left;min-width:0}
+.arch-layer .desc{font-size:clamp(1.12rem,1.32vw,1.26rem);color:var(--text);font-weight:300;text-align:left;line-height:1.42;min-width:0}
+.arch-layer.on{background:var(--blue-soft);border-color:#bed5ef}
+.slide.in-mint .arch-layer.on,.slide.in-teal .arch-layer.on{background:var(--mint-soft);border-color:#b9e2d8}
+.slide.in-violet .arch-layer.on,.slide.in-indigo .arch-layer.on{background:var(--violet-soft);border-color:#d8ccf2}
+.slide.in-amber .arch-layer.on{background:var(--amber-soft);border-color:#ead7a4}
+.slide.in-orange .arch-layer.on{background:#fff3e7;border-color:#eed0b0}
 
-/* ---------- two column ---------- */
+/* ===== GRID (named items) ===== */
+.grid{display:flex;gap:1.1vw;margin-top:3vh;width:100%;max-width:1100px;align-items:stretch}
+.grid-item{padding:3vh 2.5vw;text-align:center;flex:1;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);display:flex;flex-direction:column;justify-content:center;align-items:center}
+.grid-item .name{font-size:clamp(1.2rem,1.5vw,1.5rem);font-weight:700;margin-bottom:8px;color:var(--ink)}
+.grid-item .desc{font-size:clamp(1rem,1.2vw,1.15rem);color:var(--text);font-weight:300;line-height:1.7}
+
+/* ===== PIPELINE ===== */
+.pipeline{display:flex;align-items:center;gap:0.4vw;margin:3vh 0;flex-wrap:nowrap}
+.pipeline-step{padding:1.4vh 2.4vw;font-size:clamp(1.06rem,1.32vw,1.22rem);font-weight:300;text-align:center;color:var(--text);white-space:nowrap;background:rgba(255,255,255,0.9);border:1px solid var(--line);border-top:2px solid #c4d5e9;border-radius:var(--radius);box-shadow:0 8px 20px rgba(42,78,125,0.05)}
+.pipeline-step span{display:block;font-size:0.84em;color:var(--muted);margin-top:2px}
+.pipeline-step.on{background:#eaf3ff;border-top-color:#6aa5e4;color:#236bbd;font-weight:700}
+.pipeline-step.on span{color:#4a7cb0}
+.pipeline-step.green{background:#eaf8f4;border-top-color:#5ab9a9;color:#117f74}
+.pipeline-step.violet{background:#f1edff;border-top-color:#9a82cf;color:#684ba8}
+.pipeline-arrow{color:#7890ad;font-size:1rem;padding:0 2px}
+
+/* ===== TABLE / LIST ===== */
+.tbl{margin-top:2vh;border-collapse:collapse;max-width:82vw}
+.tbl th,.tbl td{padding:1.2vh 2vw;text-align:left;border-bottom:1px solid rgba(80,112,158,0.16)}
+.tbl th{color:var(--muted);font-weight:400;font-size:clamp(0.95rem,1.1vw,1.05rem)}
+.tbl td{font-size:clamp(1.14rem,1.4vw,1.34rem);color:var(--text)}
+.tbl td strong{color:var(--ink)}
+.list{list-style:none;max-width:80vw;width:100%;margin:0 auto}
+.list li{font-size:clamp(1.18rem,1.62vw,1.42rem);padding:1.8vh 0;border-bottom:1px solid rgba(80,112,158,0.16);color:var(--text);font-weight:300;line-height:1.5;text-align:center}
+.list li:last-child{border-bottom:none}
+
+/* ===== NOTE / CODE / KBD ===== */
+.note{padding:1.4vh 2.5vw;margin-top:3vh;max-width:64vw;margin-left:auto;margin-right:auto;display:flex;align-items:center;gap:12px;border-radius:0 var(--radius) var(--radius) 0}
+.note p{font-size:clamp(1.12rem,1.35vw,1.28rem);font-weight:300;line-height:1.55}
+.note.warn{background:var(--amber-soft);border-left:2px solid #dca614}.note.warn p{color:#8d6500}
+.note.tip,.note.exp{background:#edf9f6;border-left:2px solid #159d98}.note.tip p,.note.exp p{color:#27675f}
+.note.exp p{font-style:italic}
+.note .xp{font-style:normal;font-weight:700;color:#0f8d80;letter-spacing:0.08em;margin-right:8px;font-size:0.92em}
+.code{background:rgba(255,255,255,0.9);border:1px solid #cfdced;border-radius:var(--radius);padding:2vh 2vw;font-family:'JetBrains Mono','Noto Sans KR',monospace;font-size:clamp(0.82rem,0.95vw,0.92rem);line-height:1.65;max-width:1080px;width:100%;margin:2vh auto;white-space:pre-wrap;color:var(--ink);text-align:left;box-shadow:0 10px 28px rgba(42,78,125,0.06)}
+.code .comment{color:#6d7d98}.code .keyword{color:#7257b2}.code .string{color:#118777}
+kbd{display:inline-block;padding:2px 8px;background:#eef4fb;border:1px solid #ccd9ea;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:var(--ink)}
+
+/* ===== LAYOUT HELPERS ===== */
 .two-col{display:flex;gap:4vw;width:100%;max-width:1100px;margin-top:3vh}
 .two-col .col{flex:1;text-align:left}
 
-/* ---------- pipeline ---------- */
-.pipeline{display:flex;align-items:center;gap:0;margin:3vh 0;flex-wrap:nowrap}
-.pipeline-step{padding:1.4vh 2.4vw;font-size:clamp(0.95rem,1.2vw,1.1rem);font-weight:300;text-align:center;color:rgba(255,255,255,0.88);white-space:nowrap}
-.pipeline-step.on{color:#fff;font-weight:700}
-.pipeline-step.green{color:#34d399}
-.pipeline-arrow{color:rgba(255,255,255,0.3);font-size:1rem;padding:0 4px}
+/* ===== ILLUSTRATIONS (codex-generated WebP set) ===== */
+.visual{display:block;width:min(1120px,84vw);height:auto;max-height:58vh;object-fit:contain;margin-top:1.6vh;border:0}
+.visual.full{width:min(1680px,100vw);max-height:none;margin:0}         /* full-bleed hook/infographic */
+.visual.narrow{width:min(900px,72vw)}
+@media (min-width:769px) and (max-height:880px){.visual{width:min(850px,78vw)}}
 
-/* ---------- quote ---------- */
-blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem);font-weight:300;max-width:1100px;text-align:center;line-height:1.6;color:rgba(255,255,255,0.95);letter-spacing:-0.01em}
-cite{display:block;margin-top:24px;font-size:clamp(1rem,1.15vw,1.08rem);color:rgba(255,255,255,0.82);font-style:normal}
-
-/* ---------- notes ---------- */
-.note{padding:1.4vh 2.5vw;margin:3vh auto 0;max-width:64vw;display:flex;align-items:center;gap:12px}
-.note.warn{border-left:2px solid rgba(255,255,255,0.2)}
-.note.tip{border-left:2px solid rgba(96,165,250,0.4)}
-.note.exp{border-left:2px solid rgba(45,212,191,0.5)}
-.note.warn p,.note.tip p{color:rgba(255,255,255,0.95);font-size:clamp(1.12rem,1.35vw,1.28rem);font-weight:300;line-height:1.55}
-.note.exp p{color:rgba(255,255,255,0.78);font-size:clamp(1.12rem,1.35vw,1.28rem);font-weight:300;line-height:1.55;font-style:italic}
-.note .xp{font-style:normal;font-weight:700;color:#2dd4bf;letter-spacing:0.08em;margin-right:8px;font-size:0.92em}
-
-/* ---------- fill-in guide (presenter placeholders — replace before presenting) ---------- */
-.fill-wrap{width:100%;max-width:1240px;margin-top:1.2vh;display:flex;flex-direction:column;gap:0.9vh}
-.fill-box{border:2px dashed rgba(167,139,250,0.45);background:rgba(167,139,250,0.05);border-radius:14px;padding:1.5vh 2vw;text-align:left}
-.fill-box .fill-tag{display:inline-block;font-size:0.82rem;font-weight:800;letter-spacing:0.1em;color:#a78bfa;margin-bottom:0.7vh}
-.fill-box ul{list-style:none;display:flex;flex-direction:column;gap:0.45vh;margin:0;padding:0}
-.fill-box li{font-size:clamp(0.94rem,1.1vw,1.05rem);color:rgba(255,255,255,0.85);line-height:1.45;text-align:left}
-.fill-box li strong{color:#fff}
-.fill-prompt{font-family:'JetBrains Mono','Noto Sans KR',monospace;font-size:clamp(0.8rem,0.92vw,0.9rem);line-height:1.55;color:rgba(255,255,255,0.78);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:1.1vh 1.3vw;text-align:left;white-space:pre-wrap}
-.fill-prompt .fp-label{display:block;font-family:'Noto Sans KR',sans-serif;font-weight:700;color:#a78bfa;margin-bottom:0.5vh;letter-spacing:0.04em}
-.sample-dim{opacity:0.55}
-
-/* ---------- fixed chrome ---------- */
+/* ===== CHROME (nav / page / progress) ===== */
 .nav{position:fixed;bottom:28px;left:44px;display:flex;gap:6px;z-index:100}
-.nav button{width:36px;height:36px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.45);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s}
-.nav button:hover{background:rgba(255,255,255,0.14);color:#fff}
-.nav button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
-.part-label{position:fixed;top:28px;left:44px;font-size:0.78rem;color:rgba(255,255,255,0.78);font-weight:400;z-index:100}
-.page-num{position:fixed;bottom:32px;right:44px;font-size:0.78rem;color:rgba(255,255,255,0.8);font-family:'Figtree',sans-serif;z-index:100}
-.progress{position:fixed;top:0;left:0;height:1px;background:rgba(255,255,255,0.3);z-index:200;transition:none}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.72);border:1px solid rgba(11,27,77,0.18);color:rgba(11,27,77,0.72);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 5px 16px rgba(42,78,125,0.08)}
+.nav button:hover{background:#eaf3ff;border-color:#6aa5e4;color:#174f92}
+.nav button:focus-visible{outline:2px solid #3f82d7;outline-offset:2px}
+.page-num{position:fixed;bottom:32px;right:44px;font-size:0.78rem;color:rgba(11,27,77,0.72);font-family:'Figtree',sans-serif;z-index:100}
+.progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#3f82d7,#159d98);z-index:200;transition:none}
+@media(prefers-reduced-motion:reduce){.nav button{transition:none}}
 
-/* ---------- legibility bump for dim inline-styled text (back-row pass) ---------- */
-[style*="rgba(255,255,255,0.25)"]{color:rgba(255,255,255,0.8)!important}
-[style*="rgba(255,255,255,0.3)"]{color:rgba(255,255,255,0.82)!important}
-[style*="rgba(255,255,255,0.35)"]{color:rgba(255,255,255,0.85)!important}
-[style*="rgba(255,255,255,0.4)"]{color:rgba(255,255,255,0.87)!important}
-[style*="rgba(255,255,255,0.45)"]{color:rgba(255,255,255,0.88)!important}
-[style*="rgba(255,255,255,0.5)"]{color:rgba(255,255,255,0.9)!important}
-[style*="rgba(255,255,255,0.55)"]{color:rgba(255,255,255,0.92)!important}
-[style*="rgba(255,255,255,0.6)"]{color:rgba(255,255,255,0.93)!important}
-[style*="rgba(255,255,255,0.65)"]{color:rgba(255,255,255,0.95)!important}
-[style*="rgba(255,255,255,0.7)"]{color:rgba(255,255,255,0.96)!important}
-
-/* large projection screens: preserve the 16:9 visual ratio without narrow wrapping */
-@media (min-width:1440px) and (min-height:900px){
-  html{font-size:182%}
-  .arch-layers,.comp,.grid{max-width:min(1450px,88vw)!important}
-  .stat-grid{max-width:min(1250px,82vw)!important}
-  .arch-layer{grid-template-columns:minmax(180px,0.24fr) minmax(320px,0.84fr) minmax(400px,1fr)}
-}
-
-/* ---------- mobile: one slide at a time, vertical layout ---------- */
+/* ===== MOBILE ===== */
 @media (max-width:768px){
-  html{font-size:100%}
   body{overflow:auto}
   .slides{height:auto;display:block;transform:none!important;width:100%}
-  .slide{position:relative;height:auto;min-height:100vh;width:100vw;padding:72px 22px 92px;display:none!important;overflow-y:visible}
+  .slide{position:relative;min-height:100vh;width:100vw;padding:72px 22px 92px;display:none!important}
   .slide.active{display:flex!important}
   html,body{max-width:100%;overflow-x:hidden;word-break:normal}
   .slide{align-items:center;text-align:center;overflow-x:hidden}
   .slide,.slide *{overflow-wrap:anywhere;word-break:normal}
   .slide>*{max-width:100%;min-width:0}
-  .slide>h1,.slide>h2,.slide>h3,.slide>.sub,.slide>.meta,.slide>p{width:100%}
   h1{font-size:clamp(2.25rem,11vw,3.1rem);line-height:1.12}
   h2{font-size:clamp(1.75rem,8vw,2.6rem);line-height:1.16}
-  h3{max-width:100%;font-size:clamp(.78rem,3.4vw,1rem);line-height:1.45;text-align:center}
-  .impact-text{font-size:clamp(2rem,9vw,2.8rem)!important;line-height:1.3!important}
-  .impact-sub{font-size:clamp(1rem,4.4vw,1.25rem);line-height:1.5}
+  h3{max-width:100%;font-size:clamp(.78rem,3.4vw,1rem);line-height:1.45}
   .sub{font-size:clamp(.95rem,4vw,1.2rem);line-height:1.45}
-  .meta{font-size:.72rem;line-height:1.5}
   img,video{max-width:100%!important;max-height:58vh!important}
-  .stat-grid,.comp,.two-col,.arch-layers{grid-template-columns:1fr!important;display:grid!important;width:100%!important;gap:1.2vh}
-  .arch-layer{grid-template-columns:1fr;row-gap:4px;padding:1.5vh 4vw}
-  .arch-layer .role,.arch-layer .brand,.arch-layer .desc{text-align:left}
+  .stat-grid,.comp,.two-col,.arch-layers,.grid{display:grid!important;grid-template-columns:1fr!important;width:100%!important;gap:1.4vh}
+  .arch-layer{grid-template-columns:1fr!important}
+  .pipeline{flex-wrap:wrap;justify-content:center}
   .tbl{display:block;overflow-x:auto;font-size:.8rem}
-  .pipeline{flex-wrap:wrap;gap:0}
-  .note{max-width:100%!important}
-  .page-num{right:18px;bottom:18px}.nav{left:18px;bottom:18px}.part-label{left:22px;top:18px}
+  .nav{left:18px;bottom:18px}.page-num{right:18px;bottom:18px}
+}
+@media (min-width:769px) and (max-width:1100px){
+  .pipeline{width:100%;justify-content:center}
+  .pipeline-step{padding:1.2vh 1vw;font-size:clamp(0.82rem,1.05vw,0.96rem)}
 }
 
-/* ---------- print ---------- */
+/* ===== PRINT ===== */
+@page{size:landscape;margin:0}
 @media print{
-  body{background:#fff;color:#000;overflow:visible}
-  .nav,.progress,.part-label,.page-num{display:none}
-  .slides{display:block}
-  .slide{min-height:auto;page-break-after:always;background:#fff!important;color:#000!important;padding:2cm}
-  .em,.red,.green,.violet{color:#000!important}
-  .sub{color:#333!important}
+  html{font-size:100%!important}
+  html,body{width:100%;height:auto;overflow:visible!important;background:#fff!important}
+  .nav,.progress,.page-num{display:none!important}
+  .slides{display:block!important;transform:none!important}
+  .slide,.slide.active{display:flex!important;width:100%!important;min-width:0!important;height:100vh!important;page-break-after:always;break-after:page;background:#fff!important;overflow:visible!important;padding:4vh 5vw!important}
+  .comp-item,.stat-card,.arch-layer,.grid-item,.code,.pipeline-step{box-shadow:none!important}
 }
-@media(prefers-reduced-motion:reduce){.nav button{transition:none}}
 </style>
 </head>
 <body>
-<div class="part-label" id="partLabel">SWDP 개발·운영 내용 공유 · 2026. 7</div>
 <div class="progress" id="progress"></div>
 <div class="slides" id="slides">
 
-<!-- 00 Cover -->
-<div class="slide samsung">
-  <p class="meta">SWDP 개발·운영 내용 공유</p>
-  <h1>SWDP 개발·운영과<br>AI 에이전트 적용 방향</h1>
-  <p class="sub">SWDP 자체 개발·운영 업무의 <span class="em">위임 · 검증 · 통제 구조</span></p>
-  <p class="meta" style="margin-top:4vh;">2026. 7</p>
+<!-- 01 Cover -->
+<div class="slide" style="background:var(--paper) url('../assets/images/ai-dlc-swdp/01-cover.webp') right center/contain no-repeat; align-items:flex-start; padding-left:8vw;">
+  <p class="meta byline" style="text-align:left; margin-top:0;">SWDP 개발&middot;운영 내용 공유</p>
+  <h1 style="text-align:left; margin-top:1.6vh; font-size:clamp(3rem,5.2vw,5.2rem);">SWDP 개발&middot;운영과<br>AI 에이전트 적용 방향</h1>
+  <p class="sub" style="text-align:left;">SWDP 자체 개발&middot;운영 업무의<br><span class="em">위임 &middot; 검증 &middot; 통제 구조</span></p>
+  <p class="meta byline" style="margin-top:4vh; text-align:left;">2026. 7</p>
 </div>
 
-<!-- 01 Core scope -->
+<!-- 02 Core scope -->
 <div class="slide">
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);line-height:1.35;">이번 논의의 중심은<br><span class="em">SWDP 자체의 개발·운영</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">장애 대응 · 변경 · 검증 업무에 <strong>에이전트를 적용하는 방식</strong></p>
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem); line-height:1.35;">이번 논의의 중심은<br><span class="em">SWDP 자체의 개발&middot;운영</span></p>
+  <p class="impact-sub" style="margin-top:3vh;">장애 대응 &middot; 변경 &middot; 검증 업무에 <strong>에이전트를 적용하는 방식</strong></p>
 </div>
 
-<!-- 02 Scope boundary -->
+<!-- 03 Scope boundary -->
 <div class="slide">
-  <h3>적용 범위</h3>
-  <div class="comp" style="max-width:1050px;">
-    <div class="comp-item on" style="border-top-color:rgba(96,165,250,0.55);">
-      <div class="tag" style="color:#60a5fa !important;">중심</div>
-      <p><strong>SWDP 서비스 자체</strong><br>개발·운영 업무</p>
-    </div>
-    <div class="comp-item">
-      <div class="tag">별도 트랙</div>
-      <p>SWDP 사용자 대상 AI<br>챗봇 · VOC 지원</p>
-    </div>
+  <h3>적용 범위 &mdash; 사용자 지원이 아니라 SWDP 자체</h3>
+  <div class="comp" style="max-width:1050px; margin-top:2vh;">
+    <div class="comp-item on"><div class="tag">중심</div><p><strong>SWDP 서비스 자체</strong>의<br>개발 &middot; 운영 업무</p></div>
+    <div class="comp-item"><div class="tag">별도 트랙</div><p>SWDP 사용자 대상<br>AI 챗봇 &middot; VOC 지원</p></div>
   </div>
-  <p class="sub">이번 자료는 <span class="em">SWDP 자체 개발·운영 적용</span>을 다룬다</p>
+  <p class="sub" style="margin-top:2.2vh;">이번 자료의 범위 &mdash; <span class="em">SWDP 자체 개발&middot;운영에 대한 적용</span></p>
 </div>
 
-<!-- 03 AI-DLC overview -->
+<!-- 04 AI-DLC overview (illustration) -->
 <div class="slide in-blue">
-  <h3>AI-DLC의 기본 구조</h3>
-  <div class="pipeline" style="margin-top:2.6vh;">
-    <div class="pipeline-step on">Inception</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">Construction</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step green">Operations</div>
-  </div>
-  <div class="comp" style="max-width:1040px;margin-top:2.2vh;">
-    <div class="comp-item on" style="border-top-color:rgba(96,165,250,0.55);">
-      <div class="tag" style="color:#60a5fa !important;">AI 실행</div>
-      <p>계획 작성 · 확인 질문<br><strong>구현과 검증 수행</strong></p>
-    </div>
-    <div class="comp-item">
-      <div class="tag">사람의 역할</div>
-      <p>업무 맥락 · 주요 결정<br><strong>검토와 책임</strong></p>
-    </div>
-  </div>
-  <p class="sub">AWS가 제안한 <span class="em">AI 기반 개발 협업 방식</span> · 문제 정의부터 운영까지</p>
+  <h3>AI-DLC &mdash; AWS가 제안한 AI 기반 개발 협업 방식</h3>
+  <img class="visual" style="max-width:1080px; max-height:55vh;" src="../assets/images/ai-dlc-swdp/04-aidlc.webp" alt="사람이 의도를 제시하고 AI가 계획, 구현, 검증을 수행하며 승인 지점을 거쳐 Inception부터 Operations까지 이어지는 AI-DLC 흐름" />
+  <p class="sub" style="margin-top:1.5vh;">계획 &middot; 구현 &middot; 검증은 AI가 수행 &mdash; <span class="em">맥락과 주요 결정은 사람</span></p>
 </div>
 
-<!-- 04 Related approaches -->
+<!-- 05 Related approaches -->
 <div class="slide in-blue">
-  <h3>AI 기반 개발 접근별 강조 영역</h3>
-  <div class="arch-layers" style="max-width:1120px;margin-top:2vh;">
-    <div class="arch-layer on"><div class="role">생명주기·협업</div><div class="brand">AI-DLC · BMAD</div><div class="desc">역할 · 협업 · 개발 전 과정</div></div>
-    <div class="arch-layer"><div class="role">스펙·변경</div><div class="brand">Spec Kit · OpenSpec</div><div class="desc">지속되는 스펙 · 변경분 기록</div></div>
-    <div class="arch-layer"><div class="role">컨텍스트·실행</div><div class="brand">GSD · Kiro</div><div class="desc">작업 분해 · 컨텍스트 유지</div></div>
-    <div class="arch-layer"><div class="role">환경·평가</div><div class="brand">Harness Engineering</div><div class="desc">도구 · 권한 · 검증 루프</div></div>
+  <h3>AI 기반 개발 접근들 &mdash; 강조하는 영역이 다르다</h3>
+  <div class="arch-layers" style="max-width:1240px; margin-top:2vh;">
+    <div class="arch-layer on"><div class="role">협업</div><div class="brand">AI-DLC &middot; BMAD</div><div class="desc">역할 &middot; 협업 &middot; 개발 전 과정</div></div>
+    <div class="arch-layer"><div class="role">스펙</div><div class="brand">Spec Kit &middot; OpenSpec</div><div class="desc">지속되는 스펙 &middot; 변경분 기록</div></div>
+    <div class="arch-layer"><div class="role">맥락</div><div class="brand">GSD &middot; Kiro</div><div class="desc">작업 분해 &middot; 컨텍스트 유지</div></div>
+    <div class="arch-layer"><div class="role">환경</div><div class="brand">Harness Engineering</div><div class="desc">도구 &middot; 권한 &middot; 검증 루프</div></div>
   </div>
-  <p class="sub">SWDP에는 목적에 맞는 <span class="em">원칙을 선택해 적용</span></p>
+  <p class="sub" style="margin-top:2.2vh;">전부 도입이 아니라 &mdash; <span class="em">SWDP 목적에 맞는 원칙을 선택</span></p>
 </div>
 
-<!-- 03 Section -->
+<!-- 06 Divider: SWDP structure -->
 <div class="slide amber">
-  <h1>SWDP<br>개발·운영 구조</h1>
-  <p class="sub">현재 프로세스와 주요 운영 업무</p>
+  <h1>SWDP<br>개발&middot;운영 구조</h1>
+  <p class="sub" style="margin-top:1vh;">현재 프로세스와 <span class="em">주요 운영 업무</span></p>
 </div>
 
-<!-- 04 SWDP process -->
+<!-- 07 SWDP process -->
 <div class="slide in-amber">
-  <h3>SWDP의 개발 절차는 하나의 프로세스로 연결된다</h3>
-  <div class="pipeline" style="margin-top:3.4vh;">
-    <div class="pipeline-step">SCM</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">빌드</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">품질 검증</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step on">RC</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">TR</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">QA</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step green">배포</div>
+  <h3>SWDP의 개발 절차 &mdash; 하나의 프로세스로 연결</h3>
+  <div class="pipeline" style="margin-top:3vh;">
+    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">SCM</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">빌드</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">품질 검증</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="padding:1.4vh 1.5vw;">RC</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">TR</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">QA</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step green" style="padding:1.4vh 1.5vw;">배포</div>
   </div>
-  <p class="sub">형상관리부터 배포까지 · <span class="em">단계와 조건을 관리하는 프로세스 포털</span></p>
+  <p class="sub" style="margin-top:2.2vh;">형상관리부터 배포까지 &mdash; <span class="em">단계와 조건을 관리하는 프로세스 포털</span></p>
 </div>
 
-<!-- 05 Capability map -->
+<!-- 08 Capability map -->
 <div class="slide in-amber">
   <h3>SWDP가 연결하는 핵심 기능</h3>
-  <div class="arch-layers" style="max-width:1080px;margin-top:1.8vh;">
-    <div class="arch-layer"><div class="role">프로젝트</div><div class="brand">조직 · 멤버 · 역할</div><div class="desc">프로젝트와 Workspace 운영</div></div>
-    <div class="arch-layer"><div class="role">형상관리</div><div class="brand">저장소 · 브랜치 · 커밋</div><div class="desc">권한과 변경 이력 연결</div></div>
-    <div class="arch-layer"><div class="role">빌드</div><div class="brand">Release · Layer · Commit</div><div class="desc">목적별 빌드 실행과 결과</div></div>
-    <div class="arch-layer on"><div class="role">품질</div><div class="brand">자동 품질 검증</div><div class="desc">Coverity · SAM · 코딩룰 · 오픈소스</div></div>
-    <div class="arch-layer"><div class="role">릴리스</div><div class="brand">Release Criteria</div><div class="desc">조건 · 예외 · 승인 이력</div></div>
-    <div class="arch-layer"><div class="role">테스트·배포</div><div class="brand">TR · IMS · Bamboo</div><div class="desc">QA 요청부터 배포까지</div></div>
+  <div class="arch-layers" style="max-width:1260px; margin-top:1.4vh;">
+    <div class="arch-layer"><div class="role">조직</div><div class="brand">프로젝트 &middot; 멤버 &middot; 역할</div><div class="desc">프로젝트와 Workspace 운영</div></div>
+    <div class="arch-layer"><div class="role">형상</div><div class="brand">저장소 &middot; 브랜치 &middot; 커밋</div><div class="desc">권한과 변경 이력 연결</div></div>
+    <div class="arch-layer"><div class="role">빌드</div><div class="brand">목적별 빌드 실행</div><div class="desc">Release &middot; Layer &middot; Commit</div></div>
+    <div class="arch-layer on"><div class="role">품질</div><div class="brand">자동 품질 검증</div><div class="desc">Coverity &middot; SAM &middot; 코딩룰 &middot; OSS</div></div>
+    <div class="arch-layer"><div class="role">릴리스</div><div class="brand">Release Criteria</div><div class="desc">조건 &middot; 예외 &middot; 승인 이력</div></div>
+    <div class="arch-layer"><div class="role">배포</div><div class="brand">TR &middot; IMS &middot; Bamboo</div><div class="desc">QA 요청부터 배포까지</div></div>
   </div>
 </div>
 
-<!-- 06 TR clarification -->
+<!-- 09 TR clarification -->
 <div class="slide in-amber">
-  <h3>테스트 요청과 배포는 서로 다른 단계다</h3>
-  <div class="pipeline" style="margin-top:3.4vh;">
-    <div class="pipeline-step">RC 통과</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step on">Test / Qual TR</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">IMS QA</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step green">PASSED</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">Bamboo 배포</div>
+  <h3>테스트 요청과 배포 &mdash; 서로 다른 단계</h3>
+  <div class="pipeline" style="margin-top:3vh;">
+    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">RC 통과</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="padding:1.4vh 1.6vw;">TR 생성<span>Test &middot; Qual</span></div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">IMS QA</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">PASSED</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step green" style="padding:1.4vh 1.6vw;">Bamboo 배포</div>
   </div>
-  <p class="sub"><span class="em">TR은 QA 테스트 요청</span> · 배포는 통과 뒤의 별도 실행</p>
+  <p class="sub" style="margin-top:2.2vh;"><span class="em">TR은 QA 테스트 요청</span> &mdash; 배포는 통과 뒤의 별도 실행</p>
 </div>
 
-<!-- 07 SWDP as the project -->
+<!-- 10 SWDP as the project -->
 <div class="slide in-amber">
-  <h3>적용 대상: SWDP 서비스의 개발·운영</h3>
-  <div class="grid" style="max-width:1120px;">
-    <div class="grid-item"><div class="name">코드</div><div class="desc">Java · Vue<br>테스트 · 설정</div></div>
-    <div class="grid-item"><div class="name">데이터</div><div class="desc">운영 DB<br>프로세스 이력</div></div>
-    <div class="grid-item"><div class="name">연동</div><div class="desc">Git · Bamboo<br>IMS · Knox</div></div>
-    <div class="grid-item"><div class="name">운영</div><div class="desc">로그 · 지표<br>장애 · 배포</div></div>
+  <h3>적용 대상 &mdash; SWDP 서비스의 개발&middot;운영</h3>
+  <div class="grid" style="max-width:1240px; margin-top:2vh;">
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">코드</div><div class="desc">Java &middot; Vue<br>테스트 &middot; 설정</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">데이터</div><div class="desc">운영 DB<br>프로세스 이력</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">연동</div><div class="desc">Git &middot; Bamboo<br>IMS &middot; Knox</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">운영</div><div class="desc">로그 &middot; 지표<br>장애 &middot; 배포</div></div>
   </div>
-  <p class="sub">코드 · 데이터 · 연동 · 운영이 함께 관리되는 <span class="em">소프트웨어 프로젝트</span></p>
+  <p class="sub" style="margin-top:2.2vh;">코드 &middot; 데이터 &middot; 연동 &middot; 운영이 함께 관리되는 <span class="em">소프트웨어 프로젝트</span></p>
 </div>
 
-<!-- 08 Current operating chain -->
+<!-- 11 Current operating chain (illustration) -->
 <div class="slide in-amber">
-  <h3>현재 운영 업무는 여러 시스템의 정보를 함께 확인한다</h3>
-  <div class="arch-layers" style="max-width:1040px;margin-top:1.8vh;">
-    <div class="arch-layer"><div class="role">01 감지</div><div class="brand">로그 · 알림 확인</div><div class="desc">이상 현상 발견</div></div>
-    <div class="arch-layer"><div class="role">02 탐색</div><div class="brand">DB · 티켓 · 변경 이력</div><div class="desc">관련 자료 수집</div></div>
-    <div class="arch-layer"><div class="role">03 판단</div><div class="brand">원인 · 영향 분석</div><div class="desc">담당자 간 확인</div></div>
-    <div class="arch-layer"><div class="role">04 수정</div><div class="brand">코드 · 테스트</div><div class="desc">패치와 회귀 검증</div></div>
-    <div class="arch-layer on"><div class="role">05 반영</div><div class="brand">PR · 머지 · 배포</div><div class="desc">검토와 운영 적용</div></div>
-  </div>
-  <p class="sub">수집 · 대조 · 전달 과정이 <span class="em">대응 시간에 영향을 준다</span></p>
+  <h3>현재 운영 업무 &mdash; 여러 시스템의 정보를 사람이 연결</h3>
+  <img class="visual" style="max-width:1040px; max-height:55vh;" src="../assets/images/ai-dlc-swdp/11-ops-systems.webp" alt="담당자가 로그, DB, 지표, 티켓, 코드 화면을 오가며 정보를 직접 수집하고 대조하는 모습" />
+  <p class="sub" style="margin-top:1.5vh;">수집 &middot; 대조 &middot; 전달의 반복 &mdash; <span class="em">대응 시간에 영향</span></p>
 </div>
 
-<!-- 09 Desired shift -->
+<!-- 12 Desired shift -->
 <div class="slide in-amber">
-  <p class="impact-text" style="font-size:clamp(2.15rem,4vw,3.7rem);line-height:1.4;">관련 정보를 연결하고<br><span class="em">반복 업무를 하나의 실행 흐름으로 구성</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">사람은 방향 · 예외 · 반영<br><strong>에이전트는 정해진 범위의 실행</strong></p>
+  <p class="impact-text" style="font-size:clamp(2.15rem,4vw,3.7rem); line-height:1.4;">관련 정보를 연결하고<br><span class="em">반복 업무를 하나의 실행 흐름으로</span></p>
+  <p class="impact-sub" style="margin-top:3vh;">사람은 방향 &middot; 예외 &middot; 반영 &mdash; <strong>에이전트는 정해진 범위의 실행</strong></p>
 </div>
 
-<!-- 10 Section -->
-<div class="slide cyan">
+<!-- 13 Divider: agent work -->
+<div class="slide mint">
   <h1>에이전트<br>적용 업무</h1>
-  <p class="sub">관찰 · 분석 · 수정 · PR의 흐름</p>
+  <p class="sub" style="margin-top:1vh;">관찰 &middot; 분석 &middot; 수정 &middot; PR &mdash; <span class="em">하나의 흐름</span></p>
 </div>
 
-<!-- 11 Delegation map -->
-<div class="slide in-cyan">
-  <h3>에이전트 적용 업무를 여섯 단계로 구분</h3>
-  <div class="arch-layers" style="max-width:1080px;margin-top:1.8vh;">
-    <div class="arch-layer"><div class="role">관찰</div><div class="brand">운영 신호 감시</div><div class="desc">로그 · 지표 · DB 이상</div></div>
-    <div class="arch-layer"><div class="role">수집</div><div class="brand">관련 맥락 연결</div><div class="desc">코드 · 변경 · 티켓 · 문서</div></div>
-    <div class="arch-layer on"><div class="role">분석</div><div class="brand">원인 가설 구성</div><div class="desc">영향 범위 · 재현 조건</div></div>
-    <div class="arch-layer"><div class="role">보고</div><div class="brand">판단 자료 전달</div><div class="desc">근거 · 심각도 · 조치 후보</div></div>
-    <div class="arch-layer"><div class="role">실행</div><div class="brand">수정안 구현</div><div class="desc">브랜치 · 패치 · 테스트 · PR</div></div>
-    <div class="arch-layer"><div class="role">확인</div><div class="brand">결과 추적</div><div class="desc">CI · 회귀 · 운영 지표</div></div>
+<!-- 14 Delegation map -->
+<div class="slide in-mint">
+  <h3>에이전트 적용 업무 &mdash; 여섯 단계로 구분</h3>
+  <div class="arch-layers" style="max-width:1080px; margin-top:1.8vh;">
+    <div class="arch-layer"><div class="role">관찰</div><div class="brand">운영 신호 감시</div><div class="desc">로그 &middot; 지표 &middot; DB 이상</div></div>
+    <div class="arch-layer"><div class="role">수집</div><div class="brand">관련 맥락 연결</div><div class="desc">코드 &middot; 변경 &middot; 티켓 &middot; 문서</div></div>
+    <div class="arch-layer on"><div class="role">분석</div><div class="brand">원인 가설 구성</div><div class="desc">영향 범위 &middot; 재현 조건</div></div>
+    <div class="arch-layer"><div class="role">보고</div><div class="brand">판단 자료 전달</div><div class="desc">근거 &middot; 심각도 &middot; 조치 후보</div></div>
+    <div class="arch-layer"><div class="role">실행</div><div class="brand">수정안 구현</div><div class="desc">브랜치 &middot; 패치 &middot; 테스트 &middot; PR</div></div>
+    <div class="arch-layer"><div class="role">확인</div><div class="brand">결과 추적</div><div class="desc">CI &middot; 회귀 &middot; 운영 지표</div></div>
   </div>
 </div>
 
-<!-- 12 Scenario -->
-<div class="slide in-cyan">
-  <p class="impact-text" style="font-size:clamp(2.35rem,4.6vw,4.1rem);line-height:1.35;">운영 오류 대응 예시<br><span class="em">NPE 반복 발생</span></p>
+<!-- 15 Scenario -->
+<div class="slide in-mint">
+  <p class="impact-text" style="font-size:clamp(2.35rem,4.6vw,4.1rem); line-height:1.35;">운영 오류 대응 예시<br><span class="em">NPE 반복 발생</span></p>
   <p class="impact-sub" style="margin-top:3vh;">신호 감지부터 <strong>원인 분석과 수정안까지</strong></p>
 </div>
 
-<!-- 13 Detect and collect -->
-<div class="slide in-cyan">
-  <h3>① 운영 신호 감지와 근거 수집</h3>
-  <div class="comp" style="max-width:1080px;">
-    <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.55);">
-      <div class="tag" style="color:#22d3ee !important;">운영 신호</div>
-      <p><strong>swdp-log</strong> · swdp-prometheus<br>swdp-mydb</p>
-    </div>
-    <div class="comp-item">
-      <div class="tag">변경 맥락</div>
-      <p><strong>swdp-code-base</strong> · swdp-jira<br>swdp-confluence</p>
-    </div>
+<!-- 16 Detect and collect -->
+<div class="slide in-mint">
+  <h3>&#9312; 운영 신호 감지와 근거 수집</h3>
+  <div class="comp" style="max-width:1240px; margin-top:2vh;">
+    <div class="comp-item on"><div class="tag">운영 신호</div><p><strong>swdp-log</strong> &middot; swdp-prometheus<br>swdp-mydb</p></div>
+    <div class="comp-item"><div class="tag">변경 맥락</div><p><strong>swdp-code-base</strong> &middot; swdp-jira<br>swdp-confluence</p></div>
   </div>
-  <p class="sub">시간 · 서비스 · 배포 버전을 기준으로 <span class="em">관련 정보를 연결</span></p>
+  <p class="sub" style="margin-top:2.2vh;">시간 &middot; 서비스 &middot; 배포 버전 기준으로 &mdash; <span class="em">관련 정보를 연결</span></p>
 </div>
 
-<!-- 14 Analyze and report -->
-<div class="slide in-cyan">
-  <h3>② 원인 가설과 판단 자료 작성</h3>
-  <div class="grid" style="max-width:1120px;">
-    <div class="grid-item"><div class="name">현상</div><div class="desc">언제 · 어디서<br>무엇이 실패했나</div></div>
-    <div class="grid-item"><div class="name">근거</div><div class="desc">로그 · 쿼리<br>커밋 · 티켓</div></div>
-    <div class="grid-item"><div class="name">영향</div><div class="desc">사용자 · 기능<br>프로세스 범위</div></div>
-    <div class="grid-item"><div class="name">제안</div><div class="desc">수정 후보<br>검증 방법</div></div>
+<!-- 17 Analyze and report -->
+<div class="slide in-mint">
+  <h3>&#9313; 원인 가설과 판단 자료 작성</h3>
+  <div class="grid" style="max-width:1240px; margin-top:2vh;">
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">현상</div><div class="desc">언제 &middot; 어디서<br>무엇이 실패했나</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">근거</div><div class="desc">로그 &middot; 쿼리<br>커밋 &middot; 티켓</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">영향</div><div class="desc">사용자 &middot; 기능<br>프로세스 범위</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">제안</div><div class="desc">수정 후보<br>검증 방법</div></div>
   </div>
-  <p class="sub"><span class="em">swdp-botbuilder</span>로 보고 · 질문 · 피드백 전달</p>
+  <p class="sub" style="margin-top:2.2vh;"><span class="em">swdp-botbuilder</span>로 보고 &middot; 질문 &middot; 피드백 전달</p>
 </div>
 
-<!-- 15 Human direction to PR -->
-<div class="slide in-cyan">
-  <h3>③ 수정 방향 확인 후 코드 변경과 PR</h3>
-  <div class="pipeline" style="margin-top:3.4vh;">
-    <div class="pipeline-step">분석 보고</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step on">수정 방향</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">작업 브랜치</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">코드 수정</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">테스트</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step green">PR</div>
+<!-- 18 Human direction to PR -->
+<div class="slide in-mint">
+  <h3>&#9314; 수정 방향 확인 후 코드 변경과 PR</h3>
+  <div class="pipeline" style="margin-top:3vh;">
+    <div class="pipeline-step" style="padding:1.4vh 1.8vw;">분석 보고</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="padding:1.4vh 1.8vw;">수정 방향<span>사람 확인</span></div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.8vw;">브랜치 &middot; 수정</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.8vw;">테스트</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step green" style="padding:1.4vh 1.8vw;">PR</div>
   </div>
-  <p class="sub">에이전트의 쓰기 권한은 <span class="em">작업 브랜치와 PR까지</span></p>
+  <p class="sub" style="margin-top:2.2vh;">에이전트의 쓰기 권한은 &mdash; <span class="em">작업 브랜치와 PR까지</span></p>
 </div>
 
-<!-- 16 Responsibilities -->
-<div class="slide in-cyan">
-  <h3>④ 에이전트 실행과 사람의 반영 책임</h3>
-  <div class="comp" style="max-width:1050px;">
-    <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.55);">
-      <div class="tag" style="color:#22d3ee !important;">에이전트</div>
-      <p>근거 수집 · 패치 · 테스트<br><strong>PR과 검증 결과</strong></p>
-    </div>
-    <div class="comp-item">
-      <div class="tag">사람</div>
-      <p>범위 판단 · 코드 리뷰<br><strong>머지와 배포</strong></p>
-    </div>
+<!-- 19 Responsibilities -->
+<div class="slide in-mint">
+  <h3>&#9315; 에이전트 실행과 사람의 반영 책임</h3>
+  <div class="comp" style="max-width:1050px; margin-top:2vh;">
+    <div class="comp-item on"><div class="tag">에이전트</div><p>근거 수집 &middot; 패치 &middot; 테스트<br><strong>PR과 검증 결과</strong></p></div>
+    <div class="comp-item"><div class="tag">사람</div><p>범위 판단 &middot; 코드 리뷰<br><strong>머지와 배포</strong></p></div>
   </div>
-  <p class="sub">배포 결과를 <span class="em">운영 데이터로 재확인</span></p>
+  <p class="sub" style="margin-top:2.2vh;">배포 결과는 &mdash; <span class="em">운영 데이터로 재확인</span></p>
 </div>
 
-<!-- 17 Closed loop -->
-<div class="slide in-cyan">
-  <h3>SWDP Ops Agent 운영 흐름</h3>
-  <div class="arch-layers" style="max-width:1060px;margin-top:2vh;">
-    <div class="arch-layer"><div class="role">관찰</div><div class="brand">운영 신호</div><div class="desc">로그 · 지표 · DB에서 이상 감지</div></div>
-    <div class="arch-layer"><div class="role">해석</div><div class="brand">원인과 영향</div><div class="desc">코드 · 티켓 · 문서로 원인 분석</div></div>
-    <div class="arch-layer on"><div class="role">실행</div><div class="brand">수정 루프</div><div class="desc">보고 · 피드백 · 패치 · 테스트 · PR</div></div>
-    <div class="arch-layer"><div class="role">확인</div><div class="brand">운영 피드백</div><div class="desc">CI · 배포 · 운영 결과를 다음 관찰에 반영</div></div>
-  </div>
-  <p class="sub"><span class="em">관찰 · 해석 · 실행 · 확인</span>을 반복</p>
+<!-- 20 Closed loop (illustration) -->
+<div class="slide in-mint">
+  <h3>SWDP Ops Agent 운영 흐름 &mdash; 루프의 반복</h3>
+  <img class="visual" style="max-width:1040px; max-height:55vh;" src="../assets/images/ai-dlc-swdp/20-ops-loop.webp" alt="관찰, 해석, 실행, 확인 네 단계를 시계 방향으로 도는 에이전트 루프와 PR을 검토하는 사람" />
+  <p class="sub" style="margin-top:1.5vh;">결과가 다음 관찰로 &mdash; <span class="em">운영 피드백이 루프를 닫는다</span></p>
 </div>
 
-<!-- 18 Section -->
-<div class="slide mint">
+<!-- 21 Divider: governance -->
+<div class="slide violet">
   <h1>권한과<br>운영 기준</h1>
-  <p class="sub">컨텍스트 · 쓰기 범위 · 검증 · 책임</p>
+  <p class="sub" style="margin-top:1vh;">컨텍스트 &middot; 쓰기 범위 &middot; 검증 &middot; <span class="em">책임</span></p>
 </div>
 
-<!-- 19 Architecture -->
-<div class="slide in-mint">
-  <h3>SWDP AI 기반 개발·운영 아키텍처</h3>
-  <div class="arch-layers" style="max-width:1120px;margin-top:1.8vh;">
-    <div class="arch-layer"><div class="role">사람</div><div class="brand">운영 책임자 · 개발자</div><div class="desc">우선순위 · 수정 방향 · 머지 · 배포</div></div>
-    <div class="arch-layer"><div class="role">대화</div><div class="brand">swdp-botbuilder</div><div class="desc">보고 · 질문 · 피드백</div></div>
-    <div class="arch-layer on"><div class="role">에이전트</div><div class="brand">swdp-ops-agent</div><div class="desc">감지 · 분석 · 계획 · 실행</div></div>
-    <div class="arch-layer"><div class="role">컨텍스트</div><div class="brand">SWDP MCP</div><div class="desc">DB · 로그 · 지표 · 코드 · 업무 이력</div></div>
-    <div class="arch-layer"><div class="role">실행</div><div class="brand">Git · Test · Bamboo</div><div class="desc">브랜치 · 검증 · PR · CI</div></div>
-    <div class="arch-layer"><div class="role">운영</div><div class="brand">SWDP 서비스</div><div class="desc">결과가 다시 데이터로 축적</div></div>
+<!-- 22 Architecture -->
+<div class="slide in-violet">
+  <h3>SWDP AI 기반 개발&middot;운영 아키텍처</h3>
+  <div class="arch-layers" style="max-width:1240px; margin-top:1.8vh;">
+    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">사람</div><div class="brand">운영 책임자 &middot; 개발자</div><div class="desc">방향 결정 &middot; 머지 &middot; 배포</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">대화</div><div class="brand">swdp-botbuilder</div><div class="desc">보고 &middot; 질문 &middot; 피드백</div></div>
+    <div class="arch-layer on" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">에이전트</div><div class="brand">swdp-ops-agent</div><div class="desc">감지 &middot; 분석 &middot; 계획 &middot; 실행</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">컨텍스트</div><div class="brand">SWDP MCP</div><div class="desc">DB &middot; 로그 &middot; 지표 &middot; 코드</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">실행</div><div class="brand">Git &middot; Test &middot; Bamboo</div><div class="desc">브랜치 &middot; 검증 &middot; PR &middot; CI</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">운영</div><div class="brand">SWDP 서비스</div><div class="desc">결과가 데이터로 축적</div></div>
   </div>
 </div>
 
-<!-- 20 MCP map -->
-<div class="slide in-mint">
-  <h3>에이전트가 판단에 사용하는 SWDP 컨텍스트</h3>
-  <div class="arch-layers" style="max-width:1100px;margin-top:1.8vh;">
-    <div class="arch-layer"><div class="role">데이터</div><div class="brand">swdp-mydb</div><div class="desc">현재 상태 · 프로세스 이력 · 변경 근거</div></div>
-    <div class="arch-layer"><div class="role">로그</div><div class="brand">swdp-log</div><div class="desc">예외 · 요청 흐름 · 상관관계</div></div>
-    <div class="arch-layer"><div class="role">지표</div><div class="brand">swdp-prometheus</div><div class="desc">추세 · 임계치 · 서비스 상태</div></div>
-    <div class="arch-layer on"><div class="role">코드</div><div class="brand">swdp-code-base</div><div class="desc">소유 코드 · 변경 이력 · 테스트</div></div>
-    <div class="arch-layer"><div class="role">업무</div><div class="brand">swdp-jira</div><div class="desc">이슈 · 조치 · 담당 · 히스토리</div></div>
-    <div class="arch-layer"><div class="role">지식</div><div class="brand">swdp-confluence</div><div class="desc">플레이북 · 아키텍처 · 결정 기록</div></div>
-  </div>
-  <p class="meta" style="margin-top:1.4vh;">MCP = 에이전트가 사용할 검증된 컨텍스트와 도구의 계약</p>
+<!-- 23 MCP map (illustration) -->
+<div class="slide in-violet">
+  <h3>판단에 쓰는 컨텍스트 &mdash; SWDP MCP로 연결</h3>
+  <img class="visual" style="max-width:980px; max-height:52vh;" src="../assets/images/ai-dlc-swdp/23-mcp-hub.webp" alt="에이전트 허브가 DB, 로그, 지표, 코드, 업무, 지식 여섯 소스와 표준화된 연결로 이어진 구조" />
+  <p class="sub" style="margin-top:1.5vh;">검증된 컨텍스트와 도구의 계약 &mdash; <span class="em">근거 있는 판단의 기반</span></p>
+  <p class="meta" style="margin-top:1.2vh;">swdp-mydb &middot; swdp-log &middot; swdp-prometheus &middot; swdp-code-base &middot; swdp-jira &middot; swdp-confluence</p>
 </div>
 
-<!-- 21 Operating knowledge -->
-<div class="slide in-mint">
-  <h3>운영 지식을 플레이북과 룰북으로 구조화</h3>
-  <div class="grid" style="max-width:1160px;">
-    <div class="grid-item"><div class="name">플레이북</div><div class="desc">조사 순서<br>대응 패턴</div></div>
-    <div class="grid-item"><div class="name">룰북</div><div class="desc">금지 작업<br>에스컬레이션</div></div>
-    <div class="grid-item"><div class="name">자동 평가</div><div class="desc">테스트 · 품질<br>회귀 기준</div></div>
-    <div class="grid-item"><div class="name">감사 이력</div><div class="desc">근거 · 행동<br>결과 추적</div></div>
+<!-- 24 Operating knowledge -->
+<div class="slide in-violet">
+  <h3>운영 지식은 &mdash; 플레이북과 룰북으로 구조화</h3>
+  <div class="grid" style="max-width:1240px; margin-top:2vh;">
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">플레이북</div><div class="desc">조사 순서<br>대응 패턴</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">룰북</div><div class="desc">금지 작업<br>에스컬레이션</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">자동 평가</div><div class="desc">테스트 &middot; 품질<br>회귀 기준</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">감사 이력</div><div class="desc">근거 &middot; 행동<br>결과 추적</div></div>
   </div>
-  <p class="sub">일관된 대응을 위한 <span class="em">운영 지식 관리</span></p>
+  <p class="sub" style="margin-top:2.2vh;">일관된 대응의 조건 &mdash; <span class="em">운영 지식 관리</span></p>
 </div>
 
-<!-- 22 Permission boundaries -->
-<div class="slide in-mint">
-  <h3>권한 설계 원칙: 읽기는 넓게 · 쓰기는 좁게</h3>
+<!-- 25 Permission boundaries -->
+<div class="slide in-violet">
+  <h3>권한 설계 원칙 &mdash; 읽기는 넓게 &middot; 쓰기는 좁게</h3>
   <table class="tbl">
     <thead><tr><th>자원</th><th>읽기</th><th>허용할 쓰기</th><th>사람 게이트</th></tr></thead>
     <tbody>
-      <tr><td><strong>운영 DB</strong></td><td>상태 · 이력</td><td>없음</td><td>쿼리 범위</td></tr>
-      <tr><td><strong>Git</strong></td><td>코드 · 변경</td><td>작업 브랜치 · PR</td><td>머지</td></tr>
-      <tr><td><strong>Jira · Confluence</strong></td><td>이슈 · 문서</td><td>티켓 · 문서 초안</td><td>게시 · 상태 변경</td></tr>
-      <tr><td><strong>CI</strong></td><td>빌드 · 테스트</td><td>검증 실행</td><td>배포</td></tr>
-      <tr><td><strong>운영 환경</strong></td><td>로그 · 지표</td><td>없음</td><td>모든 변경</td></tr>
+      <tr><td><strong>운영 DB</strong></td><td>상태 &middot; 이력</td><td>없음</td><td>쿼리 범위</td></tr>
+      <tr><td><strong>Git</strong></td><td>코드 &middot; 변경</td><td>작업 브랜치 &middot; PR</td><td>머지</td></tr>
+      <tr><td><strong>Jira &middot; Confluence</strong></td><td>이슈 &middot; 문서</td><td>티켓 &middot; 문서 초안</td><td>게시 &middot; 상태 변경</td></tr>
+      <tr><td><strong>CI</strong></td><td>빌드 &middot; 테스트</td><td>검증 실행</td><td>배포</td></tr>
+      <tr><td><strong>운영 환경</strong></td><td>로그 &middot; 지표</td><td>없음</td><td>모든 변경</td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- 23 Approval fatigue -->
-<div class="slide in-mint">
+<!-- 26 Approval fatigue -->
+<div class="slide in-violet">
   <h3>행동별 승인 방식의 운영 한계</h3>
-  <div class="stat-grid" style="max-width:900px;">
-    <div class="stat-card">
+  <div class="stat-grid" style="max-width:900px; margin-top:2vh;">
+    <div class="stat-card yellow-on">
       <div class="label">단계별 권한 요청 승인율</div>
-      <div class="value">93<span style="font-size:0.3em;color:#34d399;">%</span></div>
+      <div class="value">93<span style="font-size:0.3em;">%</span></div>
       <div class="source">승인 피로가 만든 형식적 확인</div>
     </div>
     <div class="stat-card green-on">
       <div class="label">샌드박스 도입 후 요청 감소</div>
       <div class="value">84<span style="font-size:0.3em;">%</span></div>
-      <div class="source">파일·네트워크 경계로 영향 범위 제한</div>
+      <div class="source">파일 &middot; 네트워크 경계로 영향 범위 제한</div>
     </div>
   </div>
-  <p class="sub">행동별 승인보다 · <span class="em">작업 범위와 권한 경계를 정의</span></p>
-  <p class="meta">Anthropic · How we contain Claude Code</p>
+  <p class="sub" style="margin-top:2.2vh;">행동별 승인보다 &mdash; <span class="em">작업 범위와 권한 경계를 정의</span></p>
+  <p class="meta" style="margin-top:1vh;">출처: <a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" rel="noopener">Anthropic &middot; How we contain Claude Code</a></p>
 </div>
 
-<!-- 24 Verification ladder -->
-<div class="slide in-mint">
-  <h3>에이전트 변경을 위한 단계별 검증</h3>
-  <div class="pipeline" style="margin-top:3.4vh;">
-    <div class="pipeline-step">형식 · 정적 검사</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">컴파일 · 규칙</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step on">단위 · 통합</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step">E2E · CI</div><div class="pipeline-arrow">→</div>
-    <div class="pipeline-step green">운영 관찰</div>
+<!-- 27 Verification ladder -->
+<div class="slide in-violet">
+  <h3>에이전트 변경은 &mdash; 단계별 검증을 통과한 만큼만</h3>
+  <div class="pipeline" style="margin-top:3vh;">
+    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">정적 검사</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">컴파일 &middot; 규칙</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step on" style="padding:1.4vh 1.6vw;">단위 &middot; 통합</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">E2E &middot; CI</div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step green" style="padding:1.4vh 1.6vw;">운영 관찰</div>
   </div>
-  <p class="sub">각 단계 통과 후 다음 검증으로 진행 · <span class="em">근거는 PR에 기록</span></p>
+  <p class="sub" style="margin-top:2.2vh;">각 단계 통과 후 다음으로 &mdash; <span class="em">근거는 PR에 기록</span></p>
 </div>
 
-<!-- 25 Human on the loop -->
-<div class="slide in-mint">
+<!-- 28 Human on the loop -->
+<div class="slide in-violet">
   <h3>사람이 관리할 주요 지점</h3>
-  <div class="comp" style="max-width:1080px;">
-    <div class="comp-item on" style="border-top-color:rgba(52,211,153,0.55);">
-      <div class="tag" style="color:#34d399 !important;">루프 설계</div>
-      <p>목표 · 컨텍스트 · 도구<br><strong>평가 · 중단 조건</strong></p>
-    </div>
-    <div class="comp-item">
-      <div class="tag">사람 검토 지점</div>
-      <p>수정 방향 · PR 검토<br><strong>머지 · 배포</strong></p>
-    </div>
+  <div class="comp" style="max-width:1080px; margin-top:2vh;">
+    <div class="comp-item on"><div class="tag">루프 설계</div><p>목표 &middot; 컨텍스트 &middot; 도구<br><strong>평가 &middot; 중단 조건</strong></p></div>
+    <div class="comp-item"><div class="tag">검토 지점</div><p>수정 방향 &middot; PR 검토<br><strong>머지 &middot; 배포</strong></p></div>
   </div>
-  <p class="sub">목표 · 경계 관리와 <span class="em">주요 변경 검토</span></p>
+  <p class="sub" style="margin-top:2.2vh;">목표와 경계 관리 &mdash; <span class="em">주요 변경은 사람이 검토</span></p>
 </div>
 
-<!-- 26 Section -->
-<div class="slide violet">
+<!-- 29 Divider: after PoC -->
+<div class="slide orange">
   <h1>PoC 이후<br>운영 방향</h1>
-  <p class="sub">단계별 적용 범위와 측정 기준</p>
+  <p class="sub" style="margin-top:1vh;">단계별 적용 범위와 <span class="em">측정 기준</span></p>
 </div>
 
-<!-- 27 Autonomy ladder -->
-<div class="slide in-violet">
-  <h3>위험과 검증 수준에 따른 자율성 단계</h3>
-  <div class="arch-layers" style="max-width:1080px;margin-top:2vh;">
-    <div class="arch-layer"><div class="role">1단계</div><div class="brand">관찰 · 보고</div><div class="desc">쓰기 없음 · 근거 품질 확인</div></div>
-    <div class="arch-layer"><div class="role">2단계</div><div class="brand">초안 · 티켓</div><div class="desc">사람이 검토 후 게시</div></div>
-    <div class="arch-layer on"><div class="role">3단계</div><div class="brand">코드 · 테스트 · PR</div><div class="desc">현재 목표 · 머지와 배포는 사람</div></div>
-    <div class="arch-layer"><div class="role">4단계</div><div class="brand">선별적 자동 실행</div><div class="desc">저위험 업무 · 기준 충족 후 검토</div></div>
-  </div>
-  <p class="sub">기준을 충족한 업무부터 <span class="em">단계적으로 확장</span></p>
+<!-- 30 Autonomy ladder (illustration) -->
+<div class="slide in-orange">
+  <h3>자율성은 단계로 &mdash; 위험과 검증 수준에 맞춰</h3>
+  <img class="visual" style="max-width:1040px; max-height:55vh;" src="../assets/images/ai-dlc-swdp/30-autonomy-ladder.webp" alt="관찰, 초안, PR, 자동 실행으로 올라가는 네 단계 계단과 머지·배포 게이트를 지키는 사람" />
+  <p class="sub" style="margin-top:1.5vh;">현재 목표는 3단계 코드 &middot; 테스트 &middot; PR &mdash; <span class="em">머지와 배포는 사람</span></p>
 </div>
 
-<!-- 28 Measures -->
-<div class="slide in-violet">
+<!-- 31 Measures -->
+<div class="slide in-orange">
   <h3>운영 효과를 확인할 지표</h3>
-  <div class="grid" style="max-width:1160px;">
-    <div class="grid-item"><div class="name">속도</div><div class="desc">감지→보고<br>보고→PR 시간</div></div>
-    <div class="grid-item"><div class="name">품질</div><div class="desc">재발률<br>리뷰 수정 횟수</div></div>
-    <div class="grid-item"><div class="name">안전</div><div class="desc">권한 위반<br>롤백 · 오탐</div></div>
-    <div class="grid-item"><div class="name">비용</div><div class="desc">사람 개입 시간<br>에이전트 실행 비용</div></div>
+  <div class="grid" style="max-width:1240px; margin-top:2vh;">
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">속도</div><div class="desc">감지&rarr;보고<br>보고&rarr;PR 시간</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">품질</div><div class="desc">재발률<br>리뷰 수정 횟수</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">안전</div><div class="desc">권한 위반<br>롤백 &middot; 오탐</div></div>
+    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">비용</div><div class="desc">사람 개입 시간<br>에이전트 비용</div></div>
   </div>
-  <p class="sub"><span class="em">속도 · 품질 · 안전 · 비용</span>을 함께 측정</p>
+  <p class="sub" style="margin-top:2.2vh;"><span class="em">속도 &middot; 품질 &middot; 안전 &middot; 비용</span>을 함께 측정</p>
 </div>
 
-<!-- 29 Roadmap -->
-<div class="slide in-violet">
+<!-- 32 Roadmap -->
+<div class="slide in-orange">
   <h3>단계별 적용 계획</h3>
-  <div class="arch-layers" style="max-width:1080px;margin-top:2vh;">
-    <div class="arch-layer on"><div class="role">현재</div><div class="brand">PR 루프 안정화</div><div class="desc">감지 · 보고 · 패치 · 테스트 · PR</div></div>
-    <div class="arch-layer"><div class="role">다음</div><div class="brand">격리와 평가 강화</div><div class="desc">신원 · 샌드박스 · 감사 · 자동 평가</div></div>
-    <div class="arch-layer"><div class="role">이후</div><div class="brand">저위험 범위 확장</div><div class="desc">티켓 · 문서 · 선별적 운영 자동화</div></div>
+  <div class="pipeline" style="margin-top:3vh;">
+    <div class="pipeline-step on" style="padding:1.4vh 2vw;">PR 루프 안정화<span>현재</span></div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 2vw;">격리 &middot; 평가 강화<span>다음</span></div><div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="padding:1.4vh 2vw;">저위험 범위 확장<span>이후</span></div>
   </div>
-  <p class="sub">배포 자동화는 <span class="em">운영 성숙도와 책임 범위를 확인한 뒤 검토</span></p>
+  <p class="sub" style="margin-top:2.2vh;">배포 자동화는 &mdash; <span class="em">운영 성숙도와 책임 범위 확인 뒤 검토</span></p>
 </div>
 
-<!-- 30 Methods -->
-<div class="slide in-violet">
-  <h3>AI 기반 개발 원칙을 SWDP 운영 요소로 연결</h3>
-  <div class="arch-layers" style="max-width:1140px;margin-top:2vh;">
-    <div class="arch-layer"><div class="role">생명주기·협업</div><div class="brand">Ops Agent 운영 루프</div><div class="desc">관찰 · 분석 · 수정 · PR · 운영 피드백</div></div>
-    <div class="arch-layer on"><div class="role">지속 컨텍스트</div><div class="brand">SWDP MCP</div><div class="desc">DB · 로그 · 지표 · 코드 · 업무 이력</div></div>
-    <div class="arch-layer"><div class="role">스펙·변경</div><div class="brand">플레이북 · 룰북 · PR</div><div class="desc">기준과 변경 근거를 저장</div></div>
-    <div class="arch-layer"><div class="role">환경·평가</div><div class="brand">브랜치 · 샌드박스 · 테스트</div><div class="desc">쓰기 제한 · 자동 검증 · 감사</div></div>
+<!-- 33 Methods mapping -->
+<div class="slide in-orange">
+  <h3>AI 기반 개발 원칙을 &mdash; SWDP 운영 요소로 연결</h3>
+  <div class="arch-layers" style="max-width:1260px; margin-top:2vh;">
+    <div class="arch-layer"><div class="role">협업</div><div class="brand">Ops Agent 운영 루프</div><div class="desc">관찰 &middot; 분석 &middot; PR &middot; 운영 피드백</div></div>
+    <div class="arch-layer on"><div class="role">맥락</div><div class="brand">SWDP MCP</div><div class="desc">DB &middot; 로그 &middot; 지표 &middot; 코드</div></div>
+    <div class="arch-layer"><div class="role">스펙</div><div class="brand">플레이북 &middot; 룰북 &middot; PR</div><div class="desc">기준과 변경 근거를 저장</div></div>
+    <div class="arch-layer"><div class="role">환경</div><div class="brand">브랜치 &middot; 샌드박스</div><div class="desc">쓰기 제한 &middot; 테스트 &middot; 감사</div></div>
   </div>
-  <p class="sub">방법론의 원칙을 <span class="em">SWDP 업무에 맞는 실행 구조로 구체화</span></p>
+  <p class="sub" style="margin-top:2.2vh;">방법론의 원칙을 &mdash; <span class="em">SWDP 업무에 맞는 실행 구조로 구체화</span></p>
 </div>
 
-<!-- 31 Final thesis -->
+<!-- 34 Final thesis -->
 <div class="slide blue">
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);line-height:1.4;">반복 업무는 에이전트에 위임하고<br><span class="em">주요 변경은 사람이 검토·반영</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">SWDP 개발·운영의 <strong>속도 · 추적성 · 안전성 개선</strong></p>
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem); line-height:1.4;">반복 업무는 에이전트에 위임<br><span class="em">주요 변경은 사람이 검토 &middot; 반영</span></p>
+  <p class="impact-sub" style="margin-top:3vh;">SWDP 개발&middot;운영의 <strong>속도 &middot; 추적성 &middot; 안전성 개선</strong></p>
 </div>
 
-<!-- 32 Q&A -->
+<!-- 35 Q&A -->
 <div class="slide blue">
   <h1>Q &amp; A</h1>
-  <ul class="list" style="margin-top:2.6vh;max-width:980px;">
+  <ul class="list" style="margin-top:2.6vh; max-width:980px;">
     <li>가장 먼저 <span class="em">하나의 루프로 만들 업무</span>는?</li>
-    <li>MCP별 <strong>읽기·쓰기 경계</strong>는 어디까지인가?</li>
+    <li>MCP별 <strong>읽기 &middot; 쓰기 경계</strong>는 어디까지인가?</li>
     <li>자율성을 높이기 전에 <span class="em">어떤 지표를 볼 것인가?</span></li>
   </ul>
-  <p class="meta" style="margin-top:3vh;">SWDP 개발·운영 내용 공유 · 2026. 7</p>
+  <p class="meta byline" style="margin-top:3vh;">SWDP 개발&middot;운영 내용 공유 &middot; 2026. 7</p>
 </div>
 
-<!-- 33 Sources -->
-<div class="slide surface">
+<!-- 36 Sources -->
+<div class="slide">
   <h3>주요 근거와 참고 자료</h3>
-  <div class="arch-layers" style="max-width:1120px;margin-top:1.8vh;">
-    <div class="arch-layer on"><div class="role">SWDP</div><div class="brand">코드 · 아키텍처 문서</div><div class="desc">프로세스 · 기능 · 연동 구조 분석</div></div>
-    <div class="arch-layer"><div class="role">Anthropic</div><div class="brand"><a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" rel="noreferrer" style="color:#fff;text-decoration:none;">Claude Code 격리 설계</a></div><div class="desc">승인 피로 · 샌드박스 경계</div></div>
-    <div class="arch-layer"><div class="role">AWS</div><div class="brand"><a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/" target="_blank" rel="noreferrer" style="color:#fff;text-decoration:none;">AI-DLC</a></div><div class="desc">생명주기 · 조직 협업</div></div>
-    <div class="arch-layer"><div class="role">GitHub</div><div class="brand"><a href="https://github.github.com/spec-kit/" target="_blank" rel="noreferrer" style="color:#fff;text-decoration:none;">Spec Kit</a></div><div class="desc">스펙 기반 개발 흐름</div></div>
-    <div class="arch-layer"><div class="role">Fission-AI</div><div class="brand"><a href="https://github.com/Fission-AI/OpenSpec" target="_blank" rel="noreferrer" style="color:#fff;text-decoration:none;">OpenSpec</a></div><div class="desc">델타 스펙 · 브라운필드 변경</div></div>
-    <div class="arch-layer"><div class="role">OpenAI</div><div class="brand"><a href="https://openai.com/index/harness-engineering/" target="_blank" rel="noreferrer" style="color:#fff;text-decoration:none;">Harness Engineering</a></div><div class="desc">에이전트 실행 환경 · 평가</div></div>
+  <div class="arch-layers" style="max-width:1280px; margin-top:1.4vh; gap:1vh;">
+    <div class="arch-layer on" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">SWDP</div><div class="brand">코드 &middot; 아키텍처 문서</div><div class="desc">프로세스 &middot; 기능 &middot; 연동 분석</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">Anthropic</div><div class="brand"><a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">Claude Code 격리 설계</a></div><div class="desc">승인 피로 &middot; 샌드박스</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">AWS</div><div class="brand"><a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">AI-DLC</a></div><div class="desc">생명주기 &middot; 조직 협업</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">GitHub</div><div class="brand"><a href="https://github.github.com/spec-kit/" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">Spec Kit</a></div><div class="desc">스펙 기반 개발 흐름</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">Fission-AI</div><div class="brand"><a href="https://github.com/Fission-AI/OpenSpec" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">OpenSpec</a></div><div class="desc">델타 스펙 &middot; 변경 기록</div></div>
+    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">OpenAI</div><div class="brand"><a href="https://openai.com/index/harness-engineering/" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">Harness Engineering</a></div><div class="desc">실행 환경 &middot; 평가</div></div>
   </div>
   <p class="meta" style="margin-top:1.2vh;">2026-07 기준</p>
 </div>
 
 </div>
-<nav aria-label="Slide navigation" class="nav"><button aria-label="Previous slide" onclick="prev()">&larr;</button><button aria-label="Next slide" onclick="next()">&rarr;</button></nav>
-<div class="page-num" id="pageNum">1 / 1</div>
+<nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
+<div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
 <script>
 const slides=document.querySelectorAll('.slide'),total=slides.length;
 let current=0;
-const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress'),partLabelEl=document.getElementById('partLabel');
-/* partMap: EDIT PER DECK — {from,to} are 0-based slide indexes, label shows top-left */
-const partMap=[
-{from:0,to:4,label:'AI 기반 개발과 SWDP'},
-{from:5,to:11,label:'SWDP 개발·운영 구조'},
-{from:12,to:19,label:'에이전트 적용 업무'},
-{from:20,to:27,label:'권한과 운영 기준'},
-{from:28,to:32,label:'PoC 이후 운영 방향'},
-{from:33,to:35,label:'마무리'}
-];
-function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'SWDP 개발·운영 내용 공유';}
-function update(){slides.forEach((s,i)=>s.classList.toggle('active',i===current));if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
-function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;document.getElementById('slides').style.transform=`translateX(-${current*100}vw)`;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();if(window.innerWidth<=768)window.scrollTo({top:0,left:0,behavior:'auto'});}
+const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress');
+slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
+function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));if(active)s.removeAttribute('inert');else s.setAttribute('inert','');});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;document.getElementById('slides').style.transform=`translateX(-${current*100}vw)`;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
 function next(){goTo(current+1);}
 function prev(){goTo(current-1);}
 document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});
