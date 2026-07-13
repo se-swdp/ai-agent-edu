@@ -468,6 +468,13 @@ prs.save(<span class="string">"deck.pptx"</span>)</div>
   <p class="sub" style="margin-top:1.6vh;">슬라이드를 직접 그리는 게 아니라 &mdash; <span class="em">만드는 도구를 코드로 지어서 실행</span></p>
 </div>
 
+<!-- 09.5 뜻밖의 반전 -->
+<div class="slide in-amber">
+  <h3>개발자가 아니어도 &mdash; SW 엔지니어링을 조금 알면 유리하다</h3>
+  <img class="hub-visual" style="max-width:1120px; max-height:58vh; margin-top:0.4vh;" src="../assets/images/solution-dev-seminar/16-sw-engineering-toolbox.webp" alt="규칙, 스펙, 도구와 설정, 테스트, 변경 기록이 정리된 공구함 안에서 에이전트가 일하고 사람이 확인하는 모습" />
+  <p class="sub" style="margin-top:1.7vh;">에이전트가 도구를 만들고 설정하기 때문에 &mdash; <span class="em">SW 엔지니어링을 조금 알수록 다루기 쉬워진다</span></p>
+</div>
+
 <!-- ════════ ② 도구의 지도 ════════ -->
 
 <!-- 09 divider (라인업 통합) -->
@@ -482,71 +489,6 @@ prs.save(<span class="string">"deck.pptx"</span>)</div>
   <h3>모든 기능의 뿌리 &mdash; 에이전트 루프</h3>
   <img class="hub-visual" style="max-width:900px; max-height:58vh;" src="../assets/images/solution-dev-seminar/10-agent-loop-radial.webp" alt="친근한 AI 로봇이 원형 트랙을 따라 지시, 계획, 실행, 검증 단계를 순환하고 검증 결과에 따라 계획으로 되돌아가는 에이전트 루프" />
   <p class="sub" style="margin-top:2vh;">사람이 매 단계 붙지 않아도 &mdash; <span class="em">검증 루프가 일을 끌고 감</span></p>
-</div>
-
-<!-- 12 Plan -->
-<div class="slide in-cyan">
-  <h3>큰 작업은 &mdash; 계획 먼저</h3>
-  <div class="arch-layers" style="max-width:1000px; margin-top:2.4vh;">
-    <div class="arch-layer">
-      <div class="role">제출</div>
-      <div class="brand">계획서부터</div>
-      <div class="desc">어디를 어떻게 고칠지</div>
-    </div>
-    <div class="arch-layer">
-      <div class="role">승인</div>
-      <div class="brand">사람이 방향 확정</div>
-      <div class="desc">실행 전에 교정</div>
-    </div>
-    <div class="arch-layer on">
-      <div class="role">실행</div>
-      <div class="brand">계획대로 진행</div>
-      <div class="desc">되돌리기 비싼 작업일수록 유효</div>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">가장 비싼 실패 &mdash; <span class="em">잘못된 방향으로 빨리 가는 것</span></p>
-</div>
-
-<!-- 13 컨텍스트 · 기억 (병합) -->
-<div class="slide in-cyan">
-  <h3>대화는 짧게 &mdash; 기억은 파일로</h3>
-  <div class="arch-layers" style="max-width:1020px; margin-top:2.4vh;">
-    <div class="arch-layer">
-      <div class="role">원칙</div>
-      <div class="brand">한 번에 한 가지 일</div>
-      <div class="desc">길어지면 요약 &middot; 초기화</div>
-    </div>
-    <div class="arch-layer">
-      <div class="role">수칙</div>
-      <div class="brand">작업 수칙 파일</div>
-      <div class="desc">같은 지적 두 번째면 &mdash; 한 줄</div>
-    </div>
-    <div class="arch-layer on">
-      <div class="role">기억</div>
-      <div class="brand">스펙 &middot; 노트 &middot; 결정은 파일로</div>
-      <div class="desc">다음 세션에도 유지</div>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">매번 다시 설명하고 있다면 &mdash; <span class="em">파일이 될 차례</span></p>
-</div>
-
-<!-- 14 위임 -->
-<div class="slide in-cyan">
-  <h3>위임 &mdash; 일의 모양대로</h3>
-  <table class="tbl" style="margin-top:2.2vh; width:100%; max-width:1040px;">
-    <thead><tr>
-      <th>일의 모양</th>
-      <th>맡기는 방법</th>
-      <th>이유</th>
-    </tr></thead>
-    <tbody>
-      <tr><td style="white-space:nowrap;"><strong>작은 수정</strong></td><td style="white-space:nowrap;">메인 대화에서 직접</td><td style="white-space:nowrap;">맥락 유지</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>넓은 탐색</strong></td><td style="white-space:nowrap;">탐색 에이전트</td><td style="white-space:nowrap;">결론만 회수</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>독립 작업 여러 개</strong></td><td style="white-space:nowrap;">병렬 에이전트</td><td style="white-space:nowrap;">동시 진행</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>조사 &middot; 의사결정</strong></td><td style="white-space:nowrap;">관점별 독립 검토</td><td style="white-space:nowrap;">결과 종합</td></tr>
-    </tbody>
-  </table>
-  <p class="sub" style="margin-top:2vh;">병렬은 비용도 몇 배 &mdash; <span class="em">얻는 게 분명할 때만</span></p>
 </div>
 
 <!-- 16 Skills -->
@@ -570,13 +512,6 @@ prs.save(<span class="string">"deck.pptx"</span>)</div>
   <h3>규칙은 알려주고 &mdash; Hook은 실제로 막는다</h3>
   <img class="hub-visual" style="max-width:1120px; max-height:58vh; margin-top:0.4vh;" src="../assets/images/solution-dev-seminar/15-rules-vs-hook-screen-door.webp" alt="CLAUDE.md와 context와 prompt는 뛰지 마세요와 우측통행 같은 행동 규칙을 알려주고, Hook은 위험 명령을 스크린도어처럼 물리적으로 차단하는 차이를 보여주는 인포그래픽" />
   <p class="sub" style="margin-top:1.6vh;">CLAUDE.md &middot; context &middot; prompt는 안내 &mdash; <span class="em">Hook은 위반을 실행 전에 차단</span></p>
-</div>
-
-<!-- 18 뜻밖의 반전 -->
-<div class="slide in-cyan">
-  <h3>개발자가 아니어도 &mdash; SW 엔지니어링을 조금 알면 유리하다</h3>
-  <img class="hub-visual" style="max-width:1120px; max-height:58vh; margin-top:0.4vh;" src="../assets/images/solution-dev-seminar/16-sw-engineering-toolbox.webp" alt="규칙, 스펙, 도구와 설정, 테스트, 변경 기록이 정리된 공구함 안에서 에이전트가 일하고 사람이 확인하는 모습" />
-  <p class="sub" style="margin-top:1.7vh;">에이전트가 도구를 만들고 설정하기 때문에 &mdash; <span class="em">SW 엔지니어링을 조금 알수록 다루기 쉬워진다</span></p>
 </div>
 
 <!-- 19 하네스와 워크플로의 기준 -->
