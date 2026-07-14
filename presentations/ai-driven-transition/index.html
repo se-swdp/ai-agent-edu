@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>AI Driven 전환은 왜 어려운가 · 2026.7</title>
 <script>
 if(location.protocol==='http:'||location.protocol==='https:'){
@@ -11,656 +11,71 @@ if(location.protocol==='http:'||location.protocol==='https:'){
   document.head.appendChild(base);
 }
 </script>
-<link href="https://fonts.googleapis.com" rel="preconnect" />
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@700;900&family=Noto+Sans+KR:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <style>
-/* ===== TOKENS ===== */
-:root{
-  --ink:#0b1b4d;
-  --text:#314665;
-  --muted:#5d6e8b;
-  --line:#d6e2f1;
-  --paper:#f8fbff;
-  --bg:#f4f8fd;
-  --blue-soft:#eef5ff; --mint-soft:#eefaf7; --violet-soft:#f6f2ff; --amber-soft:#fff8e9;
-  --blue:#2f73bd;
-  --blue-ink:#2868ad; --teal-ink:#16776d; --violet-ink:#7257b2; --amber-ink:#9d6600; --orange-ink:#b15b1e;
-  --radius:12px;
-  --card-shadow:0 10px 30px rgba(42,78,125,0.07);
-}
-
-/* ===== BASE ===== */
 *{margin:0;padding:0;box-sizing:border-box}
-html{font-size:207.5%}
-@media (min-width:769px) and (max-height:880px){html{font-size:182%}}
-@media (min-width:769px) and (max-height:790px){html{font-size:158%}}
 html,body{overflow:hidden;width:100%;height:100%}
-body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;word-break:keep-all}
-.slides{display:flex;transition:none}
-.slide{width:100vw;min-width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4vh 6vw;position:relative;overflow:hidden;background:radial-gradient(circle at 8% 8%,rgba(71,130,210,0.07),transparent 32%),var(--paper)}
-.slide>*{position:relative;z-index:1;flex-shrink:0}
-.slide:focus-visible{outline:none}
-
-/* ===== SECTION SYSTEM ===== */
-.slide.blue,.slide.sky,.slide.cyan{background:radial-gradient(circle at 77% 30%,rgba(91,157,230,0.19),transparent 35%),linear-gradient(145deg,#eaf3ff 0%,#f8fbff 72%)}
-.slide.mint,.slide.teal{background:radial-gradient(circle at 77% 30%,rgba(21,157,152,0.17),transparent 35%),linear-gradient(145deg,#eafaf6 0%,#f8fffd 72%)}
-.slide.violet,.slide.indigo{background:radial-gradient(circle at 77% 30%,rgba(114,87,178,0.16),transparent 35%),linear-gradient(145deg,#f0ecff 0%,#fbfaff 72%)}
-.slide.amber{background:radial-gradient(circle at 77% 30%,rgba(229,169,20,0.18),transparent 35%),linear-gradient(145deg,#fff5db 0%,#fffdf7 72%)}
-.slide.orange{background:radial-gradient(circle at 77% 30%,rgba(222,138,60,0.16),transparent 35%),linear-gradient(145deg,#fff1e2 0%,#fffdf9 72%)}
-.slide.in-blue,.slide.in-sky,.slide.in-cyan{background:radial-gradient(circle at 88% 18%,rgba(91,157,230,0.12),transparent 34%),var(--blue-soft)}
-.slide.in-mint,.slide.in-teal{background:radial-gradient(circle at 88% 18%,rgba(21,157,152,0.11),transparent 34%),var(--mint-soft)}
-.slide.in-violet,.slide.in-indigo{background:radial-gradient(circle at 88% 18%,rgba(114,87,178,0.10),transparent 34%),var(--violet-soft)}
-.slide.in-amber{background:radial-gradient(circle at 88% 18%,rgba(229,169,20,0.11),transparent 34%),var(--amber-soft)}
-.slide.in-orange{background:radial-gradient(circle at 88% 18%,rgba(222,138,60,0.10),transparent 34%),#fff4e9}
-
-.em{color:var(--blue);font-weight:700}
-.slide.blue .em,.slide.in-blue .em,.slide.sky .em,.slide.in-sky .em,.slide.cyan .em,.slide.in-cyan .em{color:var(--blue-ink)}
-.slide.mint .em,.slide.in-mint .em,.slide.teal .em,.slide.in-teal .em{color:var(--teal-ink)}
-.slide.violet .em,.slide.in-violet .em,.slide.indigo .em,.slide.in-indigo .em{color:var(--violet-ink)}
-.slide.amber .em,.slide.in-amber .em{color:var(--amber-ink)}
-.slide.orange .em,.slide.in-orange .em{color:var(--orange-ink)}
-.slide.blue h1::after,.slide.sky h1::after,.slide.cyan h1::after,.slide.mint h1::after,.slide.teal h1::after,.slide.violet h1::after,.slide.indigo h1::after,.slide.amber h1::after,.slide.orange h1::after{content:"";display:block;width:48px;height:3px;margin:2vh auto 0;border-radius:2px;background:#3f82d7}
-.slide.mint h1::after,.slide.teal h1::after{background:#159d98}
-.slide.violet h1::after,.slide.indigo h1::after{background:#7257b2}
-.slide.amber h1::after{background:#dca614}
-.slide.orange h1::after{background:#d97a2e}
-
-/* ===== TYPOGRAPHY ===== */
-h1{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:900;text-align:center;line-height:1.18;letter-spacing:-0.03em;color:var(--ink);padding-bottom:4px}
-h2{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;text-align:center;line-height:1.15;letter-spacing:-0.02em;color:var(--ink)}
-h3{font-size:clamp(1.08rem,1.35vw,1.28rem);font-weight:400;color:var(--ink);margin-bottom:2.2vh;text-align:center}
-.sub{font-size:clamp(1.18rem,1.65vw,1.58rem);color:var(--text);margin-top:2vh;text-align:center;line-height:1.5;font-weight:300}
-.sub strong,.impact-sub strong,.list strong{color:var(--ink);font-weight:700}
-.meta{margin-top:2vh;font-size:clamp(0.7rem,0.76vw,0.76rem);color:var(--muted);font-weight:400}
-.meta.byline{font-size:0.92rem}
-.meta a{color:inherit;text-decoration-color:rgba(93,110,139,0.4);text-underline-offset:0.18em}
-.impact-text{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.2;letter-spacing:-0.03em;text-align:center;color:var(--ink);padding-bottom:4px}
-.impact-sub{font-size:clamp(1.25rem,1.8vw,1.8rem);font-weight:300;color:var(--text);margin-top:2vh;text-align:center;letter-spacing:-0.01em;line-height:1.5}
-blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem);font-weight:300;max-width:980px;text-align:center;line-height:1.6;color:var(--text);letter-spacing:-0.01em}
-cite{display:block;margin-top:24px;font-size:clamp(1rem,1.15vw,1.08rem);color:var(--muted);font-style:normal}
-
-/* ===== CARDS: compare ===== */
-.comp{display:flex;gap:1.1vw;width:100%;max-width:1300px;margin:3vh 0;align-items:stretch}
-.comp-item{flex:1;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:3vh 1.2vw;text-align:center;display:grid;grid-template-rows:minmax(1.5em,auto) minmax(4.8em,1fr);align-items:center;justify-items:center;gap:1.2vh}
-.comp-item .tag{align-self:start;display:flex;align-items:center;justify-content:center;min-height:1.5em;font-size:clamp(0.95rem,1.12vw,1.08rem);letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-weight:400}
-.comp-item>p,.comp-item>div:not(.tag){align-self:center}
-.comp-item p{font-size:clamp(1.14rem,1.42vw,1.38rem);font-weight:300;line-height:1.46;color:var(--ink)}
-.comp-item p strong{font-weight:700}
-.comp-item.on,.stat-card.on{background:var(--blue-soft);border-color:#bed5ef;border-top:2px solid #6aa5e4}
-.slide.in-mint .comp-item.on,.slide.in-teal .comp-item.on,.slide.in-mint .stat-card.on,.slide.in-teal .stat-card.on{background:var(--mint-soft);border-color:#b9e2d8;border-top-color:#5ab9a9}
-.slide.in-violet .comp-item.on,.slide.in-indigo .comp-item.on,.slide.in-violet .stat-card.on,.slide.in-indigo .stat-card.on{background:var(--violet-soft);border-color:#d8ccf2;border-top-color:#9a82cf}
-.slide.in-amber .comp-item.on,.slide.in-amber .stat-card.on{background:var(--amber-soft);border-color:#ead7a4;border-top-color:#dca614}
-.slide.in-orange .comp-item.on,.slide.in-orange .stat-card.on{background:#fff3e7;border-color:#eed0b0;border-top-color:#d97a2e}
-.comp-item.green-on,.stat-card.green-on{background:#edf9f5;border-color:#b9e2d8;border-top:2px solid #5ab9a9}
-.comp-item.yellow-on,.stat-card.yellow-on{background:#fff8e9;border-color:#ead7a4;border-top:2px solid #dca614}
-.comp-item.red-on,.stat-card.red-on{background:#fff2f4;border-color:#ebc7cf;border-top:2px solid #d994a6}
-
-/* ===== CARDS: stats ===== */
-.stat-grid{display:flex;gap:1.1vw;width:100%;max-width:1100px;margin-top:3vh}
-.stat-card{flex:1;text-align:center;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:2.6vh 1.6vw 2.8vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:center}
-.stat-card .label{font-size:clamp(0.9rem,1.04vw,1rem);color:var(--muted);min-height:2.8em;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.3;margin-bottom:1.2vh}
-.stat-card .value{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.1;color:var(--ink);margin-bottom:6px;padding-bottom:2px;position:relative}
-.stat-card .value span{position:absolute;left:100%;bottom:0.12em;margin-left:2px;white-space:nowrap}
-.stat-card .source{font-size:clamp(0.9rem,1.04vw,1rem);color:var(--text);min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;line-height:1.35}
-
-/* ===== CARDS: layer rows ===== */
-.arch-layers{display:flex;flex-direction:column;gap:1.2vh;width:100%;max-width:min(1260px,88vw);margin-top:3vh}
-.arch-layer{display:grid;grid-template-columns:minmax(64px,0.16fr) minmax(280px,0.92fr) minmax(320px,1fr);column-gap:1.8vw;align-items:center;padding:2vh 1.8vw;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow)}
-.arch-layer .role{font-size:clamp(0.98rem,1.12vw,1.08rem);color:var(--muted);white-space:nowrap;text-align:left}
-.arch-layer .brand{font-size:clamp(1.28rem,1.5vw,1.46rem);font-weight:700;color:var(--ink);text-align:left;min-width:0}
-.arch-layer .desc{font-size:clamp(1.12rem,1.32vw,1.26rem);color:var(--text);font-weight:300;text-align:left;line-height:1.42;min-width:0}
-.arch-layer.on{background:var(--blue-soft);border-color:#bed5ef}
-.slide.in-mint .arch-layer.on,.slide.in-teal .arch-layer.on{background:var(--mint-soft);border-color:#b9e2d8}
-.slide.in-violet .arch-layer.on,.slide.in-indigo .arch-layer.on{background:var(--violet-soft);border-color:#d8ccf2}
-.slide.in-amber .arch-layer.on{background:var(--amber-soft);border-color:#ead7a4}
-.slide.in-orange .arch-layer.on{background:#fff3e7;border-color:#eed0b0}
-
-/* ===== GRID ===== */
-.grid{display:flex;gap:1.1vw;margin-top:3vh;width:100%;max-width:1100px;align-items:stretch}
-.grid-item{padding:3vh 2.5vw;text-align:center;flex:1;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);display:flex;flex-direction:column;justify-content:center;align-items:center}
-.grid-item .name{font-size:clamp(1.2rem,1.5vw,1.5rem);font-weight:700;margin-bottom:8px;color:var(--ink)}
-.grid-item .desc{font-size:clamp(1rem,1.2vw,1.15rem);color:var(--text);font-weight:300;line-height:1.7}
-
-/* ===== PIPELINE ===== */
-.pipeline{display:flex;align-items:center;gap:0.4vw;margin:3vh 0;flex-wrap:nowrap}
-.pipeline-step{padding:1.4vh 2.4vw;font-size:clamp(1.06rem,1.32vw,1.22rem);font-weight:300;text-align:center;color:var(--text);white-space:nowrap;background:rgba(255,255,255,0.9);border:1px solid var(--line);border-top:2px solid #c4d5e9;border-radius:var(--radius);box-shadow:0 8px 20px rgba(42,78,125,0.05)}
-.pipeline-step span{display:block;font-size:0.84em;color:var(--muted);margin-top:2px}
-.pipeline-step.on{background:#eaf3ff;border-top-color:#6aa5e4;color:#236bbd;font-weight:700}
-.pipeline-step.on span{color:inherit;opacity:0.72}
-.pipeline-step.green{background:#eaf8f4;border-top-color:#5ab9a9;color:#117f74}
-.pipeline-step.green span{color:#3d9488}
-.pipeline-step.violet{background:#f1edff;border-top-color:#9a82cf;color:#684ba8}
-.slide.in-amber .pipeline-step.on{background:var(--amber-soft);border-top-color:#dca614;color:var(--amber-ink)}
-.slide.in-mint .pipeline-step.on,.slide.in-teal .pipeline-step.on{background:var(--mint-soft);border-top-color:#5ab9a9;color:var(--teal-ink)}
-.slide.in-violet .pipeline-step.on,.slide.in-indigo .pipeline-step.on{background:var(--violet-soft);border-top-color:#9a82cf;color:var(--violet-ink)}
-.slide.in-orange .pipeline-step.on{background:#fff3e7;border-top-color:#d97a2e;color:var(--orange-ink)}
-.pipeline-arrow{color:#7890ad;font-size:1rem;padding:0 2px}
-
-/* ===== TABLE / LIST ===== */
-.tbl{margin-top:2vh;border-collapse:collapse;max-width:82vw}
-.tbl th,.tbl td{padding:1.2vh 2vw;text-align:left;border-bottom:1px solid rgba(80,112,158,0.16)}
-.tbl th{color:var(--muted);font-weight:400;font-size:clamp(0.95rem,1.1vw,1.05rem)}
-.tbl td{font-size:clamp(1.14rem,1.4vw,1.34rem);color:var(--text)}
-.tbl td strong{color:var(--ink)}
-.list{list-style:none;max-width:80vw;width:100%;margin:0 auto}
-.list li{font-size:clamp(1.18rem,1.62vw,1.42rem);padding:1.8vh 0;border-bottom:1px solid rgba(80,112,158,0.16);color:var(--text);font-weight:300;line-height:1.5;text-align:center}
-.list li:last-child{border-bottom:none}
-
-/* ===== NOTE ===== */
-.note{padding:1.4vh 2.5vw;margin-top:3vh;max-width:64vw;margin-left:auto;margin-right:auto;display:flex;align-items:center;gap:12px;border-radius:0 var(--radius) var(--radius) 0}
-.note p{font-size:clamp(1.12rem,1.35vw,1.28rem);font-weight:300;line-height:1.55}
-.note.warn{background:var(--amber-soft);border-left:2px solid #dca614}.note.warn p{color:#8d6500}
-.note.tip,.note.exp{background:#edf9f6;border-left:2px solid #159d98}.note.tip p,.note.exp p{color:#27675f}
-kbd{display:inline-block;padding:2px 8px;background:#eef4fb;border:1px solid #ccd9ea;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:var(--ink)}
-
-/* ===== LAYOUT HELPERS ===== */
-.two-col{display:flex;gap:4vw;width:100%;max-width:1100px;margin-top:3vh}
-.two-col .col{flex:1;text-align:left}
-.chip{display:flex;align-items:center;gap:1vw;border:1px solid var(--line);background:rgba(255,255,255,0.88);border-radius:var(--radius);box-shadow:0 8px 20px rgba(42,78,125,0.05);padding:1.4vh 1.5vw}
-.chip .no{font-family:'JetBrains Mono',monospace;color:var(--blue-ink);font-size:clamp(0.95rem,1.1vw,1.05rem)}
-.chip .nm{font-weight:700;font-size:clamp(1.12rem,1.32vw,1.26rem);color:var(--ink)}
-
-/* ===== ILLUSTRATIONS ===== */
-.visual{display:block;width:min(1120px,84vw);height:auto;max-height:58vh;object-fit:contain;margin-top:1.6vh;border:0}
-.visual.narrow{width:min(900px,72vw)}
-@media (min-width:769px) and (max-height:880px){.visual{width:min(850px,78vw)}}
-
-/* ===== CHROME ===== */
-.nav{position:fixed;bottom:28px;left:44px;display:flex;gap:6px;z-index:100}
-.nav button{width:36px;height:36px;background:rgba(255,255,255,0.72);border:1px solid rgba(11,27,77,0.18);color:rgba(11,27,77,0.72);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 5px 16px rgba(42,78,125,0.08)}
-.nav button:hover{background:#eaf3ff;border-color:#6aa5e4;color:#174f92}
-.nav button:focus-visible{outline:2px solid #3f82d7;outline-offset:2px}
-.part-label{position:fixed;top:28px;left:44px;font-size:0.78rem;color:rgba(11,27,77,0.5);letter-spacing:0.06em;font-weight:400;z-index:100}
-.page-num{position:fixed;bottom:32px;right:44px;font-size:0.78rem;color:rgba(11,27,77,0.72);font-family:'Figtree',sans-serif;z-index:100}
-.progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#3f82d7,#159d98);z-index:200;transition:none}
-@media(prefers-reduced-motion:reduce){.nav button{transition:none}}
-
-/* ===== MOBILE ===== */
-@media (max-width:768px){
-  body{overflow:auto}
-  .slides{height:auto;display:block;transform:none!important;width:100%}
-  .slide{position:relative;min-height:100vh;width:100vw;padding:72px 22px 92px;display:none!important}
-  .slide.active{display:flex!important}
-  html,body{max-width:100%;overflow-x:hidden;word-break:normal}
-  .slide{align-items:center;text-align:center;overflow-x:hidden}
-  .slide,.slide *{overflow-wrap:anywhere;word-break:normal}
-  .slide>*{max-width:100%;min-width:0}
-  h1{font-size:clamp(2.25rem,11vw,3.1rem);line-height:1.12}
-  h2{font-size:clamp(1.75rem,8vw,2.6rem);line-height:1.16}
-  h3{max-width:100%;font-size:clamp(.78rem,3.4vw,1rem);line-height:1.45}
-  .sub{font-size:clamp(.95rem,4vw,1.2rem);line-height:1.45}
-  img,video{max-width:100%!important;max-height:58vh!important}
-  .stat-grid,.comp,.two-col,.arch-layers,.grid{display:grid!important;grid-template-columns:1fr!important;width:100%!important;gap:1.4vh}
-  .arch-layer{grid-template-columns:1fr}
-  .pipeline{flex-wrap:wrap;justify-content:center}
-  .tbl{display:block;overflow-x:auto;font-size:.8rem}
-  .nav{left:18px;bottom:18px}.page-num{right:18px;bottom:18px}.part-label{left:22px;top:18px}
-}
-@media (min-width:769px) and (max-width:1100px){
-  .pipeline{width:100%;justify-content:center}
-  .pipeline-step{padding:1.2vh 1vw;font-size:clamp(0.82rem,1.05vw,0.96rem)}
-}
-
-/* ===== PRINT ===== */
-@page{size:landscape;margin:0}
+body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#fcf8f2;color:#1c1c1c;-webkit-font-smoothing:antialiased}
+.slides{position:relative;width:100%;height:100%}
+/* stacked slides toggled by display — a translateX film strip of N viewport-size
+   images creates a huge composited layer that breaks screenshot pipelines */
+.slide{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:#fcf8f2;padding:2.6vh 3vw}
+.slide.active{display:flex}
+/* never upscale past native 1672x941 — keeps strokes crisp on 1080p fullscreen */
+.slide img{width:auto;height:auto;max-width:min(100%,1672px);max-height:min(100%,941px);object-fit:contain;display:block}
+.nav{position:fixed;bottom:24px;left:36px;display:flex;gap:6px;z-index:100}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.75);border:1px solid rgba(28,28,28,0.22);color:rgba(28,28,28,0.65);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 4px 12px rgba(60,50,30,0.10)}
+.nav button:hover{background:#fff;color:#1c1c1c;border-color:rgba(28,28,28,0.45)}
+.nav button:focus-visible{outline:2px solid #2f73bd;outline-offset:2px}
+.page-num{position:fixed;bottom:30px;right:36px;font-size:0.82rem;color:rgba(28,28,28,0.55);letter-spacing:0.06em;font-family:'Noto Sans KR',sans-serif;z-index:100}
+.progress{position:fixed;top:0;left:0;height:2px;background:#2f73bd;z-index:200}
+@media(max-width:768px){.nav{left:16px;bottom:16px}.page-num{right:16px;bottom:22px}}
 @media print{
-  html{font-size:100%!important}
-  html,body{width:100%;height:auto;overflow:visible!important;background:#fff!important}
-  .nav,.progress,.page-num,.part-label{display:none!important}
-  .slides{display:block!important;transform:none!important}
-  .slide,.slide.active{display:flex!important;width:100%!important;min-width:0!important;height:100vh!important;page-break-after:always;break-after:page;background:#fff!important;overflow:visible!important;padding:4vh 5vw!important}
-  .comp-item,.stat-card,.arch-layer,.grid-item,.pipeline-step,.chip{box-shadow:none!important}
+  html,body{overflow:visible!important;height:auto}
+  .nav,.progress,.page-num{display:none!important}
+  .slides{display:block!important}
+  .slide{display:flex!important;position:relative;page-break-after:always;break-after:page;height:100vh}
 }
 </style>
 </head>
 <body>
-<div class="part-label" id="partLabel">AX 공유 세미나 · 2026. 7</div>
 <div class="progress" id="progress"></div>
 <div class="slides" id="slides">
-
-<!-- ════════ OPENING ════════ -->
-
-<!-- 00 Cover -->
-<div class="slide" style="background:var(--paper) url('../assets/images/ai-driven-transition/01-cover.webp') right center/contain no-repeat; align-items:flex-start; padding-left:8vw;">
-  <p class="meta" style="text-align:left; margin-top:0;">AX 공유 세미나</p>
-  <h1 style="text-align:left; font-size:clamp(3rem,5.2vw,5.2rem);">AI Driven 전환은<br>왜 어려운가</h1>
-  <p class="sub" style="text-align:left;">도구 보급을 넘어 &mdash; <span class="em">업무 운영체계</span>의 문제</p>
-  <p class="meta byline" style="margin-top:4vh; text-align:left;">2026. 7</p>
-</div>
-
-<!-- 01 Hook -->
-<div class="slide">
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);line-height:1.35;">"왜 실패했는가"보다<br><span class="em">"어떤 구조에서 막히는가"</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">업계 AX에서 <strong>반복되는 패턴</strong>을 알아보자</p>
-</div>
-
-<!-- ════════ ① 전환이 어려운 이유 ════════ -->
-
-<!-- 02 Divider -->
-<div class="slide amber">
-  <h1>전환이<br>어려운 이유</h1>
-  <p class="sub">AI를 쓰는 것과 &mdash; <span class="em">AI Driven으로 일하는 것</span>은 다르다</p>
-</div>
-
-<!-- 03 도입 vs 가치 -->
-<div class="slide in-amber">
-  <h3>도입은 빠른데 &mdash; 가치는 느리다는 보고가 쌓인다</h3>
-  <div class="stat-grid" style="max-width:1100px;">
-    <div class="stat-card"><div class="label">AI 사용 조직</div><div class="value">88%</div><div class="source">McKinsey 2025</div></div>
-    <div class="stat-card on"><div class="label">가치 창출 조직</div><div class="value">5%</div><div class="source">BCG AI Radar</div></div>
-    <div class="stat-card"><div class="label">손익 무영향</div><div class="value">95%</div><div class="source">MIT NANDA 파일럿</div></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">도입률은 이미 높다 &mdash; 병목은 <span class="em">가치 전환</span></p>
-</div>
-
-<!-- 04 Solow -->
-<div class="slide in-amber">
-  <h3>낯선 현상이 아니다 &mdash; 40년 전에도 있었다</h3>
-  <blockquote style="font-size:clamp(1.6rem,2.8vw,2.3rem);">"컴퓨터 시대는 어디에나 보이지만<br>생산성 통계에는 보이지 않는다"</blockquote>
-  <cite>Robert Solow &middot; 1987</cite>
-  <div class="comp" style="max-width:1000px;margin-top:2.4vh;">
-    <div class="comp-item">
-      <div class="tag">그때</div>
-      <p>PC &middot; ERP는 깔렸지만<br>업무 방식은 늦게 바뀜</p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">지금</div>
-      <p>LLM &middot; Agent는 깔렸지만<br>운영 방식은 그대로</p>
-    </div>
-  </div>
-</div>
-
-<!-- 05 AI 사용 vs AI Driven -->
-<div class="slide in-amber">
-  <h3>AI 사용과 AI Driven &mdash; 갈림길은 여기</h3>
-  <div class="comp" style="max-width:1060px;margin-top:2.2vh;">
-    <div class="comp-item">
-      <div class="tag">AI 사용</div>
-      <p>업무 위에 AI를 얹는다<br>요약 &middot; 초안 &middot; 검색 &middot; 보조<br><strong>승인 &middot; 전달 구조는 유지</strong></p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">AI Driven</div>
-      <p>업무 흐름 자체를 재편<br>계획 &middot; 실행 &middot; 검증은 Agent<br><strong>사람은 방향과 Gate</strong></p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">대부분의 조직은 &mdash; 아직 <span class="em">왼쪽</span>에 있음</p>
-</div>
-
-<!-- 06 보조도구의 함정 -->
-<div class="slide in-amber">
-  <h3>그리고 대부분 &mdash; 보조도구에서 멈춘다</h3>
-  <div class="pipeline" style="margin-top:3vh;">
-    <div class="pipeline-step">보조도구 제작<span>모델 &middot; API면 충분</span></div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">반짝 사용<span>신기함의 구간</span></div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on">운영 부재<span>오너 &middot; 개선 없음</span></div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">PoC 종료<span>가치 증명 실패</span></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">만들기는 쉽다 &mdash; <span class="em">운영이 어렵다</span></p>
-</div>
-
-<!-- 07 보조도구 vs 플랫폼 -->
-<div class="slide in-amber">
-  <h3>보조도구와 플랫폼 &mdash; 난이도가 다른 게임</h3>
-  <div class="comp" style="max-width:1060px;margin-top:2.2vh;">
-    <div class="comp-item">
-      <div class="tag">보조도구</div>
-      <p>개인의 반경<br>모델 &middot; API면 충분<br><strong>데모로 증명 끝</strong></p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">플랫폼</div>
-      <p>조직의 반경<br>권한 &middot; 맥락 &middot; 검증 필요<br><strong>운영 책임까지</strong></p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">전환의 본체는 &mdash; <span class="em">어렵고 느린 오른쪽</span></p>
-</div>
-
-<!-- 08 사람의 위치 -->
-<div class="slide in-amber">
-  <h3>사람의 위치도 함께 이동한다</h3>
-  <div class="pipeline" style="margin-top:3vh;">
-    <div class="pipeline-step">직접 수행</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">AI에 지시</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">계획 승인</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on">결과 검증</div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">규칙 축적</div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">난이도는 모델보다 &mdash; <span class="em">위임과 검증의 습관</span></p>
-  <p class="meta" style="margin-top:1vh;">Microsoft Work Trend Index &mdash; "agent boss"</p>
-</div>
-
-<!-- ════════ ② 막히는 10가지 구조 ════════ -->
-
-<!-- 09 Divider -->
-<div class="slide cyan">
-  <h1>막히기 쉬운<br>10가지 구조</h1>
-  <p class="sub">AI가 약해서가 아니라 &mdash; <span class="em">주변 구조가 준비되지 않아서</span></p>
-</div>
-
-<!-- 10 지도 -->
-<div class="slide in-cyan">
-  <h3>업계 보고서들이 가리키는 &mdash; 10가지 위험 구조</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.9vh 1vw;width:100%;max-width:1000px;margin-top:2.4vh;">
-    <div class="chip"><span class="no">01</span><span class="nm">Tool-first</span></div>
-    <div class="chip"><span class="no">06</span><span class="nm">Context 부재</span></div>
-    <div class="chip"><span class="no">02</span><span class="nm">Workflow 미변경</span></div>
-    <div class="chip"><span class="no">07</span><span class="nm">사후 Governance</span></div>
-    <div class="chip"><span class="no">03</span><span class="nm">부분 최적화</span></div>
-    <div class="chip"><span class="no">08</span><span class="nm">검증 병목</span></div>
-    <div class="chip"><span class="no">04</span><span class="nm">Owner 부재</span></div>
-    <div class="chip"><span class="no">09</span><span class="nm">습관 없는 교육</span></div>
-    <div class="chip"><span class="no">05</span><span class="nm">쉬운 PoC 반복</span></div>
-    <div class="chip"><span class="no">10</span><span class="nm">중앙조직 병목</span></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">실패의 원인이 아니라 &mdash; <span class="em">확률을 높이는 조건</span></p>
-</div>
-
-<!-- 11~20 : 10가지 상세 (동일 리듬) -->
-<div class="slide in-cyan">
-  <h3>01 &middot; Tool-first</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">문제를 정하기 전에<br><span class="em">도구부터 정한다</span></p>
-  <p class="sub" style="margin-top:2.2vh;">"무엇을 살까"가 먼저 나오면 &mdash; 성과 연결이 늦어진다</p>
-  <div class="note tip"><p>McKinsey &middot; BCG &mdash; 고성과 조직은 도구보다 Workflow 재설계를 먼저 본다</p></div>
-</div>
-
-<div class="slide in-cyan">
-  <h3>02 &middot; Workflow 미변경</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">AI는 빨라졌는데<br><span class="em">승인 &middot; 전달은 그대로</span></p>
-  <p class="sub" style="margin-top:2.2vh;">초안이 빨라져도 &mdash; 대기 &middot; 결재 &middot; 재입력이 Lead Time을 지킨다</p>
-  <div class="note tip"><p>BCG 2025 &mdash; AI 가치의 대부분을 process reshaping에서 기대</p></div>
-</div>
-
-<div class="slide in-cyan">
-  <h3>03 &middot; 부분 최적화</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">개인은 빨라지고<br><span class="em">조직은 그대로</span></p>
-  <p class="sub" style="margin-top:2.2vh;">생성이 늘면 &mdash; 병목은 리뷰 &middot; 테스트 &middot; 결정으로 이동</p>
-  <div class="note tip"><p>OpenAI &mdash; 처리량 증가 후 사람 검증 용량이 새 병목이 됐다고 보고</p></div>
-</div>
-
-<div class="slide in-cyan">
-  <h3>04 &middot; Owner 부재</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">PoC는 있는데<br><span class="em">결과 책임자가 없다</span></p>
-  <p class="sub" style="margin-top:2.2vh;">AI팀 &middot; 현업 &middot; IT 사이 &mdash; 데모 이후를 맡는 사람이 없다</p>
-  <div class="note tip"><p>BCG &mdash; business &middot; IT 공동 오너십이 고성과 조직의 공통점</p></div>
-</div>
-
-<div class="slide in-cyan">
-  <h3>05 &middot; 쉬운 PoC 반복</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">쉬운 과제만<br><span class="em">반복된다</span></p>
-  <p class="sub" style="margin-top:2.2vh;">요약 &middot; 챗봇 &middot; 메일 초안 &mdash; 핵심 Workflow는 그대로</p>
-  <div class="note tip"><p>MIT NANDA &mdash; 좁고 가치 높은 workflow 집중이 격차를 갈랐다고 분석</p></div>
-</div>
-
-<div class="slide in-cyan">
-  <h3>06 &middot; Context 부재</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">데이터는 있어도<br><span class="em">맥락이 없다</span></p>
-  <p class="sub" style="margin-top:2.2vh;">정책 &middot; 예외 &middot; 과거 결정이 안 보이면 &mdash; 그럴듯한 답만 나온다</p>
-  <div class="note tip"><p>OpenAI &mdash; "Agent에게 보이지 않는 것은 존재하지 않는 것"</p></div>
-</div>
-
-<div class="slide in-cyan">
-  <h3>07 &middot; 사후 Governance</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">보안 &middot; 권한 &middot; 감사를<br><span class="em">마지막에 붙인다</span></p>
-  <p class="sub" style="margin-top:2.2vh;">기준이 없으면 &mdash; 보안은 허용 &middot; 차단 둘 중 하나가 된다</p>
-  <div class="note tip"><p>NIST AI RMF &mdash; 위험 관리를 설계 단계부터 전 과정에 통합</p></div>
-</div>
-
-<div class="slide in-cyan">
-  <h3>08 &middot; 검증 병목</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">사람이 다 보는 검증은<br><span class="em">곧 막힌다</span></p>
-  <p class="sub" style="margin-top:2.2vh;">산출물이 늘수록 &mdash; 전수 리뷰는 지속 불가능</p>
-  <div class="note warn"><p>Claude Code 권한 승인율 <strong>93%</strong> &mdash; 승인이 기계화되며 의미를 잃는다</p></div>
-  <p class="meta" style="margin-top:1vh;">Anthropic &mdash; 격리 도입 후 요청 84% 감소 &middot; OpenAI &mdash; 기계 검증 &middot; 상호 리뷰 &middot; 샘플링</p>
-</div>
-
-<div class="slide in-cyan">
-  <h3>09 &middot; 습관 없는 교육</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">교육은 있는데<br><span class="em">습관이 없다</span></p>
-  <p class="sub" style="margin-top:2.2vh;">강의 다음 날 &mdash; 바뀌는 업무가 없으면 제자리</p>
-  <div class="note tip"><p>Microsoft &mdash; 재설계 &middot; 사용 습관 &middot; 리더십이 함께 움직인다</p></div>
-</div>
-
-<div class="slide in-cyan">
-  <h3>10 &middot; 중앙조직 병목</h3>
-  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);">모든 요청이<br><span class="em">중앙으로 몰린다</span></p>
-  <p class="sub" style="margin-top:2.2vh;">중앙이 다 떠안으면 &mdash; 맥락 부족과 대기열이 남는다</p>
-  <div class="note tip"><p>BCG &mdash; 중앙 관제와 현업 오너십의 조합이 고성과 패턴</p></div>
-</div>
-
-<!-- 21 소결 -->
-<div class="slide in-cyan">
-  <h3>10가지를 한 줄로 줄이면</h3>
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);">모델 + 도구 &minus; 운영 구조<br>= <span class="em">파일럿의 함정</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">모델의 문제가 아니라 &mdash;<br><strong>운영 구조 설계</strong>의 문제로 수렴한다</p>
-</div>
-
-<!-- ════════ ③ 바깥의 운영 구조 ════════ -->
-
-<!-- 22 Divider -->
-<div class="slide mint">
-  <h1>바깥의<br>운영 구조</h1>
-  <p class="sub">여러 조직이 &mdash; <span class="em">비슷한 구조</span>로 수렴하고 있다</p>
-</div>
-
-<!-- 23 여섯 질문 -->
-<div class="slide in-mint">
-  <h3>다른 조직들은 여섯 개의 질문으로 정리한다</h3>
-  <div class="arch-layers" style="max-width:1000px;margin-top:2.2vh;">
-    <div class="arch-layer"><div class="role">01</div><div class="brand">Intent</div><div class="desc">무엇을 왜 하는가</div></div>
-    <div class="arch-layer"><div class="role">02</div><div class="brand">Plan</div><div class="desc">어떤 단계로 가는가</div></div>
-    <div class="arch-layer on"><div class="role">03</div><div class="brand">Context</div><div class="desc">무엇을 알아야 하는가</div></div>
-    <div class="arch-layer"><div class="role">04</div><div class="brand">Tool</div><div class="desc">무엇을 다루게 하는가</div></div>
-    <div class="arch-layer"><div class="role">05</div><div class="brand">Verify</div><div class="desc">무엇으로 맞다 보는가</div></div>
-    <div class="arch-layer"><div class="role">06</div><div class="brand">Gate</div><div class="desc">어디서 사람이 보는가</div></div>
-  </div>
-  <p class="sub" style="margin-top:2vh;">여섯이 비어 있으면 &mdash; <span class="em">똑똑한 비서</span>에 머문다</p>
-</div>
-
-<!-- 24 Context -->
-<div class="slide in-mint">
-  <h3>그중 가장 자주 지목되는 결핍 &mdash; Context</h3>
-  <div class="grid" style="max-width:1080px;margin-top:2.4vh;">
-    <div class="grid-item"><div class="name">요구 &middot; 설계</div><div class="desc">스펙 문서<br>변경 이력</div></div>
-    <div class="grid-item"><div class="name">정책 &middot; 규칙</div><div class="desc">보안 기준<br>금지 사항</div></div>
-    <div class="grid-item"><div class="name">과거 결정</div><div class="desc">결정 이유<br>당시 맥락</div></div>
-    <div class="grid-item"><div class="name">예외 &middot; 기준</div><div class="desc">담당 판단<br>허용 한계</div></div>
-  </div>
-  <p class="sub" style="margin-top:2.4vh;">Agent가 볼 수 없는 것은 &mdash; <span class="em">없는 것과 같다</span></p>
-  <p class="meta" style="margin-top:1vh;">OpenAI &mdash; 저장소 지식을 system of record로</p>
-</div>
-
-<!-- 25 권한 -->
-<div class="slide in-mint">
-  <h3>권한은 허용 &middot; 차단이 아니라 &mdash; 단계로 나눈다</h3>
-  <table class="tbl" style="width:100%;max-width:1060px;margin-top:2vh;">
-    <thead><tr><th>시스템</th><th>읽기</th><th>쓰기</th><th>반영</th></tr></thead>
-    <tbody>
-      <tr><td style="white-space:nowrap;"><strong>Jira</strong></td><td style="white-space:nowrap;">조회</td><td style="white-space:nowrap;">초안</td><td style="white-space:nowrap;">등록 전 확인</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>Confluence</strong></td><td style="white-space:nowrap;">검색</td><td style="white-space:nowrap;">초안</td><td style="white-space:nowrap;">게시 전 확인</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>CI &middot; CD</strong></td><td style="white-space:nowrap;">로그</td><td style="white-space:nowrap;">&mdash;</td><td style="white-space:nowrap;">배포는 승인</td></tr>
-      <tr><td style="white-space:nowrap;"><strong>운영 DB</strong></td><td style="white-space:nowrap;">제한 조회</td><td style="white-space:nowrap;">금지</td><td style="white-space:nowrap;">예외 절차</td></tr>
-    </tbody>
-  </table>
-  <p class="sub" style="margin-top:2vh;">차단이 기본이 아니라 &mdash; <span class="em">경계가 기본</span></p>
-</div>
-
-<!-- 26 검증 사다리 (이미지가 파이프라인을 대체) -->
-<div class="slide in-mint">
-  <h3>검증은 사다리로 &mdash; 사람은 맨 위 칸만</h3>
-  <img class="visual narrow" src="../assets/images/ai-driven-transition/27-verify-ladder.webp" alt="형식, 정적, 실행, 운영 검증을 로봇이 아래 칸에서 처리하고 사람은 맨 위 칸에서 남은 예외만 판단하는 사다리" />
-  <p class="sub" style="margin-top:1.6vh;">다 읽는 사람이 아니라 &mdash; <span class="em">남은 판단을 하는 사람</span></p>
-</div>
-
-<!-- 27 지표 -->
-<div class="slide in-mint">
-  <h3>지표 &mdash; 무엇을 세는가가 갈랐다</h3>
-  <div class="comp" style="max-width:1060px;margin-top:2.2vh;">
-    <div class="comp-item">
-      <div class="tag">보기 쉬운 지표</div>
-      <p>사용률 &middot; 생성량 &middot; 이수율<br>측정은 쉽지만<br><strong>성과와 느슨한 연결</strong></p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">봐야 하는 지표</div>
-      <p>Lead Time &middot; 재작업률<br>결함률 &middot; 예외율<br><strong>흐름의 개선을 직접</strong></p>
-    </div>
-  </div>
-  <p class="meta" style="margin-top:1vh;">Goodhart &mdash; 지표가 목표가 되면, 좋은 지표가 아니게 된다</p>
-</div>
-
-<!-- 28 역할 분담 -->
-<div class="slide in-mint">
-  <h3>역할 분담 &mdash; 업계에서 반복되는 패턴</h3>
-  <div class="comp" style="max-width:1060px;margin-top:2.2vh;">
-    <div class="comp-item">
-      <div class="tag">중앙 플랫폼</div>
-      <p>공통 도구 &middot; 권한 &middot; 감사<br>모델 &middot; 비용 &middot; 평가<br><strong>사례의 축적</strong></p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">현업 오너</div>
-      <p>문제 선정 &middot; 맥락 제공<br>Workflow 재설계<br><strong>품질 책임</strong></p>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">대신 만들어주는 중앙이 아니라 &mdash; <span class="em">안전하게 만들게 하는 중앙</span></p>
-</div>
-
-<!-- ════════ ④ AI-DLC와 우리 ════════ -->
-
-<!-- 29 Divider -->
-<div class="slide violet">
-  <h1>AI-DLC<br>렌즈로 보기</h1>
-  <p class="sub">Lifecycle 없이 Agent를 붙이면 &mdash; <span class="em">매번 새로 시작</span>한다</p>
-</div>
-
-<!-- 30 AI-DLC 루프 (이미지가 파이프라인을 대체) -->
-<div class="slide in-violet">
-  <h3>AWS가 말하는 반복 루프 &mdash; AI가 묻고 사람이 확정한다</h3>
-  <img class="visual narrow" src="../assets/images/ai-driven-transition/31-aidlc-loop.webp" alt="의도, 계획과 질문, 구축, 검증, 반영이 원형 루프로 돌고 AI가 먼저 질문하고 사람이 반영을 확정하는 순환" />
-  <p class="sub" style="margin-top:1.6vh;">반영의 결과가 &mdash; <span class="em">다시 의도로 돌아오는 루프</span></p>
-  <p class="meta" style="margin-top:1vh;">출처: AWS AI-Driven Development Life Cycle</p>
-</div>
-
-<!-- 31 Harness -->
-<div class="slide in-violet">
-  <h3>프롬프트 다음의 이야기 &mdash; Harness</h3>
-  <blockquote style="font-size:clamp(1.6rem,2.8vw,2.3rem);">"Humans steer.<br>Agents execute."</blockquote>
-  <cite>OpenAI &middot; Harness Engineering</cite>
-  <div class="comp" style="max-width:1000px;margin-top:2.4vh;">
-    <div class="comp-item">
-      <div class="tag">프롬프트</div>
-      <p>말을 잘 거는 기술<br>사람이 매번 개입</p>
-    </div>
-    <div class="comp-item on">
-      <div class="tag">Harness</div>
-      <p>일할 환경의 설계<br>루프가 스스로 돈다</p>
-    </div>
-  </div>
-</div>
-
-<!-- 32 SWDP 스케치 -->
-<div class="slide in-violet">
-  <h3>우리 업무에 대입해 본 스케치 &mdash; 이슈 분석</h3>
-  <div class="arch-layers" style="max-width:1000px;margin-top:2.2vh;">
-    <div class="arch-layer"><div class="role">01</div><div class="brand">이슈 접수</div><div class="desc">티켓 &middot; 로그</div></div>
-    <div class="arch-layer"><div class="role">02</div><div class="brand">근거 수집</div><div class="desc">코드 &middot; 변경 이력</div></div>
-    <div class="arch-layer"><div class="role">03</div><div class="brand">원인 가설</div><div class="desc">Agent 분석</div></div>
-    <div class="arch-layer"><div class="role">04</div><div class="brand">검증</div><div class="desc">테스트 &middot; 재현</div></div>
-    <div class="arch-layer"><div class="role">05</div><div class="brand">해결안</div><div class="desc">패치 &middot; 문서 초안</div></div>
-    <div class="arch-layer on"><div class="role">06</div><div class="brand">GO / STOP</div><div class="desc">사람의 판단</div></div>
-  </div>
-  <p class="sub" style="margin-top:2vh;">"AI가 분석했다"가 아니라 &mdash; <span class="em">분석 Workflow가 남는 것</span></p>
-</div>
-
-<!-- 33 시작 기준 -->
-<div class="slide in-violet">
-  <h3>시작할 일을 고르는 다섯 가지 질문</h3>
-  <div class="arch-layers" style="max-width:1000px;margin-top:2.2vh;">
-    <div class="arch-layer"><div class="role">반복성</div><div class="brand">자주 있는가</div><div class="desc">빈도가 가치를 만든다</div></div>
-    <div class="arch-layer"><div class="role">근거성</div><div class="brand">기록이 남는가</div><div class="desc">파일 &middot; 로그 &middot; 티켓</div></div>
-    <div class="arch-layer"><div class="role">검증성</div><div class="brand">확인할 수 있는가</div><div class="desc">확인 수단의 존재</div></div>
-    <div class="arch-layer on"><div class="role">권한성</div><div class="brand">경계가 있는가</div><div class="desc">read &middot; write의 한계</div></div>
-    <div class="arch-layer"><div class="role">책임성</div><div class="brand">오너가 있는가</div><div class="desc">결과를 맡는 사람</div></div>
-  </div>
-  <p class="sub" style="margin-top:2vh;">다섯이 맞는 업무 하나를 &mdash; <span class="em">끝까지</span></p>
-</div>
-
-<!-- 34 예상 어려움 -->
-<div class="slide in-violet">
-  <h3>그래서 &mdash; 우리도 이런 어려움이 예상된다</h3>
-  <ul class="list" style="margin-top:2.6vh;max-width:1060px;">
-    <li>보조도구까지는 빠르고 &mdash; <span class="em">운영에서 느려질 것</span></li>
-    <li>권한 &middot; 보안 협의가 &mdash; <strong>개발보다 오래 걸릴 것</strong></li>
-    <li>검증 비용이 &mdash; <span class="em">생성 속도를 따라와야 할 것</span></li>
-    <li>오너 없는 과제는 &mdash; <strong>데모에서 멈출 것</strong></li>
-  </ul>
-  <p class="sub" style="margin-top:2.2vh;">알고 들어가면 &mdash; <span class="em">덜 놀란다</span></p>
-</div>
-
-<!-- ════════ CLOSE ════════ -->
-
-<!-- 35 Final thesis -->
-<div class="slide blue">
-  <h3>오늘 공유의 요지</h3>
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);line-height:1.4;">AX는 AI를 많이 쓰는 일이 아니라<br><span class="em">업무 구조를 바꾸는 일</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">그리고 그 구조 만들기는 생각보다 어렵다 &mdash;<br><strong>그래서 미리 같이 봤다</strong></p>
-</div>
-
-<!-- 36 그럼에도 — 팅커벨 (무언 슬라이드: 설명은 발표자가 말로) -->
-<div class="slide blue">
-  <img src="../assets/images/ai-driven-transition/tinkerbell.webp" alt="팅커벨 — 박수가 없으면 빛나지 못한다" style="max-height:52vh;max-width:40vw;object-fit:contain;border-radius:12px;border:1px solid var(--line);box-shadow:var(--card-shadow);margin-bottom:2.6vh;" />
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);">그럼에도&hellip;</p>
-</div>
-
-<!-- 37 Q&A -->
-<div class="slide blue">
-  <h1>Q &amp; A</h1>
-  <ul class="list" style="margin-top:2.6vh;max-width:1000px;">
-    <li>가장 먼저 <span class="em">Workflow로 만들 수 있는 일</span>은?</li>
-    <li>Agent에게 줄 수 있는 <strong>Context와 Tool</strong>은?</li>
-    <li>사람이 반드시 지켜야 할 <span class="em">Gate</span>는?</li>
-  </ul>
-  <p class="meta" style="margin-top:3vh;">AX 공유 세미나 &middot; 2026. 7</p>
-</div>
-
-<!-- 38 Sources -->
-<div class="slide">
-  <h3>오늘 인용한 관찰들</h3>
-  <div class="arch-layers" style="max-width:1100px;margin-top:2vh;">
-    <div class="arch-layer"><div class="role">McKinsey</div><div class="brand">State of AI 2025</div><div class="desc">조직 88%가 AI 사용</div></div>
-    <div class="arch-layer"><div class="role">BCG</div><div class="brand">AI Radar 2025</div><div class="desc">가치 창출 조직은 5%</div></div>
-    <div class="arch-layer"><div class="role">MIT</div><div class="brand">GenAI Divide</div><div class="desc">파일럿 95% 무영향</div></div>
-    <div class="arch-layer"><div class="role">Microsoft</div><div class="brand">Work Trend Index</div><div class="desc">agent boss의 등장</div></div>
-    <div class="arch-layer on"><div class="role">OpenAI</div><div class="brand">Harness</div><div class="desc">사람 조종 &middot; Agent 실행</div></div>
-    <div class="arch-layer"><div class="role">AWS</div><div class="brand">AI-DLC</div><div class="desc">계획 &middot; 질문 &middot; 검증 루프</div></div>
-  </div>
-  <p class="meta" style="margin-top:1.2vh;">NIST AI RMF 참조 &middot; 2026-07 기준</p>
-</div>
-
+  <div class="slide"><img src="01-cover.webp" alt="커버 — AI Driven 전환은 왜 어려운가: 도구 보급을 넘어 업무 운영체계의 문제, AX 공유 세미나 2026.7" fetchpriority="high" /></div>
+  <div class="slide"><img src="02-question-shift.webp" alt="질문을 바꾸면 — 흔한 질문 '왜 실패했는가' 대신 오늘의 질문 '어떤 구조에서 막히는가', 반복 패턴을 미리 보기" loading="lazy" /></div>
+  <div class="slide"><img src="03-three-numbers.webp" alt="도입은 빠른데 가치는 느리다 — AI 사용 조직 88%, 가치 창출 조직 5%, 손익 무영향 파일럿 95%" loading="lazy" /></div>
+  <div class="slide"><img src="04-usage-vs-driven.webp" alt="AI 사용과 AI Driven 갈림길 — 업무 위에 AI를 얹는 것과 업무 흐름 자체를 재편하는 것, 대부분의 조직은 아직 왼쪽" loading="lazy" /></div>
+  <div class="slide"><img src="05-assist-tool-stall.webp" alt="대부분 보조도구에서 멈춘다 — 보조도구 제작, 반짝 사용, 운영 부재, PoC 종료. 만들기는 쉽다 운영이 어렵다" loading="lazy" /></div>
+  <div class="slide"><img src="06-human-role-shift.webp" alt="사람의 위치도 함께 이동 — 직접 수행, AI에 지시, 계획 승인, 결과 검증, 규칙 축적. agent boss" loading="lazy" /></div>
+  <div class="slide"><img src="07-section-ten-structures.webp" alt="섹션 — 막히기 쉬운 10가지 구조: Tool-first, Workflow 미변경, 부분 최적화, Owner 부재, 쉬운 PoC 반복, Context 부재, 사후 Governance, 검증 병목, 습관 없는 교육, 중앙조직 병목" loading="lazy" /></div>
+  <div class="slide"><img src="08-risk01-tool-first.webp" alt="01 Tool-first — 문제를 정하기 전에 도구부터 정한다. 도구를 사기 전에 문제부터 정의" loading="lazy" /></div>
+  <div class="slide"><img src="09-risk02-workflow-unchanged.webp" alt="02 Workflow 미변경 — AI는 빨라졌는데 승인·전달은 그대로. 초안이 아니라 흐름을 다시 그리기" loading="lazy" /></div>
+  <div class="slide"><img src="10-risk03-local-optimization.webp" alt="03 부분 최적화 — 개인은 빨라지고 조직은 그대로. 개인 속도보다 조직의 병목을 보기" loading="lazy" /></div>
+  <div class="slide"><img src="11-risk04-no-owner.webp" alt="04 Owner 부재 — PoC는 있는데 결과 책임자가 없다. 데모 다음 날의 주인을 먼저 정하기" loading="lazy" /></div>
+  <div class="slide"><img src="12-risk05-easy-poc-loop.webp" alt="05 쉬운 PoC 반복 — 요약·챗봇·메일 초안만 반복된다. 쉬운 것 말고 좁고 가치 높은 일로" loading="lazy" /></div>
+  <div class="slide"><img src="13-risk06-no-context.webp" alt="06 Context 부재 — 데이터는 있어도 맥락이 없다. 데이터보다 정책·예외·결정 이유를" loading="lazy" /></div>
+  <div class="slide"><img src="14-risk07-late-governance.webp" alt="07 사후 Governance — 보안·권한·감사를 마지막에 붙인다. 통제는 나중이 아니라 설계 단계부터" loading="lazy" /></div>
+  <div class="slide"><img src="15-risk08-verify-bottleneck.webp" alt="08 검증 병목 — 사람이 다 보는 검증은 곧 막힌다. 전수 리뷰 말고 기계 검증과 샘플링" loading="lazy" /></div>
+  <div class="slide"><img src="16-risk09-habitless-training.webp" alt="09 습관 없는 교육 — 교육은 있는데 습관이 없다. 강의보다 다음 날 바뀌는 업무 하나" loading="lazy" /></div>
+  <div class="slide"><img src="17-risk10-central-bottleneck.webp" alt="10 중앙조직 병목 — 모든 요청이 중앙으로 몰린다. 대신 해주는 중앙 말고 만들게 하는 중앙" loading="lazy" /></div>
+  <div class="slide"><img src="18-pilot-trap-formula.webp" alt="10가지를 한 줄로 줄이면 — 모델 더하기 도구 빼기 운영 구조는 파일럿의 함정. 운영 구조 설계의 문제" loading="lazy" /></div>
+  <div class="slide"><img src="19-six-questions.webp" alt="앞서가는 조직들의 여섯 개의 질문 — Intent, Plan, Context, Tool, Verify, Gate" loading="lazy" /></div>
+  <div class="slide"><img src="20-three-operating-devices.webp" alt="운영의 세 장치 — Context는 주기, 권한은 단계로, 검증은 사다리로. 맥락은 주고 경계는 긋고 판단은 사람이" loading="lazy" /></div>
+  <div class="slide"><img src="21-loop-and-harness.webp" alt="루프와 하네스 — 의도, 계획, 실행, 검증, 반영 루프(AWS AI-DLC)와 Humans steer Agents execute. 말 걸기에서 환경 설계로" loading="lazy" /></div>
+  <div class="slide"><img src="22-issue-analysis-sketch.webp" alt="우리 업무에 대입한 스케치 — 이슈 접수, 근거 수집, 원인 가설, 검증, 해결안, GO/STOP 사람의 판단" loading="lazy" /></div>
+  <div class="slide"><img src="23-five-starting-questions.webp" alt="시작할 일을 고르는 다섯 질문 — 반복성, 근거성, 검증성, 권한성, 책임성. 다섯이 맞는 업무 하나를 끝까지" loading="lazy" /></div>
+  <div class="slide"><img src="24-takeaway-qna.webp" alt="AX는 AI를 많이 쓰는 일이 아니라 업무 구조를 바꾸는 일 — Q&A와 출처" loading="lazy" /></div>
 </div>
 <nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
 <div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
 <script>
 const slides=document.querySelectorAll('.slide'),total=slides.length;
 let current=0;
-const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress'),partLabelEl=document.getElementById('partLabel');
-const partMap=[
-{from:0,to:1,label:'시작'},
-{from:2,to:8,label:'전환이 어려운 이유'},
-{from:9,to:21,label:'막히는 10가지 구조'},
-{from:22,to:28,label:'바깥의 운영 구조'},
-{from:29,to:34,label:'AI-DLC와 우리'},
-{from:35,to:38,label:'마무리'}
-];
-function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AX 공유 세미나';}
+const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress');
 slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
-function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));if(active)s.removeAttribute('inert');else s.setAttribute('inert','');});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
-function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;document.getElementById('slides').style.transform=`translateX(-${current*100}vw)`;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
+function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';
+  [current+1,current+2,current-1].forEach(i=>{if(i>=0&&i<total){const img=slides[i].querySelector('img');if(img&&img.loading==='lazy'){img.loading='eager';}}});
+}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
 function next(){goTo(current+1);}
 function prev(){goTo(current-1);}
 document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});
