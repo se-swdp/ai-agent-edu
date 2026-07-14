@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-13T04:15:09.658Z",
-  "count": 12,
-  "slides": 12,
+  "generatedAt": "2026-07-14T04:27:25.734Z",
+  "count": 13,
+  "slides": 13,
   "files": 0,
   "items": [
     {
@@ -110,6 +110,15 @@
       "title": "AI Driven 전환은 왜 어려운가",
       "subtitle": "도구 보급을 넘어 업무 운영체계의 문제",
       "url": "./presentations/ai-driven-transition/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "category": "개발",
+      "catClass": "dev",
+      "title": "AI Agent와 일해보니 · 노트 에디션",
+      "subtitle": "손글씨 노트로 다시 그린 35장",
+      "url": "./presentations/solution-dev-seminar-v2/",
       "ext": "html"
     }
   ]
