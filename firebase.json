@@ -30,6 +30,7 @@
         "**/.*",
         "**/node_modules/**",
         "README.md",
+        "**/README.md",
         "HANDOFF.md",
         "**/HANDOFF.md",
         "**/REVIEW-FEEDBACK.md",
