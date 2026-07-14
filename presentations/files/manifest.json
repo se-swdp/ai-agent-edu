@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T04:27:25.734Z",
+  "generatedAt": "2026-07-14T05:15:23.875Z",
   "count": 13,
   "slides": 13,
   "files": 0,
@@ -116,8 +116,8 @@
       "type": "slide",
       "category": "개발",
       "catClass": "dev",
-      "title": "AI Agent와 일해보니 · 노트 에디션",
-      "subtitle": "손글씨 노트로 다시 그린 35장",
+      "title": "AI Agent와 일해보니 v2",
+      "subtitle": "손글씨 노트로 다시 그린 37장",
       "url": "./presentations/solution-dev-seminar-v2/",
       "ext": "html"
     }
