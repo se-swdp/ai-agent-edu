@@ -10,7 +10,7 @@ The prompts below are the exact prompts used for the generated presentation asse
 `02-answer-vs-delegation-panel.webp` is a title-free crop of the supplied
 `ai-answer-vs-delegation.png` reference for the shared title → image → conclusion layout.
 
-## 17-harness-manual-same-output.webp
+## 17-harness-manual-same-output.webp (removed 2026-07-14 — regenerated as 16-harness-manual-same-output with 새 동료 instead of 김아무개)
 
 ```text
 Use case: infographic-diagram
@@ -76,7 +76,7 @@ Constraints: render each label exactly once; no title; no subtitle; no paragraph
 Avoid: front-facing row of boxes, left-to-right conveyor, photorealism, cyberpunk, dense pseudo-code, glossy 3D
 ```
 
-## 10-agent-loop-radial.webp
+## 10-agent-loop-radial.webp (removed 2026-07-14 — regenerated as 12-agent-loop-radial with labeled 다시 계획 loopback)
 
 ```text
 Use case: infographic-diagram
@@ -236,4 +236,36 @@ Composition/framing: wide 16:9; only the top 10 percent quiet for an HTML headin
 Text (verbatim): "CCN · Claude Code", "받는 것", "하는 일", "만드는 것", "swdp-ops-auto", "work-to-jira", "org-activity-report", "weekly-report", "confluence-wiki", "html-slides"
 Constraints: render each label exactly once; no other text anywhere; no title; no paragraph text; no logos; no watermark; no dark background; no 3D
 Avoid: people, sentences inside lanes, tiny pseudo-text, cyberpunk, dense UI screenshots, more than one robot
+```
+
+## 12-agent-loop-radial.webp
+
+```text
+Use case: infographic-diagram
+Asset type: 16:9 presentation illustration for a Korean AI Agent seminar
+Input images: Image 1 is the strict visual style reference only
+Primary request: visualize the AI agent loop in a radial circular composition, deliberately avoiding a horizontal row of cards
+Scene/backdrop: clean off-white to very pale blue background
+Subject: one large circular roundabout or tabletop track fills the center; four clear stations sit around the ring at top, right, bottom, and left; the same small friendly robot moves clockwise through instruction, planning, execution, and verification; each station has one large simple object rather than a rectangular panel — an instruction note, a plan checklist, busy gears with a code window, and a test sheet with checkmarks; a dotted feedback shortcut returns from the verification station to the planning station, labeled once
+Style/medium: match Image 1 exactly — crisp navy line art, flat pastel blue/teal/mint with a tiny yellow accent, subtle gradients, friendly Korean business infographic cartoon
+Composition/framing: wide 16:9; upper 16 percent quiet for HTML heading; dominant centered circle; balanced negative space; no left-to-right pipeline; generous margins
+Text (verbatim): "지시", "계획", "실행", "검증", "다시 계획"
+Constraints: render each label exactly once; "다시 계획" only on the dotted feedback arrow; no title; no subtitle; no paragraph text; no logos; no watermark; no dark background; no 3D
+Avoid: four horizontal cards, glowing brain, abstract sphere, cyberpunk, dense UI, more than one robot
+```
+
+## 16-harness-manual-same-output.webp
+
+```text
+Use case: infographic-diagram
+Asset type: 16:9 presentation illustration for a Korean AI Agent seminar
+Input images: Image 1 is the strict visual style reference only
+Primary request: show the design standard for a harness and workflow: even a brand-new colleague can follow the documented guide and produce the same verified output
+Scene/backdrop: clean off-white to very pale mint background, calm ordinary office
+Subject: a split left-to-right workflow; on the left an experienced worker's tacit know-how is converted into a clear manual with rule cards, context notes, completion criteria, and evidence checklist; in the center a new Korean colleague arrives at the desk and follows the same small friendly AI agent workflow; on the right both workers' paths converge into matching checked output folders; a feedback arrow shows missing assumptions being documented when discovered
+Style/medium: match Image 1 exactly — crisp navy line art, flat pastel blue/teal/mint with a tiny yellow accent, subtle gradients, friendly Korean business infographic cartoon, people remain responsible for checking
+Composition/framing: wide 16:9; upper 16 percent quiet for HTML heading; expert tacit knowledge left, manual and harness center, new colleague and matching output right; explicit convergence and feedback loop; generous margins
+Text (verbatim): "암묵지", "매뉴얼", "규칙", "맥락", "완료 조건", "근거", "새 동료", "같은 결과"
+Constraints: render only these short labels; no title; no subtitle; no paragraph text; no logos; no watermark; no dark background; no 3D; no cyberpunk
+Avoid: corporate training stock photo, magical AI, tiny pseudo-text, overly complex UI, claim of perfect automation
 ```
