@@ -36,7 +36,8 @@
         "firestore.rules",
         "firestore.indexes.json",
         "*-firebase-adminsdk-*.json",
-        "serviceAccountKey*.json"
+        "serviceAccountKey*.json",
+        "**/src-png/**"
       ],
       "cleanUrls": true,
       "headers": [

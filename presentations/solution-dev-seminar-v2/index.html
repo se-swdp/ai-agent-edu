@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>AI Agent와 일해보니 · 노트 에디션 · 2026.7</title>
+<script>
+if(location.protocol==='http:'||location.protocol==='https:'){
+  const base=document.createElement('base');
+  base.href='/presentations/solution-dev-seminar-v2/';
+  document.head.appendChild(base);
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;width:100%;height:100%}
+body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#fcf8f2;color:#1c1c1c;-webkit-font-smoothing:antialiased}
+.slides{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:#fcf8f2;padding:2.6vh 3vw}
+.slide.active{display:flex}
+/* never upscale past native 1672x941 — keeps strokes crisp on 1080p fullscreen */
+.slide img{width:auto;height:auto;max-width:min(100%,1672px);max-height:min(100%,941px);object-fit:contain;display:block}
+.nav{position:fixed;bottom:24px;left:36px;display:flex;gap:6px;z-index:100}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.75);border:1px solid rgba(28,28,28,0.22);color:rgba(28,28,28,0.65);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 4px 12px rgba(60,50,30,0.10)}
+.nav button:hover{background:#fff;color:#1c1c1c;border-color:rgba(28,28,28,0.45)}
+.nav button:focus-visible{outline:2px solid #2f73bd;outline-offset:2px}
+.page-num{position:fixed;bottom:30px;right:36px;font-size:0.82rem;color:rgba(28,28,28,0.55);letter-spacing:0.06em;font-family:'Noto Sans KR',sans-serif;z-index:100}
+.progress{position:fixed;top:0;left:0;height:2px;background:#2f73bd;z-index:200}
+@media(max-width:768px){.nav{left:16px;bottom:16px}.page-num{right:16px;bottom:22px}}
+@media print{
+  html,body{overflow:visible!important;height:auto}
+  .nav,.progress,.page-num{display:none!important}
+  .slides{display:block!important}
+  .slide{display:flex!important;position:relative;page-break-after:always;break-after:page;height:100vh}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="slides" id="slides">
+  <div class="slide"><img src="01-cover.webp" alt="AI Agent와 일해보니 — 잘 시키고, 잘 확인하고, 내 일에 맞추는 이야기. 커버" fetchpriority="high" /></div>
+  <div class="slide"><img src="02-two-ways-of-using-ai.webp" alt="같은 AI 도구, 쓰는 방식은 다르다 — 질문형 AI와 위임형 AI 비교" /></div>
+  <div class="slide"><img src="03-section1-good-tools.webp" alt="섹션1 — 좋은 도구로 잘 일하는 조건" /></div>
+  <div class="slide"><img src="04-ai-improves-work-doesnt.webp" alt="AI가 좋아져도 일하는 방식은 저절로 안 바뀜 — 2배, 90%, 5% 통계" loading="lazy" /></div>
+  <div class="slide"><img src="05-swdp-portal-case.webp" alt="SW Dev. Portal 개발 사례 — 인원 1/5, 기간 1/12, 10만 줄 이상" loading="lazy" /></div>
+  <div class="slide"><img src="06-three-levers.webp" alt="편하게 잘 일하는 세 가지 레버 — 모델·에이전트, 요청, 워크플로" loading="lazy" /></div>
+  <div class="slide"><img src="07-coding-is-one-segment.webp" alt="실제 개발 업무를 분해하면 코딩은 한 구간" loading="lazy" /></div>
+  <div class="slide"><img src="08-docs-are-code.webp" alt="문서 작업도 문법과 구조를 다루는 일 — 문서도 코드로 다룸" loading="lazy" /></div>
+  <div class="slide"><img src="09-pptx-behind-the-scenes.webp" alt="PPTX로 만들어줘 뒤에서 벌어지는 일 — 도구를 코드로 지어서 실행" loading="lazy" /></div>
+  <div class="slide"><img src="10-sw-engineering-advantage.webp" alt="개발자가 아니어도 SW 엔지니어링을 조금 알면 유리" loading="lazy" /></div>
+  <div class="slide"><img src="11-section2-tool-basics.webp" alt="섹션2 — 도구 기본기: Claude Code, CCN, CodeMate" loading="lazy" /></div>
+  <div class="slide"><img src="12-agent-loop.webp" alt="모든 기능의 뿌리, 에이전트 루프 — 지시, 계획, 실행, 검증" loading="lazy" /></div>
+  <div class="slide"><img src="13-loop-ingredients.webp" alt="루프 자체는 공통, 차이는 채워 넣는 것 — 반복 방식, 안전장치, 작업 기준" loading="lazy" /></div>
+  <div class="slide"><img src="14-repeat-to-skill.webp" alt="반복해서 설명하던 방식, 실행 단위로 남김 — 규칙 파일, skill, workflow" loading="lazy" /></div>
+  <div class="slide"><img src="15-rules-vs-hooks.webp" alt="규칙은 알려주는 것, Hook은 실제로 막는 것" loading="lazy" /></div>
+  <div class="slide"><img src="16-harness-manual.webp" alt="하네스·워크플로의 기준 — 암묵지를 매뉴얼로, 낯선 사람도 같은 결과" loading="lazy" /></div>
+  <div class="slide"><img src="17-section3-say-and-verify.webp" alt="섹션3 — 말로 시키고, 근거로 확인: Jira, Confluence, SWDP, Prometheus, Splunk, Knox" loading="lazy" /></div>
+  <div class="slide"><img src="18-goal-boundary-evidence.webp" alt="위임의 공통 형식 — 목표 더하기 경계 더하기 근거" loading="lazy" /></div>
+  <div class="slide"><img src="19-connected-services.webp" alt="연결 조건이 갖춰진 서비스, 곧 에이전트의 도구 — MCP 연결 지도" loading="lazy" /></div>
+  <div class="slide"><img src="20-spec-context-verification.webp" alt="Jira는 스펙, Confluence는 컨텍스트, SWDP는 검증" loading="lazy" /></div>
+  <div class="slide"><img src="21-one-interface.webp" alt="하나의 인터페이스로 맥락부터 검증까지 — 에이전트가 읽고 실행하고 근거까지 회수" loading="lazy" /></div>
+  <div class="slide"><img src="22-section4-swdp-workflow.webp" alt="섹션4 — SW Dev. Portal로 보는 AI Agent와 일하는 방법" loading="lazy" /></div>
+  <div class="slide"><img src="23-agent-gathers-evidence.webp" alt="개선 후보 찾기, 근거 수집은 에이전트가 — 개선 후보 리포트" loading="lazy" /></div>
+  <div class="slide"><img src="24-human-decides-value.webp" alt="개선 판단, 고칠 가치 평가는 사람이 — 진행과 보류 결정" loading="lazy" /></div>
+  <div class="slide"><img src="25-detect-before-inquiry.webp" alt="사용자 불편, 문의가 오기 전에 후보 발견 — 예전과 지금 비교" loading="lazy" /></div>
+  <div class="slide"><img src="26-separate-find-decide.webp" alt="개선 흐름 — 찾는 일과 결정하는 일의 분리, 사람의 결정 지점" loading="lazy" /></div>
+  <div class="slide"><img src="27-idea-to-wiki.webp" alt="변경 설명, 기획서에서 위키까지 연결 — confluence-wiki 스킬" loading="lazy" /></div>
+  <div class="slide"><img src="28-my-harness-workflows.webp" alt="나만의 하네스, 각 워크플로의 동작 — 여섯 개 워크플로의 입력과 출력" loading="lazy" /></div>
+  <div class="slide"><img src="29-automation-boundary.webp" alt="자동화의 현실적인 경계 — 분석·문서·테스트는 자율화, 정책·우선순위·예외는 사람" loading="lazy" /></div>
+  <div class="slide"><img src="30-responsibility-is-human.webp" alt="모든 단계를 연결할 수는 있어도 책임까지 맡기는 것은 다른 문제" loading="lazy" /></div>
+  <div class="slide"><img src="31-habits-context-first.webp" alt="AI Agent를 잘 쓰는 사람들의 습관 — 보통의 시작과 맥락을 더한 위임" loading="lazy" /></div>
+  <div class="slide"><img src="32-fanout-and-pass.webp" alt="복잡한 작업은 나눠 보고, 완료는 증거로 확인 — fan-out 조사와 PASS 증거" loading="lazy" /></div>
+  <div class="slide"><img src="33-nagging-to-rule-skill.webp" alt="좋은 잔소리가 일하는 시스템이 된다 — 반복되는 잔소리를 RULE과 SKILL로" loading="lazy" /></div>
+  <div class="slide"><img src="34-evolve-to-fit-me.webp" alt="나에게 맞게 진화시키기 — 도메인 지식 곱하기 AI Agent 활용 능력" loading="lazy" /></div>
+  <div class="slide"><img src="35-personal-to-team-asset.webp" alt="개인의 방식에서 팀의 자산으로 — 실패 경험까지 함께 공유, Q&A" loading="lazy" /></div>
+</div>
+<nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
+<div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
+<script>
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let current=0;
+const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress');
+slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
+function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';
+  // eagerly decode neighbors for snappy paging
+  [current+1,current+2,current-1].forEach(i=>{if(i>=0&&i<total){const img=slides[i].querySelector('img');if(img&&img.loading==='lazy'){img.loading='eager';}}});
+}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
+function next(){goTo(current+1);}
+function prev(){goTo(current-1);}
+document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});
+let tx=0,ty=0;
+document.addEventListener('touchstart',e=>{if(e.touches.length>1)return;tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches.length>1)return;const dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx>0)next();else prev();}},{passive:true});
+const initSlide=parseInt(location.hash.slice(1))-1;
+if(!isNaN(initSlide)&&initSlide>=0)goTo(initSlide);else update();
+</script>
+</body>
+</html>

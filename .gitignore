@@ -24,3 +24,6 @@ serviceAccountKey*.json
 *.MOV
 *.mov
 
+
+# Note-deck source PNGs (originals kept local; webp is the tracked/deployed form)
+presentations/solution-dev-seminar-v2/src-png/
