@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>SWDP 개발·운영과 AI 에이전트 적용 방향 · 2026.7</title>
 <script>
 if(location.protocol==='http:'||location.protocol==='https:'){
@@ -11,593 +11,63 @@ if(location.protocol==='http:'||location.protocol==='https:'){
   document.head.appendChild(base);
 }
 </script>
-<link href="https://fonts.googleapis.com" rel="preconnect" />
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@700;900&family=Noto+Sans+KR:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <style>
-/* ===== TOKENS ===== */
-:root{
-  --ink:#0b1b4d;        /* headings, strong text — deep navy ink */
-  --text:#314665;       /* body text */
-  --muted:#5d6e8b;      /* labels, meta, captions */
-  --line:#d6e2f1;       /* card borders, hairlines */
-  --paper:#f8fbff;      /* slide surface */
-  --bg:#f4f8fd;         /* page behind slides */
-  --blue-soft:#eef5ff; --mint-soft:#eefaf7; --violet-soft:#f6f2ff; --amber-soft:#fff8e9;
-  --blue:#2f73bd;       /* default .em accent */
-  --blue-ink:#2868ad; --teal-ink:#16776d; --violet-ink:#7257b2; --amber-ink:#9d6600; --orange-ink:#b15b1e;
-  --radius:12px;
-  --card-shadow:0 10px 30px rgba(42,78,125,0.07);
-}
-
-/* ===== BASE ===== */
 *{margin:0;padding:0;box-sizing:border-box}
-html{font-size:207.5%}   /* presentation scale (1920px beam). Never lower globally to fit content. */
-@media (min-width:769px) and (max-height:880px){html{font-size:182%}}  /* smaller projection screens */
-@media (min-width:769px) and (max-height:790px){html{font-size:158%}}
 html,body{overflow:hidden;width:100%;height:100%}
-body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;word-break:keep-all}
-.slides{display:flex;transition:none}
-.slide{width:100vw;min-width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4vh 6vw;position:relative;overflow:hidden;background:radial-gradient(circle at 8% 8%,rgba(71,130,210,0.07),transparent 32%),var(--paper)}
-.slide>*{position:relative;z-index:1;flex-shrink:0}
-.slide:focus-visible{outline:none}
-
-/* ===== SECTION SYSTEM =====
-   divider slide  = .slide.<color>     (stronger tint gradient, h1 + underline tick)
-   body slide     = .slide.in-<color>  (soft tint wash)
-   Families: blue/sky/cyan · mint/teal · violet/indigo · amber · orange. No rose. */
-.slide.blue,.slide.sky,.slide.cyan{background:radial-gradient(circle at 77% 30%,rgba(91,157,230,0.19),transparent 35%),linear-gradient(145deg,#eaf3ff 0%,#f8fbff 72%)}
-.slide.mint,.slide.teal{background:radial-gradient(circle at 77% 30%,rgba(21,157,152,0.17),transparent 35%),linear-gradient(145deg,#eafaf6 0%,#f8fffd 72%)}
-.slide.violet,.slide.indigo{background:radial-gradient(circle at 77% 30%,rgba(114,87,178,0.16),transparent 35%),linear-gradient(145deg,#f0ecff 0%,#fbfaff 72%)}
-.slide.amber{background:radial-gradient(circle at 77% 30%,rgba(229,169,20,0.18),transparent 35%),linear-gradient(145deg,#fff5db 0%,#fffdf7 72%)}
-.slide.orange{background:radial-gradient(circle at 77% 30%,rgba(222,138,60,0.16),transparent 35%),linear-gradient(145deg,#fff1e2 0%,#fffdf9 72%)}
-.slide.in-blue,.slide.in-sky,.slide.in-cyan{background:radial-gradient(circle at 88% 18%,rgba(91,157,230,0.12),transparent 34%),var(--blue-soft)}
-.slide.in-mint,.slide.in-teal{background:radial-gradient(circle at 88% 18%,rgba(21,157,152,0.11),transparent 34%),var(--mint-soft)}
-.slide.in-violet,.slide.in-indigo{background:radial-gradient(circle at 88% 18%,rgba(114,87,178,0.10),transparent 34%),var(--violet-soft)}
-.slide.in-amber{background:radial-gradient(circle at 88% 18%,rgba(229,169,20,0.11),transparent 34%),var(--amber-soft)}
-.slide.in-orange{background:radial-gradient(circle at 88% 18%,rgba(222,138,60,0.10),transparent 34%),#fff4e9}
-
-/* section accents: .em ink + divider underline tick */
-.em{color:var(--blue);font-weight:700}
-.slide.blue .em,.slide.in-blue .em,.slide.sky .em,.slide.in-sky .em,.slide.cyan .em,.slide.in-cyan .em{color:var(--blue-ink)}
-.slide.mint .em,.slide.in-mint .em,.slide.teal .em,.slide.in-teal .em{color:var(--teal-ink)}
-.slide.violet .em,.slide.in-violet .em,.slide.indigo .em,.slide.in-indigo .em{color:var(--violet-ink)}
-.slide.amber .em,.slide.in-amber .em{color:var(--amber-ink)}
-.slide.orange .em,.slide.in-orange .em{color:var(--orange-ink)}
-.slide.blue h1::after,.slide.sky h1::after,.slide.cyan h1::after,.slide.mint h1::after,.slide.teal h1::after,.slide.violet h1::after,.slide.indigo h1::after,.slide.amber h1::after,.slide.orange h1::after{content:"";display:block;width:48px;height:3px;margin:2vh auto 0;border-radius:2px;background:#3f82d7}
-.slide.mint h1::after,.slide.teal h1::after{background:#159d98}
-.slide.violet h1::after,.slide.indigo h1::after{background:#7257b2}
-.slide.amber h1::after{background:#dca614}
-.slide.orange h1::after{background:#d97a2e}
-
-/* ===== TYPOGRAPHY ===== */
-h1{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:900;text-align:center;line-height:1.18;letter-spacing:-0.03em;color:var(--ink);padding-bottom:4px}
-h2{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;text-align:center;line-height:1.15;letter-spacing:-0.02em;color:var(--ink)}
-h3{font-size:clamp(1.08rem,1.35vw,1.28rem);font-weight:400;color:var(--ink);margin-bottom:2.2vh;text-align:center}
-.sub{font-size:clamp(1.18rem,1.65vw,1.58rem);color:var(--text);margin-top:2vh;text-align:center;line-height:1.5;font-weight:300}
-.sub strong,.impact-sub strong,.list strong{color:var(--ink);font-weight:700}
-.meta{margin-top:2vh;font-size:clamp(0.7rem,0.76vw,0.76rem);color:var(--muted);font-weight:400}
-.meta.byline{font-size:0.92rem}
-.meta a{color:inherit;text-decoration-color:rgba(93,110,139,0.4);text-underline-offset:0.18em}
-.impact-text{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.2;letter-spacing:-0.03em;text-align:center;color:var(--ink);padding-bottom:4px}
-.impact-sub{font-size:clamp(1.25rem,1.8vw,1.8rem);font-weight:300;color:var(--text);margin-top:2vh;text-align:center;letter-spacing:-0.01em;line-height:1.5}
-.formula{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;letter-spacing:0.02em;color:var(--ink)}
-blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem);font-weight:300;max-width:780px;text-align:center;line-height:1.6;color:var(--text);letter-spacing:-0.01em}
-cite{display:block;margin-top:24px;font-size:clamp(1rem,1.15vw,1.08rem);color:var(--muted);font-style:normal}
-.stat{text-align:center}
-.stat .number{font-family:'Figtree',sans-serif;font-size:clamp(5rem,12vw,11rem);font-weight:900;letter-spacing:-0.05em;line-height:0.9;color:var(--ink)}
-.stat .label{font-size:clamp(0.85rem,1.1vw,1rem);color:var(--muted);margin-top:1.5vh;font-weight:300}
-
-/* ===== CARDS: compare ===== */
-.comp{display:flex;gap:1.1vw;width:100%;max-width:1300px;margin:3vh 0;align-items:stretch}
-.comp-item{flex:1;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:3vh 1.2vw;text-align:center;display:grid;grid-template-rows:minmax(1.5em,auto) minmax(4.8em,1fr);align-items:center;justify-items:center;gap:1.2vh}
-.comp-item .tag{align-self:start;display:flex;align-items:center;justify-content:center;min-height:1.5em;font-size:clamp(0.95rem,1.12vw,1.08rem);letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-weight:400}
-.comp-item>p,.comp-item>div:not(.tag){align-self:center}
-.comp-item p{font-size:clamp(1.14rem,1.42vw,1.38rem);font-weight:300;line-height:1.46;color:var(--ink)}
-.comp-item p strong{font-weight:700}
-
-/* emphasis card (.on) auto-matches the slide's section color */
-.comp-item.on,.stat-card.on{background:var(--blue-soft);border-color:#bed5ef;border-top:2px solid #6aa5e4}
-.slide.in-mint .comp-item.on,.slide.in-teal .comp-item.on,.slide.in-mint .stat-card.on,.slide.in-teal .stat-card.on{background:var(--mint-soft);border-color:#b9e2d8;border-top-color:#5ab9a9}
-.slide.in-violet .comp-item.on,.slide.in-indigo .comp-item.on,.slide.in-violet .stat-card.on,.slide.in-indigo .stat-card.on{background:var(--violet-soft);border-color:#d8ccf2;border-top-color:#9a82cf}
-.slide.in-amber .comp-item.on,.slide.in-amber .stat-card.on{background:var(--amber-soft);border-color:#ead7a4;border-top-color:#dca614}
-.slide.in-orange .comp-item.on,.slide.in-orange .stat-card.on{background:#fff3e7;border-color:#eed0b0;border-top-color:#d97a2e}
-/* semantic variants for good/caution/bad compares */
-.comp-item.green-on,.stat-card.green-on{background:#edf9f5;border-color:#b9e2d8;border-top:2px solid #5ab9a9}
-.comp-item.yellow-on,.stat-card.yellow-on{background:#fff8e9;border-color:#ead7a4;border-top:2px solid #dca614}
-.comp-item.red-on,.stat-card.red-on{background:#fff2f4;border-color:#ebc7cf;border-top:2px solid #d994a6}
-
-/* ===== CARDS: stats ===== */
-.stat-grid{display:flex;gap:1.1vw;width:100%;max-width:1100px;margin-top:3vh}
-.stat-card{flex:1;text-align:center;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:2.6vh 1.6vw 2.8vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:center}
-.stat-card .label{font-size:clamp(0.9rem,1.04vw,1rem);color:var(--muted);min-height:2.8em;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.3;margin-bottom:1.2vh}
-.stat-card .value{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.1;color:var(--ink);margin-bottom:6px;padding-bottom:2px;position:relative}
-.stat-card .value span{position:absolute;left:100%;bottom:0.12em;margin-left:2px;white-space:nowrap}  /* small unit overhangs right, digits stay optically centered */
-.stat-card .source{font-size:clamp(0.9rem,1.04vw,1rem);color:var(--text);min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;line-height:1.35}
-
-/* ===== CARDS: layer rows ===== */
-.arch-layers{display:flex;flex-direction:column;gap:1.2vh;width:100%;max-width:min(1260px,88vw);margin-top:3vh}
-.arch-layer{display:grid;grid-template-columns:minmax(64px,0.16fr) minmax(280px,0.92fr) minmax(320px,1fr);column-gap:1.8vw;align-items:center;padding:2vh 1.8vw;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow)}
-.arch-layer .role{font-size:clamp(0.98rem,1.12vw,1.08rem);color:var(--muted);white-space:nowrap;text-align:left}
-.arch-layer .brand{font-size:clamp(1.28rem,1.5vw,1.46rem);font-weight:700;color:var(--ink);text-align:left;min-width:0}
-.arch-layer .desc{font-size:clamp(1.12rem,1.32vw,1.26rem);color:var(--text);font-weight:300;text-align:left;line-height:1.42;min-width:0}
-.arch-layer.on{background:var(--blue-soft);border-color:#bed5ef}
-.slide.in-mint .arch-layer.on,.slide.in-teal .arch-layer.on{background:var(--mint-soft);border-color:#b9e2d8}
-.slide.in-violet .arch-layer.on,.slide.in-indigo .arch-layer.on{background:var(--violet-soft);border-color:#d8ccf2}
-.slide.in-amber .arch-layer.on{background:var(--amber-soft);border-color:#ead7a4}
-.slide.in-orange .arch-layer.on{background:#fff3e7;border-color:#eed0b0}
-
-/* ===== GRID (named items) ===== */
-.grid{display:flex;gap:1.1vw;margin-top:3vh;width:100%;max-width:1100px;align-items:stretch}
-.grid-item{padding:3vh 2.5vw;text-align:center;flex:1;background:rgba(255,255,255,0.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--card-shadow);display:flex;flex-direction:column;justify-content:center;align-items:center}
-.grid-item .name{font-size:clamp(1.2rem,1.5vw,1.5rem);font-weight:700;margin-bottom:8px;color:var(--ink)}
-.grid-item .desc{font-size:clamp(1rem,1.2vw,1.15rem);color:var(--text);font-weight:300;line-height:1.7}
-
-/* ===== PIPELINE ===== */
-.pipeline{display:flex;align-items:center;gap:0.4vw;margin:3vh 0;flex-wrap:nowrap}
-.pipeline-step{padding:1.4vh 2.4vw;font-size:clamp(1.06rem,1.32vw,1.22rem);font-weight:300;text-align:center;color:var(--text);white-space:nowrap;background:rgba(255,255,255,0.9);border:1px solid var(--line);border-top:2px solid #c4d5e9;border-radius:var(--radius);box-shadow:0 8px 20px rgba(42,78,125,0.05)}
-.pipeline-step span{display:block;font-size:0.84em;color:var(--muted);margin-top:2px}
-.pipeline-step.on{background:#eaf3ff;border-top-color:#6aa5e4;color:#236bbd;font-weight:700}
-.pipeline-step.on span{color:inherit;opacity:0.72}
-.pipeline-step.green{background:#eaf8f4;border-top-color:#5ab9a9;color:#117f74}
-.pipeline-step.violet{background:#f1edff;border-top-color:#9a82cf;color:#684ba8}
-.slide.in-amber .pipeline-step.on{background:var(--amber-soft);border-top-color:#dca614;color:var(--amber-ink)}
-.slide.in-mint .pipeline-step.on,.slide.in-teal .pipeline-step.on{background:var(--mint-soft);border-top-color:#5ab9a9;color:var(--teal-ink)}
-.slide.in-violet .pipeline-step.on,.slide.in-indigo .pipeline-step.on{background:var(--violet-soft);border-top-color:#9a82cf;color:var(--violet-ink)}
-.slide.in-orange .pipeline-step.on{background:#fff3e7;border-top-color:#d97a2e;color:var(--orange-ink)}
-.pipeline-arrow{color:#7890ad;font-size:1rem;padding:0 2px}
-/* deck-local: bare single-line steps need more presence */
-.pipeline-step{font-size:clamp(1.16rem,1.45vw,1.34rem)}
-
-/* ===== TABLE / LIST ===== */
-.tbl{margin-top:2vh;border-collapse:collapse;max-width:82vw}
-.tbl th,.tbl td{padding:1.2vh 2vw;text-align:left;border-bottom:1px solid rgba(80,112,158,0.16)}
-.tbl th{color:var(--muted);font-weight:400;font-size:clamp(0.95rem,1.1vw,1.05rem)}
-.tbl td{font-size:clamp(1.14rem,1.4vw,1.34rem);color:var(--text)}
-.tbl td strong{color:var(--ink)}
-.list{list-style:none;max-width:80vw;width:100%;margin:0 auto}
-.list li{font-size:clamp(1.18rem,1.62vw,1.42rem);padding:1.8vh 0;border-bottom:1px solid rgba(80,112,158,0.16);color:var(--text);font-weight:300;line-height:1.5;text-align:center}
-.list li:last-child{border-bottom:none}
-
-/* ===== NOTE / CODE / KBD ===== */
-.note{padding:1.4vh 2.5vw;margin-top:3vh;max-width:64vw;margin-left:auto;margin-right:auto;display:flex;align-items:center;gap:12px;border-radius:0 var(--radius) var(--radius) 0}
-.note p{font-size:clamp(1.12rem,1.35vw,1.28rem);font-weight:300;line-height:1.55}
-.note.warn{background:var(--amber-soft);border-left:2px solid #dca614}.note.warn p{color:#8d6500}
-.note.tip,.note.exp{background:#edf9f6;border-left:2px solid #159d98}.note.tip p,.note.exp p{color:#27675f}
-.note.exp p{font-style:italic}
-.note .xp{font-style:normal;font-weight:700;color:#0f8d80;letter-spacing:0.08em;margin-right:8px;font-size:0.92em}
-.code{background:rgba(255,255,255,0.9);border:1px solid #cfdced;border-radius:var(--radius);padding:2vh 2vw;font-family:'JetBrains Mono','Noto Sans KR',monospace;font-size:clamp(0.82rem,0.95vw,0.92rem);line-height:1.65;max-width:1080px;width:100%;margin:2vh auto;white-space:pre-wrap;color:var(--ink);text-align:left;box-shadow:0 10px 28px rgba(42,78,125,0.06)}
-.code .comment{color:#6d7d98}.code .keyword{color:#7257b2}.code .string{color:#118777}
-kbd{display:inline-block;padding:2px 8px;background:#eef4fb;border:1px solid #ccd9ea;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:var(--ink)}
-
-/* ===== LAYOUT HELPERS ===== */
-.two-col{display:flex;gap:4vw;width:100%;max-width:1100px;margin-top:3vh}
-.two-col .col{flex:1;text-align:left}
-
-/* ===== ILLUSTRATIONS (codex-generated WebP set) ===== */
-.visual{display:block;width:min(1120px,84vw);height:auto;max-height:58vh;object-fit:contain;margin-top:1.6vh;border:0}
-.visual.full{width:min(1680px,100vw);max-height:none;margin:0}         /* full-bleed hook/infographic */
-.visual.narrow{width:min(900px,72vw)}
-@media (min-width:769px) and (max-height:880px){.visual{width:min(850px,78vw)}}
-
-/* ===== CHROME (nav / page / progress) ===== */
-.nav{position:fixed;bottom:28px;left:44px;display:flex;gap:6px;z-index:100}
-.nav button{width:36px;height:36px;background:rgba(255,255,255,0.72);border:1px solid rgba(11,27,77,0.18);color:rgba(11,27,77,0.72);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 5px 16px rgba(42,78,125,0.08)}
-.nav button:hover{background:#eaf3ff;border-color:#6aa5e4;color:#174f92}
-.nav button:focus-visible{outline:2px solid #3f82d7;outline-offset:2px}
-.page-num{position:fixed;bottom:32px;right:44px;font-size:0.78rem;color:rgba(11,27,77,0.72);font-family:'Figtree',sans-serif;z-index:100}
-.progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#3f82d7,#159d98);z-index:200;transition:none}
-@media(prefers-reduced-motion:reduce){.nav button{transition:none}}
-
-/* ===== MOBILE ===== */
-@media (max-width:768px){
-  body{overflow:auto}
-  .slides{height:auto;display:block;transform:none!important;width:100%}
-  .slide{position:relative;min-height:100vh;width:100vw;padding:72px 22px 92px;display:none!important}
-  .slide.active{display:flex!important}
-  html,body{max-width:100%;overflow-x:hidden;word-break:normal}
-  .slide{align-items:center;text-align:center;overflow-x:hidden}
-  .slide,.slide *{overflow-wrap:anywhere;word-break:normal}
-  .slide>*{max-width:100%;min-width:0}
-  h1{font-size:clamp(2.25rem,11vw,3.1rem);line-height:1.12}
-  h2{font-size:clamp(1.75rem,8vw,2.6rem);line-height:1.16}
-  h3{max-width:100%;font-size:clamp(.78rem,3.4vw,1rem);line-height:1.45}
-  .sub{font-size:clamp(.95rem,4vw,1.2rem);line-height:1.45}
-  img,video{max-width:100%!important;max-height:58vh!important}
-  .stat-grid,.comp,.two-col,.arch-layers,.grid{display:grid!important;grid-template-columns:1fr!important;width:100%!important;gap:1.4vh}
-  .arch-layer{grid-template-columns:1fr!important}
-  .pipeline{flex-wrap:wrap;justify-content:center}
-  .tbl{display:block;overflow-x:auto;font-size:.8rem}
-  .nav{left:18px;bottom:18px}.page-num{right:18px;bottom:18px}
-}
-@media (min-width:769px) and (max-width:1100px){
-  .pipeline{width:100%;justify-content:center}
-  .pipeline-step{padding:1.2vh 1vw;font-size:clamp(0.82rem,1.05vw,0.96rem)}
-}
-
-/* ===== PRINT ===== */
-@page{size:landscape;margin:0}
+body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#fcf8f2;color:#1c1c1c;-webkit-font-smoothing:antialiased}
+.slides{position:relative;width:100%;height:100%}
+/* stacked slides toggled by display — a translateX film strip of N viewport-size
+   images creates a huge composited layer that breaks screenshot pipelines */
+.slide{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:#fcf8f2;padding:2.6vh 3vw}
+.slide.active{display:flex}
+/* never upscale past native 1672x941 — keeps strokes crisp on 1080p fullscreen */
+.slide img{width:auto;height:auto;max-width:min(100%,1672px);max-height:min(100%,941px);object-fit:contain;display:block}
+.nav{position:fixed;bottom:24px;left:36px;display:flex;gap:6px;z-index:100}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.75);border:1px solid rgba(28,28,28,0.22);color:rgba(28,28,28,0.65);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 4px 12px rgba(60,50,30,0.10)}
+.nav button:hover{background:#fff;color:#1c1c1c;border-color:rgba(28,28,28,0.45)}
+.nav button:focus-visible{outline:2px solid #2f73bd;outline-offset:2px}
+.page-num{position:fixed;bottom:30px;right:36px;font-size:0.82rem;color:rgba(28,28,28,0.55);letter-spacing:0.06em;font-family:'Noto Sans KR',sans-serif;z-index:100}
+.progress{position:fixed;top:0;left:0;height:2px;background:#2f73bd;z-index:200}
+@media(max-width:768px){.nav{left:16px;bottom:16px}.page-num{right:16px;bottom:22px}}
 @media print{
-  html{font-size:100%!important}
-  html,body{width:100%;height:auto;overflow:visible!important;background:#fff!important}
+  html,body{overflow:visible!important;height:auto}
   .nav,.progress,.page-num{display:none!important}
-  .slides{display:block!important;transform:none!important}
-  .slide,.slide.active{display:flex!important;width:100%!important;min-width:0!important;height:100vh!important;page-break-after:always;break-after:page;background:#fff!important;overflow:visible!important;padding:4vh 5vw!important}
-  .comp-item,.stat-card,.arch-layer,.grid-item,.code,.pipeline-step{box-shadow:none!important}
+  .slides{display:block!important}
+  .slide{display:flex!important;position:relative;page-break-after:always;break-after:page;height:100vh}
 }
 </style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
 <div class="slides" id="slides">
-
-<!-- 01 Cover -->
-<div class="slide" style="background:var(--paper) url('../assets/images/ai-dlc-swdp/01-cover.webp') right center/contain no-repeat; align-items:flex-start; padding-left:8vw;">
-  <p class="meta byline" style="text-align:left; margin-top:0;">SWDP 개발&middot;운영 내용 공유</p>
-  <h1 style="text-align:left; margin-top:1.6vh; font-size:clamp(3rem,5.2vw,5.2rem);">SWDP 개발&middot;운영과<br>AI 에이전트 적용 방향</h1>
-  <p class="sub" style="text-align:left;">SWDP 자체 개발&middot;운영 업무의<br><span class="em">위임 &middot; 검증 &middot; 통제 구조</span></p>
-  <p class="meta byline" style="margin-top:4vh; text-align:left;">2026. 7</p>
-</div>
-
-<!-- 02 Core scope -->
-<div class="slide">
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem); line-height:1.35;">이번 논의의 중심은<br><span class="em">SWDP 자체의 개발&middot;운영</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">장애 대응 &middot; 변경 &middot; 검증 업무에 <strong>에이전트를 적용하는 방식</strong></p>
-</div>
-
-<!-- 03 Scope boundary -->
-<div class="slide">
-  <h3>적용 범위 &mdash; 사용자 지원이 아니라 SWDP 자체</h3>
-  <div class="comp" style="max-width:1050px; margin-top:2vh;">
-    <div class="comp-item on"><div class="tag">중심</div><p><strong>SWDP 서비스 자체</strong>의<br>개발 &middot; 운영 업무</p></div>
-    <div class="comp-item"><div class="tag">별도 트랙</div><p>SWDP 사용자 대상<br>AI 챗봇 &middot; VOC 지원</p></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">이번 자료의 범위 &mdash; <span class="em">SWDP 자체 개발&middot;운영에 대한 적용</span></p>
-</div>
-
-<!-- 04 AI-DLC overview (illustration) -->
-<div class="slide in-blue">
-  <h3>AI-DLC &mdash; AWS가 제안한 AI 기반 개발 협업 방식</h3>
-  <img class="visual" style="max-width:1080px; max-height:55vh;" src="../assets/images/ai-dlc-swdp/04-aidlc.webp" alt="사람이 의도를 제시하고 AI가 계획, 구현, 검증을 수행하며 승인 지점을 거쳐 Inception부터 Operations까지 이어지는 AI-DLC 흐름" />
-  <p class="sub" style="margin-top:1.5vh;">계획 &middot; 구현 &middot; 검증은 AI가 수행 &mdash; <span class="em">맥락과 주요 결정은 사람</span></p>
-</div>
-
-<!-- 05 Related approaches -->
-<div class="slide in-blue">
-  <h3>AI 기반 개발 접근들 &mdash; 강조하는 영역이 다르다</h3>
-  <div class="arch-layers" style="max-width:1240px; margin-top:2vh;">
-    <div class="arch-layer on"><div class="role">협업</div><div class="brand">AI-DLC &middot; BMAD</div><div class="desc">역할 &middot; 협업 &middot; 개발 전 과정</div></div>
-    <div class="arch-layer"><div class="role">스펙</div><div class="brand">Spec Kit &middot; OpenSpec</div><div class="desc">지속되는 스펙 &middot; 변경분 기록</div></div>
-    <div class="arch-layer"><div class="role">맥락</div><div class="brand">GSD &middot; Kiro</div><div class="desc">작업 분해 &middot; 컨텍스트 유지</div></div>
-    <div class="arch-layer"><div class="role">환경</div><div class="brand">Harness Engineering</div><div class="desc">도구 &middot; 권한 &middot; 검증 루프</div></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">전부 도입이 아니라 &mdash; <span class="em">SWDP 목적에 맞는 원칙을 선택</span></p>
-</div>
-
-<!-- 06 Divider: SWDP structure -->
-<div class="slide amber">
-  <h1>SWDP<br>개발&middot;운영 구조</h1>
-  <p class="sub" style="margin-top:1vh;">현재 프로세스와 <span class="em">주요 운영 업무</span></p>
-</div>
-
-<!-- 07 SWDP process -->
-<div class="slide in-amber">
-  <h3>SWDP의 개발 절차 &mdash; 하나의 프로세스로 연결</h3>
-  <div class="pipeline" style="margin-top:3vh;">
-    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">SCM</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">빌드</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">품질 검증</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="padding:1.4vh 1.5vw;">RC</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">TR</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.5vw;">QA</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step green" style="padding:1.4vh 1.5vw;">배포</div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">형상관리부터 배포까지 &mdash; <span class="em">단계와 조건을 관리하는 프로세스 포털</span></p>
-</div>
-
-<!-- 08 Capability map -->
-<div class="slide in-amber">
-  <h3>SWDP가 연결하는 핵심 기능</h3>
-  <div class="arch-layers" style="max-width:1260px; margin-top:1.4vh;">
-    <div class="arch-layer"><div class="role">조직</div><div class="brand">프로젝트 &middot; 멤버 &middot; 역할</div><div class="desc">프로젝트와 Workspace 운영</div></div>
-    <div class="arch-layer"><div class="role">형상</div><div class="brand">저장소 &middot; 브랜치 &middot; 커밋</div><div class="desc">권한과 변경 이력 연결</div></div>
-    <div class="arch-layer"><div class="role">빌드</div><div class="brand">목적별 빌드 실행</div><div class="desc">Release &middot; Layer &middot; Commit</div></div>
-    <div class="arch-layer on"><div class="role">품질</div><div class="brand">자동 품질 검증</div><div class="desc">Coverity &middot; SAM &middot; 코딩룰 &middot; OSS</div></div>
-    <div class="arch-layer"><div class="role">릴리스</div><div class="brand">Release Criteria</div><div class="desc">조건 &middot; 예외 &middot; 승인 이력</div></div>
-    <div class="arch-layer"><div class="role">배포</div><div class="brand">TR &middot; IMS &middot; Bamboo</div><div class="desc">QA 요청부터 배포까지</div></div>
-  </div>
-</div>
-
-<!-- 09 TR clarification -->
-<div class="slide in-amber">
-  <h3>테스트 요청과 배포 &mdash; 서로 다른 단계</h3>
-  <div class="pipeline" style="margin-top:3vh;">
-    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">RC 통과</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="padding:1.4vh 1.6vw;">TR 생성<span>Test &middot; Qual</span></div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">IMS QA</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">PASSED</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step green" style="padding:1.4vh 1.6vw;">Bamboo 배포</div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;"><span class="em">TR은 QA 테스트 요청</span> &mdash; 배포는 통과 뒤의 별도 실행</p>
-</div>
-
-<!-- 10 SWDP as the project -->
-<div class="slide in-amber">
-  <h3>적용 대상 &mdash; SWDP 서비스의 개발&middot;운영</h3>
-  <div class="grid" style="max-width:1240px; margin-top:2vh;">
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">코드</div><div class="desc">Java &middot; Vue<br>테스트 &middot; 설정</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">데이터</div><div class="desc">운영 DB<br>프로세스 이력</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">연동</div><div class="desc">Git &middot; Bamboo<br>IMS &middot; Knox</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">운영</div><div class="desc">로그 &middot; 지표<br>장애 &middot; 배포</div></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">코드 &middot; 데이터 &middot; 연동 &middot; 운영이 함께 관리되는 <span class="em">소프트웨어 프로젝트</span></p>
-</div>
-
-<!-- 11 Current operating chain (illustration) -->
-<div class="slide in-amber">
-  <h3>현재 운영 업무 &mdash; 여러 시스템의 정보를 사람이 연결</h3>
-  <img class="visual" style="max-width:1040px; max-height:55vh;" src="../assets/images/ai-dlc-swdp/11-ops-systems.webp" alt="담당자가 로그, DB, 지표, 티켓, 코드 화면을 오가며 정보를 직접 수집하고 대조하는 모습" />
-  <p class="sub" style="margin-top:1.5vh;">수집 &middot; 대조 &middot; 전달의 반복 &mdash; <span class="em">대응 시간에 영향</span></p>
-</div>
-
-<!-- 12 Desired shift -->
-<div class="slide in-amber">
-  <p class="impact-text" style="font-size:clamp(2.15rem,4vw,3.7rem); line-height:1.4;">관련 정보를 연결하고<br><span class="em">반복 업무를 하나의 실행 흐름으로</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">사람은 방향 &middot; 예외 &middot; 반영 &mdash; <strong>에이전트는 정해진 범위의 실행</strong></p>
-</div>
-
-<!-- 13 Divider: agent work -->
-<div class="slide mint">
-  <h1>에이전트<br>적용 업무</h1>
-  <p class="sub" style="margin-top:1vh;">관찰 &middot; 분석 &middot; 수정 &middot; PR &mdash; <span class="em">하나의 흐름</span></p>
-</div>
-
-<!-- 14 Delegation map -->
-<div class="slide in-mint">
-  <h3>에이전트 적용 업무 &mdash; 여섯 단계로 구분</h3>
-  <div class="arch-layers" style="max-width:1080px; margin-top:1.8vh;">
-    <div class="arch-layer"><div class="role">관찰</div><div class="brand">운영 신호 감시</div><div class="desc">로그 &middot; 지표 &middot; DB 이상</div></div>
-    <div class="arch-layer"><div class="role">수집</div><div class="brand">관련 맥락 연결</div><div class="desc">코드 &middot; 변경 &middot; 티켓 &middot; 문서</div></div>
-    <div class="arch-layer on"><div class="role">분석</div><div class="brand">원인 가설 구성</div><div class="desc">영향 범위 &middot; 재현 조건</div></div>
-    <div class="arch-layer"><div class="role">보고</div><div class="brand">판단 자료 전달</div><div class="desc">근거 &middot; 심각도 &middot; 조치 후보</div></div>
-    <div class="arch-layer"><div class="role">실행</div><div class="brand">수정안 구현</div><div class="desc">브랜치 &middot; 패치 &middot; 테스트 &middot; PR</div></div>
-    <div class="arch-layer"><div class="role">확인</div><div class="brand">결과 추적</div><div class="desc">CI &middot; 회귀 &middot; 운영 지표</div></div>
-  </div>
-</div>
-
-<!-- 15 Scenario -->
-<div class="slide in-mint">
-  <p class="impact-text" style="font-size:clamp(2.35rem,4.6vw,4.1rem); line-height:1.35;">운영 오류 대응 예시<br><span class="em">NPE 반복 발생</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">신호 감지부터 <strong>원인 분석과 수정안까지</strong></p>
-</div>
-
-<!-- 16 Detect and collect -->
-<div class="slide in-mint">
-  <h3>&#9312; 운영 신호 감지와 근거 수집</h3>
-  <div class="comp" style="max-width:1240px; margin-top:2vh;">
-    <div class="comp-item on"><div class="tag">운영 신호</div><p><strong>swdp-log</strong> &middot; swdp-prometheus<br>swdp-mydb</p></div>
-    <div class="comp-item"><div class="tag">변경 맥락</div><p><strong>swdp-code-base</strong> &middot; swdp-jira<br>swdp-confluence</p></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">시간 &middot; 서비스 &middot; 배포 버전 기준으로 &mdash; <span class="em">관련 정보를 연결</span></p>
-</div>
-
-<!-- 17 Analyze and report -->
-<div class="slide in-mint">
-  <h3>&#9313; 원인 가설과 판단 자료 작성</h3>
-  <div class="grid" style="max-width:1240px; margin-top:2vh;">
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">현상</div><div class="desc">언제 &middot; 어디서<br>무엇이 실패했나</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">근거</div><div class="desc">로그 &middot; 쿼리<br>커밋 &middot; 티켓</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">영향</div><div class="desc">사용자 &middot; 기능<br>프로세스 범위</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">제안</div><div class="desc">수정 후보<br>검증 방법</div></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;"><span class="em">swdp-botbuilder</span>로 보고 &middot; 질문 &middot; 피드백 전달</p>
-</div>
-
-<!-- 18 Human direction to PR -->
-<div class="slide in-mint">
-  <h3>&#9314; 수정 방향 확인 후 코드 변경과 PR</h3>
-  <div class="pipeline" style="margin-top:3vh;">
-    <div class="pipeline-step" style="padding:1.4vh 1.8vw;">분석 보고</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="padding:1.4vh 1.8vw;">수정 방향<span>사람 확인</span></div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.8vw;">브랜치 &middot; 수정</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.8vw;">테스트</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step green" style="padding:1.4vh 1.8vw;">PR</div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">에이전트의 쓰기 권한은 &mdash; <span class="em">작업 브랜치와 PR까지</span></p>
-</div>
-
-<!-- 19 Responsibilities -->
-<div class="slide in-mint">
-  <h3>&#9315; 에이전트 실행과 사람의 반영 책임</h3>
-  <div class="comp" style="max-width:1050px; margin-top:2vh;">
-    <div class="comp-item on"><div class="tag">에이전트</div><p>근거 수집 &middot; 패치 &middot; 테스트<br><strong>PR과 검증 결과</strong></p></div>
-    <div class="comp-item"><div class="tag">사람</div><p>범위 판단 &middot; 코드 리뷰<br><strong>머지와 배포</strong></p></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">배포 결과는 &mdash; <span class="em">운영 데이터로 재확인</span></p>
-</div>
-
-<!-- 20 Closed loop (illustration) -->
-<div class="slide in-mint">
-  <h3>SWDP Ops Agent 운영 흐름 &mdash; 루프의 반복</h3>
-  <img class="visual" style="max-width:1040px; max-height:55vh;" src="../assets/images/ai-dlc-swdp/20-ops-loop.webp" alt="관찰, 해석, 실행, 확인 네 단계를 시계 방향으로 도는 에이전트 루프와 PR을 검토하는 사람" />
-  <p class="sub" style="margin-top:1.5vh;">결과가 다음 관찰로 &mdash; <span class="em">운영 피드백이 루프를 닫는다</span></p>
-</div>
-
-<!-- 21 Divider: governance -->
-<div class="slide violet">
-  <h1>권한과<br>운영 기준</h1>
-  <p class="sub" style="margin-top:1vh;">컨텍스트 &middot; 쓰기 범위 &middot; 검증 &middot; <span class="em">책임</span></p>
-</div>
-
-<!-- 22 Architecture -->
-<div class="slide in-violet">
-  <h3>SWDP AI 기반 개발&middot;운영 아키텍처</h3>
-  <div class="arch-layers" style="max-width:1240px; margin-top:1.8vh;">
-    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">사람</div><div class="brand">운영 책임자 &middot; 개발자</div><div class="desc">방향 결정 &middot; 머지 &middot; 배포</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">대화</div><div class="brand">swdp-botbuilder</div><div class="desc">보고 &middot; 질문 &middot; 피드백</div></div>
-    <div class="arch-layer on" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">에이전트</div><div class="brand">swdp-ops-agent</div><div class="desc">감지 &middot; 분석 &middot; 계획 &middot; 실행</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">컨텍스트</div><div class="brand">SWDP MCP</div><div class="desc">DB &middot; 로그 &middot; 지표 &middot; 코드</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">실행</div><div class="brand">Git &middot; Test &middot; Bamboo</div><div class="desc">브랜치 &middot; 검증 &middot; PR &middot; CI</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(150px,0.22fr) minmax(290px,0.9fr) minmax(320px,1fr);"><div class="role">운영</div><div class="brand">SWDP 서비스</div><div class="desc">결과가 데이터로 축적</div></div>
-  </div>
-</div>
-
-<!-- 23 MCP map (illustration) -->
-<div class="slide in-violet">
-  <h3>판단에 쓰는 컨텍스트 &mdash; SWDP MCP로 연결</h3>
-  <img class="visual" style="max-width:980px; max-height:52vh;" src="../assets/images/ai-dlc-swdp/23-mcp-hub.webp" alt="에이전트 허브가 DB, 로그, 지표, 코드, 업무, 지식 여섯 소스와 표준화된 연결로 이어진 구조" />
-  <p class="sub" style="margin-top:1.5vh;">검증된 컨텍스트와 도구의 계약 &mdash; <span class="em">근거 있는 판단의 기반</span></p>
-  <p class="meta" style="margin-top:1.2vh;">swdp-mydb &middot; swdp-log &middot; swdp-prometheus &middot; swdp-code-base &middot; swdp-jira &middot; swdp-confluence</p>
-</div>
-
-<!-- 24 Operating knowledge -->
-<div class="slide in-violet">
-  <h3>운영 지식은 &mdash; 플레이북과 룰북으로 구조화</h3>
-  <div class="grid" style="max-width:1240px; margin-top:2vh;">
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">플레이북</div><div class="desc">조사 순서<br>대응 패턴</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">룰북</div><div class="desc">금지 작업<br>에스컬레이션</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">자동 평가</div><div class="desc">테스트 &middot; 품질<br>회귀 기준</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">감사 이력</div><div class="desc">근거 &middot; 행동<br>결과 추적</div></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">일관된 대응의 조건 &mdash; <span class="em">운영 지식 관리</span></p>
-</div>
-
-<!-- 25 Permission boundaries -->
-<div class="slide in-violet">
-  <h3>권한 설계 원칙 &mdash; 읽기는 넓게 &middot; 쓰기는 좁게</h3>
-  <table class="tbl">
-    <thead><tr><th>자원</th><th>읽기</th><th>허용할 쓰기</th><th>사람 게이트</th></tr></thead>
-    <tbody>
-      <tr><td><strong>운영 DB</strong></td><td>상태 &middot; 이력</td><td>없음</td><td>쿼리 범위</td></tr>
-      <tr><td><strong>Git</strong></td><td>코드 &middot; 변경</td><td>작업 브랜치 &middot; PR</td><td>머지</td></tr>
-      <tr><td><strong>Jira &middot; Confluence</strong></td><td>이슈 &middot; 문서</td><td>티켓 &middot; 문서 초안</td><td>게시 &middot; 상태 변경</td></tr>
-      <tr><td><strong>CI</strong></td><td>빌드 &middot; 테스트</td><td>검증 실행</td><td>배포</td></tr>
-      <tr><td><strong>운영 환경</strong></td><td>로그 &middot; 지표</td><td>없음</td><td>모든 변경</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- 26 Approval fatigue -->
-<div class="slide in-violet">
-  <h3>행동별 승인 방식의 운영 한계</h3>
-  <div class="stat-grid" style="max-width:900px; margin-top:2vh;">
-    <div class="stat-card yellow-on">
-      <div class="label">단계별 권한 요청 승인율</div>
-      <div class="value">93<span style="font-size:0.3em;">%</span></div>
-      <div class="source">승인 피로가 만든 형식적 확인</div>
-    </div>
-    <div class="stat-card green-on">
-      <div class="label">샌드박스 도입 후 요청 감소</div>
-      <div class="value">84<span style="font-size:0.3em;">%</span></div>
-      <div class="source">파일 &middot; 네트워크 경계로 영향 범위 제한</div>
-    </div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">행동별 승인보다 &mdash; <span class="em">작업 범위와 권한 경계를 정의</span></p>
-  <p class="meta" style="margin-top:1vh;">출처: <a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" rel="noopener">Anthropic &middot; How we contain Claude Code</a></p>
-</div>
-
-<!-- 27 Verification ladder -->
-<div class="slide in-violet">
-  <h3>에이전트 변경은 &mdash; 단계별 검증을 통과한 만큼만</h3>
-  <div class="pipeline" style="margin-top:3vh;">
-    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">정적 검사</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">컴파일 &middot; 규칙</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step on" style="padding:1.4vh 1.6vw;">단위 &middot; 통합</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 1.6vw;">E2E &middot; CI</div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step green" style="padding:1.4vh 1.6vw;">운영 관찰</div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">각 단계 통과 후 다음으로 &mdash; <span class="em">근거는 PR에 기록</span></p>
-</div>
-
-<!-- 28 Human on the loop -->
-<div class="slide in-violet">
-  <h3>사람이 관리할 주요 지점</h3>
-  <div class="comp" style="max-width:1080px; margin-top:2vh;">
-    <div class="comp-item on"><div class="tag">루프 설계</div><p>목표 &middot; 컨텍스트 &middot; 도구<br><strong>평가 &middot; 중단 조건</strong></p></div>
-    <div class="comp-item"><div class="tag">검토 지점</div><p>수정 방향 &middot; PR 검토<br><strong>머지 &middot; 배포</strong></p></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">목표와 경계 관리 &mdash; <span class="em">주요 변경은 사람이 검토</span></p>
-</div>
-
-<!-- 29 Divider: after PoC -->
-<div class="slide orange">
-  <h1>PoC 이후<br>운영 방향</h1>
-  <p class="sub" style="margin-top:1vh;">단계별 적용 범위와 <span class="em">측정 기준</span></p>
-</div>
-
-<!-- 30 Autonomy ladder (illustration) -->
-<div class="slide in-orange">
-  <h3>자율성은 단계로 &mdash; 위험과 검증 수준에 맞춰</h3>
-  <img class="visual" style="max-width:1040px; max-height:55vh;" src="../assets/images/ai-dlc-swdp/30-autonomy-ladder.webp" alt="관찰, 초안, PR, 자동 실행으로 올라가는 네 단계 계단과 머지·배포 게이트를 지키는 사람" />
-  <p class="sub" style="margin-top:1.5vh;">현재 목표는 3단계 코드 &middot; 테스트 &middot; PR &mdash; <span class="em">머지와 배포는 사람</span></p>
-</div>
-
-<!-- 31 Measures -->
-<div class="slide in-orange">
-  <h3>운영 효과를 확인할 지표</h3>
-  <div class="grid" style="max-width:1240px; margin-top:2vh;">
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">속도</div><div class="desc">감지&rarr;보고<br>보고&rarr;PR 시간</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">품질</div><div class="desc">재발률<br>리뷰 수정 횟수</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">안전</div><div class="desc">권한 위반<br>롤백 &middot; 오탐</div></div>
-    <div class="grid-item" style="padding:3vh 1.2vw;"><div class="name">비용</div><div class="desc">사람 개입 시간<br>에이전트 비용</div></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;"><span class="em">속도 &middot; 품질 &middot; 안전 &middot; 비용</span>을 함께 측정</p>
-</div>
-
-<!-- 32 Roadmap -->
-<div class="slide in-orange">
-  <h3>단계별 적용 계획</h3>
-  <div class="pipeline" style="margin-top:3vh;">
-    <div class="pipeline-step on" style="padding:1.4vh 2vw;">PR 루프 안정화<span>현재</span></div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 2vw;">격리 &middot; 평가 강화<span>다음</span></div><div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="padding:1.4vh 2vw;">저위험 범위 확장<span>이후</span></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">배포 자동화는 &mdash; <span class="em">운영 성숙도와 책임 범위 확인 뒤 검토</span></p>
-</div>
-
-<!-- 33 Methods mapping -->
-<div class="slide in-orange">
-  <h3>AI 기반 개발 원칙을 &mdash; SWDP 운영 요소로 연결</h3>
-  <div class="arch-layers" style="max-width:1260px; margin-top:2vh;">
-    <div class="arch-layer"><div class="role">협업</div><div class="brand">Ops Agent 운영 루프</div><div class="desc">관찰 &middot; 분석 &middot; PR &middot; 운영 피드백</div></div>
-    <div class="arch-layer on"><div class="role">맥락</div><div class="brand">SWDP MCP</div><div class="desc">DB &middot; 로그 &middot; 지표 &middot; 코드</div></div>
-    <div class="arch-layer"><div class="role">스펙</div><div class="brand">플레이북 &middot; 룰북 &middot; PR</div><div class="desc">기준과 변경 근거를 저장</div></div>
-    <div class="arch-layer"><div class="role">환경</div><div class="brand">브랜치 &middot; 샌드박스</div><div class="desc">쓰기 제한 &middot; 테스트 &middot; 감사</div></div>
-  </div>
-  <p class="sub" style="margin-top:2.2vh;">방법론의 원칙을 &mdash; <span class="em">SWDP 업무에 맞는 실행 구조로 구체화</span></p>
-</div>
-
-<!-- 34 Final thesis -->
-<div class="slide blue">
-  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem); line-height:1.4;">반복 업무는 에이전트에 위임<br><span class="em">주요 변경은 사람이 검토 &middot; 반영</span></p>
-  <p class="impact-sub" style="margin-top:3vh;">SWDP 개발&middot;운영의 <strong>속도 &middot; 추적성 &middot; 안전성 개선</strong></p>
-</div>
-
-<!-- 35 Q&A -->
-<div class="slide blue">
-  <h1>Q &amp; A</h1>
-  <ul class="list" style="margin-top:2.6vh; max-width:980px;">
-    <li>가장 먼저 <span class="em">하나의 루프로 만들 업무</span>는?</li>
-    <li>MCP별 <strong>읽기 &middot; 쓰기 경계</strong>는 어디까지인가?</li>
-    <li>자율성을 높이기 전에 <span class="em">어떤 지표를 볼 것인가?</span></li>
-  </ul>
-  <p class="meta byline" style="margin-top:3vh;">SWDP 개발&middot;운영 내용 공유 &middot; 2026. 7</p>
-</div>
-
-<!-- 36 Sources -->
-<div class="slide">
-  <h3>주요 근거와 참고 자료</h3>
-  <div class="arch-layers" style="max-width:1280px; margin-top:1.4vh; gap:1vh;">
-    <div class="arch-layer on" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">SWDP</div><div class="brand">코드 &middot; 아키텍처 문서</div><div class="desc">프로세스 &middot; 기능 &middot; 연동 분석</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">Anthropic</div><div class="brand"><a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">Claude Code 격리 설계</a></div><div class="desc">승인 피로 &middot; 샌드박스</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">AWS</div><div class="brand"><a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">AI-DLC</a></div><div class="desc">생명주기 &middot; 조직 협업</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">GitHub</div><div class="brand"><a href="https://github.github.com/spec-kit/" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">Spec Kit</a></div><div class="desc">스펙 기반 개발 흐름</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">Fission-AI</div><div class="brand"><a href="https://github.com/Fission-AI/OpenSpec" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">OpenSpec</a></div><div class="desc">델타 스펙 &middot; 변경 기록</div></div>
-    <div class="arch-layer" style="grid-template-columns:minmax(170px,0.26fr) minmax(280px,0.9fr) minmax(340px,1fr); padding:1.7vh 1.8vw;"><div class="role">OpenAI</div><div class="brand"><a href="https://openai.com/index/harness-engineering/" target="_blank" rel="noreferrer" style="color:inherit; text-decoration:none;">Harness Engineering</a></div><div class="desc">실행 환경 &middot; 평가</div></div>
-  </div>
-  <p class="meta" style="margin-top:1.2vh;">2026-07 기준</p>
-</div>
-
+  <div class="slide"><img src="01-cover.webp" alt="커버 — SWDP 개발·운영과 AI 에이전트 적용 방향: 위임·검증·통제 구조, SWDP 개발·운영 내용 공유 2026.7" fetchpriority="high" /></div>
+  <div class="slide"><img src="02-scope.webp" alt="중심은 SWDP 자체의 개발·운영 — 사용자 챗봇·VOC는 별도 트랙. 장애 대응·변경·검증에 에이전트를 적용" loading="lazy" /></div>
+  <div class="slide"><img src="03-aidlc-loop.webp" alt="AI-DLC — AWS가 제안한 협업 방식: 의도(사람), 계획·구현·검증(AI), 승인(사람). 맥락과 주요 결정은 사람" loading="lazy" /></div>
+  <div class="slide"><img src="04-approaches.webp" alt="AI 기반 개발 접근들 — 협업 AI-DLC·BMAD, 스펙 Spec Kit·OpenSpec, 맥락 GSD·Kiro, 환경 Harness Engineering. 목적에 맞는 원칙 선택" loading="lazy" /></div>
+  <div class="slide"><img src="05-section-swdp.webp" alt="섹션 — SWDP 개발·운영 구조: 현재 프로세스와 주요 운영 업무" loading="lazy" /></div>
+  <div class="slide"><img src="06-dev-pipeline.webp" alt="개발 절차 — SCM, 빌드, 품질 검증, RC, TR, QA, 배포. TR은 QA 테스트 요청, 배포는 통과 뒤 별도 실행" loading="lazy" /></div>
+  <div class="slide"><img src="07-capability-map.webp" alt="SWDP가 연결하는 핵심 기능 — 조직, 형상, 빌드, 품질(Coverity·SAM·코딩룰·OSS), 릴리스, 배포" loading="lazy" /></div>
+  <div class="slide"><img src="08-target-project.webp" alt="적용 대상 — 코드(Java·Vue), 데이터(운영 DB), 연동(Git·Bamboo·IMS·Knox), 운영(로그·지표). 하나의 소프트웨어 프로젝트" loading="lazy" /></div>
+  <div class="slide"><img src="09-manual-to-flow.webp" alt="지금은 사람이 시스템 사이를 잇는다 — 수집·대조·전달의 반복에서 하나의 실행 흐름으로. 사람은 방향·예외·반영" loading="lazy" /></div>
+  <div class="slide"><img src="10-section-agent-work.webp" alt="섹션 — 에이전트 적용 업무: 관찰·분석·수정·PR 하나의 흐름" loading="lazy" /></div>
+  <div class="slide"><img src="11-six-steps.webp" alt="에이전트 적용 업무 여섯 단계 — 관찰, 수집, 분석, 보고, 실행, 확인" loading="lazy" /></div>
+  <div class="slide"><img src="12-example-detect.webp" alt="예시 NPE 반복 ① 신호 감지와 근거 수집 — swdp-log·prometheus·mydb와 swdp-code-base·jira·confluence 연결" loading="lazy" /></div>
+  <div class="slide"><img src="13-example-analyze.webp" alt="② 원인 가설과 판단 자료 — 현상, 근거, 영향, 제안. swdp-botbuilder로 보고·질문·피드백" loading="lazy" /></div>
+  <div class="slide"><img src="14-example-pr.webp" alt="③ 수정 방향 확인 후 변경과 PR — 분석 보고, 사람 확인, 브랜치·수정, 테스트, PR. 쓰기 권한은 작업 브랜치와 PR까지" loading="lazy" /></div>
+  <div class="slide"><img src="15-ops-loop.webp" alt="Ops Agent 운영 흐름 — 관찰, 해석, 실행, 확인 루프와 PR 검토·머지는 사람. 운영 피드백이 루프를 닫는다" loading="lazy" /></div>
+  <div class="slide"><img src="16-section-governance.webp" alt="섹션 — 권한과 운영 기준: 컨텍스트, 쓰기 범위, 검증, 책임" loading="lazy" /></div>
+  <div class="slide"><img src="17-architecture.webp" alt="AI 기반 개발·운영 아키텍처 — 사람, swdp-botbuilder, swdp-ops-agent, SWDP MCP, Git·Test·Bamboo, SWDP 서비스" loading="lazy" /></div>
+  <div class="slide"><img src="18-ops-knowledge.webp" alt="운영 지식 — 플레이북, 룰북, 자동 평가, 감사 이력. 일관된 대응의 조건" loading="lazy" /></div>
+  <div class="slide"><img src="19-permission-principle.webp" alt="권한 설계 — 읽기는 넓게, 쓰기는 좁게, 게이트는 사람. 운영 DB와 운영 환경엔 쓰기 없음" loading="lazy" /></div>
+  <div class="slide"><img src="20-approval-fatigue.webp" alt="행동별 승인의 한계 — 승인율 93% 승인 피로, 샌드박스 도입 후 요청 84% 감소. 출처 Anthropic" loading="lazy" /></div>
+  <div class="slide"><img src="21-verify-ladder.webp" alt="검증 사다리 — 정적 검사, 컴파일·규칙, 단위·통합, E2E·CI, 운영 관찰. 근거는 PR에 기록" loading="lazy" /></div>
+  <div class="slide"><img src="22-human-points.webp" alt="사람이 관리할 주요 지점 — 루프 설계(목표·컨텍스트·도구·평가·중단)와 검토 지점(수정 방향·PR·머지·배포)" loading="lazy" /></div>
+  <div class="slide"><img src="23-section-after-poc.webp" alt="섹션 — PoC 이후 운영 방향: 단계별 적용 범위와 측정 기준" loading="lazy" /></div>
+  <div class="slide"><img src="24-autonomy-ladder.webp" alt="자율성은 단계로 — 관찰·보고, 초안 작성, 코드·테스트·PR, 자동 실행. 현재 목표는 3단계, 머지와 배포는 사람" loading="lazy" /></div>
+  <div class="slide"><img src="25-metrics.webp" alt="운영 효과 지표 — 속도, 품질, 안전, 비용을 함께 측정" loading="lazy" /></div>
+  <div class="slide"><img src="26-roadmap.webp" alt="단계별 적용 계획 — PR 루프 안정화(현재), 격리·평가 강화(다음), 저위험 범위 확장(이후)" loading="lazy" /></div>
+  <div class="slide"><img src="27-methods-mapping.webp" alt="방법론의 원칙을 SWDP 요소로 — 협업 Ops Agent 루프, 맥락 SWDP MCP, 스펙 플레이북·룰북·PR, 환경 브랜치·샌드박스" loading="lazy" /></div>
+  <div class="slide"><img src="28-closing-qna.webp" alt="반복 업무는 에이전트에 위임, 주요 변경은 사람이 검토·반영 — Q&A와 출처" loading="lazy" /></div>
 </div>
 <nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
 <div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
@@ -606,8 +76,10 @@ const slides=document.querySelectorAll('.slide'),total=slides.length;
 let current=0;
 const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress');
 slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
-function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));if(active)s.removeAttribute('inert');else s.setAttribute('inert','');});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';}
-function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;document.getElementById('slides').style.transform=`translateX(-${current*100}vw)`;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
+function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';
+  [current+1,current+2,current-1].forEach(i=>{if(i>=0&&i<total){const img=slides[i].querySelector('img');if(img&&img.loading==='lazy'){img.loading='eager';}}});
+}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
 function next(){goTo(current+1);}
 function prev(){goTo(current-1);}
 document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});

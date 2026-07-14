@@ -28,3 +28,4 @@ serviceAccountKey*.json
 # Note-deck source PNGs (originals kept local; webp is the tracked/deployed form)
 presentations/solution-dev-seminar-v2/src-png/
 presentations/ai-driven-transition/src-png/
+presentations/ai-dlc-swdp/src-png/
