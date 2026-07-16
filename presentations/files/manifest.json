@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-14T05:15:23.875Z",
-  "count": 13,
-  "slides": 13,
+  "generatedAt": "2026-07-16T10:09:27.505Z",
+  "count": 14,
+  "slides": 14,
   "files": 0,
   "items": [
     {
@@ -117,8 +117,17 @@
       "category": "개발",
       "catClass": "dev",
       "title": "AI Agent와 일해보니 v2",
-      "subtitle": "손글씨 노트로 다시 그린 37장",
+      "subtitle": "손글씨 노트로 다시 그린 38장",
       "url": "./presentations/solution-dev-seminar-v2/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "category": "비개발",
+      "catClass": "biz",
+      "title": "AI Agent와 일하는 법",
+      "subtitle": "잘 시키고 · 잘 확인하고 · 같이 바꾸는 이야기 — 손글씨 52장",
+      "url": "./presentations/ai-agent-unified/",
       "ext": "html"
     }
   ]

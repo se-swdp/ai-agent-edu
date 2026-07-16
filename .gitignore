@@ -29,3 +29,5 @@ serviceAccountKey*.json
 presentations/solution-dev-seminar-v2/src-png/
 presentations/ai-driven-transition/src-png/
 presentations/ai-dlc-swdp/src-png/
+presentations/ai-agent-unified/src-png/
+**/.verify-shots/
