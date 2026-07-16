@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<title>AI Agent와 일하는 법 — 잘 시키고 · 잘 확인하고 · 같이 바꾸는 이야기</title>
+<title>AI Agent와 일해보니 — 잘 시키고 · 잘 확인하고 · 같이 바꾸는 이야기</title>
 <script>
 if(location.protocol==='http:'||location.protocol==='https:'){
   const base=document.createElement('base');
@@ -26,12 +26,11 @@ body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif
 .nav button{width:36px;height:36px;background:rgba(255,255,255,0.75);border:1px solid rgba(28,28,28,0.22);color:rgba(28,28,28,0.65);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 4px 12px rgba(60,50,30,0.10)}
 .nav button:hover{background:#fff;color:#1c1c1c;border-color:rgba(28,28,28,0.45)}
 .nav button:focus-visible{outline:2px solid #2f73bd;outline-offset:2px}
-.page-num{position:fixed;bottom:30px;right:36px;font-size:0.82rem;color:rgba(28,28,28,0.55);letter-spacing:0.06em;font-family:'Noto Sans KR',sans-serif;z-index:100}
 .progress{position:fixed;top:0;left:0;height:2px;background:#2f73bd;z-index:200}
-@media(max-width:768px){.nav{left:16px;bottom:16px}.page-num{right:16px;bottom:22px}}
+@media(max-width:768px){.nav{left:16px;bottom:16px}}
 @media print{
   html,body{overflow:visible!important;height:auto}
-  .nav,.progress,.page-num{display:none!important}
+  .nav,.progress{display:none!important}
   .slides{display:block!important}
   .slide{display:flex!important;position:relative;page-break-after:always;break-after:page;height:100vh}
 }
@@ -40,7 +39,7 @@ body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif
 <body>
 <div class="progress" id="progress"></div>
 <div class="slides" id="slides">
-  <div class="slide"><img src="01-cover.webp" alt="AI Agent와 일하는 법 — 커버" fetchpriority="high" /></div>
+  <div class="slide"><img src="01-cover.webp" alt="AI Agent와 일해보니 — 커버" fetchpriority="high" /></div>
   <div class="slide"><img src="02-two-ways.webp" alt="같은 도구, 두 가지 사용법 — 질문형 vs 위임형" loading="lazy" /></div>
   <div class="slide"><img src="03-thesis.webp" alt="도구는 시작일 뿐 — 쓰는 방식의 차이" loading="lazy" /></div>
   <div class="slide"><img src="04-roadmap.webp" alt="오늘의 흐름 — 기준선부터 사람까지" loading="lazy" /></div>
@@ -48,61 +47,63 @@ body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif
   <div class="slide"><img src="06-stat-adoption.webp" alt="오늘의 숫자 — 조직 88% · 보급률 53%" loading="lazy" /></div>
   <div class="slide"><img src="07-stat-gap.webp" alt="격차의 숫자 — 90%+ / 40% / 95%" loading="lazy" /></div>
   <div class="slide"><img src="08-stat-speed.webp" alt="가속의 숫자 — METR 더블링 131일" loading="lazy" /></div>
-  <div class="slide"><img src="09-workslop.webp" alt="그림자 — Workslop" loading="lazy" /></div>
   <div class="slide"><img src="10-divider-concept.webp" alt="② 챗봇이 아니라 에이전트" loading="lazy" /></div>
   <div class="slide"><img src="11-ars-secretary.webp" alt="콜센터 ARS vs 전담 비서" loading="lazy" /></div>
   <div class="slide"><img src="12-agent-loop.webp" alt="에이전트 루프 — 지시 계획 실행 검증" loading="lazy" /></div>
   <div class="slide"><img src="13-four-layers.webp" alt="제조사-브랜드-에이전트-모델 4계층" loading="lazy" /></div>
+  <div class="slide"><img src="13b-our-tools.webp" alt="지금 바로 쓸 수 있는 도구 — Claude Code · CCN · CodeMate" loading="lazy" /></div>
+  <div class="slide"><img src="13c-not-just-coding.webp" alt="Claude Code, 코딩 도구 아니야? — 코딩은 입구, 만능 에이전트" loading="lazy" /></div>
   <div class="slide"><img src="14-formula.webp" alt="성능 = Model × Agent × 나(Pilot)" loading="lazy" /></div>
   <div class="slide"><img src="15-token-dial.webp" alt="토큰 = 품질 다이얼" loading="lazy" /></div>
   <div class="slide"><img src="16-ai-roads.webp" alt="자동차보다 도로 — AI는 완벽해야만 쓸모 있는 게 아님" loading="lazy" /></div>
   <div class="slide"><img src="17-divider-delegate.webp" alt="③ 잘 시키기" loading="lazy" /></div>
   <div class="slide"><img src="18-delegation-form.webp" alt="위임의 공통 형식 — 목표+경계+근거" loading="lazy" /></div>
-  <div class="slide"><img src="19-hypothesis.webp" alt="가설을 얹는 위임 — 상태+가설+제약" loading="lazy" /></div>
-  <div class="slide"><img src="20-scope-not-steps.webp" alt="스텝이 아니라 스코프" loading="lazy" /></div>
   <div class="slide"><img src="21-context-delegation.webp" alt="맥락을 더한 위임" loading="lazy" /></div>
   <div class="slide"><img src="22-divider-verify.webp" alt="④ 잘 확인하기" loading="lazy" /></div>
   <div class="slide"><img src="23-evidence.webp" alt="완료 선언 vs 완료 증거" loading="lazy" /></div>
   <div class="slide"><img src="24-first-answer.webp" alt="첫 답은 초안" loading="lazy" /></div>
-  <div class="slide"><img src="25-slop-signals.webp" alt="미끄러지는 신호 4가지" loading="lazy" /></div>
+  <div class="slide"><img src="25-slop-signals.webp" alt="AI가 헤매는 신호" loading="lazy" /></div>
   <div class="slide"><img src="26-judgment-stays.webp" alt="판단을 넘기지 않는 이유" loading="lazy" /></div>
   <div class="slide"><img src="27-divider-env.webp" alt="⑤ 나에게 맞는 환경" loading="lazy" /></div>
   <div class="slide"><img src="28-rules-vs-hooks.webp" alt="규칙 vs Hook — 스크린도어" loading="lazy" /></div>
   <div class="slide"><img src="29-harness-manual.webp" alt="하네스 = 매뉴얼" loading="lazy" /></div>
-  <div class="slide"><img src="30-my-harness.webp" alt="내가 실제로 쓰는 하네스" loading="lazy" /></div>
+  <div class="slide"><img src="30-my-harness.webp" alt="내가 실제로 쓰는 하네스 — 워크플로 여섯" loading="lazy" /></div>
+  <div class="slide"><img src="30b-constrained-harness.webp" alt="전부 연결할 수 없어도 — 나만의 하네스" loading="lazy" /></div>
   <div class="slide"><img src="31-nagging-system.webp" alt="잔소리를 시스템으로 — Rule과 Skill" loading="lazy" /></div>
   <div class="slide"><img src="32-profiling.webp" alt="나를 프로파일링" loading="lazy" /></div>
   <div class="slide"><img src="33-divider-case.webp" alt="⑥ 실제로 해보니 — SW Dev. Portal" loading="lazy" /></div>
   <div class="slide"><img src="34-portal-case.webp" alt="포털 개편, 두 번의 기록 — 10명 1년에서 2명 4주로" loading="lazy" /></div>
   <div class="slide"><img src="35-ops-loop.webp" alt="운영 루프 — 반복 장애 대응" loading="lazy" /></div>
-  <div class="slide"><img src="36-one-interface.webp" alt="하나의 인터페이스 — Jira Confluence SWDP" loading="lazy" /></div>
+  <div class="slide"><img src="35b-improvement-loop.webp" alt="문의가 오기 전에 발견 — 개선 루프" loading="lazy" /></div>
+  <div class="slide"><img src="35c-mcp-services.webp" alt="MCP — 도구를 꽂는 표준 소켓" loading="lazy" /></div>
+  <div class="slide"><img src="36-one-interface.webp" alt="하나의 인터페이스 — 실제 워크플로우 시연" loading="lazy" /></div>
+  <div class="slide"><img src="36b-coding-one-segment.webp" alt="개발 업무를 분해하면 — 코딩은 한 구간" loading="lazy" /></div>
   <div class="slide"><img src="37-dev-work.webp" alt="개발 업무에 대입해 보면" loading="lazy" /></div>
   <div class="slide"><img src="38-docs-are-code.webp" alt="문서도 코드다 — PPTX 파이프라인" loading="lazy" /></div>
-  <div class="slide"><img src="39-divider-org.webp" alt="⑦ 조직은 왜 막히나" loading="lazy" /></div>
+  <div class="slide"><img src="46-divider-human.webp" alt="⑧ 사람의 자리" loading="lazy" /></div>
+  <div class="slide"><img src="47-above-loop.webp" alt="루프 안에서, 루프 위로 — 에이전트 보스" loading="lazy" /></div>
+  <div class="slide"><img src="48-judgment-speed.webp" alt="판단 속도 — 타이핑 속도에서 판단 속도로" loading="lazy" /></div>
+  <div class="slide"><img src="49-bio-token.webp" alt="바이오 토큰 — 인지 소진과 실천적 대응" loading="lazy" /></div>
+  <div class="slide"><img src="49b-hype-cycle.webp" alt="AI 만능론의 감정 곡선 — 하는 건 쉬워졌지만 잘하는 건 여전히 어렵다" loading="lazy" /></div>
+  <div class="slide"><img src="50-domain-multiply.webp" alt="도메인 × AI = 곱" loading="lazy" /></div>
+  <div class="slide"><img src="51-share-failures.webp" alt="개인에서 팀으로 — 실패 경험까지 공유" loading="lazy" /></div>
+  <div class="slide"><img src="52-closing.webp" alt="오늘의 요지 + Q&A — 부려 보면, 안다" loading="lazy" /></div>
+  <div class="slide"><img src="39-divider-org.webp" alt="부록 — 조직은 왜 막히나" loading="lazy" /></div>
   <div class="slide"><img src="40-crossroads.webp" alt="갈림길 — AI 사용 vs AI Driven" loading="lazy" /></div>
+  <div class="slide"><img src="40b-no-roads-yet.webp" alt="자동차는 좋아지는데, 도로가 없다" loading="lazy" /></div>
   <div class="slide"><img src="41-pilot-trap.webp" alt="파일럿의 함정 — 모델+도구−운영구조" loading="lazy" /></div>
   <div class="slide"><img src="42-ten-blockers.webp" alt="막히기 쉬운 10가지 구조" loading="lazy" /></div>
   <div class="slide"><img src="43-permission-3.webp" alt="권한 설계 3원칙 — 읽기 넓게 쓰기 좁게 게이트는 사람" loading="lazy" /></div>
   <div class="slide"><img src="44-autonomy-ladder.webp" alt="자율성 사다리 — 현재 목표는 3단계" loading="lazy" /></div>
   <div class="slide"><img src="45-control-gap.webp" alt="통제가 속도를 못 따라감 — 보안·거버넌스 통계" loading="lazy" /></div>
-  <div class="slide"><img src="46-divider-human.webp" alt="⑧ 사람의 자리" loading="lazy" /></div>
-  <div class="slide"><img src="47-above-loop.webp" alt="루프 안에서, 루프 위로 — 에이전트 보스" loading="lazy" /></div>
-  <div class="slide"><img src="48-judgment-speed.webp" alt="판단 속도 — 타이핑 속도에서 판단 속도로" loading="lazy" /></div>
-  <div class="slide"><img src="49-bio-token.webp" alt="바이오 토큰 — 인지 소진과 실천적 대응" loading="lazy" /></div>
-  <div class="slide"><img src="50-domain-multiply.webp" alt="도메인 × AI = 곱" loading="lazy" /></div>
-  <div class="slide"><img src="51-share-failures.webp" alt="개인에서 팀으로 — 실패 경험까지 공유" loading="lazy" /></div>
-  <div class="slide"><img src="52-closing.webp" alt="오늘의 요지 + Q&A — 부려 보면, 안다" loading="lazy" /></div>
-</div> -->
-  <!-- <div class="slide"><img src="02-….webp" alt="…" loading="lazy" /></div> -->
 </div>
 <nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
-<div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
 <script>
 const slides=document.querySelectorAll('.slide'),total=slides.length;
 let current=0;
-const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress');
+const progressEl=document.getElementById('progress');
 slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
-function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';
+function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});if(!progressEl)return;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';
   [current+1,current+2,current-1].forEach(i=>{if(i>=0&&i<total){const img=slides[i].querySelector('img');if(img&&img.loading==='lazy'){img.loading='eager';}}});
 }
 function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}

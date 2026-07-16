@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-16T10:09:27.505Z",
-  "count": 14,
-  "slides": 14,
+  "generatedAt": "2026-07-16T15:39:47.451Z",
+  "count": 12,
+  "slides": 12,
   "files": 0,
   "items": [
     {
@@ -89,15 +89,6 @@
       "type": "slide",
       "category": "개발",
       "catClass": "dev",
-      "title": "AI Agent와 일해보니",
-      "subtitle": "잘 시키고 · 잘 확인하고 · 내 일에 맞추는 이야기",
-      "url": "./presentations/solution-dev-seminar/",
-      "ext": "html"
-    },
-    {
-      "type": "slide",
-      "category": "개발",
-      "catClass": "dev",
       "title": "SWDP 개발·운영과 AI 에이전트 적용 방향",
       "subtitle": "위임 · 검증 · 통제 구조",
       "url": "./presentations/ai-dlc-swdp/",
@@ -114,19 +105,10 @@
     },
     {
       "type": "slide",
-      "category": "개발",
-      "catClass": "dev",
-      "title": "AI Agent와 일해보니 v2",
-      "subtitle": "손글씨 노트로 다시 그린 38장",
-      "url": "./presentations/solution-dev-seminar-v2/",
-      "ext": "html"
-    },
-    {
-      "type": "slide",
       "category": "비개발",
       "catClass": "biz",
-      "title": "AI Agent와 일하는 법",
-      "subtitle": "잘 시키고 · 잘 확인하고 · 같이 바꾸는 이야기 — 손글씨 52장",
+      "title": "AI Agent와 일해보니",
+      "subtitle": "잘 시키고 · 잘 확인하고 · 같이 바꾸는 이야기",
       "url": "./presentations/ai-agent-unified/",
       "ext": "html"
     }
