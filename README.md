@@ -150,7 +150,7 @@ seminar-dashboard/
 ├── presentations/
 │   ├── index.html           # 발표자료 슬라이드 인덱스 (외부 탭)
 │   ├── files/               # ⭐ 자료실 다운로드 파일 — 여기에 넣고 deploy
-│   ├── non-dev-seminar/ 등  # 발표자료 슬라이드 (HTML)
+│   ├── ai-work-basics/ 등  # 발표자료 슬라이드 (HTML)
 │   └── assets/
 ├── scripts/
 │   └── build-materials-manifest.mjs  # predeploy: files/ 스캔 → manifest.json

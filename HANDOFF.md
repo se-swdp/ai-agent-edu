@@ -186,10 +186,10 @@ seminar-dashboard/
 │   ├── index.html           # 4개 세미나 슬라이드 인덱스 (열람실에서 외부 링크로 이동)
 │   ├── files/               # ⭐ 자료실 다운로드 파일 — 여기에 파일만 넣고 deploy
 │   │   └── manifest.json    # 자동 생성 (predeploy hook)
-│   ├── non-dev-seminar/     # Biz: AI가 바꾸는 일하는 방법
-│   ├── dev-seminar/         # Dev: Claude Code Hands-on
+│   ├── ai-work-basics/      # Biz: AI가 바꾸는 일하는 방법
+│   ├── claude-code-handson/ # Dev: Claude Code Hands-on
 │   ├── leadership-hands-on/ # Lead: AI Hands-on Course
-│   ├── controller_seminar/  # Team: S/W개발팀 AI PoC 현황
+│   ├── controller-ai-poc/   # Team: S/W개발팀 AI PoC 현황
 │   └── assets/              # 공유 데이터·이미지·랩·페이퍼·비디오
 ├── scripts/
 │   └── build-materials-manifest.mjs   # predeploy: presentations/files 스캔
