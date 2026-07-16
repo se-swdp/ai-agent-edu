@@ -72,8 +72,28 @@
       ],
       "redirects": [
         {
+          "source": "/presentations/non-dev-seminar",
+          "destination": "/presentations/ai-work-basics/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/non-dev-seminar/",
+          "destination": "/presentations/ai-work-basics/",
+          "type": 301
+        },
+        {
           "source": "/presentations/non-dev-seminar/:rest*",
           "destination": "/presentations/ai-work-basics/:rest*",
+          "type": 301
+        },
+        {
+          "source": "/presentations/brief-seminar",
+          "destination": "/presentations/ai-work-basics-brief/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/brief-seminar/",
+          "destination": "/presentations/ai-work-basics-brief/",
           "type": 301
         },
         {
@@ -82,8 +102,28 @@
           "type": 301
         },
         {
+          "source": "/presentations/dev-seminar-06",
+          "destination": "/presentations/ai-dev-tools-handson/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/dev-seminar-06/",
+          "destination": "/presentations/ai-dev-tools-handson/",
+          "type": 301
+        },
+        {
           "source": "/presentations/dev-seminar-06/:rest*",
           "destination": "/presentations/ai-dev-tools-handson/:rest*",
+          "type": 301
+        },
+        {
+          "source": "/presentations/dev-seminar",
+          "destination": "/presentations/claude-code-handson/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/dev-seminar/",
+          "destination": "/presentations/claude-code-handson/",
           "type": 301
         },
         {
@@ -92,8 +132,28 @@
           "type": 301
         },
         {
+          "source": "/presentations/controller_seminar",
+          "destination": "/presentations/controller-ai-poc/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/controller_seminar/",
+          "destination": "/presentations/controller-ai-poc/",
+          "type": 301
+        },
+        {
           "source": "/presentations/controller_seminar/:rest*",
           "destination": "/presentations/controller-ai-poc/:rest*",
+          "type": 301
+        },
+        {
+          "source": "/presentations/all-hands-seminar",
+          "destination": "/presentations/ai-agent-allhands/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/all-hands-seminar/",
+          "destination": "/presentations/ai-agent-allhands/",
           "type": 301
         },
         {
@@ -102,8 +162,28 @@
           "type": 301
         },
         {
+          "source": "/presentations/solution-dev-seminar-v2",
+          "destination": "/presentations/agent-experience-v2/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/solution-dev-seminar-v2/",
+          "destination": "/presentations/agent-experience-v2/",
+          "type": 301
+        },
+        {
           "source": "/presentations/solution-dev-seminar-v2/:rest*",
           "destination": "/presentations/agent-experience-v2/:rest*",
+          "type": 301
+        },
+        {
+          "source": "/presentations/solution-dev-seminar",
+          "destination": "/presentations/agent-experience-v1/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/solution-dev-seminar/",
+          "destination": "/presentations/agent-experience-v1/",
           "type": 301
         },
         {
