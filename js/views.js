@@ -29,6 +29,17 @@ function matchesSearch(s) {
   return t.includes(ui.search);
 }
 
+/** 필터 칩 공통 바인딩 — 클릭한 칩만 is-active, 값은 onPick 으로 전달. */
+function bindFilterChips(barSelector, attr, onPick) {
+  const chips = $$(`${barSelector} [${attr}]`);
+  chips.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      chips.forEach((b) => b.classList.toggle('is-active', b === btn));
+      onPick(btn.getAttribute(attr));
+    })
+  );
+}
+
 /* =============== Calendar =============== */
 export function bindCalendarControls() {
   $('#calPrev').addEventListener('click', () => {
@@ -43,15 +54,10 @@ export function bindCalendarControls() {
     ui.calCursor = new Date();
     renderCalendar(store.getState());
   });
-  $$('.calendar-bar [data-filter]').forEach((btn) =>
-    btn.addEventListener('click', () => {
-      ui.calFilter = btn.dataset.filter;
-      $$('.calendar-bar [data-filter]').forEach((b) =>
-        b.classList.toggle('is-active', b === btn)
-      );
-      renderCalendar(store.getState());
-    })
-  );
+  bindFilterChips('.calendar-bar', 'data-filter', (v) => {
+    ui.calFilter = v;
+    renderCalendar(store.getState());
+  });
 }
 
 export function renderCalendar({ sessions }) {
@@ -81,7 +87,7 @@ export function renderCalendar({ sessions }) {
       class: `cal-cell ${cell.inMonth ? '' : 'is-other-month'} ${
         cell.key === today ? 'is-today' : ''
       } ${cell.date.getDay() === 0 || cell.date.getDay() === 6 ? 'is-weekend' : ''}`,
-      dataset: { dow: String(cell.date.getDay()), date: cell.key },
+      dataset: { dow: String(cell.date.getDay()) },
     });
     const head = el('div', { class: 'cal-day-head' }, [
       el('span', { class: 'cal-day-num' }, [String(cell.date.getDate())]),
@@ -115,7 +121,7 @@ export function renderCalendar({ sessions }) {
           {
             class: 'cal-event',
             type: 'button',
-            dataset: { status: s.status, id: s.id },
+            dataset: { status: s.status },
             title: `${s.title}${s.startTime ? ' · ' + s.startTime : ''}`,
             on: { click: () => openDetail(s.id) },
           },
@@ -159,15 +165,10 @@ export function renderCalendar({ sessions }) {
 
 /* =============== Timeline =============== */
 export function bindTimelineControls() {
-  $$('.timeline-bar [data-tl-filter]').forEach((btn) =>
-    btn.addEventListener('click', () => {
-      ui.tlFilter = btn.dataset.tlFilter;
-      $$('.timeline-bar [data-tl-filter]').forEach((b) =>
-        b.classList.toggle('is-active', b === btn)
-      );
-      renderTimeline(store.getState());
-    })
-  );
+  bindFilterChips('.timeline-bar', 'data-tl-filter', (v) => {
+    ui.tlFilter = v;
+    renderTimeline(store.getState());
+  });
 }
 
 export function renderTimeline({ sessions }) {
@@ -243,7 +244,7 @@ function renderTimelineItem(s) {
     'div',
     {
       class: 'data-list-item',
-      dataset: { date: s.date, id: s.id },
+      dataset: { date: s.date },
       on: { click: () => openDetail(s.id) },
     },
     [

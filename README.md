@@ -21,7 +21,7 @@ SW개발팀 내부 **AI 전파교육 진행 현황 게시판**. 지난 교육과
 ### 방문자 (URL 공유받은 사람)
 링크만 열면 끝. **대문 / 캘린더 / 타임라인 / 열람실** 4개 뷰. 상단 검색으로 즉시 필터.
 
-> **열람실**: 강의자료 다운로드 전용.
+> **열람실**: 발표자료 슬라이드 카드(자동 수집) + 다운로드 파일. 슬라이드는 `presentations/index.html` 에서, 파일은 `presentations/files/` 에서 predeploy 훅이 수집한다.
 
 ### 편집자 (담당자)
 1. 우측 상단 **🔒 편집 잠금** 버튼 클릭
@@ -148,12 +148,12 @@ seminar-dashboard/
 │   ├── hanji-bg.jpg
 │   └── seal-ji.webp
 ├── presentations/
-│   ├── index.html           # 발표자료 슬라이드 인덱스 (외부 탭)
+│   ├── index.html           # 발표자료 인덱스 (현재 4종 큐레이션, data-month 표기)
 │   ├── files/               # ⭐ 자료실 다운로드 파일 — 여기에 넣고 deploy
-│   ├── ai-work-basics/ 등  # 발표자료 슬라이드 (HTML)
+│   ├── ai-agent-unified/ 등 # 발표자료 슬라이드 (HTML) — 인덱스에서 빠져도 폴더는 서빙됨
 │   └── assets/
 ├── scripts/
-│   └── build-materials-manifest.mjs  # predeploy: files/ 스캔 → manifest.json
+│   └── build-materials-manifest.mjs  # predeploy: index.html + files/ 스캔 → manifest.json
 ├── css/
 │   ├── tokens.css           # design tokens
 │   ├── base.css
@@ -166,7 +166,10 @@ seminar-dashboard/
     ├── store.js             # Firestore CRUD + onSnapshot + 비번 게이트
     ├── schema.js            # normalize / compareSessions
     ├── utils.js
-    └── app.js               # 렌더링 + 모달 + 편집 UI
+    ├── app.js               # 앱 셸 (부트스트랩 · UI state · 잠금)
+    ├── views.js             # 캘린더 · 타임라인 렌더
+    ├── modals.js            # 상세 · 편집 폼 · 비밀번호 모달
+    └── library.js           # 열람실 (manifest 카드)
 ```
 
 ---

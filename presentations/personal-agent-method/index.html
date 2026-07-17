@@ -7,7 +7,9 @@
 <script>
 if(location.protocol==='http:'||location.protocol==='https:'){
   const base=document.createElement('base');
-  base.href='/presentations/personal-agent-method/';
+  // 폴더명을 하드코딩하지 않고 URL 에서 유도 — 폴더 rename 에도 안전 (/x, /x/, /x/index.html 모두 처리)
+  const p=location.pathname;
+  base.href=/\.[^/]+$/.test(p)?p.replace(/[^/]*$/,''):p.replace(/\/?$/,'/');
   document.head.appendChild(base);
 }
 </script>

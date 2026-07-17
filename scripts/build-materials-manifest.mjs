@@ -53,12 +53,18 @@ async function scanSlides() {
     const openTag = block.slice(0, block.indexOf('>') + 1);
     const hm = /href="([^"]+)"/.exec(openTag);
     const mm2 = /data-month="([^"]+)"/.exec(openTag);
-    if (!hm) continue;
-    const href = hm[1];
-    const month = mm2 ? mm2[1] : null;
     const tm = titleRx.exec(block);
     const sm = subRx.exec(block);
-    if (!tm || !sm) continue;
+    if (!hm || !tm || !sm) {
+      // 파생 계약 위반은 조용히 떨구지 않는다 — 카드가 열람실에서 소리 없이 사라지는 사고 방지
+      console.error(
+        `[materials] a.item anchor 파싱 실패 (href=${hm?.[1] ?? '?'}): title/sub 마크업 확인 필요`
+      );
+      process.exitCode = 1;
+      continue;
+    }
+    const href = hm[1];
+    const month = mm2 ? mm2[1] : null;
     const subtitle = sm[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
     out.push({
       type: 'slide',
@@ -128,8 +134,8 @@ async function build() {
   // 슬라이드를 상단에 고정 — 발표자료가 먼저 보이게
   const items = [...slides, ...files];
 
+  // generatedAt 없음 — 출력을 결정론적으로 유지해 내용이 같으면 git diff 가 생기지 않게 한다
   const out = {
-    generatedAt: new Date().toISOString(),
     count: items.length,
     slides: slides.length,
     files: files.length,

@@ -78,14 +78,7 @@
   gap: 6px;
   flex-wrap: wrap;
 }
-.library-card-meta .dot {
-  width: 3px;
-  height: 3px;
-  background: var(--text-muted);
-  border-radius: 50%;
-  display: inline-block;
-  flex: none;
-}
+/* 구분점(.dot)은 components.css 의 공용 규칙 사용 */
 .library-card-cat {
   color: var(--accent-500);
   font-weight: var(--fw-semibold);
@@ -376,7 +369,7 @@
   padding: 2px;
 }
 /* Sunday emphasis — lower priority than today-circle */
-.cal-cell[data-dow='0']:not(.is-today) .cal-day-num { color: #dc2626; }
+.cal-cell[data-dow='0']:not(.is-today) .cal-day-num { color: var(--danger); }
 .cal-cell.is-today .cal-day-num {
   display: inline-flex;
   align-items: center;

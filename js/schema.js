@@ -1,8 +1,8 @@
 /**
  * schema.js — single source of truth for the session record shape.
  *
- * Imported by both the browser store and the Node server, so the canonical
- * field set, status enum, normalization, and default sort live in one place.
+ * 브라우저 store 가 사용하는 canonical 필드셋 · status enum · normalization ·
+ * 기본 정렬을 한 곳에 모은다.
  */
 
 export const STATUS_LABEL = Object.freeze({

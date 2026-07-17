@@ -26,14 +26,11 @@ import { normalize, compareSessions } from './schema.js';
 
 const sessionsCol = collection(db, SESSIONS_COLLECTION);
 
-let editUnlocked =
-  sessionStorage.getItem(PASSWORD_STORAGE_KEY) === EDIT_PASSWORD;
-
 let state = {
   sessions: [],
   loaded: false,
   error: null,
-  editMode: editUnlocked,
+  editMode: sessionStorage.getItem(PASSWORD_STORAGE_KEY) === EDIT_PASSWORD,
 };
 const listeners = new Set();
 
@@ -100,14 +97,12 @@ export const store = {
    */
   unlockEditing(password) {
     if (!password || password !== EDIT_PASSWORD) return false;
-    editUnlocked = true;
     sessionStorage.setItem(PASSWORD_STORAGE_KEY, password);
     setState({ editMode: true });
     return true;
   },
 
   lockEditing() {
-    editUnlocked = false;
     sessionStorage.removeItem(PASSWORD_STORAGE_KEY);
     setState({ editMode: false });
   },

@@ -31,13 +31,14 @@ body{font-family:var(--sans);font-size:14px;line-height:1.5;min-height:100vh;-we
 h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.5vw,2.3rem);letter-spacing:-0.012em;line-height:1.1;color:var(--fg)}
 h1 .accent{font-style:italic;color:var(--fg-dim)}
 
-.index{margin-top:1.8rem;border-top:1px solid var(--line);flex:1}
+.index{margin-top:1.8rem;border-top:1px solid var(--line);flex:1;counter-reset:item}
 
-.item{display:grid;grid-template-columns:2.4rem 1fr auto;align-items:center;gap:1.1rem;padding:1.05rem 0.2rem;border-bottom:1px solid var(--line);text-decoration:none;color:var(--fg);transition:padding-left .22s ease,background .22s ease;position:relative}
+.item{display:grid;grid-template-columns:2.4rem 1fr auto;align-items:center;gap:1.1rem;padding:1.05rem 0.2rem;border-bottom:1px solid var(--line);text-decoration:none;color:var(--fg);transition:padding-left .22s ease,background .22s ease;position:relative;counter-increment:item}
 .item:hover{padding-left:0.55rem;background:rgba(236,232,223,0.02)}
 .item:hover .arrow{opacity:1;transform:translateX(3px)}
 
 .num{font-family:var(--serif);font-size:1.35rem;font-weight:400;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;color:var(--fg-dim);transition:color .22s}
+.num::before{content:counter(item,decimal-leading-zero)} /* 번호는 순서에서 파생 — 손으로 안 매긴다 */
 .item:hover .num{color:var(--fg)}
 
 .body-col{min-width:0;display:flex;flex-direction:column;gap:0.18rem}
@@ -75,7 +76,7 @@ footer .num-word{font-family:var(--serif);font-style:italic;font-size:0.95rem;co
 
   <nav class="index" aria-label="Presentations">
     <a class="item" href="ai-dlc-swdp/" data-month="2026-07">
-      <span class="num">01</span>
+      <span class="num"></span>
       <span class="body-col">
         <span class="title">SWDP 개발·운영과 AI 에이전트 적용 방향</span>
         <span class="sub">위임 · 검증 · 통제 구조</span>
@@ -84,7 +85,7 @@ footer .num-word{font-family:var(--serif);font-style:italic;font-size:0.95rem;co
     </a>
 
     <a class="item" href="ai-driven-transition/" data-month="2026-07">
-      <span class="num">02</span>
+      <span class="num"></span>
       <span class="body-col">
         <span class="title">AI Driven 전환은 왜 어려운가</span>
         <span class="sub">도구 보급을 넘어 업무 운영체계의 문제</span>
@@ -93,7 +94,7 @@ footer .num-word{font-family:var(--serif);font-style:italic;font-size:0.95rem;co
     </a>
 
     <a class="item" href="ai-agent-unified/" data-month="2026-07">
-      <span class="num">03</span>
+      <span class="num"></span>
       <span class="body-col">
         <span class="title">AI Agent와 일해보니</span>
         <span class="sub">잘 시키고 · 잘 확인하고 · 같이 바꾸는 이야기</span>
@@ -102,7 +103,7 @@ footer .num-word{font-family:var(--serif);font-style:italic;font-size:0.95rem;co
     </a>
 
     <a class="item" href="claude-code-playbook/" data-month="2026-07">
-      <span class="num">04</span>
+      <span class="num"></span>
       <span class="body-col">
         <span class="title">Claude Code 실전 활용법</span>
         <span class="sub">루프 · 하네스 · Codex 연동 · 플러그인 · 꿀팁</span>

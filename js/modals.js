@@ -124,6 +124,7 @@ async function confirmDelete(s) {
   if (!confirm(`"${s.title}" 교육을 삭제할까요? 되돌릴 수 없습니다.`)) return;
   try {
     await store.remove(s.id);
+    closeModal('form'); // 닫혀 있으면 no-op — detail/form 양쪽 진입점 공용
     closeModal('detail');
     toast('삭제되었습니다');
   } catch (e) {
@@ -220,18 +221,8 @@ export function bindSessionForm() {
     }
   });
 
-  $('#formDelete').addEventListener('click', async () => {
-    if (!ui.editingId) return;
-    const s = store.getById(ui.editingId);
-    if (!s) return;
-    if (!confirm(`"${s.title}" 교육을 삭제할까요? 되돌릴 수 없습니다.`)) return;
-    try {
-      await store.remove(ui.editingId);
-      closeModal('form');
-      closeModal('detail');
-      toast('삭제되었습니다');
-    } catch (err) {
-      toast(`삭제 실패: ${err.message}`);
-    }
+  $('#formDelete').addEventListener('click', () => {
+    const s = ui.editingId && store.getById(ui.editingId);
+    if (s) confirmDelete(s);
   });
 }

@@ -2,7 +2,7 @@
 
 > 다른 Claude 세션이 이 문서만 읽고 바로 운영을 이어받을 수 있도록 작성. 모호한 부분 발견 시 이 문서를 갱신.
 >
-> 마지막 갱신: 2026-04-23
+> 마지막 갱신: 2026-07-17
 
 ---
 
@@ -108,9 +108,8 @@ firebase hosting:sites:delete [사이트이름] --project swdp-seminar-dashboard
   - `js/library.js` — manifest fetch + 카드 렌더
   - `scripts/build-materials-manifest.mjs` — predeploy hook
   - `firebase.json` 의 양 target `predeploy: ["node scripts/build-materials-manifest.mjs"]`
-  - `presentations/files/.gitkeep` — 빈 디렉토리 유지
-- **발표자료 슬라이드 HTML** (`presentations/[slug]/index.html`): 열람실 UI 에선 더 이상 링크 노출 안 함 (자료실 = 다운로드 전용 정책). 직접 URL `/presentations/` 로 접근 가능
-- 새 HTML 슬라이드 추가가 필요하면 기존 방식 (`presentations/[slug]/` 폴더 + `presentations/index.html` 카드 추가)
+- **발표자료 슬라이드 HTML** (`presentations/[slug]/index.html`): `presentations/index.html` 의 `a.item` 앵커에서 자동 수집되어 **열람실 카드로 노출**된다 (제목 · `data-month` 업로드월 · 부제). 인덱스에서 빠진 폴더도 직접 URL 로는 계속 서빙 (딥링크 보존).
+- 새 슬라이드 추가: `presentations/[slug]/` 폴더 + `presentations/index.html` 에 `data-month="YYYY-MM"` 포함 카드 한 줄 추가 → deploy 시 manifest 자동 반영. 폴더 rename 시 firebase.json 리다이렉트는 **bare / trailing-slash / `/:rest*` 3종 세트**로 추가해야 한다 (`:rest*` 는 빈 나머지를 매칭하지 못함 — 5e0c6d6 참고).
 
 ---
 
@@ -183,13 +182,14 @@ seminar-dashboard/
 ├── index.html               # importmap (Firebase ESM CDN) + UI (4 nav: 대문/캘린더/타임라인/열람실)
 ├── assets/                  # hero / 단청 / 낙관 / brand-mark (한옥 일러스트)
 ├── presentations/
-│   ├── index.html           # 4개 세미나 슬라이드 인덱스 (열람실에서 외부 링크로 이동)
+│   ├── index.html           # 발표자료 인덱스 — 현재 4종 큐레이션 (업로드월 data-month 표기)
 │   ├── files/               # ⭐ 자료실 다운로드 파일 — 여기에 파일만 넣고 deploy
-│   │   └── manifest.json    # 자동 생성 (predeploy hook)
-│   ├── ai-work-basics/      # Biz: AI가 바꾸는 일하는 방법
-│   ├── claude-code-handson/ # Dev: Claude Code Hands-on
-│   ├── leadership-hands-on/ # Lead: AI Hands-on Course
-│   ├── controller-ai-poc/   # Team: S/W개발팀 AI PoC 현황
+│   │   └── manifest.json    # 자동 생성 (predeploy hook, 결정론적 출력)
+│   ├── ai-dlc-swdp/         # SWDP 개발·운영과 AI 에이전트 적용 방향
+│   ├── ai-driven-transition/# AI Driven 전환은 왜 어려운가
+│   ├── ai-agent-unified/    # AI Agent와 일해보니
+│   ├── claude-code-playbook/# Claude Code 실전 활용법 (하이브리드: webp+HTML)
+│   ├── (기타 9개 폴더)       # 인덱스에서 내려간 과거 덱 — 직접 URL 로는 계속 서빙
 │   └── assets/              # 공유 데이터·이미지·랩·페이퍼·비디오
 ├── scripts/
 │   └── build-materials-manifest.mjs   # predeploy: presentations/files 스캔

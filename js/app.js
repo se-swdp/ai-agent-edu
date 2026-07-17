@@ -23,7 +23,7 @@ import { renderLibrary } from './library.js';
 
 /* =============== Shared UI state =============== */
 export const ui = {
-  view: 'cover', // cover | calendar | timeline
+  view: 'cover', // cover | calendar | timeline | library
   calCursor: new Date(),
   calFilter: 'all',
   tlFilter: 'all',
@@ -36,13 +36,12 @@ const VIEW_TITLES = {
   cover: ['대문', 'AI 전파교육 소개'],
   calendar: ['캘린더', '월간 교육 일정'],
   timeline: ['타임라인', '과거 · 예정 교육 목록'],
-  library: ['열람실', '강의자료 다운로드'],
+  library: ['열람실', '발표자료 열람 · 자료 다운로드'],
 };
 
 /* =============== Top-level render =============== */
 export function renderAll() {
   const st = store.getState();
-  document.body.dataset.editMode = store.isEditing() ? '1' : '0';
   syncLock();
   renderTally(st);
   if (ui.view === 'calendar') renderCalendar(st);
@@ -58,7 +57,6 @@ export function renderAll() {
 /* =============== Navigation / view switching =============== */
 export function switchView(view) {
   ui.view = view;
-  document.body.dataset.view = view;
   $$('.nav-item').forEach((n) =>
     n.classList.toggle('is-active', n.dataset.view === view)
   );
@@ -187,7 +185,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   bindCalendarControls();
   bindTimelineControls();
   bindSessionForm();
-  document.body.dataset.view = ui.view;
   store.subscribe(renderAll);
 
   renderAll();

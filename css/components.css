@@ -327,12 +327,14 @@
   align-items: center;
   gap: 3px;
 }
-.data-list-meta .dot {
+/* 공용 구분점 — data-list-meta, library-card-meta 등 메타 행에서 사용 */
+.dot {
   width: 3px;
   height: 3px;
   background: var(--text-muted);
   border-radius: 50%;
   display: inline-block;
+  flex: none;
 }
 
 .data-list-right {
@@ -375,7 +377,6 @@
   color: var(--text-primary);
   font-weight: var(--fw-medium);
 }
-.info-value .muted { color: var(--text-muted); font-weight: var(--fw-regular); }
 
 .description-block {
   font-size: var(--fs-md);
@@ -435,24 +436,11 @@
    Edit-mode controls
    ========================================================= */
 
-/* ---- Lock toggle (topbar) ---- */
+/* ---- Lock toggle (topbar) — 기본 박스는 .btn.btn-ghost 를 재사용, 여기는 델타만 ---- */
 .lock-btn {
-  display: inline-flex;
-  align-items: center;
   gap: var(--space-2);
-  height: 34px;
   padding: 0 var(--space-3);
-  border: 1px solid var(--border-default);
-  background: var(--bg-elevated);
-  color: var(--text-secondary);
-  border-radius: var(--radius-md);
   font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-  transition: all var(--dur-fast) var(--ease-out);
-}
-.lock-btn:hover {
-  color: var(--text-primary);
-  border-color: var(--border-strong);
 }
 .lock-btn .lock-icon { width: 16px; height: 16px; }
 .lock-btn .lock-icon--open { display: none; }
@@ -640,11 +628,7 @@
 }
 
 /* ---- Calendar inline add (+) button (edit mode only) ---- */
-.cal-day-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+/* .cal-day-head 레이아웃은 views.css(캘린더 섹션)에 정의 */
 .cal-add-btn {
   width: 18px;
   height: 18px;

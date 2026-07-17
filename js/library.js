@@ -104,7 +104,7 @@ function metaForCard(item) {
     if (item.category) parts.push({ cls: 'library-card-cat', text: item.category });
     if (item.ext) parts.push({ text: item.ext.toUpperCase() });
     if (item.size != null) parts.push({ text: fmtSize(item.size) });
-    const dateStr = item.date || (item.mtime ? item.mtime.slice(0, 10) : '');
+    const dateStr = item.date || fmtDate(item.mtime);
     if (dateStr) parts.push({ text: dateStr });
   }
   const out = [];
@@ -167,8 +167,4 @@ export async function renderLibrary() {
 
   clear(grid);
   for (const it of items) grid.append(renderCard(it));
-}
-
-export function invalidateLibraryCache() {
-  cached = null;
 }

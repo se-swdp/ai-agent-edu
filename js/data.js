@@ -1,11 +1,10 @@
 /**
- * data.js — UI-side constants (Firebase config, edit password, derived options).
+ * data.js — UI-side constants (Firebase config, edit password).
  *
  * Record-shape constants (status enum, normalize, sort) live in ./schema.js.
  */
 
-export { STATUS_LABEL, STATUSES } from './schema.js';
-import { STATUS_LABEL } from './schema.js';
+export { STATUS_LABEL } from './schema.js';
 
 // Firebase Web SDK 설정 — apiKey 등은 공개되어도 안전합니다 (Firestore Rules 가 보호).
 export const firebaseConfig = {
@@ -23,7 +22,3 @@ export const SESSIONS_COLLECTION = 'sessions';
 // 편집 잠금 해제 비밀번호. 변경 시 이 값만 바꾸고 재배포하면 됩니다.
 export const EDIT_PASSWORD = 'aijjang';
 export const PASSWORD_STORAGE_KEY = 'lecture-dashboard.editpw';
-
-export const STATUS_OPTIONS = Object.entries(STATUS_LABEL).map(
-  ([value, label]) => ({ value, label })
-);
