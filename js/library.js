@@ -89,9 +89,9 @@ async function loadManifest() {
 }
 
 function fmtMonth(month) {
-  // "YYYY-MM" → "YYYY. MM"
+  // "YYYY-MM"(월 01–12) 정확 일치일 때만 "YYYY. MM" — 아니면 원문을 그대로 노출해 오염을 숨기지 않는다
   if (!month) return '';
-  const m = /^(\d{4})-(\d{2})/.exec(month);
+  const m = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(month);
   return m ? `${m[1]}. ${m[2]}` : month;
 }
 

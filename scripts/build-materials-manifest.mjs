@@ -42,8 +42,9 @@ async function scanSlides() {
   } catch {
     return [];
   }
-  // 속성 순서에 의존하지 않도록 앵커 전체를 잡고 여는 태그에서 href/data-month 를 따로 추출
-  const anchorRx = /<a\s+[^>]*class="item[^"]*"[^>]*>[\s\S]*?<\/a>/g;
+  // 속성 순서에 의존하지 않도록 앵커 전체를 잡고 여는 태그에서 href/data-month 를 따로 추출.
+  // class 는 속성명·토큰 양쪽 경계로 매칭 — data-class= 나 "itemized" 는 제외, "featured item" 은 포함.
+  const anchorRx = /<a\s+(?:[^>]*\s)?class="(?:[^"]*\s)?item(?:\s[^"]*)?"[^>]*>[\s\S]*?<\/a>/g;
   const titleRx = /<span class="title">([^<]+)<\/span>/;
   const subRx = /<span class="sub">([\s\S]*?)<\/span>/;
   const out = [];
