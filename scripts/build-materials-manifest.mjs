@@ -29,17 +29,11 @@ const MANIFEST = join(FILES_DIR, 'manifest.json');
 
 const NAME_RX = /^(\d{4}-\d{2}-\d{2})__(.+?)__(.+)\.([^.]+)$/;
 
-const CAT_KOR = {
-  biz: '비개발',
-  dev: '개발',
-  lead: '리더',
-  team: '팀 내부',
-};
-
 /* ---------- (1) 슬라이드: presentations/index.html 파싱 ----------
  * a.item anchor 단위로 먼저 끊은 뒤 안에서 title/sub 추출.
  * lazy regex 가 카드 경계(</a>)를 가로지르지 않게 해서 한 카드 데이터가
  * 다음 카드를 흡수하는 사고를 막음.
+ * 업로드 월은 anchor 의 data-month="YYYY-MM" 속성에서 읽는다.
  */
 async function scanSlides() {
   let html;
@@ -48,21 +42,27 @@ async function scanSlides() {
   } catch {
     return [];
   }
-  const anchorRx = /<a\s+class="item\s+(\w+)"\s+href="([^"]+)"[\s\S]*?<\/a>/g;
+  // 속성 순서에 의존하지 않도록 앵커 전체를 잡고 여는 태그에서 href/data-month 를 따로 추출
+  const anchorRx = /<a\s+[^>]*class="item[^"]*"[^>]*>[\s\S]*?<\/a>/g;
   const titleRx = /<span class="title">([^<]+)<\/span>/;
   const subRx = /<span class="sub">([\s\S]*?)<\/span>/;
   const out = [];
   let m;
   while ((m = anchorRx.exec(html))) {
-    const [block, cls, href] = m;
+    const block = m[0];
+    const openTag = block.slice(0, block.indexOf('>') + 1);
+    const hm = /href="([^"]+)"/.exec(openTag);
+    const mm2 = /data-month="([^"]+)"/.exec(openTag);
+    if (!hm) continue;
+    const href = hm[1];
+    const month = mm2 ? mm2[1] : null;
     const tm = titleRx.exec(block);
     const sm = subRx.exec(block);
     if (!tm || !sm) continue;
     const subtitle = sm[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
     out.push({
       type: 'slide',
-      category: CAT_KOR[cls] || cls,
-      catClass: cls,
+      month, // "YYYY-MM" 또는 null
       title: tm[1].trim(),
       subtitle,
       url: `./presentations/${href.replace(/^\.\//, '')}`,

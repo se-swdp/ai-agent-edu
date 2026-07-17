@@ -88,12 +88,20 @@ async function loadManifest() {
   }
 }
 
+function fmtMonth(month) {
+  // "YYYY-MM" → "YYYY. MM"
+  if (!month) return '';
+  const m = /^(\d{4})-(\d{2})/.exec(month);
+  return m ? `${m[1]}. ${m[2]}` : month;
+}
+
 function metaForCard(item) {
   const parts = [];
-  if (item.category) parts.push({ cls: 'library-card-cat', text: item.category });
   if (item.type === 'slide') {
+    if (item.month) parts.push({ cls: 'library-card-date', text: fmtMonth(item.month) });
     if (item.subtitle) parts.push({ text: item.subtitle });
   } else {
+    if (item.category) parts.push({ cls: 'library-card-cat', text: item.category });
     if (item.ext) parts.push({ text: item.ext.toUpperCase() });
     if (item.size != null) parts.push({ text: fmtSize(item.size) });
     const dateStr = item.date || (item.mtime ? item.mtime.slice(0, 10) : '');
@@ -115,7 +123,6 @@ function renderCard(item) {
     dataset: {
       type: item.type,
       ext: item.ext || '',
-      cat: item.catClass || item.category || '',
     },
   };
   if (isSlide) {
