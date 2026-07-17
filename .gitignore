@@ -30,6 +30,7 @@ presentations/agent-experience-v2/src-png/
 presentations/ai-driven-transition/src-png/
 presentations/ai-dlc-swdp/src-png/
 presentations/ai-agent-unified/src-png/
+presentations/claude-code-playbook/src-png/
 **/.verify-shots/
 
 # playwright-cli local caches

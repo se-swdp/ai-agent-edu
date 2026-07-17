@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>Claude Code 실전 활용법 — 잘 시키고 · 잘 굴리고 · 잘 확인한다</title>
+<script>
+if(location.protocol==='http:'||location.protocol==='https:'){
+  const base=document.createElement('base');
+  base.href='/presentations/claude-code-playbook/';
+  document.head.appendChild(base);
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;width:100%;height:100%}
+body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#fcf8f2;color:#1c1c1c;-webkit-font-smoothing:antialiased}
+.slides{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:#fcf8f2;padding:2.6vh 3vw}
+.slide.active{display:flex}
+.slide img{width:auto;height:auto;max-width:min(100%,1672px);max-height:min(100%,941px);object-fit:contain;display:block}
+
+/* ── HTML code slides: fixed 1672x941 canvas, JS-scaled to match image slides ── */
+.slide.code{overflow:hidden}
+.canvas{width:1672px;height:941px;flex:none;background:#fcf8f2;position:relative;
+  padding:58px 84px 44px;display:flex;flex-direction:column;transform-origin:center center;
+  font-family:'Gaegu','Noto Sans KR',sans-serif;color:#1c1c1c}
+.hd{display:flex;align-items:baseline;gap:26px}
+.ttl{font-family:'Gaegu',cursive;font-weight:700;font-size:60px;line-height:1.12;letter-spacing:-0.01em;
+  display:inline-block;position:relative;padding-bottom:12px}
+.ttl::after{content:"";position:absolute;left:2px;right:-8px;bottom:2px;height:10px;
+  border-top:4px solid #2B4FD8;border-bottom:3px solid #2B4FD8;transform:rotate(-0.35deg);border-radius:50%/6px}
+.stamp{font-family:'Gaegu',cursive;font-weight:700;font-size:27px;color:#D8342B;transform:rotate(-1.6deg)}
+.body{flex:1;display:flex;flex-direction:column;gap:22px;margin-top:26px;min-height:0}
+.cols{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:30px;min-height:0}
+.col{display:flex;flex-direction:column;gap:20px;min-height:0}
+.cols.center .col,.col.center{justify-content:center}
+.term{background:#25221C;border:3px solid #1c1c1c;border-radius:18px;box-shadow:4px 5px 0 rgba(28,28,28,0.16);
+  display:flex;flex-direction:column;overflow:hidden;transform:rotate(-0.15deg);flex:1;min-height:0}
+.term.flat{flex:none}
+.term .bar{display:flex;align-items:center;gap:9px;padding:12px 20px;border-bottom:2px solid rgba(252,248,242,0.14);flex:none}
+.term .bar i{width:14px;height:14px;border-radius:50%;display:block}
+.term .bar i:nth-child(1){background:#D8342B}.term .bar i:nth-child(2){background:#FFE9A8}.term .bar i:nth-child(3){background:#7bb26e}
+.term .bar span{margin-left:10px;font-family:'JetBrains Mono',monospace;font-size:18px;color:rgba(252,248,242,0.55)}
+.term pre{flex:1;overflow:hidden;padding:22px 30px;font-family:'JetBrains Mono',Consolas,monospace;
+  font-size:25px;line-height:1.58;color:#ECE8DF;white-space:pre-wrap;word-break:break-word}
+.term .c{color:#948e7e}
+.term .p{color:#8fd18a;font-weight:500}
+.term .k{color:#8fb8ff}
+.term .s{color:#e8c184}
+.term .hl,.chip .hl{background:#FFE9A8;color:#1c1c1c;border-radius:5px;padding:0 7px;font-weight:700}
+.panel{background:#fffdf8;border:3px solid #1c1c1c;border-radius:18px;box-shadow:4px 5px 0 rgba(28,28,28,0.13);
+  padding:22px 30px;transform:rotate(0.15deg);overflow:hidden}
+.panel pre{font-family:'JetBrains Mono',Consolas,monospace;font-size:25px;line-height:1.6;color:#1c1c1c;white-space:pre-wrap}
+.panel .c{color:#8a8478}
+.chips{display:flex;flex-direction:column;gap:14px;min-height:0}
+.chips.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;align-content:start}
+.chip{display:flex;align-items:baseline;gap:16px;background:#fffdf8;border:2.5px solid #1c1c1c;border-radius:14px;
+  padding:10px 20px;box-shadow:3px 3px 0 rgba(28,28,28,0.10)}
+.chip .cmd{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:23px;color:#2B4FD8;white-space:nowrap}
+.chip .desc{font-family:'Gaegu',cursive;font-weight:400;font-size:27px;line-height:1.25;color:#1c1c1c}
+.chip.warn{border-color:#D8342B}
+.chip.warn .cmd{color:#D8342B}
+.grouphd{font-family:'Gaegu',cursive;font-weight:700;font-size:30px;color:#1c1c1c;margin:4px 0 -4px}
+.grouphd mark{background:#FFE9A8;padding:0 8px;border-radius:6px}
+.note{position:absolute;font-family:'Gaegu',cursive;font-weight:700;color:#D8342B;font-size:30px;transform:rotate(-2deg);z-index:5}
+.punch{margin-top:24px;align-self:center;font-family:'Gaegu',cursive;font-weight:700;font-size:37px;line-height:1.2;
+  border:3px solid #1c1c1c;border-radius:16px;padding:8px 40px;transform:rotate(-0.3deg);background:#fff;
+  box-shadow:3px 4px 0 rgba(28,28,28,0.14);flex:none}
+.punch.red{border-color:#D8342B}
+.punch mark,.canvas mark{background:#FFE9A8;padding:0 7px;border-radius:6px}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:0.85em;background:#1c1c1c;color:#FCF8F2;border-radius:8px;padding:2px 12px;font-weight:500}
+
+.nav{position:fixed;bottom:24px;left:36px;display:flex;gap:6px;z-index:100}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.75);border:1px solid rgba(28,28,28,0.22);color:rgba(28,28,28,0.65);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 4px 12px rgba(60,50,30,0.10)}
+.nav button:hover{background:#fff;color:#1c1c1c;border-color:rgba(28,28,28,0.45)}
+.nav button:focus-visible{outline:2px solid #2f73bd;outline-offset:2px}
+.progress{position:fixed;top:0;left:0;height:2px;background:#2f73bd;z-index:200}
+@media(max-width:768px){.nav{left:16px;bottom:16px}}
+@media print{
+  html,body{overflow:visible!important;height:auto}
+  .nav,.progress{display:none!important}
+  .slides{display:block!important}
+  .slide{display:flex!important;position:relative;page-break-after:always;break-after:page;height:100vh}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="slides" id="slides">
+
+<div class="slide"><img src="01-cover.webp" alt="Claude Code 실전 활용법 — 표지" fetchpriority="high" /></div>
+<div class="slide"><img src="02-evolution.webp" alt="게임이 바뀌었다 — 프롬프트에서 루프로" loading="lazy" /></div>
+<div class="slide"><img src="03-roadmap.webp" alt="오늘의 흐름 — 7구간" loading="lazy" /></div>
+
+<div class="slide"><img src="04-divider-setup.webp" alt="① 기초 세팅" loading="lazy" /></div>
+<div class="slide"><img src="05-first-prompt.webp" alt="첫 프롬프트 — 구분해서 알려줘" loading="lazy" /></div>
+
+<div class="slide code" aria-label="시작 10초 치트">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">시작 — 10초 치트</span><span class="stamp">2026. 7. 17 기준 · v2.1.212</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre><span class="c"># 설치는 한 번</span>
+<span class="p">$</span> npm install -g @anthropic-ai/claude-code
+
+<span class="c"># 프로젝트 폴더에서</span>
+<span class="p">$</span> claude              <span class="c"># 새 세션</span>
+<span class="p">$</span> claude -c           <span class="c"># 직전 세션 이어서</span>
+<span class="p">$</span> claude --resume     <span class="c"># 골라서 복귀</span>
+<span class="p">$</span> claude update       <span class="c"># 업데이트</span></pre></div>
+        </div>
+        <div class="col center">
+          <div class="chips">
+            <div class="chip"><span class="cmd">Shift+Tab</span><span class="desc">권한 모드 순환 — default → 편집 자동 → <mark>plan</mark></span></div>
+            <div class="chip"><span class="cmd">/effort</span><span class="desc">추론 강도 슬라이더 (low ~ xhigh)</span></div>
+            <div class="chip"><span class="cmd">/statusline</span><span class="desc">모델 · 컨텍스트 % · 비용을 한 줄 계기판으로</span></div>
+            <div class="chip"><span class="cmd">/help</span><span class="desc">전부 여기 있다 — 외우지 말 것</span></div>
+            <div class="chip"><span class="cmd">기본 모델</span><span class="desc">Sonnet 5 (컨텍스트 1M) · Max는 Opus 4.8</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="punch">설치보다 중요한 건 — <mark>첫 프롬프트</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="07-claude-md.webp" alt="CLAUDE.md — 팀의 압축된 기억" loading="lazy" /></div>
+
+<div class="slide code" aria-label="CLAUDE.md 배치 실전">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">CLAUDE.md — 어디에 두나</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col">
+          <div class="panel" style="flex:1">
+<pre>~/.claude/CLAUDE.md    <span class="c">← 나만의 전역 규칙</span>
+./CLAUDE.md            <span class="c">← 팀 공유 (git 커밋)</span>
+./CLAUDE.local.md      <span class="c">← 나만 · 이 레포만</span>
+.claude/rules/*.md     <span class="c">← 주제별 분리 규칙</span>
+
+<span class="c"># CLAUDE.md 안에서 임포트</span>
+@AGENTS.md
+@docs/conventions.md</pre></div>
+        </div>
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>.claude/rules/api.md</span></div>
+<pre>---
+paths: [<span class="s">"src/api/**/*.ts"</span>]
+---
+<span class="c"># ↑ 이 파일들을 만질 때만 로드</span>
+- API 응답은 반드시 zod로 검증
+- 에러는 problem+json 포맷으로</pre></div>
+          <div class="chip"><span class="cmd">"기억해줘"</span><span class="desc">→ auto memory에 저장 — CLAUDE.md에 넣으려면 <mark>"CLAUDE.md에 추가해"</mark>라고 명시</span></div>
+        </div>
+      </div>
+      <div class="punch">짧게 · 위치는 목적대로 · 규칙은 <mark>paths로 스코프</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="09-permissions.webp" alt="권한 — deny-first" loading="lazy" /></div>
+
+<div class="slide code" aria-label="권한 세팅 실전">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">권한 세팅 — deny-first</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>.claude/settings.json</span></div>
+<pre>{ <span class="k">"permissions"</span>: {
+    <span class="k">"allow"</span>: [
+      <span class="s">"Bash(npm test:*)"</span>,
+      <span class="s">"Bash(git status)"</span>,
+      <span class="s">"Edit(src/**)"</span> ],
+    <span class="k">"deny"</span>: [
+      <span class="s">"Bash(rm -rf:*)"</span>,
+      <span class="s">"Bash(git push --force:*)"</span>,
+      <span class="s">"Read(.env)"</span> ] } }</pre></div>
+        </div>
+        <div class="col center">
+          <div class="chips">
+            <div class="chip"><span class="cmd">default</span><span class="desc">읽기만 무승인 — 나머지는 물어봄</span></div>
+            <div class="chip"><span class="cmd">acceptEdits</span><span class="desc">파일 편집까지 자동 승인</span></div>
+            <div class="chip"><span class="cmd">auto</span><span class="desc">분류기가 위험한 것만 차단 — 프롬프트 제거</span></div>
+            <div class="chip"><span class="cmd">/sandbox</span><span class="desc">OS 레벨 격리 — 샌드박스 안은 무승인</span></div>
+            <div class="chip"><span class="cmd">/fewer-permission-prompts</span><span class="desc">허용목록 자동 제안</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="punch">매번 y 누르지 말고 — <mark>룰로 남긴다</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="11-divider-delegate.webp" alt="② 잘 시키는 법" loading="lazy" /></div>
+<div class="slide"><img src="12-brief.webp" alt="위임 브리핑 3요소" loading="lazy" /></div>
+<div class="slide"><img src="13-scope.webp" alt="스텝 말고 스코프" loading="lazy" /></div>
+<div class="slide"><img src="14-explore-plan.webp" alt="기본 리듬 — 탐색 계획 구현 커밋" loading="lazy" /></div>
+
+<div class="slide code" aria-label="Plan Mode 실전">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">Plan Mode — 코드 전에 계획</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col center">
+          <div class="chips">
+            <div class="chip"><span class="cmd">Shift+Tab ×2</span><span class="desc">플랜 모드 진입 — 읽기만 하고 계획서 제출</span></div>
+            <div class="chip"><span class="cmd">/plan …</span><span class="desc">프롬프트 앞에 붙이면 이번 한 번만</span></div>
+            <div class="chip"><span class="cmd">Ctrl+G</span><span class="desc">계획을 에디터에서 직접 뜯어고친다</span></div>
+            <div class="chip"><span class="cmd">승인 3택</span><span class="desc">그대로 실행 · auto 모드로 · 계속 계획</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>큰 기능은 인터뷰 패턴</span></div>
+<pre><span class="p">&gt;</span> 질문 도구로 <span class="hl">나를 인터뷰해서</span> 요구사항을
+  캐낸 다음, 완성된 스펙을 SPEC.md로
+  저장해줘. 구현은 새 세션에서 한다.
+
+<span class="c"># 리서치는 Plan 서브에이전트가 담당
+# 본진 컨텍스트는 그대로 보존됨</span></pre></div>
+        </div>
+      </div>
+      <div class="punch">diff를 한 문장으로 못 말하면 — <mark>계획부터</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="16-verify.webp" alt="실제로 돌려봤어?" loading="lazy" /></div>
+<div class="slide"><img src="17-gates.webp" alt="검증 게이트 4단" loading="lazy" /></div>
+<div class="slide"><img src="18-context.webp" alt="컨텍스트 관리 4종" loading="lazy" /></div>
+
+<div class="slide"><img src="19-divider-harness.webp" alt="③ 하네스" loading="lazy" /></div>
+<div class="slide"><img src="20-harness-6.webp" alt="하네스 6요소" loading="lazy" /></div>
+<div class="slide"><img src="21-skills.webp" alt="Skill — 절차가 자산이 된다" loading="lazy" /></div>
+
+<div class="slide code" aria-label="SKILL.md 해부">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">Skill 해부 — 파일 하나면 된다</span></div>
+    <div class="body">
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>.claude/skills/release-check/SKILL.md</span></div>
+<pre>---
+<span class="k">description:</span> 릴리스 전 점검 — 테스트 · 체인지로그 · 버전 정합
+<span class="k">allowed-tools:</span> Bash(npm test:*) Bash(git tag *)   <span class="c"># 이 턴은 무승인</span>
+<span class="k">disable-model-invocation:</span> true                    <span class="c"># 사람만 호출</span>
+---
+## 지금 상태
+!`git diff HEAD --stat`      <span class="c"># ← 로드 전에 셸이 먼저 실행, 결과가 삽입됨</span>
+
+## 할 일
+1. <span class="k">$ARGUMENTS</span> 버전으로 CHANGELOG 갱신
+2. npm test 전부 통과 확인 — 실패하면 거기서 중단</pre></div>
+      <div class="chips grid2">
+        <div class="chip"><span class="cmd">/release-check 1.2.0</span><span class="desc">저장하는 순간 명령이 된다</span></div>
+        <div class="chip"><span class="cmd">라이브 반영</span><span class="desc">수정 즉시 적용 · 한 메시지 6개 스태킹</span></div>
+      </div>
+      <div class="punch">CLAUDE.md의 절차가 스킬로 이사 가면 — <mark>컨텍스트가 산다</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="23-hooks.webp" alt="룰은 지침 훅은 집행" loading="lazy" /></div>
+
+<div class="slide code" aria-label="Hook 실전">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">Hook 실전 — 셋만 알면 된다</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>settings.json → hooks</span></div>
+<pre><span class="k">PostToolUse</span>  <span class="c"># matcher: "Edit|Write"</span>
+  → 편집 직후 포매터 · 린터 자동 실행
+
+<span class="k">PreToolUse</span>   <span class="c"># if: "Bash(rm *)"</span>
+  → 위험 명령을 실행 전에 차단
+
+<span class="k">Stop</span>
+  → 턴 끝나기 전 테스트 게이트</pre></div>
+        </div>
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>훅 스크립트의 약속</span></div>
+<pre><span class="k">exit 0</span>  통과 — 조용히 지나간다
+<span class="k">exit 2</span>  <span class="hl">차단</span> — stderr가 Claude에게
+        전달되고, 스스로 고쳐서 재시도
+
+<span class="c"># command 외에도 prompt(LLM 판정),
+# agent(검증 서브에이전트) 타입 지원</span></pre></div>
+        </div>
+      </div>
+      <div class="punch">룰은 어겨져도 — <mark>훅은 못 어긴다</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="25-subagents.webp" alt="서브에이전트 — 본진을 지킨다" loading="lazy" /></div>
+
+<div class="slide code" aria-label="서브에이전트 정의 파일">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">서브에이전트 — .md 하나가 팀원</span></div>
+    <div class="body">
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>~/.claude/agents/gpt-reviewer.md</span></div>
+<pre>---
+<span class="k">name:</span> gpt-reviewer
+<span class="k">description:</span> 버그 · 보안 · 엣지케이스 적대적 리뷰
+<span class="k">tools:</span> Bash, Read, Grep, Glob
+<span class="k">isolation:</span> worktree      <span class="c"># 임시 워크트리에서 격리 실행</span>
+<span class="k">background:</span> true         <span class="c"># 도는 동안 나는 딴 일</span>
+<span class="k">memory:</span> project          <span class="c"># 세션이 끝나도 배운 걸 기억</span>
+---
+diff를 받아 REFUTE 관점으로 검토하고
+CRITICAL / WARNING / INFO 로만 보고하라.</pre></div>
+      <div class="chips grid2">
+        <div class="chip"><span class="cmd">내장 3종</span><span class="desc">Explore(저비용 탐색) · Plan(리서치) · general-purpose</span></div>
+        <div class="chip"><span class="cmd">자연어로</span><span class="desc">"조사는 서브에이전트 셋으로 나눠서 돌려줘"</span></div>
+      </div>
+      <div class="punch">본진은 지휘 — <mark>손발은 밖에서</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="27-divider-loop.webp" alt="④ Loop Engineering" loading="lazy" /></div>
+<div class="slide"><img src="28-loop-quote.webp" alt="루프가 돌고 있다 — Boris Cherny" loading="lazy" /></div>
+<div class="slide"><img src="29-loop-anatomy.webp" alt="루프의 해부" loading="lazy" /></div>
+<div class="slide"><img src="30-four-loops.webp" alt="루프 4형" loading="lazy" /></div>
+
+<div class="slide code" aria-label="루프 실전 커맨드">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">루프 실전 — 켜는 법 · 멈추는 법</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col center">
+          <div class="chips">
+            <div class="chip"><span class="cmd">/goal</span><span class="desc">"테스트 전부 통과" — <mark>매 턴 재확인</mark></span></div>
+            <div class="chip"><span class="cmd">/loop 30m /check-ci</span><span class="desc">주기 반복 · 간격 생략도 OK</span></div>
+            <div class="chip"><span class="cmd">/schedule</span><span class="desc">클라우드 크론 — 내 기기가 꺼져도 돈다</span></div>
+            <div class="chip"><span class="cmd">Stop 훅</span><span class="desc">루프의 자동 멈춤 신호 — 통과 전엔 못 끝난다</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>ralph.sh — 가장 원시적인 루프</span></div>
+<pre><span class="k">while</span> :; <span class="k">do</span>
+  cat PROMPT.md | claude -p
+<span class="k">done</span>
+
+<span class="c"># ⚠ 신규 코드베이스 부트스트랩 전용
+#   기존 레포에 돌리면 위험
+#   spec 먼저 · 1회 1작업 · 교훈은 파일로</span></pre></div>
+        </div>
+      </div>
+      <div class="punch">루프의 절반은 멈춤 설계 — <mark>done을 정의하라</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="32-parallel.webp" alt="병렬 — 나 하나가 여럿으로" loading="lazy" /></div>
+
+<div class="slide code" aria-label="병렬 실전 커맨드">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">병렬 실전 — 손이 여럿</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre><span class="c"># 워크트리 격리 세션</span>
+<span class="p">$</span> claude --worktree   <span class="c"># --tmux면 분할창</span>
+<span class="p">$</span> git worktree add ../feat-x
+<span class="p">$</span> cd ../feat-x && claude
+
+<span class="c"># 큰 변경을 쪼개 병렬 처리</span>
+<span class="p">&gt;</span> /batch 파일 단위로 나눠서 진행해</pre></div>
+        </div>
+        <div class="col center">
+          <div class="chips">
+            <div class="chip"><span class="cmd">에이전트 팀</span><span class="desc">"팀원 셋이 경쟁 가설로 디버깅" — <mark>서로 토론</mark>함</span></div>
+            <div class="chip"><span class="cmd">ultracode</span><span class="desc">프롬프트에 한 단어 — <mark>함대가 뜬다</mark></span></div>
+            <div class="chip"><span class="cmd">/workflows</span><span class="desc">함대 관제탑 — 페이즈 · 토큰 · 일시정지</span></div>
+            <div class="chip warn"><span class="cmd">주의</span><span class="desc">동시 16 · 총 1,000 에이전트 상한 — 토큰은 실비</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="punch">병렬의 대가는 검토 — <mark>열기 전에 게이트부터</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="34-slop.webp" alt="루프가 헤매는 신호" loading="lazy" /></div>
+
+<div class="slide"><img src="35-divider-codex.webp" alt="⑤ 두 번째 엔진" loading="lazy" /></div>
+<div class="slide"><img src="36-why-cross.webp" alt="셀프 리뷰의 함정" loading="lazy" /></div>
+
+<div class="slide code" aria-label="Codex 플러그인 연결">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">Codex 연결 ① — 공식 플러그인</span><span class="stamp">OpenAI가 직접 만든 브릿지</span></div>
+    <div class="body">
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>claude 세션 안에서</span></div>
+<pre><span class="p">&gt;</span> /plugin marketplace add openai/codex-plugin-cc
+<span class="p">&gt;</span> /plugin install codex@openai-codex
+
+<span class="p">&gt;</span> /codex:review --background --base main   <span class="c"># GPT가 diff 리뷰</span>
+<span class="p">&gt;</span> /codex:adversarial-review                <span class="c"># 설계 가정을 공격</span>
+<span class="p">&gt;</span> /codex:rescue 이 버그 원인 못 찾겠어 — 통째로 맡아줘
+<span class="p">&gt;</span> /codex:status · /codex:result            <span class="c"># 백그라운드 잡 확인</span>
+<span class="p">&gt;</span> /codex:setup   <span class="c"># 종료 시 GPT 리뷰 게이트 on/off</span></pre></div>
+      <div class="chips grid2">
+        <div class="chip"><span class="cmd">인증 공유</span><span class="desc">로컬 codex CLI의 로그인 · config.toml 그대로 상속</span></div>
+        <div class="chip warn"><span class="cmd">리뷰 게이트</span><span class="desc">사용량 폭식 주의 — 큰 작업에만 켠다</span></div>
+      </div>
+      <div class="punch">Claude가 만들고 — <mark>GPT가 의심한다</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide code" aria-label="Codex CLI 직접 호출">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">Codex 연결 ② — CLI 직접 호출</span></div>
+    <div class="note" style="right:120px;top:210px">← argv로 주면 hang!</div>
+    <div class="body">
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>bash — Windows Git Bash 필수 패턴</span></div>
+<pre><span class="c"># 긴 프롬프트는 반드시 파일 → stdin 파이프</span>
+<span class="p">$</span> cat &gt; p.txt &lt;&lt;<span class="s">'EOF'</span>
+Review this diff for NaN/inf handling and edge cases. ...
+<span class="s">EOF</span>
+<span class="p">$</span> codex exec <span class="k">-s read-only</span> --skip-git-repo-check -m gpt-5.5 <span class="hl">&lt; p.txt</span>
+<span class="c"># 수정까지 맡길 땐 -s read-only 제거</span></pre></div>
+      <div class="term flat"><div class="bar"><i></i><i></i><i></i><span>~/.codex/config.toml</span></div>
+<pre><span class="k">project_doc_fallback_filenames</span> = [<span class="s">"CLAUDE.md"</span>, <span class="s">"COPILOT.md"</span>]
+<span class="c"># ↑ Codex가 Claude와 같은 프로젝트 문서를 읽는다 — 규칙은 한 곳에</span></pre></div>
+      <div class="punch">문서는 하나 — <mark>엔진은 둘</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="39-gating.webp" alt="스폰 게이팅 — 언제 얼마나" loading="lazy" /></div>
+<div class="slide"><img src="40-no-fallback.webp" alt="크로스모델 운영 3원칙" loading="lazy" /></div>
+
+<div class="slide"><img src="41-divider-plugins.webp" alt="⑥ 플러그인" loading="lazy" /></div>
+<div class="slide"><img src="42-plugin-bundle.webp" alt="플러그인 — 한 묶음 배포" loading="lazy" /></div>
+
+<div class="slide code" aria-label="플러그인 설치와 개발">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">플러그인 — 설치 2단 · 개발 3커맨드</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>설치</span></div>
+<pre><span class="c"># 공식 마켓은 자동 등록 — 바로 설치</span>
+<span class="p">&gt;</span> /plugin install github@claude-plugins-official
+
+<span class="c"># 커뮤니티 마켓 추가 후 설치</span>
+<span class="p">&gt;</span> /plugin marketplace add anthropics/claude-plugins-community
+<span class="p">&gt;</span> /plugin install &lt;이름&gt;@claude-community
+<span class="p">&gt;</span> /reload-plugins   <span class="c"># 재시작 없이 반영</span>
+
+<span class="c"># 타입 언어면 LSP부터</span>
+<span class="p">&gt;</span> /plugin install typescript-lsp@claude-plugins-official</pre></div>
+        </div>
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>개발</span></div>
+<pre><span class="p">$</span> claude plugin init my-tool
+<span class="c"># 스캐폴딩 생성</span>
+
+<span class="p">$</span> claude --plugin-dir ./my-tool
+<span class="c"># 로컬에서 바로 테스트</span>
+
+<span class="p">$</span> claude plugin validate
+<span class="c"># 배포 전 검증</span></pre></div>
+        </div>
+      </div>
+      <div class="punch">설치 전 <mark>Context cost</mark> — 설치 후 /doctor</div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="44-plugin-picks.webp" alt="지금 쓸 만한 스택" loading="lazy" /></div>
+
+<div class="slide code" aria-label="MCP 연결 커맨드">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">MCP — 외부 도구 연결</span></div>
+    <div class="body">
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre><span class="c"># 라이브러리 문서 환각 방지 — 버전 고정 최신 문서</span>
+<span class="p">$</span> claude mcp add --scope user context7 -- npx -y @upstash/context7-mcp
+<span class="c"># 브라우저 E2E 자동화</span>
+<span class="p">$</span> claude mcp add playwright -- npx @playwright/mcp@latest
+<span class="c"># 성능 · 네트워크 심층 디버깅</span>
+<span class="p">$</span> claude mcp add chrome-devtools -- npx chrome-devtools-mcp@latest
+<span class="c"># 원격 HTTP + OAuth</span>
+<span class="p">$</span> claude mcp add --transport http github https://api.githubcopilot.com/mcp/
+<span class="p">$</span> claude mcp login github</pre></div>
+      <div class="chips grid2">
+        <div class="chip"><span class="cmd">.mcp.json</span><span class="desc">git에 커밋하면 팀 전체 공유 · 세션 관리는 /mcp</span></div>
+        <div class="chip"><span class="cmd">자동 전환</span><span class="desc">2분 넘는 MCP 호출은 알아서 백그라운드로</span></div>
+      </div>
+      <div class="punch">MCP는 접근 채널 — <mark>검증은 별개</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="46-token-diet.webp" alt="도구 다이어트 — 40개 상한" loading="lazy" /></div>
+
+<div class="slide"><img src="47-divider-tips.webp" alt="⑦ 꿀팁" loading="lazy" /></div>
+
+<div class="slide code" aria-label="세션 꿀팁">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">세션 꿀팁 — 되감고 · 나누고 · 들고 다닌다</span></div>
+    <div class="body">
+      <div class="chips grid2" style="flex:1;align-content:center">
+        <div class="chip"><span class="cmd">Esc Esc</span><span class="desc"><mark>/rewind</mark> — 프롬프트마다 자동 체크포인트, 코드/대화 골라 복원</span></div>
+        <div class="chip"><span class="cmd">/resume</span><span class="desc">PR URL을 붙여넣으면 그 작업을 한 세션을 찾아준다</span></div>
+        <div class="chip"><span class="cmd">/fork</span><span class="desc">지금 흐름은 그대로 — 백그라운드 분기에서 실험</span></div>
+        <div class="chip"><span class="cmd">/btw</span><span class="desc">옆길 질문 — 대화 기록에 안 남는다</span></div>
+        <div class="chip"><span class="cmd">/cd</span><span class="desc">캐시 유지한 채 작업 폴더 이동</span></div>
+        <div class="chip"><span class="cmd">claude -p --bare</span><span class="desc">스크립트용 초고속 headless 실행</span></div>
+        <div class="chip"><span class="cmd">claude --teleport</span><span class="desc">세션을 다른 기기로 들고 간다</span></div>
+        <div class="chip warn"><span class="cmd">주의</span><span class="desc">bash로 지운 파일 복구 불가 — git 아님</span></div>
+      </div>
+      <div class="punch">실수해도 — <mark>Esc Esc면 산다</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide code" aria-label="번들 명령 치트시트">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">번들 명령 치트시트</span></div>
+    <div class="body">
+      <div class="cols center" style="gap:34px">
+        <div class="col">
+          <div class="grouphd"><mark>리뷰</mark></div>
+          <div class="chip"><span class="cmd">/code-review</span><span class="desc">로컬 diff 버그 헌팅 — --fix면 바로 수정</span></div>
+          <div class="chip"><span class="cmd">/code-review ultra</span><span class="desc">클라우드 멀티에이전트 함대 리뷰</span></div>
+          <div class="chip"><span class="cmd">/security-review</span><span class="desc">브랜치 보안 점검</span></div>
+          <div class="grouphd"><mark>품질</mark></div>
+          <div class="chip"><span class="cmd">/simplify</span><span class="desc">바뀐 코드 정리 · 단순화</span></div>
+          <div class="chip"><span class="cmd">/verify</span><span class="desc">실제 앱을 구동해 end-to-end 확인</span></div>
+        </div>
+        <div class="col">
+          <div class="grouphd"><mark>진단</mark></div>
+          <div class="chip"><span class="cmd">/doctor</span><span class="desc">설정 점검 + 안 쓰는 스킬 · MCP의 컨텍스트 비용 리포트</span></div>
+          <div class="chip"><span class="cmd">/usage · /context</span><span class="desc">뭐가 토큰을 먹는지 분해</span></div>
+          <div class="grouphd"><mark>기억</mark></div>
+          <div class="chip"><span class="cmd">/memory</span><span class="desc">자동 메모리 열람 · 편집</span></div>
+          <div class="chip"><span class="cmd">/init</span><span class="desc">레포 분석해 CLAUDE.md 초안 생성</span></div>
+        </div>
+      </div>
+      <div class="punch">외울 필요 없다 — <mark>/help</mark>가 있다</div>
+    </div>
+  </div>
+</div>
+
+<div class="slide"><img src="50-pushback.webp" alt="푸시백 프롬프트 3종" loading="lazy" /></div>
+<div class="slide"><img src="51-ladder.webp" alt="성숙도 사다리 L0-L4" loading="lazy" /></div>
+<div class="slide"><img src="52-one-thing.webp" alt="오늘 시작할 한 가지" loading="lazy" /></div>
+<div class="slide"><img src="53-closing.webp" alt="부려 보면, 안다 — Q&A" loading="lazy" /></div>
+
+</div>
+<nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
+<script>
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let current=0;
+const progressEl=document.getElementById('progress');
+slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
+function fit(){
+  const availW=innerWidth*0.94,availH=innerHeight*0.948;
+  const s=Math.min(availW/1672,availH/941,1);
+  document.querySelectorAll('.canvas').forEach(cv=>{cv.style.transform=`scale(${s})`;});
+}
+function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});if(!progressEl)return;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';
+  [current+1,current+2,current-1].forEach(i=>{if(i>=0&&i<total){const img=slides[i].querySelector('img');if(img&&img.loading==='lazy'){img.loading='eager';}}});
+}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
+function next(){goTo(current+1);}
+function prev(){goTo(current-1);}
+document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});
+let tx=0,ty=0;
+document.addEventListener('touchstart',e=>{if(e.touches.length>1)return;tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches.length>1)return;const dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx>0)next();else prev();}},{passive:true});
+addEventListener('resize',fit);fit();
+const initSlide=parseInt(location.hash.slice(1))-1;
+if(!isNaN(initSlide)&&initSlide>=0)goTo(initSlide);else update();
+</script>
+</body>
+</html>

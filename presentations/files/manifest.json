@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-16T16:24:57.625Z",
-  "count": 12,
-  "slides": 12,
+  "generatedAt": "2026-07-17T02:23:17.028Z",
+  "count": 13,
+  "slides": 13,
   "files": 0,
   "items": [
     {
@@ -110,6 +110,15 @@
       "title": "AI Agent와 일해보니",
       "subtitle": "잘 시키고 · 잘 확인하고 · 같이 바꾸는 이야기",
       "url": "./presentations/ai-agent-unified/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "category": "개발",
+      "catClass": "dev",
+      "title": "Claude Code 실전 활용법",
+      "subtitle": "루프 · 하네스 · Codex 연동 · 플러그인 · 꿀팁",
+      "url": "./presentations/claude-code-playbook/",
       "ext": "html"
     }
   ]
