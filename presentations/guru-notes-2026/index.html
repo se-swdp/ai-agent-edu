@@ -1,80 +1,580 @@
+<!-- html-slides v2.0 | 2026-07-17 | 어디까지 왔고, 어디로 가는가 — 2026년 7월 AI 체크포인트 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<title>We are 1% done — AI 구루들의 2026 여름 필기노트</title>
-<script>
-if(location.protocol==='http:'||location.protocol==='https:'){
-  const base=document.createElement('base');
-  // 폴더명을 하드코딩하지 않고 URL 에서 유도 — 폴더 rename 에도 안전 (/x, /x/, /x/index.html 모두 처리)
-  const p=location.pathname;
-  base.href=/\.[^/]+$/.test(p)?p.replace(/[^/]*$/,''):p.replace(/\/?$/,'/');
-  document.head.appendChild(base);
-}
-</script>
+<title>어디까지 왔고, 어디로 가는가 · 2026. 7</title>
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Figtree:wght@300;400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<script defer src="https://unpkg.com/@phosphor-icons/web"></script>
 <style>
+/* ============================================================
+   FLAT DARK DECK SYSTEM — typography-first, one accent per section
+   bg #0D0D0D flat · faint line cards · no glass, no gradients
+   ============================================================ */
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{overflow:hidden;width:100%;height:100%}
-body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#fcf8f2;color:#1c1c1c;-webkit-font-smoothing:antialiased}
-.slides{position:relative;width:100%;height:100%}
-/* stacked slides toggled by display — a translateX film strip of N viewport-size
-   images creates a huge composited layer that breaks screenshot pipelines */
-.slide{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:#fcf8f2;padding:2.6vh 3vw}
-.slide.active{display:flex}
-/* never upscale past native 1672x941 — keeps strokes crisp on 1080p fullscreen */
-.slide img{width:auto;height:auto;max-width:min(100%,1672px);max-height:min(100%,941px);object-fit:contain;display:block}
-.nav{position:fixed;bottom:24px;left:36px;display:flex;gap:6px;z-index:100}
-.nav button{width:36px;height:36px;background:rgba(255,255,255,0.75);border:1px solid rgba(28,28,28,0.22);color:rgba(28,28,28,0.65);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 4px 12px rgba(60,50,30,0.10)}
-.nav button:hover{background:#fff;color:#1c1c1c;border-color:rgba(28,28,28,0.45)}
-.nav button:focus-visible{outline:2px solid #2f73bd;outline-offset:2px}
-.page-num{position:fixed;bottom:30px;right:36px;font-size:0.82rem;color:rgba(28,28,28,0.55);letter-spacing:0.06em;font-family:'Noto Sans KR',sans-serif;z-index:100}
-.progress{position:fixed;top:0;left:0;height:2px;background:#2f73bd;z-index:200}
-@media(max-width:768px){.nav{left:16px;bottom:16px}.page-num{right:16px;bottom:22px}}
-@media print{
-  html,body{overflow:visible!important;height:auto}
-  .nav,.progress,.page-num{display:none!important}
-  .slides{display:block!important}
-  .slide{display:flex!important;position:relative;page-break-after:always;break-after:page;height:100vh}
+body{font-family:'Noto Sans KR',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased;word-break:keep-all}
+
+/* projection legibility: scale whole deck up; step down on shorter screens */
+html{font-size:207.5%}
+@media (min-width:769px) and (max-height:880px){html{font-size:182%}}
+@media (min-width:769px) and (max-height:790px){html{font-size:158%}}
+
+/* ---------- deck scaffolding ---------- */
+.slides{display:flex;transition:none}
+.slide{width:100vw;min-width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4vh 6vw;position:relative;overflow:hidden;background:#0D0D0D}
+.slide>*{position:relative;z-index:1;flex-shrink:0}
+.slide:focus-visible{outline:none}
+/* every theme class shares the same flat ground — theme only changes the accent */
+.slide.samsung,.slide.surface,
+.slide.blue,.slide.navy,.slide.indigo,.slide.violet,.slide.rose,.slide.mint,.slide.teal,.slide.cyan,.slide.sky,.slide.amber,.slide.orange,
+.slide.in-blue,.slide.in-navy,.slide.in-indigo,.slide.in-violet,.slide.in-rose,.slide.in-mint,.slide.in-teal,.slide.in-cyan,.slide.in-sky,.slide.in-amber,.slide.in-orange{background:#0D0D0D}
+.slide.light{background:#F0F4FF;color:#0C0F1E}.slide.light .sub{color:#3A4A6A}.slide.light .em{font-weight:800}
+
+/* ---------- typography ---------- */
+h1{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:900;text-align:center;line-height:1.18;letter-spacing:-0.03em;color:#fff;padding-bottom:4px}
+h2{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;text-align:center;line-height:1.15;letter-spacing:-0.02em}
+/* h3 = eyebrow: the claim/context line above every content slide */
+h3{margin:0 0 2.2vh;font-size:clamp(1.08rem,1.35vw,1.28rem);font-weight:400;color:rgba(255,255,255,0.9);line-height:1.45}
+.sub{font-size:clamp(1.18rem,1.65vw,1.58rem);color:rgba(255,255,255,0.93);margin-top:2vh;text-align:center;line-height:1.5;font-weight:300}
+.sub strong{color:#fff;font-weight:700}
+.em{color:#60a5fa;font-weight:700}.accent{color:#60a5fa}.red{color:#fca5a5}.green{color:#34d399}.violet{color:#a78bfa}
+.meta{margin-top:2vh;font-size:0.92rem;color:rgba(255,255,255,0.85);font-weight:400}
+.impact-text{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.2;letter-spacing:-0.03em;text-align:center;color:#fff;padding-bottom:4px}
+.impact-sub{font-size:clamp(1.25rem,1.8vw,1.8rem);font-weight:300;color:rgba(255,255,255,0.55);margin-top:2vh;text-align:center;letter-spacing:-0.01em;line-height:1.5}
+.impact-sub strong{color:#fff;font-weight:700}
+.formula{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;letter-spacing:0.02em}
+kbd{display:inline-block;padding:2px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:0.88em;color:rgba(255,255,255,0.7)}
+
+/* ---------- section accent system ----------
+   divider slide: class = accent name (h1 gets underline bar)
+   content slide: class = in-{accent} (.em takes accent color)   */
+.slide.sky .em,.slide.in-sky .em{color:#38bdf8}
+.slide.mint .em,.slide.in-mint .em{color:#34d399}
+.slide.indigo .em,.slide.in-indigo .em{color:#818cf8}
+.slide.cyan .em,.slide.in-cyan .em{color:#22d3ee}
+.slide.amber .em,.slide.in-amber .em{color:#fbbf24}
+.slide.violet .em,.slide.in-violet .em{color:#a78bfa}
+.slide.teal .em,.slide.in-teal .em{color:#2dd4bf}
+.slide.blue .em,.slide.in-blue .em{color:#60a5fa}
+.slide.orange .em,.slide.in-orange .em{color:#fb923c}
+.slide.sky h1,.slide.mint h1,.slide.indigo h1,.slide.cyan h1,.slide.amber h1,.slide.violet h1,.slide.teal h1,.slide.blue h1,.slide.orange h1{position:relative}
+.slide.sky h1::after{content:"";display:block;width:48px;height:3px;background:#38bdf8;margin:2vh auto 0;border-radius:2px}
+.slide.mint h1::after{content:"";display:block;width:48px;height:3px;background:#34d399;margin:2vh auto 0;border-radius:2px}
+.slide.indigo h1::after{content:"";display:block;width:48px;height:3px;background:#818cf8;margin:2vh auto 0;border-radius:2px}
+.slide.cyan h1::after{content:"";display:block;width:48px;height:3px;background:#22d3ee;margin:2vh auto 0;border-radius:2px}
+.slide.amber h1::after{content:"";display:block;width:48px;height:3px;background:#fbbf24;margin:2vh auto 0;border-radius:2px}
+.slide.violet h1::after{content:"";display:block;width:48px;height:3px;background:#a78bfa;margin:2vh auto 0;border-radius:2px}
+.slide.teal h1::after{content:"";display:block;width:48px;height:3px;background:#2dd4bf;margin:2vh auto 0;border-radius:2px}
+.slide.blue h1::after{content:"";display:block;width:48px;height:3px;background:#60a5fa;margin:2vh auto 0;border-radius:2px}
+.slide.orange h1::after{content:"";display:block;width:48px;height:3px;background:#fb923c;margin:2vh auto 0;border-radius:2px}
+
+/* ---------- list ---------- */
+.list{list-style:none;max-width:80vw;width:100%;margin:0 auto}
+.list li{font-size:clamp(1.18rem,1.62vw,1.42rem);padding:1.8vh 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.95);font-weight:300;line-height:1.5;text-align:center}
+.list li:last-child{border-bottom:none}
+.list strong{color:#fff;font-weight:700}
+
+/* ---------- comp: 2-4 way contrast cards ---------- */
+.comp{display:flex;gap:1.1vw;width:100%;max-width:1300px;margin:3vh 0;align-items:stretch}
+.comp-item{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:12px;text-align:center;padding:3vh 1.2vw;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.09);border-radius:12px}
+.comp-item[style*="border-top-color"]{border-top-width:3px}
+.comp-item .tag{font-size:clamp(0.95rem,1.12vw,1.08rem);color:rgba(255,255,255,0.72);font-weight:400;letter-spacing:0.12em}
+.comp-item p{font-size:clamp(1.14rem,1.42vw,1.38rem);font-weight:300;line-height:1.46;color:rgba(255,255,255,0.96)}
+.comp-item p strong{color:#fff;font-weight:700}
+.comp-item.on{background:rgba(255,255,255,0.028)}
+
+/* ---------- grid: 3-4 up principles (divider look, no cards) ---------- */
+.grid{display:flex;gap:0;margin-top:3vh;width:100%;max-width:1100px;align-items:stretch}
+.grid-item{padding:3vh 2.5vw;text-align:center;flex:1;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;align-items:center}
+.grid-item:last-child{border-right:none}
+.grid-item .name{font-size:clamp(1.2rem,1.5vw,1.5rem);font-weight:700;margin-bottom:8px;color:#fff}
+.grid-item .desc{font-size:clamp(1rem,1.2vw,1.15rem);color:rgba(255,255,255,0.92);font-weight:300;line-height:1.7}
+
+/* ---------- table ---------- */
+.tbl{margin-top:2vh;border-collapse:collapse;max-width:82vw}
+.tbl th,.tbl td{padding:1.2vh 2vw;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tbl th{color:rgba(255,255,255,0.7);font-weight:400;font-size:clamp(0.95rem,1.1vw,1.05rem)}
+.tbl td{font-size:clamp(1.14rem,1.4vw,1.34rem);color:rgba(255,255,255,0.96)}
+.tbl td strong{color:#fff}
+
+/* ---------- stat-grid ---------- */
+.stat-grid{display:flex;gap:1.1vw;width:100%;max-width:1100px;margin-top:3vh}
+.stat-card{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px;text-align:center;padding:2.6vh 1.6vw 2.8vh;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.09);border-radius:12px}
+.stat-card .label{font-size:clamp(0.9rem,1.04vw,1rem);color:rgba(255,255,255,0.78);min-height:2.8em;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.3;margin-bottom:1.2vh}
+.stat-card .value{font-family:'Figtree','Noto Sans KR',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.1;color:#fff;margin-bottom:6px;padding-bottom:2px;position:relative}
+.stat-card .value span{position:absolute;left:100%;bottom:0.12em;margin-left:2px;white-space:nowrap}
+.stat-card .source{font-size:clamp(0.9rem,1.04vw,1rem);color:rgba(255,255,255,0.88);min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;line-height:1.35}
+.stat-card.on{background:rgba(255,255,255,0.028)}
+.stat-card.red-on .value{color:#fca5a5}.stat-card.green-on .value{color:#34d399}.stat-card.yellow-on .value{color:#fbbf24}
+
+/* big single stat */
+.stat{text-align:center}
+.stat .number{font-family:'Figtree',sans-serif;font-size:clamp(5rem,12vw,11rem);font-weight:900;letter-spacing:-0.05em;line-height:0.9;color:#fff}
+.stat .label{font-size:clamp(0.85rem,1.1vw,1rem);color:rgba(255,255,255,0.4);margin-top:1.5vh;font-weight:300;letter-spacing:0.1em}
+
+/* ---------- arch-layers: the workhorse (role | brand | desc rows) ---------- */
+.arch-layers{display:flex;flex-direction:column;gap:1.2vh;width:100%;max-width:min(1260px,88vw);margin-top:3vh}
+.arch-layer{display:grid;grid-template-columns:minmax(110px,0.18fr) minmax(280px,0.9fr) minmax(320px,1fr);column-gap:1.8vw;align-items:center;padding:2vh 1.8vw;background:rgba(255,255,255,0.024);border:1px solid rgba(255,255,255,0.07);border-radius:12px}
+.arch-layer.on{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.05)}
+.arch-layer .role{min-width:0;white-space:nowrap;font-size:clamp(0.98rem,1.12vw,1.08rem);color:rgba(255,255,255,0.78);text-align:left}
+.arch-layer .brand{min-width:0;font-size:clamp(1.28rem,1.5vw,1.46rem);font-weight:700;color:#fff;text-align:left}
+.arch-layer .desc{min-width:0;font-size:clamp(1.12rem,1.32vw,1.26rem);color:rgba(255,255,255,0.92);text-align:left;font-weight:300;white-space:normal;line-height:1.42}
+
+/* ---------- two column ---------- */
+.two-col{display:flex;gap:4vw;width:100%;max-width:1100px;margin-top:3vh}
+.two-col .col{flex:1;text-align:left}
+
+/* ---------- pipeline ---------- */
+.pipeline{display:flex;align-items:center;gap:0;margin:3vh 0;flex-wrap:nowrap}
+.pipeline-step{padding:1.4vh 2.4vw;font-size:clamp(0.95rem,1.2vw,1.1rem);font-weight:300;text-align:center;color:rgba(255,255,255,0.88);white-space:nowrap}
+.pipeline-step.on{color:#fff;font-weight:700}
+.pipeline-step.green{color:#34d399}
+.pipeline-arrow{color:rgba(255,255,255,0.3);font-size:1rem;padding:0 4px}
+
+/* ---------- quote ---------- */
+blockquote{font-size:clamp(1.9rem,3.3vw,2.7rem);font-weight:300;max-width:1100px;text-align:center;line-height:1.6;color:rgba(255,255,255,0.95);letter-spacing:-0.01em}
+cite{display:block;margin-top:24px;font-size:clamp(1rem,1.15vw,1.08rem);color:rgba(255,255,255,0.82);font-style:normal}
+
+/* ---------- notes ---------- */
+.note{padding:1.4vh 2.5vw;margin:3vh auto 0;max-width:64vw;display:flex;align-items:center;gap:12px}
+.note.warn{border-left:2px solid rgba(255,255,255,0.2)}
+.note.tip{border-left:2px solid rgba(96,165,250,0.4)}
+.note.exp{border-left:2px solid rgba(45,212,191,0.5)}
+.note.warn p,.note.tip p{color:rgba(255,255,255,0.95);font-size:clamp(1.12rem,1.35vw,1.28rem);font-weight:300;line-height:1.55}
+.note.exp p{color:rgba(255,255,255,0.78);font-size:clamp(1.12rem,1.35vw,1.28rem);font-weight:300;line-height:1.55;font-style:italic}
+.note .xp{font-style:normal;font-weight:700;color:#2dd4bf;letter-spacing:0.08em;margin-right:8px;font-size:0.92em}
+
+/* ---------- fill-in guide (presenter placeholders — replace before presenting) ---------- */
+.fill-wrap{width:100%;max-width:1240px;margin-top:1.2vh;display:flex;flex-direction:column;gap:0.9vh}
+.fill-box{border:2px dashed rgba(167,139,250,0.45);background:rgba(167,139,250,0.05);border-radius:14px;padding:1.5vh 2vw;text-align:left}
+.fill-box .fill-tag{display:inline-block;font-size:0.82rem;font-weight:800;letter-spacing:0.1em;color:#a78bfa;margin-bottom:0.7vh}
+.fill-box ul{list-style:none;display:flex;flex-direction:column;gap:0.45vh;margin:0;padding:0}
+.fill-box li{font-size:clamp(0.94rem,1.1vw,1.05rem);color:rgba(255,255,255,0.85);line-height:1.45;text-align:left}
+.fill-box li strong{color:#fff}
+.fill-prompt{font-family:'JetBrains Mono','Noto Sans KR',monospace;font-size:clamp(0.8rem,0.92vw,0.9rem);line-height:1.55;color:rgba(255,255,255,0.78);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:1.1vh 1.3vw;text-align:left;white-space:pre-wrap}
+.fill-prompt .fp-label{display:block;font-family:'Noto Sans KR',sans-serif;font-weight:700;color:#a78bfa;margin-bottom:0.5vh;letter-spacing:0.04em}
+.sample-dim{opacity:0.55}
+
+/* ---------- fixed chrome ---------- */
+.nav{position:fixed;bottom:28px;left:44px;display:flex;gap:6px;z-index:100}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.45);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s}
+.nav button:hover{background:rgba(255,255,255,0.14);color:#fff}
+.nav button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
+.part-label{position:fixed;top:28px;left:44px;font-size:0.78rem;color:rgba(255,255,255,0.78);font-weight:400;z-index:100}
+.page-num{position:fixed;bottom:32px;right:44px;font-size:0.78rem;color:rgba(255,255,255,0.8);font-family:'Figtree',sans-serif;z-index:100}
+.progress{position:fixed;top:0;left:0;height:1px;background:rgba(255,255,255,0.3);z-index:200;transition:none}
+
+/* ---------- legibility bump for dim inline-styled text (back-row pass) ---------- */
+[style*="rgba(255,255,255,0.25)"]{color:rgba(255,255,255,0.8)!important}
+[style*="rgba(255,255,255,0.3)"]{color:rgba(255,255,255,0.82)!important}
+[style*="rgba(255,255,255,0.35)"]{color:rgba(255,255,255,0.85)!important}
+[style*="rgba(255,255,255,0.4)"]{color:rgba(255,255,255,0.87)!important}
+[style*="rgba(255,255,255,0.45)"]{color:rgba(255,255,255,0.88)!important}
+[style*="rgba(255,255,255,0.5)"]{color:rgba(255,255,255,0.9)!important}
+[style*="rgba(255,255,255,0.55)"]{color:rgba(255,255,255,0.92)!important}
+[style*="rgba(255,255,255,0.6)"]{color:rgba(255,255,255,0.93)!important}
+[style*="rgba(255,255,255,0.65)"]{color:rgba(255,255,255,0.95)!important}
+[style*="rgba(255,255,255,0.7)"]{color:rgba(255,255,255,0.96)!important}
+
+/* ---------- mobile: one slide at a time, vertical layout ---------- */
+@media (max-width:768px){
+  body{overflow:auto}
+  .slides{height:auto;display:block;transform:none!important;width:100%}
+  .slide{position:relative;min-height:100vh;width:100vw;padding:72px 22px 92px;display:none!important}
+  .slide.active{display:flex!important}
+  html,body{max-width:100%;overflow-x:hidden;word-break:normal}
+  .slide{align-items:center;text-align:center;overflow-x:hidden}
+  .slide,.slide *{overflow-wrap:anywhere;word-break:normal}
+  .slide>*{max-width:100%;min-width:0}
+  .slide>h1,.slide>h2,.slide>h3,.slide>.sub,.slide>.meta,.slide>p{width:100%}
+  h1{font-size:clamp(2.25rem,11vw,3.1rem);line-height:1.12}
+  h2{font-size:clamp(1.75rem,8vw,2.6rem);line-height:1.16}
+  h3{max-width:100%;font-size:clamp(.78rem,3.4vw,1rem);line-height:1.45;text-align:center}
+  .sub{font-size:clamp(.95rem,4vw,1.2rem);line-height:1.45}
+  .meta{font-size:.72rem;line-height:1.5}
+  img,video{max-width:100%!important;max-height:58vh!important}
+  .stat-grid,.comp,.two-col,.arch-layers{grid-template-columns:1fr!important;display:grid!important;width:100%!important;gap:1.2vh}
+  .arch-layer{grid-template-columns:1fr;row-gap:4px;padding:1.5vh 4vw}
+  .arch-layer .role,.arch-layer .brand,.arch-layer .desc{text-align:left}
+  .tbl{display:block;overflow-x:auto;font-size:.8rem}
+  .pipeline{flex-wrap:wrap;gap:0}
+  .note{max-width:100%!important}
+  .page-num{right:18px;bottom:18px}.nav{left:18px;bottom:18px}.part-label{left:22px;top:18px}
 }
+
+/* ---------- print ---------- */
+@media print{
+  body{background:#fff;color:#000;overflow:visible}
+  .nav,.progress,.part-label,.page-num{display:none}
+  .slides{display:block}
+  .slide{min-height:auto;page-break-after:always;background:#fff!important;color:#000!important;padding:2cm}
+  .em,.red,.green,.violet{color:#000!important}
+  .sub{color:#333!important}
+}
+@media(prefers-reduced-motion:reduce){.nav button{transition:none}}
 </style>
 </head>
 <body>
+<div class="part-label" id="partLabel">AI 체크포인트 · 2026. 7</div>
 <div class="progress" id="progress"></div>
 <div class="slides" id="slides">
-<div class="slide"><img src="01-cover.webp" alt="표지 — We are 1% done, AI 구루들의 2026 여름 필기노트" fetchpriority="high" /></div>
-<div class="slide"><img src="02-hook.webp" alt="훅 — Karpathy: 타이핑을 안 한 지 반년" loading="lazy" /></div>
-<div class="slide"><img src="03-lineup.webp" alt="오늘의 등장인물 — Cherny·Karpathy·Hassabis·Willison·Ronacher·Zechner" loading="lazy" /></div>
-<div class="slide"><img src="04-divider-shift.webp" alt="구간 ① 판이 어떻게 됐나" loading="lazy" /></div>
-<div class="slide"><img src="05-numbers.webp" alt="스탯 — 57.3% 프로덕션 운영 · 131일 배가 주기 · 1/5 비개발자" loading="lazy" /></div>
-<div class="slide"><img src="06-evolution.webp" alt="5년의 진화 — 자동완성에서 루프·플릿까지" loading="lazy" /></div>
-<div class="slide"><img src="07-divider-builders.webp" alt="구간 ② 빌더들의 노트" loading="lazy" /></div>
-<div class="slide"><img src="08-cherny-100-lines.webp" alt="Cherny — 100 lines of code a year from now" loading="lazy" /></div>
-<div class="slide"><img src="09-bitter-lesson.webp" alt="왜 100줄인가 — The Bitter Lesson" loading="lazy" /></div>
-<div class="slide"><img src="09b-ide-note.webp" alt="IDE에 대한 노트 — 쓰는 화면에서 승인하는 화면으로" loading="lazy" /></div>
-<div class="slide"><img src="10-karpathy-loop.webp" alt="The Karpathy Loop — 에이전트가 연구를 한다" loading="lazy" /></div>
-<div class="slide"><img src="11-loop-engineering.webp" alt="올여름의 공통 어휘 — Loop Engineering" loading="lazy" /></div>
-<div class="slide"><img src="12-divider-counter.webp" alt="구간 ③ 반대편 노트" loading="lazy" /></div>
-<div class="slide"><img src="13-while-loop.webp" alt="Mario Zechner — a while loop that calls an LLM with four tools" loading="lazy" /></div>
-<div class="slide"><img src="14-ronacher.webp" alt="Armin Ronacher의 반론 — 과적합·자율 루프·토큰 청구서" loading="lazy" /></div>
-<div class="slide"><img src="15-security.webp" alt="Willison의 경보, 현실이 되다 — 2026년 보안 사건들" loading="lazy" /></div>
-<div class="slide"><img src="16-hassabis.webp" alt="Hassabis의 노트 — 특이점의 산기슭" loading="lazy" /></div>
-<div class="slide"><img src="17-divider-our-work.webp" alt="구간 ④ 그래서, 우리의 일은" loading="lazy" /></div>
-<div class="slide"><img src="18-jobs-walkback.webp" alt="일자리 종말론, 1년 만의 정정" loading="lazy" /></div>
-<div class="slide"><img src="19-understanding-bottleneck.webp" alt="새 병목은 이해다 — 퀴즈는 속도 조절기" loading="lazy" /></div>
-<div class="slide"><img src="20-closing.webp" alt="클로징 — We are 1% done, Q&A" loading="lazy" /></div>
+
+<!-- ════════ 오프닝 ════════ -->
+
+<!-- 00 Cover -->
+<div class="slide samsung">
+  <p class="meta">AI 세미나 · 개발자 &middot; 지식노동자</p>
+  <h1>어디까지 왔고,<br>어디로 가는가</h1>
+  <p class="sub">2026년 7월 체크포인트 — 렌즈는 <span class="em">Claude Code</span></p>
+  <p class="meta" style="margin-top:4vh;">2026. 7</p>
 </div>
-<nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
-<div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
+
+<!-- 01 Hook: 발표의 척추 문장 -->
+<div class="slide">
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);line-height:1.35;">병목은 <span style="color:rgba(255,255,255,0.55);">구현</span>에서<br><span class="em">인지</span>로 이동했다</p>
+  <p class="impact-sub" style="margin-top:3vh;">능력은 지수로 오르고 · 단가는 폭락하는데<br><strong>인간의 이해 속도만 상수다</strong></p>
+</div>
+
+<!-- ════════ ① 지금 어디까지 왔나 ════════ -->
+
+<!-- 02 Divider -->
+<div class="slide sky">
+  <h1>지금,<br>어디까지 왔나</h1>
+  <p class="sub">2026년 7월의 스냅샷 — <span class="em">데모의 해는 끝났다</span></p>
+</div>
+
+<!-- 03 일선의 증언 -->
+<div class="slide in-sky">
+  <h3>일선의 증언 — 통째 위임은 이미 일상이다</h3>
+  <div class="comp" style="max-width:1000px;margin-top:2.2vh;">
+    <div class="comp-item">
+      <div class="tag">KARPATHY</div>
+      <p>2025년 12월 이후<br>코드 한 줄도<br><strong>직접 쓰지 않았다</strong></p>
+    </div>
+    <div class="comp-item on" style="border-top-color:rgba(56,189,248,0.5);">
+      <div class="tag" style="color:#38bdf8 !important;">CHERNY</div>
+      <p style="color:#38bdf8;">폰에서 하루<br>수십 개 PR을<br><strong>배포한다</strong></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">소수 괴짜의 무용담이 아니라 — <span class="em">새 표준의 예고편</span></p>
+</div>
+
+<!-- 04 5년 압축사 -->
+<div class="slide in-sky">
+  <h3>5년 압축사 — 인터페이스의 주인이 바뀌었다</h3>
+  <div class="arch-layers" style="max-width:1060px;margin-top:2.2vh;">
+    <div class="arch-layer"><div class="role">21~23</div><div class="brand">보조 · 자동완성</div><div class="desc">인간의 타이핑을 돕는 도구</div></div>
+    <div class="arch-layer"><div class="role">2024</div><div class="brand">맹아 · 내부 CLI</div><div class="desc">모델이 처음 실행 주체가 되다</div></div>
+    <div class="arch-layer on"><div class="role">25~26</div><div class="brand">자율 · 에이전트</div><div class="desc">명령-응답에서 목표-루프로</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">돕는 도구에서 — <span class="em">일하는 주체</span>로</p>
+</div>
+
+<!-- 05 2026년 7월의 지표 -->
+<div class="slide in-sky">
+  <h3>2026년 7월의 지표 — 인프라의 해</h3>
+  <div class="stat-grid" style="max-width:1100px;">
+    <div class="stat-card"><div class="label">도입 기업</div><div class="value">과반</div><div class="source">프로덕션 운영 중</div></div>
+    <div class="stat-card on"><div class="label">상위 에이전트</div><div class="value" style="color:#38bdf8;">75%</div><div class="source">SWE-bench Verified</div></div>
+    <div class="stat-card"><div class="label">앱 내장 전망</div><div class="value">40%</div><div class="source">Gartner · 2026년 말</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">시장은 Claude Code · Codex — <span class="em">양강 구도</span></p>
+  <p class="meta" style="margin-top:1vh;">에이전트 내장 앱: 2025년 5% 미만 → 2026년 말 40% 전망 (Gartner)</p>
+</div>
+
+<!-- ════════ ② 하나의 도구로 읽는 현재 ════════ -->
+
+<!-- 06 Divider -->
+<div class="slide cyan">
+  <h1>하나의 도구로<br>읽는 현재</h1>
+  <p class="sub">Claude Code — <span class="em">업계가 수렴하는 방향의 압축본</span></p>
+</div>
+
+<!-- 07 태생 -->
+<div class="slide in-cyan">
+  <h3>안전 연구에서 태어나 — 6개월 만에 $1B</h3>
+  <div class="arch-layers" style="max-width:1060px;margin-top:2.2vh;">
+    <div class="arch-layer"><div class="role">2021</div><div class="brand">Alignment 연구</div><div class="desc">대규모 SW 자동화를 경유한다</div></div>
+    <div class="arch-layer"><div class="role">2023</div><div class="brand">내부 CLI 'clide'</div><div class="desc">모델이 실행 주체가 된 실험</div></div>
+    <div class="arch-layer"><div class="role">2024</div><div class="brand">체르니 합류</div><div class="desc">6개월 뒤의 모델을 위해 설계</div></div>
+    <div class="arch-layer on"><div class="role">2025</div><div class="brand">출시 → 연 $1B</div><div class="desc">Claude 4와 함께 임계점 돌파</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">능력이 임계점을 넘자 — <span class="em">제품이 스스로 드러났다</span></p>
+</div>
+
+<!-- 08 왜 IDE가 아닌가 -->
+<div class="slide in-cyan">
+  <h3>왜 IDE를 만들지 않는가 — IDE는 인간용 안경이다</h3>
+  <div class="comp" style="max-width:1000px;margin-top:2.2vh;">
+    <div class="comp-item">
+      <div class="tag">인간의 눈</div>
+      <p>파일 트리 · 하이라이팅<br>비주얼 디버거<br><strong>인지 한계 보완 장치</strong></p>
+    </div>
+    <div class="comp-item on" style="border-top-color:rgba(34,211,238,0.5);">
+      <div class="tag" style="color:#22d3ee !important;">모델의 눈</div>
+      <p style="color:#22d3ee;">grep · glob 검색<br>밀리초 단위 탐색<br><strong>raw 로그 직독</strong></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">시력이 무한한 존재에게 — <span class="em">안경은 필요 없다</span></p>
+</div>
+
+<!-- 09 The Loop -->
+<div class="slide in-cyan">
+  <h3>에이전트의 정체 — 도구를 가진 LLM + while 루프</h3>
+  <svg viewBox="0 0 1240 400" style="width:100%;max-width:1080px;margin-top:2vh;" role="img" aria-label="에이전트 루프: 모델 호출, 도구 실행, 결과 피드백, 종료 판정, 미완이면 다시 호출">
+    <defs>
+      <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <marker id="arwc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="rgba(34,211,238,0.75)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <g font-family="'Noto Sans KR',sans-serif" font-size="34" text-anchor="middle">
+      <rect x="40" y="120" width="220" height="110" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+      <text x="150" y="187" fill="rgba(255,255,255,0.92)">모델 호출</text>
+      <rect x="360" y="120" width="220" height="110" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+      <text x="470" y="187" fill="rgba(255,255,255,0.92)">도구 실행</text>
+      <rect x="680" y="120" width="220" height="110" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+      <text x="790" y="187" fill="rgba(255,255,255,0.92)">결과 피드백</text>
+      <rect x="1000" y="120" width="220" height="110" rx="14" fill="rgba(34,211,238,0.06)" stroke="rgba(34,211,238,0.65)" stroke-width="2"/>
+      <text x="1110" y="187" fill="#22d3ee" font-weight="700">종료 판정</text>
+    </g>
+    <g stroke="rgba(255,255,255,0.45)" stroke-width="2" fill="none">
+      <line x1="265" y1="175" x2="348" y2="175" marker-end="url(#arw)"/>
+      <line x1="585" y1="175" x2="668" y2="175" marker-end="url(#arw)"/>
+      <line x1="905" y1="175" x2="988" y2="175" marker-end="url(#arw)"/>
+    </g>
+    <path d="M 1110 236 L 1110 320 Q 1110 340 1090 340 L 170 340 Q 150 340 150 320 L 150 244" fill="none" stroke="rgba(34,211,238,0.55)" stroke-width="2" marker-end="url(#arwc)"/>
+    <text x="630" y="326" font-family="'Noto Sans KR',sans-serif" font-size="27" text-anchor="middle" fill="rgba(34,211,238,0.85)">미완이면 다시 호출</text>
+  </svg>
+  <p class="sub" style="margin-top:2.2vh;">정교한 마법이 아니라 — <span class="em">루프가 전부</span>다</p>
+</div>
+
+<!-- 10 Scaffolding -->
+<div class="slide in-cyan">
+  <h3>개발 방향 — Scaffolding을 지우는 팀</h3>
+  <div class="arch-layers" style="max-width:1060px;margin-top:2.2vh;">
+    <div class="arch-layer"><div class="role">정의</div><div class="brand">Scaffolding</div><div class="desc">모델 부족을 메우는 임시 구조물</div></div>
+    <div class="arch-layer on"><div class="role">실증</div><div class="brand">2,000토큰 삭제</div><div class="desc">새 모델이 먹어치운 지시문</div></div>
+    <div class="arch-layer"><div class="role">철학</div><div class="brand">Bitter Lesson</div><div class="desc">모델에 반대로 베팅하지 마라</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">지금 짜서 10% 벌까 — <span class="em">두 달 기다려 공짜로 받을까</span></p>
+</div>
+
+<!-- 11 100줄 인용 -->
+<div class="slide surface">
+  <blockquote>"1년 뒤 Claude Code는<br>100줄이 될 것이다"</blockquote>
+  <cite>Boris Cherny · Sequoia AI Ascent · 2026. 5</cite>
+  <p class="meta" style="margin-top:3vh;">같은 자리 — "내 코드에 한해, 코딩은 풀렸다" · "올바른 비유는 인쇄기"</p>
+</div>
+
+<!-- 12 수렴하는 증거 -->
+<div class="slide in-cyan">
+  <h3>독립적인 증거들이 — 같은 방향을 가리킨다</h3>
+  <div class="arch-layers" style="max-width:1060px;margin-top:2.2vh;">
+    <div class="arch-layer on"><div class="role">Karpathy</div><div class="brand">루프가 연구를 한다</div><div class="desc">이틀 700회 실험 · 11% 개선</div></div>
+    <div class="arch-layer"><div class="role">Hassabis</div><div class="brand">AGI는 수년 내</div><div class="desc">산업혁명의 10배 규모 · 속도</div></div>
+    <div class="arch-layer"><div class="role">Clark</div><div class="brand">노벨급 AI</div><div class="desc">2026년 말 ~ 2027년 초</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">코딩을 넘어 연구까지 — <span class="em">시계가 당겨진다</span></p>
+  <p class="meta" style="margin-top:1vh;">Karpathy autoresearch 실험 · Hassabis 7/14 선언문 · Jack Clark 전망</p>
+</div>
+
+<!-- 13 소결 → 마찰로 전환 -->
+<div class="slide in-cyan">
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);line-height:1.35;">여기까지가<br><span class="em">낙관의 곡선</span>이다</p>
+  <p class="impact-sub" style="margin-top:3vh;">그런데 발밑에서 —<br><strong>세 개의 마찰</strong>이 자라고 있다</p>
+</div>
+
+<!-- ════════ ③ 현실의 마찰 ════════ -->
+
+<!-- 14 Divider -->
+<div class="slide amber">
+  <h1>현실의 마찰</h1>
+  <p class="sub">보안 · 비용 · 인지 — <span class="em">세 장의 청구서</span></p>
+</div>
+
+<!-- 15 마찰 ① 보안 -->
+<div class="slide in-amber">
+  <h3>마찰 ① 보안 — root 권한의 챌린저 참사</h3>
+  <div class="arch-layers" style="max-width:1060px;margin-top:2.2vh;">
+    <div class="arch-layer"><div class="role">현재</div><div class="brand">사실상 root 권한</div><div class="desc">"아직 안 터졌으니까" 운영</div></div>
+    <div class="arch-layer"><div class="role">구조</div><div class="brand">치명적 삼중 조합</div><div class="desc">인젝션 · 웹 탐색 · 파일 쓰기</div></div>
+    <div class="arch-layer on"><div class="role">해법</div><div class="brand">1회용 샌드박스</div><div class="desc">권한 최소화를 기본값으로</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">사고 후 수습이 아니라 — <span class="em">사고 전 격리</span></p>
+  <p class="meta" style="margin-top:1vh;">Simon Willison (2026)</p>
+</div>
+
+<!-- 16 마찰 ② 품질 -->
+<div class="slide in-amber">
+  <h3>마찰 ② 품질 — Slop 스펙과 토큰 팩토리</h3>
+  <div class="comp" style="max-width:1000px;margin-top:2.2vh;">
+    <div class="comp-item">
+      <div class="tag">SLOP 스펙</div>
+      <p>깨진 JSON도<br>자사 도구는 통과<br><strong>생태계가 슬롭에 적응</strong></p>
+    </div>
+    <div class="comp-item on" style="border-top-color:rgba(251,191,36,0.5);">
+      <div class="tag" style="color:#fbbf24 !important;">토큰 팩토리</div>
+      <p style="color:#fbbf24;">모든 문제의 해답이<br>"토큰을 더 써라"<br><strong>품질인가 매출인가</strong></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">냉소가 과장인지 — <span class="em">청구서로 확인해 보자</span></p>
+  <p class="meta" style="margin-top:1vh;">Armin Ronacher · Mario Zechner (2026)</p>
+</div>
+
+<!-- 17 마찰 ③ 비용: 토큰 역설 -->
+<div class="slide in-amber">
+  <h3>마찰 ③ 비용 — 단가는 폭락, 청구서는 폭발</h3>
+  <div class="stat-grid" style="max-width:1100px;">
+    <div class="stat-card"><div class="label">혼합 단가 1년</div><div class="value">-67%</div><div class="source">$18.4 → $6.07 / M</div></div>
+    <div class="stat-card"><div class="label">에이전트 소비</div><div class="value">5~30<span style="font-size:1.2rem">배</span></div><div class="source">일반 챗 대비</div></div>
+    <div class="stat-card on"><div class="label">월간 소비 전망</div><div class="value" style="color:#fbbf24;">24<span style="font-size:1.2rem">배</span></div><div class="source">골드만 · ~2030</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">제번스의 역설 — 싸질수록 <span class="em">더 쓴다</span></p>
+  <p class="meta" style="margin-top:1vh;">엔터프라이즈 API 24억 건 분석 (2025 Q1→2026 Q1) · Goldman Sachs 전망</p>
+</div>
+
+<!-- 18 사건들 -->
+<div class="slide in-amber">
+  <h3>사건들 — 거버넌스 없는 도입의 결말</h3>
+  <div class="arch-layers" style="max-width:1060px;margin-top:2.2vh;">
+    <div class="arch-layer on"><div class="role">Uber</div><div class="brand">연간 예산 4월 소진</div><div class="desc">5,000명 배포 · 84% 에이전틱</div></div>
+    <div class="arch-layer"><div class="role">Meta</div><div class="brand">월 60조 토큰</div><div class="desc">1위 혼자 월 2,810억 토큰</div></div>
+    <div class="arch-layer"><div class="role">품질</div><div class="brand">버그 +54%</div><div class="desc">churn +861% · 소비 ≠ 생산성</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">품의서의 필수 항목 — <span class="em">루프당 토큰 추정치</span></p>
+  <p class="meta" style="margin-top:1vh;">Gartner: 2027년 말까지 에이전틱 프로젝트 40% 이상 보류 전망</p>
+</div>
+
+<!-- 19 마지막 마찰: 이해 병목 -->
+<div class="slide in-amber">
+  <h3>마지막 마찰 — 이해가 새로운 병목이다</h3>
+  <div class="stat-grid" style="max-width:1100px;">
+    <div class="stat-card"><div class="label">AI 생성 속도</div><div class="value">200<span style="font-size:1.2rem">줄</span></div><div class="source">분당 · 유의미 코드</div></div>
+    <div class="stat-card"><div class="label">인간 독해 속도</div><div class="value">40<span style="font-size:1.2rem">줄</span></div><div class="source">분당 · 집중 독해</div></div>
+    <div class="stat-card on"><div class="label">생성 · 이해 격차</div><div class="value" style="color:#fbbf24;">5~7<span style="font-size:1.2rem">배</span></div><div class="source">리뷰가 처리량 문제로</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">품질 게이트였던 리뷰가 — <span class="em">처리량 병목</span>으로</p>
+  <p class="meta" style="margin-top:1vh;">Anthropic RCT: AI 보조 그룹 이해도 −17%p · 디버깅 능력 하락 최대</p>
+</div>
+
+<!-- 20 대응 워크플로우 -->
+<div class="slide in-amber">
+  <h3>대응 — 자율 루프에 인간용 제동장치를 단다</h3>
+  <div class="arch-layers" style="max-width:1060px;margin-top:2.2vh;">
+    <div class="arch-layer"><div class="role">제동</div><div class="brand">퀴즈 워크플로우</div><div class="desc">통과해야 배포되는 게이트</div></div>
+    <div class="arch-layer on"><div class="role">질문</div><div class="brand">위임 대신 캐묻기</div><div class="desc">이해도 40% → 65% 회복</div></div>
+    <div class="arch-layer"><div class="role">경계</div><div class="brand">추상화 선 긋기</div><div class="desc">이해와 위임의 경계 설정</div></div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">코드만의 문제가 아니다 — <span class="em">모든 지식노동</span>의 문제</p>
+  <p class="meta" style="margin-top:1vh;">Thariq Shihipar 퀴즈 게이트 · Geoffrey Litt "이해가 새 병목" (2026. 7)</p>
+</div>
+
+<!-- 21 소결 (클라이맥스) -->
+<div class="slide in-amber">
+  <p class="impact-text" style="font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.35;">기술의 두 곡선은 휘는데<br><span class="em">인간의 곡선만 평평하다</span></p>
+  <p class="impact-sub" style="margin-top:3vh;">이 세 곡선의 교차점 위에서 —<br><strong>일의 모양이 다시 그려진다</strong></p>
+</div>
+
+<!-- ════════ ④ 앞으로 어디로 가나 ════════ -->
+
+<!-- 22 Divider -->
+<div class="slide blue">
+  <h1>앞으로,<br>어디로 가나</h1>
+  <p class="sub">세 개의 곡선이 — <span class="em">교차하는 지점</span>에서</p>
+</div>
+
+<!-- 23 세 개의 곡선 -->
+<div class="slide in-blue">
+  <h3>세 개의 곡선 — 발표 전체를 한 장으로</h3>
+  <svg viewBox="0 0 1240 480" style="width:100%;max-width:1080px;margin-top:2vh;" role="img" aria-label="세 개의 곡선: 모델 능력은 지수 상승, 토큰 단가는 급락, 인간의 이해 속도는 상수">
+    <g stroke="rgba(255,255,255,0.25)" stroke-width="1.5" fill="none">
+      <line x1="90" y1="40" x2="90" y2="410"/>
+      <line x1="90" y1="410" x2="1010" y2="410"/>
+    </g>
+    <text x="1010" y="448" font-family="'Noto Sans KR',sans-serif" font-size="26" text-anchor="end" fill="rgba(255,255,255,0.6)">시간 →</text>
+    <path d="M 110 390 C 400 380, 700 320, 990 70" fill="none" stroke="#60a5fa" stroke-width="3"/>
+    <path d="M 110 110 C 350 130, 650 300, 990 380" fill="none" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="110" y1="245" x2="990" y2="245" stroke="#fca5a5" stroke-width="5"/>
+    <g font-family="'Noto Sans KR',sans-serif" font-size="30" text-anchor="start">
+      <text x="1020" y="80" fill="#60a5fa" font-weight="700">모델 능력</text>
+      <text x="1020" y="390" fill="#fbbf24" font-weight="700">토큰 단가</text>
+      <text x="1020" y="255" fill="#fca5a5" font-weight="700">인간의 이해</text>
+    </g>
+  </svg>
+  <p class="sub" style="margin-top:2.2vh;">구현의 한계비용은 0으로 — 가치의 병목은 <span class="em">인지</span>로</p>
+</div>
+
+<!-- 24 역할의 재정의 -->
+<div class="slide in-blue">
+  <h3>역할의 재정의 — 작성자에서 설계자 · 승인자로</h3>
+  <div class="comp" style="max-width:1000px;margin-top:2.2vh;">
+    <div class="comp-item">
+      <div class="tag">어제</div>
+      <p>코드를 치는 사람<br>구현이 곧 가치<br><strong>IDE는 작성 도구</strong></p>
+    </div>
+    <div class="comp-item on" style="border-top-color:rgba(96,165,250,0.5);">
+      <div class="tag" style="color:#60a5fa !important;">내일</div>
+      <p style="color:#60a5fa;">루프의 규칙 설계<br>결과를 이해 · 승인<br><strong>IDE는 승인 도구</strong></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:2.2vh;">코드가 공짜가 될수록 — <span class="em">판단이 비싸진다</span></p>
+</div>
+
+<!-- 25 Final thesis -->
+<div class="slide blue">
+  <h3>클로징 — $1B 매출 위에서 남긴 말</h3>
+  <p class="impact-text" style="font-size:clamp(2.2rem,4.2vw,3.8rem);line-height:1.4;">"We are<br><span class="em">1% done</span>."</p>
+  <p class="impact-sub" style="margin-top:3vh;">남은 99%에서 — 당신은<br><strong>무엇을 만들고, 무엇을 이해할 것인가</strong></p>
+</div>
+
+<!-- 26 Sources -->
+<div class="slide surface">
+  <h3>더 깊이 — 원문 4편이면 충분하다</h3>
+  <div class="arch-layers" style="max-width:1100px;margin-top:2vh;">
+    <div class="arch-layer"><div class="role">Cherny</div><div class="brand">Sequoia 대담</div><div class="desc">100줄론 · "코딩은 풀렸다"</div></div>
+    <div class="arch-layer"><div class="role">Anthropic</div><div class="brand">오럴 히스토리</div><div class="desc">The Making of Claude Code</div></div>
+    <div class="arch-layer on"><div class="role">Litt</div><div class="brand">이해가 새 병목</div><div class="desc">다음 루프를 낳는 유창함</div></div>
+    <div class="arch-layer"><div class="role">Osmani</div><div class="brand">Comprehension Debt</div><div class="desc">조용히 쌓이는 이해 부채</div></div>
+  </div>
+  <p class="meta" style="margin-top:1.2vh;">권장 순서 그대로 · 웹 자료 확인일: 2026-07-17</p>
+</div>
+
+<!-- 27 Q&A -->
+<div class="slide blue">
+  <h1>Q &amp; A</h1>
+  <ul class="list" style="margin-top:2.6vh;max-width:1000px;">
+    <li>우리 팀의 병목은 아직 <span class="em">구현</span>인가</li>
+    <li>품의서에 <strong>루프당 토큰</strong>이 들어 있는가</li>
+    <li>어디까지 이해하고 <span class="em">어디부터 맡길</span> 것인가</li>
+  </ul>
+  <p class="meta" style="margin-top:3vh;">AI 세미나 · 2026. 7</p>
+</div>
+
+</div>
+<nav aria-label="Slide navigation" class="nav"><button aria-label="Previous slide" onclick="prev()">&larr;</button><button aria-label="Next slide" onclick="next()">&rarr;</button></nav>
+<div class="page-num" id="pageNum">1 / 1</div>
 <script>
 const slides=document.querySelectorAll('.slide'),total=slides.length;
 let current=0;
-const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress');
-slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
-function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';
-  [current+1,current+2,current-1].forEach(i=>{if(i>=0&&i<total){const img=slides[i].querySelector('img');if(img&&img.loading==='lazy'){img.loading='eager';}}});
-}
-function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
+const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress'),partLabelEl=document.getElementById('partLabel');
+/* partMap: EDIT PER DECK — {from,to} are 0-based slide indexes, label shows top-left */
+const partMap=[
+{from:0,to:1,label:'오프닝'},
+{from:2,to:5,label:'① 지금 어디까지 왔나'},
+{from:6,to:13,label:'② 하나의 도구로 읽는 현재'},
+{from:14,to:21,label:'③ 현실의 마찰'},
+{from:22,to:27,label:'④ 앞으로 어디로 가나'}
+];
+function getPartLabel(idx){for(const p of partMap){if(idx>=p.from&&idx<=p.to)return p.label;}return 'AI 체크포인트 · 2026. 7';}
+function update(){slides.forEach((s,i)=>s.classList.toggle('active',i===current));if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';if(partLabelEl)partLabelEl.textContent=getPartLabel(current);}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;document.getElementById('slides').style.transform=`translateX(-${current*100}vw)`;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
 function next(){goTo(current+1);}
 function prev(){goTo(current-1);}
 document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});
