@@ -1,6 +1,6 @@
 {
-  "count": 4,
-  "slides": 4,
+  "count": 5,
+  "slides": 5,
   "files": 0,
   "items": [
     {
@@ -33,6 +33,14 @@
       "title": "Claude Code 실전 활용법",
       "subtitle": "루프 · 하네스 · 교차 검증 · 플러그인 · 꿀팁",
       "url": "./presentations/claude-code-playbook/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-07",
+      "title": "We are 1% done",
+      "subtitle": "AI 구루들의 2026 여름 필기노트 · 에이전트의 미래",
+      "url": "./presentations/guru-notes-2026/",
       "ext": "html"
     }
   ]
