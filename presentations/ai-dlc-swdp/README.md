@@ -27,7 +27,14 @@
 스타일 레퍼런스 `~/.claude/skills/note-deck/assets/style-refs/` (cover/divider/cards/flow/contrast-banner).
 
 수정 시: 원본 슬라이드를 `-i`로 주고 "Recreate EXACTLY … with ONLY these changes" (note-deck 스킬
-references/prompts.md Recipe 3). 인코딩: `python ~/.claude/skills/note-deck/scripts/encode_webp.py .`
+references/prompts.md Recipe 3).
+
+재생성 이력 (2026-07-17, Recipe 3 각 1차 통과):
+- `03-aidlc-loop` — AI-DLC 정의 정밀화: 3단계(Inception→Construction→Operations)·bolt·Mob 캡션
+  추가, AI 단계 사이 화살표에 "사람 ✓" 배지 (원문의 "매 단계 사람 검증" 리듬 반영, AWS DevOps
+  블로그 대비 팩트체크 결과).
+- `04-approaches` — 펀치라인 교체: "목적에 맞는 원칙 선택" → "원칙은 채택, 실행은 SWDP에 맞게"
+  (AI-DLC를 정확히 이해한 위에서의 의도적 번역임을 명시, 27번 매핑 슬라이드와 호응). 인코딩: `python ~/.claude/skills/note-deck/scripts/encode_webp.py .`
 검증: `python ~/.claude/skills/note-deck/scripts/verify_deck.py . http://localhost:8934/presentations/ai-dlc-swdp/`
 
 구 라이트 인포그래픽 일러스트 6장(`presentations/assets/images/ai-dlc-swdp/`)은 대체와 함께 제거.
