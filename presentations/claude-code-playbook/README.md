@@ -31,7 +31,7 @@ Codex(GPT) 크로스모델 연동, 플러그인/MCP, 세션 꿀팁까지.
 | ① 기초 세팅 | 4–10 | 디바이더 · 첫 프롬프트("구분해서 알려줘") · **[H]시작 10초 치트** · CLAUDE.md 원칙 · **[H]CLAUDE.md 배치** · 권한 대비 · **[H]권한 세팅** |
 | ② 잘 시키는 법 | 11–18 | 디바이더 · 브리핑 3요소 · 스텝 말고 스코프 · 기본 리듬 4단계 · **[H]Plan Mode** · 실제로 돌려봤어? · 검증 게이트 4단 · 컨텍스트 관리 |
 | ③ 하네스 | 19–26 | 디바이더 · 하네스 6요소 · Skill 개념 · **[H]SKILL.md 해부** · 룰 vs 훅 · **[H]Hook 실전** · 서브에이전트 · **[H]에이전트 .md** |
-| ④ Loop Engineering | 27–34 | 디바이더 · Cherny 인용 · 루프의 해부 · 루프 4형(LangChain) · **[H]루프 실전(/goal·/loop·ralph.sh)** · 병렬 · **[H]병렬 실전(worktree·팀·ultracode)** · 헤매는 신호 |
+| ④ Loop Engineering | 27–34 | 디바이더 · Cherny 인용 · 루프의 해부 · 루프 4형(LangChain "The Art of Loop Engineering"의 Agent/Verification/Application/Hill-Climbing 4루프 재해석 — 3번째를 이벤트 루프로 의역) · **[H]루프 실전(/goal·/loop·ralph.sh)** · 병렬 · **[H]병렬 실전(worktree·팀·ultracode)** · 헤매는 신호 |
 | ⑤ Codex 연결 | 35–40 | 디바이더 · 셀프 리뷰의 함정 · **[H]공식 플러그인(/codex:*)** · **[H]CLI 직접(stdin 파이프)** · 스폰 게이팅 · 운영 3원칙(무성 폴백 금지) |
 | ⑥ 플러그인 | 41–46 | 디바이더 · 번들 개념 · **[H]설치·개발 커맨드** · 추천 스택 6종 · **[H]MCP 커맨드** · 도구 다이어트(40개) |
 | ⑦ 꿀팁 | 47–53 | 디바이더 · **[H]세션 꿀팁** · **[H]번들 명령 치트시트** · 푸시백 프롬프트 3종 · 성숙도 사다리 · 오늘 시작할 한 가지 · 클로징(Q&A) |

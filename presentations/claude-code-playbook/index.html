@@ -108,8 +108,9 @@ body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif
       <div class="cols">
         <div class="col">
           <div class="term"><div class="bar"><i></i><i></i><i></i><span>terminal</span></div>
-<pre><span class="c"># 설치는 한 번</span>
-<span class="p">$</span> npm install -g @anthropic-ai/claude-code
+<pre><span class="c"># 설치는 한 번 — 네이티브 인스톨러 (npm은 deprecated)</span>
+<span class="p">$</span> irm https://claude.ai/install.ps1 | iex   <span class="c"># Win</span>
+<span class="p">$</span> curl -fsSL https://claude.ai/install.sh | bash
 
 <span class="c"># 프로젝트 폴더에서</span>
 <span class="p">$</span> claude              <span class="c"># 새 세션</span>
@@ -311,8 +312,8 @@ paths: [<span class="s">"src/api/**/*.ts"</span>]
 <span class="k">description:</span> 버그 · 보안 · 엣지케이스 적대적 리뷰
 <span class="k">tools:</span> Bash, Read, Grep, Glob
 <span class="k">isolation:</span> worktree      <span class="c"># 임시 워크트리에서 격리 실행</span>
-<span class="k">background:</span> true         <span class="c"># 도는 동안 나는 딴 일</span>
 <span class="k">memory:</span> project          <span class="c"># 세션이 끝나도 배운 걸 기억</span>
+<span class="c"># 실행은 기본 백그라운드 — 도는 동안 나는 딴 일</span>
 ---
 diff를 받아 REFUTE 관점으로 검토하고
 CRITICAL / WARNING / INFO 로만 보고하라.</pre></div>
@@ -497,6 +498,8 @@ Review this diff for NaN/inf handling and edge cases. ...
       <div class="chips grid2">
         <div class="chip"><span class="cmd">.mcp.json</span><span class="desc">git에 커밋하면 팀 전체 공유 · 세션 관리는 /mcp</span></div>
         <div class="chip"><span class="cmd">자동 전환</span><span class="desc">2분 넘는 MCP 호출은 알아서 백그라운드로</span></div>
+        <div class="chip"><span class="cmd">Tool Search</span><span class="desc">도구 정의가 컨텍스트 10% 넘으면 <mark>미뤄 로드</mark> (기본 on)</span></div>
+        <div class="chip"><span class="cmd">진단</span><span class="desc">/context · /usage로 도구별 토큰 비용 분해</span></div>
       </div>
       <div class="punch">MCP는 접근 채널 — <mark>검증은 별개</mark></div>
     </div>
