@@ -96,7 +96,7 @@ body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif
 
 <div class="slide"><img src="01-cover.webp" alt="Claude Code 실전 활용법 — 표지" fetchpriority="high" /></div>
 <div class="slide"><img src="02-evolution.webp" alt="게임이 바뀌었다 — 프롬프트에서 루프로" loading="lazy" /></div>
-<div class="slide"><img src="03-roadmap.webp" alt="오늘의 흐름 — 7구간" loading="lazy" /></div>
+<div class="slide"><img src="03-roadmap.webp" alt="오늘의 흐름 — 7구간 (⑤ 교차 검증)" loading="lazy" /></div>
 
 <div class="slide"><img src="04-divider-setup.webp" alt="① 기초 세팅" loading="lazy" /></div>
 <div class="slide"><img src="05-first-prompt.webp" alt="첫 프롬프트 — 구분해서 알려줘" loading="lazy" /></div>
@@ -395,53 +395,58 @@ CRITICAL / WARNING / INFO 로만 보고하라.</pre></div>
 
 <div class="slide"><img src="34-slop.webp" alt="루프가 헤매는 신호" loading="lazy" /></div>
 
-<div class="slide"><img src="35-divider-codex.webp" alt="⑤ 두 번째 엔진" loading="lazy" /></div>
-<div class="slide"><img src="36-why-cross.webp" alt="셀프 리뷰의 함정" loading="lazy" /></div>
+<div class="slide"><img src="35-divider-codex.webp" alt="⑤ 교차 검증" loading="lazy" /></div>
+<div class="slide"><img src="36-why-cross.webp" alt="셀프 리뷰의 함정 — 다른 눈이 검토" loading="lazy" /></div>
 
-<div class="slide code" aria-label="Codex 플러그인 연결">
+<div class="slide code" aria-label="세컨드 오피니언 실전">
   <div class="canvas">
-    <div class="hd"><span class="ttl">Codex 연결 ① — 공식 플러그인</span><span class="stamp">OpenAI가 직접 만든 브릿지</span></div>
+    <div class="hd"><span class="ttl">세컨드 오피니언 — 다른 눈 붙이는 법</span><span class="stamp">구독 하나로 충분</span></div>
+    <div class="body">
+      <div class="cols">
+        <div class="col">
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>claude 세션 안에서</span></div>
+<pre><span class="p">&gt;</span> /code-review          <span class="c"># 분리된 리뷰어가 diff 헌팅</span>
+<span class="p">&gt;</span> /code-review ultra    <span class="c"># 클라우드 멀티에이전트 함대</span>
+
+<span class="c"># 적대적 검증 — 반박을 시켜야 진짜 리뷰</span>
+<span class="p">&gt;</span> 서브에이전트 셋이 <span class="hl">서로 다른 렌즈</span>로
+  (정확성·보안·성능) 이 diff를 <span class="hl">반박</span>해봐</pre></div>
+        </div>
+        <div class="col center">
+          <div class="chips">
+            <div class="chip"><span class="cmd">새 세션</span><span class="desc">대화 맥락 없는 눈이 채점 — 가장 싼 세컨드 오피니언</span></div>
+            <div class="chip"><span class="cmd">검증가 .md</span><span class="desc">REFUTE 전용 서브에이전트를 상비군으로</span></div>
+            <div class="chip"><span class="cmd">Plan 리뷰</span><span class="desc">코드 전에 — 계획서부터 다른 눈에</span></div>
+            <div class="chip warn"><span class="cmd">주의</span><span class="desc">같은 대화 안의 "다시 봐줘"는 세컨드 오피니언이 아니다</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="punch">같은 대화 속의 나는 — <mark>이미 한편이다</mark></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide code" aria-label="다른 모델의 눈 (선택)">
+  <div class="canvas">
+    <div class="hd"><span class="ttl">더 가면 — 다른 모델의 눈</span><span class="stamp">선택 — GPT 구독이 따로 있다면</span></div>
     <div class="body">
       <div class="term"><div class="bar"><i></i><i></i><i></i><span>claude 세션 안에서</span></div>
-<pre><span class="p">&gt;</span> /plugin marketplace add openai/codex-plugin-cc
+<pre><span class="c"># OpenAI 공식 브릿지 — GPT가 diff를 리뷰</span>
+<span class="p">&gt;</span> /plugin marketplace add openai/codex-plugin-cc
 <span class="p">&gt;</span> /plugin install codex@openai-codex
 
-<span class="p">&gt;</span> /codex:review --background --base main   <span class="c"># GPT가 diff 리뷰</span>
-<span class="p">&gt;</span> /codex:adversarial-review                <span class="c"># 설계 가정을 공격</span>
-<span class="p">&gt;</span> /codex:rescue 이 버그 원인 못 찾겠어 — 통째로 맡아줘
-<span class="p">&gt;</span> /codex:status · /codex:result            <span class="c"># 백그라운드 잡 확인</span>
-<span class="p">&gt;</span> /codex:setup   <span class="c"># 종료 시 GPT 리뷰 게이트 on/off</span></pre></div>
-      <div class="chips grid2">
-        <div class="chip"><span class="cmd">인증 공유</span><span class="desc">로컬 codex CLI의 로그인 · config.toml 그대로 상속</span></div>
-        <div class="chip warn"><span class="cmd">리뷰 게이트</span><span class="desc">사용량 폭식 주의 — 큰 작업에만 켠다</span></div>
-      </div>
-      <div class="punch">Claude가 만들고 — <mark>GPT가 의심한다</mark></div>
-    </div>
-  </div>
-</div>
-
-<div class="slide code" aria-label="Codex CLI 직접 호출">
-  <div class="canvas">
-    <div class="hd"><span class="ttl">Codex 연결 ② — CLI 직접 호출</span></div>
-    <div class="note" style="right:120px;top:210px">← argv로 주면 hang!</div>
-    <div class="body">
-      <div class="term"><div class="bar"><i></i><i></i><i></i><span>bash — Windows Git Bash 필수 패턴</span></div>
-<pre><span class="c"># 긴 프롬프트는 반드시 파일 → stdin 파이프</span>
-<span class="p">$</span> cat &gt; p.txt &lt;&lt;<span class="s">'EOF'</span>
-Review this diff for NaN/inf handling and edge cases. ...
-<span class="s">EOF</span>
-<span class="p">$</span> codex exec <span class="k">-s read-only</span> --skip-git-repo-check -m gpt-5.5 <span class="hl">&lt; p.txt</span>
-<span class="c"># 수정까지 맡길 땐 -s read-only 제거</span></pre></div>
+<span class="p">&gt;</span> /codex:review --base main   <span class="c"># 다른 훈련의 눈으로 리뷰</span>
+<span class="p">&gt;</span> /codex:rescue 막힌 버그 — 통째로 맡기기</pre></div>
       <div class="term flat"><div class="bar"><i></i><i></i><i></i><span>~/.codex/config.toml</span></div>
 <pre><span class="k">project_doc_fallback_filenames</span> = [<span class="s">"CLAUDE.md"</span>, <span class="s">"COPILOT.md"</span>]
-<span class="c"># ↑ Codex가 Claude와 같은 프로젝트 문서를 읽는다 — 규칙은 한 곳에</span></pre></div>
-      <div class="punch">문서는 하나 — <mark>엔진은 둘</mark></div>
+<span class="c"># ↑ 두 엔진이 같은 프로젝트 문서를 읽는다 — 규칙은 한 곳에</span></pre></div>
+      <div class="punch">필수는 아니다 — 하지만 <mark>다른 훈련은 다른 걸 본다</mark></div>
     </div>
   </div>
 </div>
 
-<div class="slide"><img src="39-gating.webp" alt="스폰 게이팅 — 언제 얼마나" loading="lazy" /></div>
-<div class="slide"><img src="40-no-fallback.webp" alt="크로스모델 운영 3원칙" loading="lazy" /></div>
+<div class="slide"><img src="39-gating.webp" alt="검토를 언제 얼마나 붙이나" loading="lazy" /></div>
+<div class="slide"><img src="40-no-fallback.webp" alt="교차 검증 3원칙 — 무성 폴백 금지" loading="lazy" /></div>
 
 <div class="slide"><img src="41-divider-plugins.webp" alt="⑥ 플러그인" loading="lazy" /></div>
 <div class="slide"><img src="42-plugin-bundle.webp" alt="플러그인 — 한 묶음 배포" loading="lazy" /></div>
