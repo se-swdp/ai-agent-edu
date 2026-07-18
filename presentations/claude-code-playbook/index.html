@@ -135,34 +135,36 @@ body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif
 
 <div class="slide"><img src="07-claude-md.webp" alt="CLAUDE.md — 팀의 압축된 기억" loading="lazy" /></div>
 
-<div class="slide code" aria-label="CLAUDE.md 배치 실전">
+<div class="slide code" aria-label="CLAUDE.md 세 계층 설계">
   <div class="canvas">
-    <div class="hd"><span class="ttl">CLAUDE.md — 어디에 두나</span></div>
+    <div class="hd"><span class="ttl">CLAUDE.md — 세 계층으로 가른다</span></div>
     <div class="body">
       <div class="cols">
         <div class="col">
           <div class="panel" style="flex:1">
-<pre>~/.claude/CLAUDE.md    <span class="c">← 나만의 전역 규칙</span>
-./CLAUDE.md            <span class="c">← 팀 공유 (git 커밋)</span>
-./CLAUDE.local.md      <span class="c">← 나만 · 이 레포만</span>
-.claude/rules/*.md     <span class="c">← 주제별 분리 규칙</span>
+<pre>~/.claude/CLAUDE.md   <span class="c">← 개인 · 전역</span>
+  <span class="c">내 말투 · 습관 · 워크플로 — 어디든 따라옴</span>
 
-<span class="c"># CLAUDE.md 안에서 임포트</span>
-@AGENTS.md
-@docs/conventions.md</pre></div>
+./CLAUDE.md           <span class="c">← 팀 공유 (git 커밋)</span>
+  <span class="c">팀이 <mark>합의한 규칙만</mark> — 빌드 · 컨벤션 · 금지</span>
+
+./CLAUDE.local.md     <span class="c">← 개인 · 이 레포만</span>
+  <span class="c">로컬 경로 · 나만의 실험 규칙</span>
+
+.claude/rules/*.md    <span class="c">← 주제별 분리 규칙</span>
+  <span class="c">paths 스코프 — 그 파일 만질 때만 로드</span></pre></div>
         </div>
         <div class="col">
-          <div class="term"><div class="bar"><i></i><i></i><i></i><span>.claude/rules/api.md</span></div>
-<pre>---
-paths: [<span class="s">"src/api/**/*.ts"</span>]
----
-<span class="c"># ↑ 이 파일들을 만질 때만 로드</span>
-- API 응답은 반드시 zod로 검증
-- 에러는 problem+json 포맷으로</pre></div>
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>오염 주의</span></div>
+<pre>내 취향을 ./CLAUDE.md에 커밋
+  → <span class="hl">팀원 전원의 에이전트</span>가 읽는다
+
+팀 규칙을 ~/.claude에만 적음
+  → 나만 지키는 규칙이 된다</pre></div>
           <div class="chip"><span class="cmd">"기억해줘"</span><span class="desc">→ auto memory에 저장 — CLAUDE.md에 넣으려면 <mark>"CLAUDE.md에 추가해"</mark>라고 명시</span></div>
         </div>
       </div>
-      <div class="punch">짧게 · 위치는 목적대로 · 규칙은 <mark>paths로 스코프</mark></div>
+      <div class="punch">기준은 하나 — <mark>남의 에이전트도 읽는 파일인가</mark></div>
     </div>
   </div>
 </div>
@@ -171,35 +173,36 @@ paths: [<span class="s">"src/api/**/*.ts"</span>]
 
 <div class="slide code" aria-label="권한 세팅 실전">
   <div class="canvas">
-    <div class="hd"><span class="ttl">권한 세팅 — deny-first</span></div>
+    <div class="hd"><span class="ttl">권한 세팅 — 풀스피드 + 안전벨트</span></div>
     <div class="body">
       <div class="cols">
         <div class="col">
-          <div class="term"><div class="bar"><i></i><i></i><i></i><span>.claude/settings.json</span></div>
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>.claude/settings.json — 혼자 · 내 레포</span></div>
 <pre>{ <span class="k">"permissions"</span>: {
-    <span class="k">"allow"</span>: [
-      <span class="s">"Bash(npm test:*)"</span>,
-      <span class="s">"Bash(git status)"</span>,
-      <span class="s">"Edit(src/**)"</span> ],
+    <span class="k">"defaultMode"</span>: <span class="s">"bypassPermissions"</span>,
     <span class="k">"deny"</span>: [
       <span class="s">"Bash(rm -rf:*)"</span>,
       <span class="s">"Bash(git push --force:*)"</span>,
-      <span class="s">"Read(.env)"</span> ] } }</pre></div>
+      <span class="s">"Read(.env)"</span> ] } }
+
+<span class="c"># 협업 레포는 defaultMode 빼고
+# 팀이 합의한 allow / deny만 커밋</span></pre></div>
         </div>
         <div class="col center">
           <div class="chips">
-            <div class="chip"><span class="cmd">default</span><span class="desc">읽기만 무승인 — 나머지는 물어봄</span></div>
-            <div class="chip"><span class="cmd">acceptEdits</span><span class="desc">파일 편집까지 자동 승인</span></div>
-            <div class="chip"><span class="cmd">auto</span><span class="desc">분류기가 위험한 것만 차단 — 프롬프트 제거</span></div>
-            <div class="chip"><span class="cmd">/sandbox</span><span class="desc">OS 레벨 격리 — 샌드박스 안은 무승인</span></div>
-            <div class="chip"><span class="cmd">/fewer-permission-prompts</span><span class="desc">허용목록 자동 제안</span></div>
+            <div class="chip"><span class="cmd">bypass</span><span class="desc">CLI는 <mark>--dangerously-skip-permissions</mark> — 이름이 곧 경고</span></div>
+            <div class="chip"><span class="cmd">auto</span><span class="desc">절충안 — 분류기가 위험한 것만 잡고 프롬프트 제거</span></div>
+            <div class="chip"><span class="cmd">/sandbox</span><span class="desc">OS 레벨 격리 — 울타리 치고 그 안에선 안 묻게</span></div>
+            <div class="chip"><span class="cmd">커밋 습관</span><span class="desc">켜기 전에 커밋 — <mark>git이 진짜 안전망</mark></span></div>
           </div>
         </div>
       </div>
-      <div class="punch">매번 y 누르지 말고 — <mark>룰로 남긴다</mark></div>
+      <div class="punch">풀스피드로 달리되 — <mark>벨트는 git</mark></div>
     </div>
   </div>
 </div>
+
+<div class="slide"><img src="10b-solo-vs-team.webp" alt="혼자일 때 — 같이일 때" loading="lazy" /></div>
 
 <div class="slide"><img src="11-divider-delegate.webp" alt="② 잘 시키는 법" loading="lazy" /></div>
 <div class="slide"><img src="12-brief.webp" alt="위임 브리핑 3요소" loading="lazy" /></div>
@@ -240,6 +243,7 @@ paths: [<span class="s">"src/api/**/*.ts"</span>]
 
 <div class="slide"><img src="19-divider-harness.webp" alt="③ 하네스" loading="lazy" /></div>
 <div class="slide"><img src="20-harness-6.webp" alt="하네스 6요소" loading="lazy" /></div>
+<div class="slide"><img src="20b-callable-design.webp" alt="외우게 하지 말고 — 불려가게" loading="lazy" /></div>
 <div class="slide"><img src="21-skills.webp" alt="Skill — 절차가 자산이 된다" loading="lazy" /></div>
 
 <div class="slide code" aria-label="SKILL.md 해부">
@@ -248,9 +252,9 @@ paths: [<span class="s">"src/api/**/*.ts"</span>]
     <div class="body">
       <div class="term"><div class="bar"><i></i><i></i><i></i><span>.claude/skills/release-check/SKILL.md</span></div>
 <pre>---
-<span class="k">description:</span> 릴리스 전 점검 — 테스트 · 체인지로그 · 버전 정합
+<span class="k">description:</span> 릴리스 전 점검 — 테스트 · 체인지로그 · 버전 정합.
+  릴리스 준비 · 배포 얘기가 나오면 사용   <span class="c"># ← <span class="hl">이 문장이 자동 트리거</span></span>
 <span class="k">allowed-tools:</span> Bash(npm test:*) Bash(git tag *)   <span class="c"># 이 턴은 무승인</span>
-<span class="k">disable-model-invocation:</span> true                    <span class="c"># 사람만 호출</span>
 ---
 ## 지금 상태
 !`git diff HEAD --stat`      <span class="c"># ← 로드 전에 셸이 먼저 실행, 결과가 삽입됨</span>
@@ -259,8 +263,8 @@ paths: [<span class="s">"src/api/**/*.ts"</span>]
 1. <span class="k">$ARGUMENTS</span> 버전으로 CHANGELOG 갱신
 2. npm test 전부 통과 확인 — 실패하면 거기서 중단</pre></div>
       <div class="chips grid2">
-        <div class="chip"><span class="cmd">/release-check 1.2.0</span><span class="desc">저장하는 순간 명령이 된다</span></div>
-        <div class="chip"><span class="cmd">라이브 반영</span><span class="desc">수정 즉시 적용 · 한 메시지 6개 스태킹</span></div>
+        <div class="chip"><span class="cmd">/release-check 1.2.0</span><span class="desc">직접 불러도 되고</span></div>
+        <div class="chip"><span class="cmd">"릴리스 준비해줘"</span><span class="desc">description에 걸리면 — <mark>말만 해도 발동</mark></span></div>
       </div>
       <div class="punch">CLAUDE.md의 절차가 스킬로 이사 가면 — <mark>컨텍스트가 산다</mark></div>
     </div>
@@ -327,9 +331,7 @@ CRITICAL / WARNING / INFO 로만 보고하라.</pre></div>
 </div>
 
 <div class="slide"><img src="27-divider-loop.webp" alt="④ Loop Engineering" loading="lazy" /></div>
-<div class="slide"><img src="28-loop-quote.webp" alt="루프가 돌고 있다 — Boris Cherny" loading="lazy" /></div>
 <div class="slide"><img src="29-loop-anatomy.webp" alt="루프의 해부" loading="lazy" /></div>
-<div class="slide"><img src="30-four-loops.webp" alt="루프 4형" loading="lazy" /></div>
 
 <div class="slide code" aria-label="루프 실전 커맨드">
   <div class="canvas">
@@ -364,23 +366,23 @@ CRITICAL / WARNING / INFO 로만 보고하라.</pre></div>
 
 <div class="slide code" aria-label="병렬 실전 커맨드">
   <div class="canvas">
-    <div class="hd"><span class="ttl">병렬 실전 — 손이 여럿</span></div>
+    <div class="hd"><span class="ttl">병렬 실전 — 말로 시킨다</span></div>
     <div class="body">
       <div class="cols">
         <div class="col">
-          <div class="term"><div class="bar"><i></i><i></i><i></i><span>terminal</span></div>
-<pre><span class="c"># 워크트리 격리 세션</span>
-<span class="p">$</span> claude --worktree   <span class="c"># --tmux면 분할창</span>
-<span class="p">$</span> git worktree add ../feat-x
-<span class="p">$</span> cd ../feat-x && claude
+          <div class="term"><div class="bar"><i></i><i></i><i></i><span>claude 세션 안에서 — 명령이 아니라 문장</span></div>
+<pre><span class="p">&gt;</span> 팀원 셋이 <span class="hl">경쟁 가설</span>로 이 버그 디버깅해줘
+<span class="p">&gt;</span> 이 리팩토링, 파일 단위로 나눠 병렬로
+<span class="p">&gt;</span> 리뷰는 백그라운드 에이전트로 돌려놔
+<span class="p">&gt;</span> <span class="hl">ultracode</span> 이 모듈 전체 감사해줘
 
-<span class="c"># 큰 변경을 쪼개 병렬 처리</span>
-<span class="p">&gt;</span> /batch 파일 단위로 나눠서 진행해</pre></div>
+<span class="c"># 워크트리 격리 · 팀 구성 · 백그라운드는
+# 도구가 알아서 — 외울 플래그가 없다</span></pre></div>
         </div>
         <div class="col center">
           <div class="chips">
-            <div class="chip"><span class="cmd">에이전트 팀</span><span class="desc">"팀원 셋이 경쟁 가설로 디버깅" — <mark>서로 토론</mark>함</span></div>
-            <div class="chip"><span class="cmd">ultracode</span><span class="desc">프롬프트에 한 단어 — <mark>함대가 뜬다</mark></span></div>
+            <div class="chip"><span class="cmd">격리 자동</span><span class="desc">충돌 위험이면 — <mark>워크트리를 알아서</mark></span></div>
+            <div class="chip"><span class="cmd">에이전트 팀</span><span class="desc">경쟁 가설 팀원들이 <mark>서로 토론</mark>함</span></div>
             <div class="chip"><span class="cmd">/workflows</span><span class="desc">함대 관제탑 — 페이즈 · 토큰 · 일시정지</span></div>
             <div class="chip warn"><span class="cmd">주의</span><span class="desc">동시 16 · 총 1,000 에이전트 상한 — 토큰은 실비</span></div>
           </div>
@@ -507,6 +509,8 @@ Review this diff for NaN/inf handling and edge cases. ...
 </div>
 
 <div class="slide"><img src="46-token-diet.webp" alt="도구 다이어트 — 40개 상한" loading="lazy" /></div>
+<div class="slide"><img src="46b-borrowed-harness.webp" alt="남의 하네스는 — 빌린 것" loading="lazy" /></div>
+<div class="slide"><img src="46c-stock-absorbs.webp" alt="좋은 건 — 순정이 흡수한다" loading="lazy" /></div>
 
 <div class="slide"><img src="47-divider-tips.webp" alt="⑦ 꿀팁" loading="lazy" /></div>
 
@@ -558,7 +562,8 @@ Review this diff for NaN/inf handling and edge cases. ...
 </div>
 
 <div class="slide"><img src="50-pushback.webp" alt="푸시백 프롬프트 3종" loading="lazy" /></div>
-<div class="slide"><img src="51-ladder.webp" alt="성숙도 사다리 L0-L4" loading="lazy" /></div>
+<div class="slide"><img src="50b-study-agents.webp" alt="원리를 알면 — 더 세게 부린다" loading="lazy" /></div>
+<div class="slide"><img src="51-ladder.webp" alt="성숙도 사다리 — 순정에서 내 하네스로" loading="lazy" /></div>
 <div class="slide"><img src="52-one-thing.webp" alt="오늘 시작할 한 가지" loading="lazy" /></div>
 <div class="slide"><img src="53-closing.webp" alt="부려 보면, 안다 — Q&A" loading="lazy" /></div>
 
