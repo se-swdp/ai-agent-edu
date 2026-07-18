@@ -26,7 +26,7 @@ serviceAccountKey*.json
 
 
 # Note-deck source PNGs (originals kept local; webp is the tracked/deployed form)
-presentations/agent-experience-v2/src-png/
+presentations/archive/agent-experience-v2/src-png/
 presentations/ai-driven-transition/src-png/
 presentations/ai-dlc-swdp/src-png/
 presentations/ai-agent-unified/src-png/
