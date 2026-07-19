@@ -26,13 +26,7 @@ serviceAccountKey*.json
 
 
 # Note-deck source PNGs (originals kept local; webp is the tracked/deployed form)
-presentations/archive/agent-experience-v2/src-png/
-presentations/ai-driven-transition/src-png/
-presentations/ai-dlc-swdp/src-png/
-presentations/ai-agent-unified/src-png/
-presentations/claude-code-playbook/src-png/
-presentations/ai-checkpoint-2026-07/note/src-png/
-presentations/ai-checkpoint-2026-07/note-legacy/src-png/
+**/src-png/
 **/.verify-shots/
 
 # playwright-cli local caches

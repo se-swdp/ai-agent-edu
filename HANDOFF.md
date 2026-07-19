@@ -182,14 +182,15 @@ seminar-dashboard/
 ├── index.html               # importmap (Firebase ESM CDN) + UI (4 nav: 대문/캘린더/타임라인/열람실)
 ├── assets/                  # hero / 단청 / 낙관 / brand-mark (한옥 일러스트)
 ├── presentations/
-│   ├── index.html           # 발표자료 인덱스 — 현재 4종 큐레이션 (업로드월 data-month 표기)
+│   ├── index.html           # 발표자료 인덱스 — 현재 5종 큐레이션 (업로드월 data-month 표기)
 │   ├── files/               # ⭐ 자료실 다운로드 파일 — 여기에 파일만 넣고 deploy
 │   │   └── manifest.json    # 자동 생성 (predeploy hook, 결정론적 출력)
 │   ├── ai-dlc-swdp/         # SWDP 개발·운영과 AI 에이전트 적용 방향
 │   ├── ai-driven-transition/# AI Driven 전환은 왜 어려운가
 │   ├── ai-agent-unified/    # AI Agent와 일해보니
 │   ├── claude-code-playbook/# Claude Code 실전 활용법 (하이브리드: webp+HTML)
-│   ├── (기타 9개 폴더)       # 인덱스에서 내려간 과거 덱 — 직접 URL 로는 계속 서빙
+│   ├── ai-checkpoint-2026-07/ # AI, 어디까지 왔고 어디로 가는가 (구 guru-notes-2026, HTML+노트 덱)
+│   ├── archive/ (11개 폴더)  # 인덱스에서 내려간 과거 덱 — 직접 URL 로는 계속 서빙 (301 리다이렉트 유지)
 │   └── assets/              # 공유 데이터·이미지·랩·페이퍼·비디오
 ├── scripts/
 │   └── build-materials-manifest.mjs   # predeploy: presentations/files 스캔

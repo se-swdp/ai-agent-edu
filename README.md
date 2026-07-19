@@ -148,7 +148,7 @@ seminar-dashboard/
 │   ├── hanji-bg.jpg
 │   └── seal-ji.webp
 ├── presentations/
-│   ├── index.html           # 발표자료 인덱스 (현재 4종 큐레이션, data-month 표기)
+│   ├── index.html           # 발표자료 인덱스 (현재 5종 큐레이션, data-month 표기)
 │   ├── files/               # ⭐ 자료실 다운로드 파일 — 여기에 넣고 deploy
 │   ├── ai-agent-unified/ 등 # 발표자료 슬라이드 (HTML) — 인덱스에서 빠져도 폴더는 서빙됨
 │   └── assets/
