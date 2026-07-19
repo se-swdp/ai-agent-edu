@@ -72,6 +72,21 @@
       ],
       "redirects": [
         {
+          "source": "/presentations/guru-notes-2026",
+          "destination": "/presentations/ai-checkpoint-2026-07/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/guru-notes-2026/",
+          "destination": "/presentations/ai-checkpoint-2026-07/",
+          "type": 301
+        },
+        {
+          "source": "/presentations/guru-notes-2026/:rest*",
+          "destination": "/presentations/ai-checkpoint-2026-07/:rest*",
+          "type": 301
+        },
+        {
           "source": "/presentations/non-dev-seminar",
           "destination": "/presentations/archive/ai-work-basics/",
           "type": 301

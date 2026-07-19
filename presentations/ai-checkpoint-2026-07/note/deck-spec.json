@@ -1,10 +1,10 @@
 {
-  "deck_dir": "E:/workspace/ai-agent-edu/presentations/guru-notes-2026/note-v2",
+  "deck_dir": "E:/workspace/ai-agent-edu/presentations/ai-checkpoint-2026-07/note",
   "slides": [
     {
       "file": "01-cover",
       "layout": "cover",
-      "style_refs": ["E:/workspace/ai-agent-edu/presentations/guru-notes-2026/note-v2/src-png/ref/01-cover.png"],
+      "style_refs": ["E:/workspace/ai-agent-edu/presentations/ai-checkpoint-2026-07/note/src-png/ref/01-cover.png"],
       "prompt": "STYLE — Korean handwritten note-style presentation slide, 16:9 landscape:\n- Background: warm cream paper (#FCF8F2), subtle paper texture, no lines/grid.\n- Text: neat black felt-tip pen Korean handwriting (매직펜 손글씨), thick confident strokes, consistent stroke weight throughout. Titles large and bold; body text medium. All Korean text must be rendered VERBATIM as quoted — every syllable exactly as written, no invented characters.\n- Accents: blue (#2B4FD8) double underline below the title; yellow highlighter (#FFE9A8) behind 1-3 keywords only; red (#D8342B) hand-drawn doodles (small stars, sparkle ticks) used sparingly at corners.\n- Numbers and Latin text in the same handwritten style.\n- Clean composition, generous margins, nothing touching the edges.\n\nLAYOUT — Cover slide:\n- Very large title in 2 lines, top-left area: \"AI, 어디까지 왔고\" / \"어디로 가는가\"\n- Blue double underline sweeping under the title.\n- Subtitle row of 3 short phrases separated by middle dots, each with yellow highlighter: \"2026년 7월 체크포인트\" · \"렌즈는 Claude Code\" · \"병목의 이동\"\n- Bottom-left byline in smaller handwriting: \"AI 세미나 · 2026. 7\"\n- Bottom-right: waving robot mascot (round head, antenna with red dot, smiling) with a speech bubble saying \"출발!\"\n- One red doodle star near the title.\n\nNo page number anywhere on the slide."
     },
     {
@@ -30,7 +30,7 @@
     {
       "file": "06-metrics",
       "layout": "stat",
-      "style_refs": ["E:/workspace/ai-agent-edu/presentations/guru-notes-2026/note-v2/src-png/ref/06-metrics.png"],
+      "style_refs": ["E:/workspace/ai-agent-edu/presentations/ai-checkpoint-2026-07/note/src-png/ref/06-metrics.png"],
       "prompt": "STYLE — Korean handwritten note-style presentation slide, 16:9 landscape:\n- Background: warm cream paper (#FCF8F2), subtle paper texture, no lines/grid.\n- Text: neat black felt-tip pen Korean handwriting (매직펜 손글씨), thick confident strokes. All Korean text VERBATIM as quoted — every syllable exactly as written.\n- Accents: blue (#2B4FD8) double underline below the title; yellow highlighter (#FFE9A8) behind the most important number; red (#D8342B) doodles sparingly.\n- Numbers and Latin text in the same handwritten style.\n\nLAYOUT — Big-number stat slide:\n- Title at top: \"2026년 7월의 지표\" with blue double underline.\n- 3 very large handwritten numbers side by side as the visual center: \"57%\" with caption below \"도입 기업, 프로덕션 운영\" — \"95%\" with caption \"SWE-bench 최상위 모델\" and yellow highlighter behind \"95%\" — \"40%\" with caption \"업무 앱에 에이전트 내장 (전망)\"\n- One-line source note at bottom-right in small handwriting: \"LangChain · SWE-bench · Gartner\"\n- Bottom punchline banner: \"CLI 에이전트는 Claude Code · Codex 양강\"\n\nNo page number anywhere on the slide."
     },
     {
@@ -51,7 +51,7 @@
     {
       "file": "10-scaffolding",
       "layout": "cards",
-      "style_refs": ["E:/workspace/ai-agent-edu/presentations/guru-notes-2026/note-v2/src-png/ref/10-scaffolding.png"],
+      "style_refs": ["E:/workspace/ai-agent-edu/presentations/ai-checkpoint-2026-07/note/src-png/ref/10-scaffolding.png"],
       "prompt": "STYLE — Korean handwritten note-style presentation slide, 16:9 landscape:\n- Background: warm cream paper (#FCF8F2), subtle paper texture, no lines/grid.\n- Text: neat black felt-tip pen Korean handwriting (매직펜 손글씨), thick confident strokes. All Korean text VERBATIM as quoted — every syllable exactly as written, no invented characters.\n- Accents: blue (#2B4FD8) double underline below the title; yellow highlighter (#FFE9A8) on card labels; red (#D8342B) sparkle doodles beside cards.\n- Cards: rounded rectangles with hand-drawn outline. Latin text (Scaffolding, Bitter Lesson) in the same handwritten style.\n\nLAYOUT — Stacked cards:\n- Title at top: \"Scaffolding을 지우는 팀\" with blue double underline, and a smaller handwritten subtitle line right below the title: \"— Claude Code 팀 이야기\"\n- 3 rounded-rectangle cards stacked vertically. Each card: left side a label with yellow highlighter, a thin vertical divider, right side the content. Card 1: label \"정의\", content \"모델 부족을 메우는 임시 구조물\". Card 2: label \"실증\", content \"지시문 2,000토큰 삭제 — 새 모델이 먹어치웠다\". Card 3: label \"철학\", content \"Bitter Lesson — 모델에 반대로 베팅 금지\".\n- Bottom: a punchline banner (rounded rect, red outline for emphasis): \"지금 만들면 10% 이득, 두 달 뒤면 모델이 그냥 해준다\"\n- Small robot mascot peeking from the right edge.\n\nNo page number anywhere on the slide."
     },
     {
@@ -62,7 +62,7 @@
     {
       "file": "12-convergence",
       "layout": "cards",
-      "style_refs": ["E:/workspace/ai-agent-edu/presentations/guru-notes-2026/note-v2/src-png/ref/12-convergence.png"],
+      "style_refs": ["E:/workspace/ai-agent-edu/presentations/ai-checkpoint-2026-07/note/src-png/ref/12-convergence.png"],
       "prompt": "STYLE — Korean handwritten note-style presentation slide, 16:9 landscape:\n- Background: warm cream paper (#FCF8F2), subtle paper texture, no lines/grid.\n- Text: neat black felt-tip pen Korean handwriting (매직펜 손글씨), thick confident strokes. All Korean text VERBATIM as quoted — every syllable exactly as written, no invented characters.\n- Accents: blue (#2B4FD8) double underline below the title; yellow highlighter (#FFE9A8) on card labels; red (#D8342B) sparkle doodles beside cards.\n- Cards: rounded rectangles with hand-drawn outline. Latin names (Karpathy, Hassabis, Clark, AGI, AI) in the same handwritten style.\n\nLAYOUT — Stacked cards:\n- Title at top: \"독립적 증거들이 같은 방향을 가리킨다\" with blue double underline.\n- 3 rounded-rectangle cards stacked vertically. Each card: left side a label with yellow highlighter, a thin vertical divider, right side the content. Card 1: label \"Karpathy\", content \"루프가 연구를 한다 — 이틀 700회 실험\". Card 2: label \"Hassabis\", content \"AGI는 수년 내 — 산업혁명의 10배\". Card 3: label \"Amodei\", content \"노벨급 AI — 26년 말 ~ 27년 초\".\n- Bottom: a punchline banner (rounded rect, red outline): \"시계가 당겨지고 있다\"\n- Small robot mascot pointing at a tiny hand-drawn clock doodle near the banner.\n\nNo page number anywhere on the slide."
     },
     {
@@ -93,13 +93,13 @@
     {
       "file": "18-comprehension",
       "layout": "stat",
-      "style_refs": ["E:/workspace/ai-agent-edu/presentations/guru-notes-2026/note-v2/src-png/ref/18-comprehension.png"],
+      "style_refs": ["E:/workspace/ai-agent-edu/presentations/ai-checkpoint-2026-07/note/src-png/ref/18-comprehension.png"],
       "prompt": "STYLE — Korean handwritten note-style presentation slide, 16:9 landscape:\n- Background: warm cream paper (#FCF8F2), subtle paper texture, no lines/grid.\n- Text: neat black felt-tip pen Korean handwriting (매직펜 손글씨), thick confident strokes. All Korean text VERBATIM as quoted — every syllable exactly as written.\n- Accents: blue (#2B4FD8) double underline below the title; yellow highlighter (#FFE9A8) behind the most important number; red (#D8342B) doodles sparingly.\n- Numbers and Latin text (Anthropic RCT) in the same handwritten style.\n\nLAYOUT — Big-number stat slide:\n- Title at top: \"마지막 마찰 — 이해가 새 병목\" with blue double underline.\n- 3 very large handwritten numbers side by side as the visual center: \"200줄\" with caption below \"AI 생성 · 분당\" — \"40줄\" with caption \"인간 독해 · 분당\" — \"5~7배\" with caption \"생성 · 이해 격차\" and yellow highlighter behind \"5~7배\"\n- One-line source note at bottom-right in small handwriting: \"속도는 업계 추정 · Anthropic RCT: 이해도 -17%p\"\n- Bottom punchline banner: \"리뷰가 품질 게이트에서, 처리량 병목으로\"\n\nNo page number anywhere on the slide."
     },
     {
       "file": "19-brakes",
       "layout": "cards",
-      "style_refs": ["E:/workspace/ai-agent-edu/presentations/guru-notes-2026/note-v2/src-png/ref/19-brakes.png"],
+      "style_refs": ["E:/workspace/ai-agent-edu/presentations/ai-checkpoint-2026-07/note/src-png/ref/19-brakes.png"],
       "prompt": "STYLE — Korean handwritten note-style presentation slide, 16:9 landscape:\n- Background: warm cream paper (#FCF8F2), subtle paper texture, no lines/grid.\n- Text: neat black felt-tip pen Korean handwriting (매직펜 손글씨), thick confident strokes. All Korean text VERBATIM as quoted — every syllable exactly as written, no invented characters.\n- Accents: blue (#2B4FD8) double underline below the title; yellow highlighter (#FFE9A8) on card labels; red (#D8342B) sparkle doodles beside cards.\n- Cards: rounded rectangles with hand-drawn outline. Numbers in the same handwritten style.\n\nLAYOUT — Stacked cards:\n- Title at top: \"자율 루프에 인간용 제동장치를\" with blue double underline.\n- 3 rounded-rectangle cards stacked vertically. Each card: left side a label with yellow highlighter, a thin vertical divider, right side the content. Card 1: label \"제동\", content \"퀴즈 통과해야 배포되는 게이트\". Card 2: label \"질문\", content \"위임 대신 캐묻기 — 24~39% → 65~86%\". Card 3: label \"경계\", content \"어디까지 이해하고, 어디부터 맡길까\".\n- Bottom: a punchline banner (rounded rect, red outline): \"코드만이 아니라, 모든 지식노동의 문제\"\n- Small robot mascot pulling a tiny hand-drawn brake lever beside card 1.\n\nNo page number anywhere on the slide."
     },
     {
