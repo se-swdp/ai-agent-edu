@@ -188,10 +188,10 @@
   display: block;
   width: 100%;
   height: 100%;
-  /* contain — 화폭(글귀 포함)이 어떤 창 비율에서도 잘리지 않는다.
-     multiply 로 여백이 페이지 한지에 스며들어 레터박스가 티 나지 않음 */
-  object-fit: contain;
-  object-position: center;
+  /* cover — 좌우 여백 없이 화면을 가득 채운다. 화제(글씨)가 원화 상단 12% 안쪽에
+     있어 통상 비율의 세로 크롭에는 안전하고, 35%로 위쪽을 우선 보존 */
+  object-fit: cover;
+  object-position: center 35%;
 }
 .cover-image picture img { mix-blend-mode: multiply; }
 
