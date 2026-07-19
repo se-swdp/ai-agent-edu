@@ -67,6 +67,9 @@ export function switchView(view) {
   $$('.view').forEach((v) =>
     v.classList.toggle('is-active', v.dataset.viewContent === view)
   );
+  // 대문은 전면 화폭 — content 의 max-width/패딩 캡을 해제
+  const content = $('.content');
+  if (content) content.classList.toggle('content--cover', view === 'cover');
   const [t, sub] = VIEW_TITLES[view] || ['', ''];
   $('#pageTitle').textContent = t;
   $('#pageSub').textContent = sub;
