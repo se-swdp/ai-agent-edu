@@ -20,7 +20,8 @@
 }
 .library-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  /* 360px: 한글 부제 한 줄이 ellipsis 없이 대체로 들어가는 하한 — 320px에선 부제가 접혀 카드 높이가 들쭉났다 */
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: var(--space-3);
 }
 .library-card {
@@ -68,18 +69,27 @@
   text-overflow: ellipsis;
   color: var(--text-primary);
 }
+.library-card-sub {
+  margin-top: 3px;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .library-card-meta {
-  margin-top: 4px;
+  margin-top: 5px;
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
   color: var(--text-muted);
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-wrap: wrap;
+  white-space: nowrap;
+  overflow: hidden;
 }
 /* 구분점(.dot)은 components.css 의 공용 규칙 사용 */
-.library-card-cat {
+.library-card-ext {
   color: var(--accent-500);
   font-weight: var(--fw-semibold);
 }

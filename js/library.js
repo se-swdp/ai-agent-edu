@@ -95,17 +95,23 @@ function fmtMonth(month) {
   return m ? `${m[1]}. ${m[2]}` : month;
 }
 
+function subForCard(item) {
+  // 카드 2행: 슬라이드는 부제, 파일은 카테고리 — 한 줄 ellipsis 전제
+  if (item.type === 'slide') return item.subtitle || '';
+  return item.category || '';
+}
+
 function metaForCard(item) {
+  // 카드 3행: 짧은 사실만 (날짜·확장자·용량) — 문장은 여기 넣지 않는다
   const parts = [];
   if (item.type === 'slide') {
     if (item.month) parts.push({ cls: 'library-card-date', text: fmtMonth(item.month) });
-    if (item.subtitle) parts.push({ text: item.subtitle });
+    parts.push({ text: '발표자료' });
   } else {
-    if (item.category) parts.push({ cls: 'library-card-cat', text: item.category });
-    if (item.ext) parts.push({ text: item.ext.toUpperCase() });
+    if (item.ext) parts.push({ cls: 'library-card-ext', text: item.ext.toUpperCase() });
     if (item.size != null) parts.push({ text: fmtSize(item.size) });
     const dateStr = item.date || fmtDate(item.mtime);
-    if (dateStr) parts.push({ text: dateStr });
+    if (dateStr) parts.push({ cls: 'library-card-date', text: dateStr });
   }
   const out = [];
   parts.forEach((p, i) => {
@@ -132,12 +138,14 @@ function renderCard(item) {
     attrs.download = item.name;
   }
 
+  const sub = subForCard(item);
+  const body = [el('div', { class: 'library-card-title', title: item.title }, [item.title])];
+  if (sub) body.push(el('div', { class: 'library-card-sub', title: sub }, [sub]));
+  body.push(el('div', { class: 'library-card-meta' }, metaForCard(item)));
+
   return el('a', attrs, [
     divWithHtml('library-card-icon', iconHtmlFor(item)),
-    el('div', { class: 'library-card-body' }, [
-      el('div', { class: 'library-card-title' }, [item.title]),
-      el('div', { class: 'library-card-meta' }, metaForCard(item)),
-    ]),
+    el('div', { class: 'library-card-body' }, body),
     divWithHtml('library-card-action', isSlide ? ACTION_EXTERNAL : ACTION_DOWNLOAD),
   ]);
 }
