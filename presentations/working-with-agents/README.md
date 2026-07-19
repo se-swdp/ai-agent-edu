@@ -112,4 +112,4 @@ HBR workslop 2025.9, Gravitee/McKinsey/Gartner 2026 등).
 
 수정 시: 원본 슬라이드를 `-i`로 주고 "Recreate EXACTLY … with ONLY these changes" (note-deck 스킬
 references/prompts.md Recipe 3). 인코딩: `python ~/.claude/skills/note-deck/scripts/encode_webp.py .`
-검증: `python ~/.claude/skills/note-deck/scripts/verify_deck.py . http://localhost:8934/presentations/ai-agent-unified/`
+검증: `python ~/.claude/skills/note-deck/scripts/verify_deck.py . http://localhost:8934/presentations/working-with-agents/`
