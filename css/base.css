@@ -70,6 +70,37 @@ button:focus-visible {
   border-color: var(--accent-500);
 }
 
+/* 링크·카드 등 박스섀도 링이 안 어울리는 요소는 outline 링으로 */
+a:focus-visible {
+  outline: 2px solid var(--accent-500);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+/* v2.0 skip link — 키보드 사용자가 사이드바를 건너뛰고 본문으로 */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  z-index: var(--z-toast);
+  padding: var(--space-2) var(--space-4);
+  background: var(--accent-600);
+  color: var(--text-on-accent);
+  border-radius: var(--radius-md);
+  font-weight: var(--fw-medium);
+  transition: top var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus-visible { top: var(--space-3); color: var(--text-on-accent); }
+
+/* 모션 민감 사용자 — 장식 모션 전면 해제 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 ul, ol { list-style: none; }
 
 img, svg { display: block; max-width: 100%; }

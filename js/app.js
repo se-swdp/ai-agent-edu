@@ -57,9 +57,13 @@ export function renderAll() {
 /* =============== Navigation / view switching =============== */
 export function switchView(view) {
   ui.view = view;
-  $$('.nav-item').forEach((n) =>
-    n.classList.toggle('is-active', n.dataset.view === view)
-  );
+  $$('.nav-item').forEach((n) => {
+    const active = n.dataset.view === view;
+    n.classList.toggle('is-active', active);
+    // 스크린리더에 현재 위치 노출 — 시각적 is-active와 항상 동기
+    if (active) n.setAttribute('aria-current', 'page');
+    else n.removeAttribute('aria-current');
+  });
   $$('.view').forEach((v) =>
     v.classList.toggle('is-active', v.dataset.viewContent === view)
   );

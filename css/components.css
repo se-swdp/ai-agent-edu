@@ -223,8 +223,10 @@
   font-family: var(--font-mono);
 }
 .modal-title {
+  font-family: var(--font-serif);
   font-size: var(--fs-xl);
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.01em;
 }
 .modal-body {
   padding: var(--space-5);

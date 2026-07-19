@@ -15,8 +15,8 @@
   /* ---- Text ---- */
   --text-primary: #2b2117;                    /* 먹 검정 — 순검정보다 따뜻 */
   --text-secondary: #5a4a37;
-  --text-tertiary: #7a6a56;
-  --text-muted: #a59682;
+  --text-tertiary: #6e5e4a;                   /* v2.0: 대비 상향 (구 #7a6a56) */
+  --text-muted: #8d7c66;                      /* v2.0: 한지 위 3.5:1 이상 확보 (구 #a59682) */
   --text-on-accent: #fffcf6;
   --text-accent: #2a4264;
 
@@ -59,14 +59,16 @@
   /* ---- Typography ---- */
   --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
     system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', '맑은 고딕', sans-serif;
+  /* v2.0 display 세리프 — 붓끝이 남은 바탕체. 제호·표제·현판성 텍스트 전용 */
+  --font-serif: 'Gowun Batang', 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
   --font-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, 'SF Mono',
     Consolas, monospace;
 
   /* Type scale (8px grid base) */
   --fs-xs: 11px;
   --fs-sm: 12px;
-  --fs-base: 13px;
-  --fs-md: 14px;
+  --fs-base: 14px;  /* v2.0: 13→14 — 본문 가독성 상향 */
+  --fs-md: 15px;    /* v2.0: 14→15 */
   --fs-lg: 16px;
   --fs-xl: 18px;
   --fs-2xl: 22px;
@@ -114,8 +116,9 @@
   --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
   --shadow-md: 0 4px 10px rgba(15, 23, 42, 0.06), 0 2px 4px rgba(15, 23, 42, 0.04);
   --shadow-lg: 0 10px 28px rgba(15, 23, 42, 0.10), 0 4px 10px rgba(15, 23, 42, 0.05);
-  --shadow-focus: 0 0 0 3px rgba(0, 112, 243, 0.18);
-  --shadow-focus-accent: 0 0 0 3px rgba(42, 66, 100, 0.12);
+  /* v2.0: 포커스 링을 팔레트 밖 파랑에서 청람으로 통일 — 링은 항상 보이되 소란스럽지 않게 */
+  --shadow-focus: 0 0 0 3px rgba(42, 66, 100, 0.28);
+  --shadow-focus-accent: 0 0 0 3px rgba(42, 66, 100, 0.20);
 
   /* ---- Overlays ---- */
   --bg-overlay: rgba(43, 33, 23, 0.42);          /* modal backdrop — 먹 톤 */

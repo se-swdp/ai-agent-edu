@@ -22,9 +22,12 @@
     }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <!-- v2.0 display 세리프 — 제호·표제 전용 (본문은 Pretendard 유지) -->
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" />
   </noscript>
   <!-- 모듈 워터폴 평탄화 — import 체인(app→store→firebase→SDK)을 한 번에 내려받게 -->
   <link rel="modulepreload" href="./js/app.js" />
@@ -45,6 +48,7 @@
   <link rel="stylesheet" href="./css/views.css" />
 </head>
 <body>
+  <a class="skip-link" href="#appMain">본문 바로가기</a>
   <div class="app">
     <!-- SIDEBAR -->
     <aside class="sidebar" aria-label="주 메뉴">
@@ -84,12 +88,12 @@
       </nav>
 
       <div class="sidebar-footer">
-        <div class="sidebar-meta">v1.2 · 관리자 KHM</div>
+        <div class="sidebar-meta">v2.0 · 관리자 KHM</div>
       </div>
     </aside>
 
     <!-- MAIN -->
-    <main class="main">
+    <main class="main" id="appMain" tabindex="-1">
       <header class="topbar">
         <div class="topbar-left">
           <h1 class="page-title" id="pageTitle">대문</h1>
@@ -115,18 +119,18 @@
           <div class="cover-wrap">
             <div class="cover-image" id="coverImage">
               <picture>
-                <source media="(max-width: 720px)" srcset="./assets/hero-sm.jpg" />
-                <source type="image/webp" srcset="./assets/hero.webp" />
-                <img src="./assets/hero.jpg" alt="AI 전파교육 한국 전통화 일러스트" decoding="async" />
+                <source media="(max-width: 720px)" srcset="./assets/hero-v2-sm.jpg" />
+                <source type="image/webp" srcset="./assets/hero-v2.webp" />
+                <img src="./assets/hero-v2.jpg" alt="수묵화 — 소나무 아래 선비와 작은 로봇이 나란히 먼 산을 향해 걷는 그림" decoding="async" />
               </picture>
-              <img class="cover-seal" src="./assets/seal-ji.webp" alt="낙관 · 智" aria-hidden="true" decoding="async" />
             </div>
-            <div class="cover-band" aria-hidden="true"></div>
+            <div class="cover-rule" aria-hidden="true"><span></span></div>
             <div class="cover-caption">
               <span class="cover-caption-eyebrow">AI 전파교육 · SW개발팀</span>
-              <span class="cover-caption-title"><span class="hanja">愛以我異</span></span>
-              <span class="cover-caption-gloss">애이아이 — 잘 익히고 아껴서, 우리를 남다르게</span>
-              <span class="cover-caption-sub">SW개발팀이 함께 배우고 나누는 AI 전파교육의 기록부.</span>
+              <span class="cover-caption-title" lang="zh-Hant"><span class="hanja">愛以我怡</span></span>
+              <span class="cover-caption-hunum" aria-label="자훈: 사랑 애, 써 이, 나 아, 기쁠 이">사랑 애 · 써 이 · 나 아 · 기쁠 이</span>
+              <span class="cover-caption-gloss">애이아이 — 아끼고 익혀서, 우리 모두 기쁘게</span>
+              <span class="cover-caption-sub">함께 배우는 즐거움. SW개발팀이 나누는 AI 전파교육의 기록부.</span>
             </div>
           </div>
         </section>

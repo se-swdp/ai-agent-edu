@@ -47,10 +47,11 @@
 }
 
 .brand-title {
-  font-size: var(--fs-md);
-  font-weight: var(--fw-semibold);
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   color: var(--text-primary);
-  letter-spacing: var(--tracking-display);
+  letter-spacing: 0.01em;
 }
 .brand-sub {
   font-size: var(--fs-xs);
@@ -72,8 +73,9 @@
   gap: var(--space-3);
   width: 100%;
   padding: var(--space-2) var(--space-3);
-  height: 36px;
+  height: 40px; /* v2.0: 터치 타깃 상향 */
   border-radius: var(--radius-md);
+  border: 1px solid transparent; /* active에서 생기는 1px 밀림 방지 */
   color: var(--text-secondary);
   font-size: var(--fs-md);
   font-weight: var(--fw-medium);
@@ -89,8 +91,9 @@
   background: var(--bg-elevated);
   color: var(--text-primary);
   box-shadow: var(--shadow-xs);
-  border: 1px solid var(--border-default);
+  border-color: var(--border-default);
 }
+.nav-item.is-active .nav-icon { color: var(--accent-500); }
 .nav-icon {
   width: 18px;
   height: 18px;
@@ -145,9 +148,11 @@
   min-width: 0;
 }
 .page-title {
-  font-size: var(--fs-lg);
-  font-weight: var(--fw-semibold);
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
   color: var(--text-primary);
+  letter-spacing: 0.01em;
 }
 .page-sub {
   font-size: var(--fs-sm);
