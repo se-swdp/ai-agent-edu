@@ -125,12 +125,74 @@
         <section class="view is-active" data-view-content="cover">
           <div class="cover-wrap">
             <div class="cover-image" id="coverImage">
-              <picture>
-                <source media="(max-width: 720px)" srcset="./assets/hero-v10-sm.jpg" />
-                <source type="image/webp" srcset="./assets/hero-v10.webp" />
+              <picture id="coverPicture"></picture>
+              <noscript>
                 <img src="./assets/hero-v10.jpg" width="1536" height="928" alt="수묵 문인화 — 서당에서 훈장님이 태극도설풍 신경망 족자를 짚으며 학동들에게 AI를 가르치고, 한복 입은 꼬마 로봇 서동이 벼루에 먹을 갈아주는 그림. 우상단 화제에 愛以我怡와 낙관" decoding="async" />
-              </picture>
+              </noscript>
             </div>
+            <div class="cover-thumbs" id="coverThumbs" aria-label="대문 그림 선택"></div>
+            <!-- 대문 화첩 — 첫 화면은 항상 서당(메인), 오른쪽 썸네일로 다른 폭을 고른다.
+                 전 장 1536x928 규격 통일 — 그림을 바꿔도 액자가 움직이지 않는다.
+                 파서가 picture를 만나자마자 채우도록 인라인 동기 스크립트 유지 -->
+            <script>
+              (function () {
+                var heroes = [
+                  ['hero-v10', '서당', '수묵 풍속도 — 서당에서 훈장님이 신경망 족자를 짚으며 학동들에게 AI를 가르치고, 꼬마 로봇 서동이 먹을 갈아주는 그림. 화제 愛以我怡'],
+                  ['hero-folk-ssireum', '씨름', '수묵 풍속도 — 씨름판에서 농부가 꼬마 로봇 서동의 샅바를 잡아 들어올리고, 둘러앉은 구경꾼들이 웃는 그림'],
+                  ['hero-folk-thresh', '벼타작', '수묵 풍속도 — 농부들이 벼타작을 하고 꼬마 로봇 서동이 볏단을 나르며, 갓 쓴 감독관이 담뱃대 물고 쉬는 그림'],
+                  ['hero-folk-forge', '대장간', '수묵 풍속도 — 대장간에서 대장장이들이 큰 톱니바퀴를 벼리고 꼬마 로봇 서동이 풀무질하는 그림'],
+                  ['hero-folk-wash', '빨래터', '수묵 풍속도 — 빨래터에서 아낙들이 신경망 문양 족자를 빨아 널고 꼬마 로봇 서동이 족자를 짜는 그림'],
+                  ['hero-folk-baduk', '주막 바둑', '수묵 풍속도 — 주막 평상에서 노선비와 꼬마 로봇 서동이 바둑을 두고 주모가 국밥을 푸는 그림'],
+                  ['hero-folk-archery', '활쏘기', '수묵 풍속도 — 활터에서 궁사가 시위를 당기고, 멀리 과녁 옆에서 꼬마 로봇 서동이 명중 깃발을 흔드는 그림'],
+                  ['hero-folk-dance', '무동', '수묵 풍속도 — 악사들이 북·장구·피리·해금을 연주하고 꼬마 로봇 서동이 한삼 자락 날리며 춤추는 그림'],
+                  ['hero-folk-weave', '길쌈', '수묵 풍속도 — 아낙이 베틀에서 신경망 문양 베를 짜고 꼬마 로봇 서동이 실꾸리를 안아 나르는 그림']
+                ];
+                var pic = document.getElementById('coverPicture');
+                var rail = document.getElementById('coverThumbs');
+                if (!pic || !rail) return;
+                var idx = 0;
+
+                function show(i) {
+                  idx = (i + heroes.length) % heroes.length;
+                  var h = heroes[idx];
+                  pic.innerHTML =
+                    '<source media="(max-width: 720px)" srcset="./assets/' + h[0] + '-sm.jpg" />' +
+                    '<source type="image/webp" srcset="./assets/' + h[0] + '.webp" />' +
+                    '<img src="./assets/' + h[0] + '.jpg" width="1536" height="928" alt="' + h[2] + '" decoding="async" />';
+                  var ts = rail.children;
+                  for (var k = 0; k < ts.length; k++) ts[k].classList.toggle('is-active', k === idx);
+                }
+
+                heroes.forEach(function (h, i) {
+                  var b = document.createElement('button');
+                  b.className = 'cover-thumb';
+                  b.type = 'button';
+                  b.title = h[1];
+                  b.setAttribute('aria-label', h[1] + ' 그림 보기');
+                  var img = document.createElement('img');
+                  img.src = './assets/' + h[0] + '-sm.jpg';
+                  img.alt = '';
+                  img.width = 768;
+                  img.height = 464;
+                  img.decoding = 'async';
+                  b.appendChild(img);
+                  b.addEventListener('click', function () { show(i); });
+                  rail.appendChild(b);
+                });
+
+                document.addEventListener('keydown', function (e) {
+                  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+                  var t = e.target;
+                  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+                  var cover = document.querySelector('[data-view-content="cover"]');
+                  if (!cover || !cover.classList.contains('is-active')) return;
+                  if (document.querySelector('.modal.is-open')) return;
+                  show(idx + (e.key === 'ArrowRight' ? 1 : -1));
+                });
+
+                show(0); /* 첫 화면은 항상 메인(서당) */
+              })();
+            </script>
             <!-- 문구는 그림 안에 있음 — 스크린리더용 텍스트만 유지 -->
             <div class="cover-caption sr-only">
               <span>AI 전파교육 · SW개발팀</span>
