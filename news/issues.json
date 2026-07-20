@@ -8,18 +8,20 @@
       "title": "주간 AI 브리핑 — 창간호",
       "date": "2026-07-20",
       "period": "2026. 07. 13 – 07. 19",
-      "intro": "8일 사이 프론티어 모델 4종이 쏟아지며 지능지수 50점 이상 모델을 보유한 랩이 6곳으로 늘었다. 코딩 에이전트는 사용자 규모가 급팽창했고, 중국은 에이전트 규제를 시행했다. 경쟁의 밀도가 달라진 한 주였다.",
+      "intro": "8일 사이 프론티어 모델 4종이 쏟아지며 지능지수 50점 이상 모델을 보유한 랩이 6곳으로 늘었다. 코딩 에이전트는 사용자 규모가 급팽창했고, 중국은 에이전트 규제를 시행했다. Kimi K3 발 반도체주 급락까지 — 경쟁의 밀도가 달라진 한 주였다.",
       "highlights": [
         "프론티어 경쟁 과밀 — 8일 새 4개 모델 출시, 지능지수 50점 이상 랩 2곳 → 6곳",
+        "Kimi K3 쇼크 — 반도체지수 주간 -10% 약세장 진입, '제2의 딥시크 모멘트' 평가",
         "코딩 에이전트 대중화 — 코덱스 계열 사용자 800만, 코파일럿 데스크톱 전 요금제 개방",
         "규제 원년 조짐 — 중국 AI 에이전트·의인화 서비스 규제 시행, 미국 주 단위 입법 확산",
         "일하는 방식 재편 — \"이너 루프는 에이전트, 아우터 루프는 인간\" 담론 확산"
       ],
       "body": [
-        "프론티어 경쟁이 한층 과밀해졌다. 오픈AI가 **GPT-5.6 3종(Sol·Terra·Luna)**을 내놓은 데 이어 xAI가 'Opus급' **Grok 4.5**를, 메타가 첫 유료 API 모델 **Muse Spark 1.1**을 잇따라 출시했다. 중국에서는 문숏AI의 **2.8조 파라미터 오픈웨이트 Kimi K3**(지능지수 57점·종합 4위)와 알리바바 **Qwen3.8-Max 프리뷰**가 가세해, 8일 사이 4개 모델이 쏟아지며 지능지수 50점 이상 랩이 2곳에서 6곳으로 늘었다. 그 사이 **구글 제미나이 3.5 프로는 품질 문제로 재차 연기**돼 알파벳 주가가 4.4% 빠졌다.",
+        "프론티어 경쟁이 한층 과밀해졌다. 오픈AI가 **GPT-5.6 3종(Sol·Terra·Luna)**을 내놓은 데 이어 xAI가 'Opus급' **Grok 4.5**를, 메타가 첫 유료 API 모델 **Muse Spark 1.1**을 잇따라 출시했다. 중국에서는 Moonshot AI의 **2.8조 파라미터 오픈웨이트 Kimi K3**(지능지수 57점·종합 4위)와 알리바바 **Qwen3.8-Max 프리뷰**가 가세해, 8일 사이 4개 모델이 쏟아지며 지능지수 50점 이상 랩이 2곳에서 6곳으로 늘었다. 그 사이 **구글 제미나이 3.5 프로는 품질 문제로 재차 연기**돼 알파벳 주가가 4.4% 빠졌다.",
+        "그중 **Kimi K3의 충격파**가 컸다. 공개 다음 날인 17일 나스닥이 장중 1.5% 밀리고 **필라델피아 반도체지수가 주간 10% 급락**(6월 고점 대비 -20.2%, 약세장 진입)하며 '제2의 딥시크 모멘트'라는 평가가 나왔다. 사상 최대 실적을 발표한 **TSMC마저 당일 7% 넘게 급락**했고 소프트뱅크(-9%)·엔비디아(-2%)도 흔들렸으며, 홍콩에서는 중국 경쟁사 Z.ai가 30% 폭락했다. 뱅크오브아메리카는 **K3 토큰 가격이 GPT-5.6 Sol의 절반** 수준이라고 짚었고, 번스타인은 추론 성능의 수렴이 모델 기업 마진에 구조적으로 불리하다고 경고했다. 한편 K3가 대화 중 스스로를 '클로드'라 소개한 사례가 확인되며 **증류(distillation) 의혹**도 재점화됐다.",
         "코딩 에이전트는 데스크톱으로 내려왔다. 앤트로픽은 **클로드 코드에 내장 브라우저**를 탑재해 에이전트가 웹을 직접 열람·조작하게 했고, 깃허브는 **코파일럿 데스크톱 앱을 전 요금제에 개방**했다. 오픈AI 코덱스 계열은 GPT-5.6 출시 닷새 만에 **활성 사용자 800만**을 넘겼으며, MCP의 **엔터프라이즈 중앙 인증(EMA) 확장은 정식 승격**돼 기업 도입의 걸림돌 하나가 줄었다. 커서는 슬랙 연동에 실행 계획 미리보기를, 구글은 제미나이 CLI에 툴 자동 탐색을 더했다.",
-        "'에이전트에게 일을 어떻게 시킬 것인가'도 방법론으로 자리 잡는 중이다. 앤트로픽은 **대규모 코드 마이그레이션 6단계 방법론**(Bun의 Zig→Rust 100만 줄 사례)을 공개했고, 구글은 스펙 주도 개발 도구 **컨덕터를 플러그인으로 확장**했으며, 아틀라시안은 **지라에서 AI 에이전트에 작업을 직접 배정**하고 PR로 돌려받는 기능을 붙였다. 담론 쪽에서는 실행(이너 루프)은 에이전트에 맡기되 **검증과 출시 판단(아우터 루프)은 인간이 소유**해야 한다는 애디 오스마니의 에세이가 화제였다.",
-        "산업 쪽은 실적과 규제가 교차했다. **삼성전자가 2분기 영업이익 89.4조원**으로 사상 최대를 경신하고 TSMC가 연간 전망을 상향하는 동안, 중국은 **AI 에이전트·의인화 서비스 규제를 시행**해 두바오·큐원 일부 기능이 멈췄고, 미국에서는 AI를 이유로 든 감원이 연초 이후 **5만 명에 육박**했다. 국내에서는 카카오가 PC 카카오톡에 챗GPT를 연동했고, 인프라 스타트업 파이어웍스는 **기업가치 175억 달러**로 15억 달러를 조달했다."
+        "'에이전트에게 일을 어떻게 시킬 것인가'도 방법론으로 자리 잡는 중이다. 앤트로픽은 **대규모 코드 마이그레이션 6단계 방법론**(Bun의 Zig→Rust 100만 줄 사례)을 공개했고, 구글은 스펙 주도 개발 도구 **Conductor를 플러그인으로 확장**했으며, 아틀라시안은 **지라에서 AI 에이전트에 작업을 직접 배정**하고 PR로 돌려받는 기능을 붙였다. 담론 쪽에서는 실행(이너 루프)은 에이전트에 맡기되 **검증과 출시 판단(아우터 루프)은 인간이 소유**해야 한다는 애디 오스마니의 에세이가 화제였다.",
+        "산업 쪽은 실적과 규제가 교차했다. **삼성전자가 2분기 영업이익 89.4조원**으로 사상 최대를 경신하고 TSMC가 연간 전망을 상향하는 동안, 중국은 **AI 에이전트·의인화 서비스 규제를 시행**해 Doubao·Qwen 일부 기능이 멈췄고, 미국에서는 AI를 이유로 든 감원이 연초 이후 **5만 명에 육박**했다. 국내에서는 카카오가 PC 카카오톡에 챗GPT를 연동했고, 인프라 스타트업 Fireworks는 **기업가치 175억 달러**로 15억 달러를 조달했다."
       ],
       "refs": [
         { "label": "GPT-5.6", "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6/" },
@@ -27,6 +29,10 @@
         { "label": "Muse Spark 1.1", "url": "https://techcrunch.com/2026/07/09/meta-enters-the-crowded-ai-coding-battle-with-muse-spark-1-1/" },
         { "label": "Kimi K3", "url": "https://fortune.com/2026/07/16/moonshots-kimi-k3-pushes-chinese-ai-into-fable-level-territory/" },
         { "label": "Qwen3.8-Max", "url": "https://www.scmp.com/tech/article/3361119/alibaba-says-newest-qwen-ai-model-second-only-anthropics-claude-fable-5" },
+        { "label": "K3 나스닥 충격", "url": "https://finance.yahoo.com/markets/stocks/articles/kimi-k3-just-triggered-deepseek-175532711.html" },
+        { "label": "TSMC·소프트뱅크 급락", "url": "https://fortune.com/2026/07/17/china-moonshot-kimi-k3-markets-china-ai/" },
+        { "label": "월가 K3 분석", "url": "https://finance.yahoo.com/technology/ai/articles/kimi-k3-ai-breakthrough-wall-123003909.html" },
+        { "label": "K3 증류 의혹", "url": "https://techcrunch.com/2026/07/18/kimi-threat-or-menace/" },
         { "label": "제미나이 3.5 연기", "url": "https://www.cnbc.com/2026/07/16/alphabet-stock-gemini-3-5-pro-ai.html" },
         { "label": "6개 랩 50점 돌파", "url": "https://artificialanalysis.ai/articles/four-frontier-launches-in-eight-days-six-labs-now-field-a-model-above-50-on-the-artificial-analysis-intelligence-index" },
         { "label": "클로드 코드 인앱 브라우저", "url": "https://9to5mac.com/2026/07/10/anthropic-highlights-claude-codes-in-app-browser-on-the-desktop/" },
@@ -36,13 +42,13 @@
         { "label": "커서 슬랙", "url": "https://cursor.com/changelog/slack-improvements" },
         { "label": "제미나이 CLI v0.50", "url": "https://geminicli.com/docs/changelogs/" },
         { "label": "코드 마이그레이션 방법론", "url": "https://claude.com/blog/ai-code-migration" },
-        { "label": "컨덕터 플러그인화", "url": "https://developers.googleblog.com/evolving-spec-driven-development-conductor-now-supports-antigravity/" },
+        { "label": "Conductor 플러그인화", "url": "https://developers.googleblog.com/evolving-spec-driven-development-conductor-now-supports-antigravity/" },
         { "label": "지라 에이전트 배정", "url": "https://devops.com/atlassian-extends-ai-reach-of-jira-into-agentic-engineering-workflows/" },
         { "label": "아우터 루프 에세이", "url": "https://addyo.substack.com/p/own-the-outer-loop" },
         { "label": "깃허브 문서 자동화", "url": "https://github.blog/ai-and-ml/github-copilot/automating-cross-repo-documentation-with-github-agentic-workflows/" },
         { "label": "삼성전자 최대 실적", "url": "https://www.ytn.co.kr/_ln/0102_202607071439476043" },
         { "label": "TSMC 전망 상향", "url": "https://www.fool.com/investing/2026/07/16/tsmc-just-announced-fantastic-news-for-nvidia-shar/" },
-        { "label": "파이어웍스 시리즈D", "url": "https://www.businesswire.com/news/home/20260716264405/en/Fireworks-Raises-a-$1.5-Billion-Series-D-to-Lead-the-Specialized-Intelligence-Revolution" },
+        { "label": "Fireworks 시리즈D", "url": "https://www.businesswire.com/news/home/20260716264405/en/Fireworks-Raises-a-$1.5-Billion-Series-D-to-Lead-the-Specialized-Intelligence-Revolution" },
         { "label": "중국 에이전트 규제", "url": "https://www.techtimes.com/articles/320525/20260715/china-ai-companion-law-takes-effect-doubao-qwen-shut-down-millions-lose-chat-data.htm" },
         { "label": "AI 지목 감원 5만", "url": "https://techcrunch.com/2026/07/06/the-running-list-major-tech-layoffs-in-2026-where-employers-cited-ai/" },
         { "label": "카카오톡 챗GPT", "url": "https://www.asiatoday.co.kr/kn/view.php?key=20260715010005516" }
