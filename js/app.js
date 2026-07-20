@@ -20,10 +20,11 @@ import {
   renderDetail,
 } from './modals.js';
 import { renderLibrary } from './library.js';
+import { renderNews } from './news.js';
 
 /* =============== Shared UI state =============== */
 export const ui = {
-  view: 'cover', // cover | calendar | timeline | library
+  view: 'cover', // cover | calendar | timeline | library | news
   calCursor: new Date(),
   calFilter: 'all',
   tlFilter: 'all',
@@ -37,6 +38,7 @@ const VIEW_TITLES = {
   calendar: ['캘린더', '월간 교육 일정'],
   timeline: ['타임라인', '과거 · 예정 교육 목록'],
   library: ['열람실', '발표자료 열람 · 자료 다운로드'],
+  news: ['뉴스', 'AI 업계 브리핑 — 에이전트 · 모델 · 방법론'],
 };
 
 /* =============== Top-level render =============== */
@@ -47,6 +49,7 @@ export function renderAll() {
   if (ui.view === 'calendar') renderCalendar(st);
   if (ui.view === 'timeline') renderTimeline(st);
   if (ui.view === 'library') renderLibrary();
+  if (ui.view === 'news') renderNews();
   if (ui.openSessionId) {
     const s = store.getById(ui.openSessionId);
     if (s) renderDetail(s);

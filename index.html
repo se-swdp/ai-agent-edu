@@ -39,6 +39,7 @@
   <link rel="modulepreload" href="./js/views.js" />
   <link rel="modulepreload" href="./js/modals.js" />
   <link rel="modulepreload" href="./js/library.js" />
+  <link rel="modulepreload" href="./js/news.js" />
   <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js" />
   <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js" />
   <link rel="stylesheet" href="./css/tokens.css" />
@@ -85,6 +86,12 @@
           </span>
           <span>열람실</span>
         </button>
+        <button class="nav-item" data-view="news">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h11v11.5a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 15.5V4z"/><path d="M14 7h1.5A1.5 1.5 0 0 1 17 8.5v7a1.5 1.5 0 0 1-1.5 1.5H12.5"/><path d="M6 7.5h5M6 10.5h5M6 13.5h3"/></svg>
+          </span>
+          <span>뉴스</span>
+        </button>
       </nav>
 
       <div class="sidebar-footer">
@@ -119,9 +126,9 @@
           <div class="cover-wrap">
             <div class="cover-image" id="coverImage">
               <picture>
-                <source media="(max-width: 720px)" srcset="./assets/hero-v8-sm.jpg" />
-                <source type="image/webp" srcset="./assets/hero-v8.webp" />
-                <img src="./assets/hero-v8.jpg" width="1536" height="928" alt="수묵 문인화 — 서당에서 훈장님이 신경망 족자를 짚으며 여학생·남학생들에게 AI를 가르치는 그림. 우상단 화제에 愛以我怡와 낙관" decoding="async" />
+                <source media="(max-width: 720px)" srcset="./assets/hero-v9-sm.jpg" />
+                <source type="image/webp" srcset="./assets/hero-v9.webp" />
+                <img src="./assets/hero-v9.jpg" width="1536" height="928" alt="수묵 문인화 — 서당에서 훈장님이 챗 말풍선(질문·답) 족자를 짚으며 학동들에게 AI와 대화하는 법을 가르치고, 옆에서 꼬마 로봇이 먹을 갈아주는 그림. 우상단 화제에 愛以我怡와 낙관" decoding="async" />
               </picture>
             </div>
             <!-- 문구는 그림 안에 있음 — 스크린리더용 텍스트만 유지 -->
@@ -175,6 +182,15 @@
             <code>firebase deploy --only hosting --project swdp-seminar-dashboard</code><br />
             <span class="library-hint-sub">파일명 규칙: <code>YYYY-MM-DD__카테고리__제목.확장자</code> (예: <code>2026-04-23__슬라이드__AI에이전트_개론.pdf</code>) — 규칙 안 맞춰도 작동합니다.</span>
           </div>
+        </section>
+
+        <!-- NEWS (브리핑) VIEW -->
+        <section class="view" data-view-content="news">
+          <div class="news-bar">
+            <div class="filter-group" id="newsIssueNav" role="group" aria-label="브리핑 호 선택"></div>
+            <div class="news-meta" id="newsMeta"></div>
+          </div>
+          <div class="news-body" id="newsBody"></div>
         </section>
 
         <!-- TIMELINE VIEW -->
