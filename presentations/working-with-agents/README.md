@@ -39,9 +39,9 @@ HBR workslop 2025.9, Gravitee/McKinsey/Gartner 2026 등).
 
 ### 2026-07-20 7차 — 13b 사내 제품명 비공개 처리
 
-- 외부 공개 방침에 따라 사내 제품명을 슬라이드에서 제거. 13b-our-tools 재생성:
-  CCN(Claude Code w/ Narrans) 카드 삭제, CodeMate 카드는 **"사내 Agent 도구 (여러 종)"**
-  으로 추상화 — 카드 3장→2장(Claude Code (AWS Bedrock) / 사내 Agent 도구).
+- 외부 공개 방침에 따라 비공개 사내 도구명을 슬라이드에서 제거. 13b-our-tools 재생성:
+  비공개 사내 도구 카드 삭제, CodeMate 카드는 **"사내 Agent 도구 (여러 종)"** 으로
+  추상화 — 카드 3장→2장(Claude Code (AWS Bedrock) / 사내 Agent 도구).
   헤드라인·펀치라인("도구는 달라도 — 부리는 원리는 같음")은 그대로.
 - Recipe 3(원본 `-i` 첨부 surgical edit). `index.html` alt 텍스트 동반 수정.
 - **미처리 잔여**: 30-my-harness("swdp-ops-auto") · 33-divider-case("SW Dev. Portal —
