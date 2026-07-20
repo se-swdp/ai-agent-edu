@@ -166,10 +166,10 @@
   letter-spacing: var(--tracking-normal);
 }
 
-/* ===== Cover view (대문) v2.1 — 벽에 건 족자 한 폭 =====
-   문구(현판·글귀)까지 그림 안에 있으므로 대문은 그림 한 폭이 중심.
-   full-bleed 는 우·하단이 브라우저 모서리에 붙어 답답 → 다른 뷰와 같은
-   24px 여백으로 사방을 감싸고 라운드+그림자로 액자 프레임을 준다.
+/* ===== Cover view (대문) v2.2 — 표구한 그림 한 폭 =====
+   문구(화제·낙관)까지 그림 안에 있으므로 대문은 그림 한 폭이 중심.
+   그림은 원본 3:2 비율 그대로(크롭 없음) 좌측에 걸고, 오른쪽은 한지
+   여백으로 비워 둔다. 테두리는 장황(밝은 매트) + 이중 먹선으로 표구 느낌.
    접근성 텍스트는 .cover-caption.sr-only 로 별도 제공. */
 /* 대문 뷰일 때 가로 캡만 해제 — 여백은 .content 기본(24px)을 그대로 씀.
    app.js 가 view 전환 시 토글 */
@@ -180,38 +180,54 @@
   /* 세로 = 뷰포트 - 톱바 - 상하 여백. -6px 는 topbar 보더·서브픽셀 반올림
      여유 — 대문에서 세로 스크롤바가 생기지 않게 */
   height: calc(100dvh - var(--topbar-h) - var(--space-6) * 2 - 6px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .cover-image {
-  display: block;
-  width: 100%;
+  /* 표구 프레임 — 안쪽 장황(밝은 한지 매트) + 먹선, 바깥 헤어라인 이중선.
+     크기는 그림의 원본 비율이 정한다: 높이를 꽉 채우고 폭은 따라온다 */
+  display: inline-flex;
   height: 100%;
-  /* 액자 프레임 — 종이 배경 위에 살짝 떠 있는 카드. 수묵과 배경이
-     둘 다 크림톤이라 헤어라인 보더로 경계를 잡아 준다 */
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  border: 1px solid var(--border-subtle);
+  max-width: 100%;
+  padding: var(--space-3);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  outline: 1px solid var(--border-subtle);
+  outline-offset: 4px;
   box-shadow: var(--shadow-md);
 }
-.cover-image picture,
+.cover-image picture {
+  display: block;
+  height: 100%;
+  min-width: 0;
+}
 .cover-image picture img {
   display: block;
-  width: 100%;
   height: 100%;
-  /* cover — 프레임 안을 여백 없이 채운다. 화제(글씨)가 원화 상단 12% 안쪽에
-     있어 통상 비율의 세로 크롭에는 안전하고, 35%로 위쪽을 우선 보존 */
-  object-fit: cover;
-  object-position: center 35%;
-  /* mix-blend-mode 가 만드는 스태킹 컨텍스트에서도 라운드 클리핑이 확실하도록 */
-  border-radius: inherit;
+  width: auto;
+  max-width: 100%;
+  /* contain + 원본 비율 — 어떤 창 비율에서도 그림이 잘리지 않는다 */
+  object-fit: contain;
+  border-radius: var(--radius-xs);
+  mix-blend-mode: multiply;
 }
-.cover-image picture img { mix-blend-mode: multiply; }
 
 
 @media (max-width: 720px) {
+  /* 모바일은 세로 고정 대신 폭 기준 자연 비율 — 잘림도 레터박스도 없음 */
   .cover-wrap {
-    /* 모바일은 하단 고정 내비 높이 + 상하 여백만큼 화폭을 줄인다 */
-    height: calc(100dvh - var(--topbar-h) - var(--safe-top) - var(--nav-h) - var(--safe-bottom) - var(--space-6) * 2);
+    height: auto;
+    align-items: flex-start;
   }
+  .cover-image {
+    height: auto;
+    width: 100%;
+    padding: var(--space-2);
+  }
+  .cover-image picture { height: auto; width: 100%; }
+  .cover-image picture img { height: auto; width: 100%; }
 }
 
 /* ===== Calendar ===== */
