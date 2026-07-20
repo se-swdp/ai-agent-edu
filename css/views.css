@@ -166,10 +166,10 @@
   letter-spacing: var(--tracking-normal);
 }
 
-/* ===== Cover view (대문) v2.2 — 표구한 그림 한 폭 =====
+/* ===== Cover view (대문) v2.3 — 벽에 건 그림 한 폭 =====
    문구(화제·낙관)까지 그림 안에 있으므로 대문은 그림 한 폭이 중심.
-   그림은 원본 3:2 비율 그대로(크롭 없음) 좌측에 걸고, 오른쪽은 한지
-   여백으로 비워 둔다. 테두리는 장황(밝은 매트) + 이중 먹선으로 표구 느낌.
+   그림(1536x928, 1.66:1)은 원본 비율 그대로(크롭 없음) 좌측에 걸고,
+   오른쪽에 남는 폭만 한지 여백. 테두리는 헤어라인 먹선 + 라운드만.
    접근성 텍스트는 .cover-caption.sr-only 로 별도 제공. */
 /* 대문 뷰일 때 가로 캡만 해제 — 여백은 .content 기본(24px)을 그대로 씀.
    app.js 가 view 전환 시 토글 */
@@ -185,18 +185,15 @@
   justify-content: flex-start;
 }
 .cover-image {
-  /* 표구 프레임 — 안쪽 장황(밝은 한지 매트) + 먹선, 바깥 헤어라인 이중선.
+  /* 가벼운 액자 — 헤어라인 먹선 + 라운드 + 옅은 그림자만.
      크기는 그림의 원본 비율이 정한다: 높이를 꽉 채우고 폭은 따라온다 */
   display: inline-flex;
   height: 100%;
   max-width: 100%;
-  padding: var(--space-3);
-  background: var(--bg-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  outline: 1px solid var(--border-subtle);
-  outline-offset: 4px;
-  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 .cover-image picture {
   display: block;
@@ -210,7 +207,8 @@
   max-width: 100%;
   /* contain + 원본 비율 — 어떤 창 비율에서도 그림이 잘리지 않는다 */
   object-fit: contain;
-  border-radius: var(--radius-xs);
+  /* mix-blend-mode 스태킹 컨텍스트에서도 라운드 클리핑이 확실하도록 */
+  border-radius: inherit;
   mix-blend-mode: multiply;
 }
 
@@ -224,7 +222,6 @@
   .cover-image {
     height: auto;
     width: 100%;
-    padding: var(--space-2);
   }
   .cover-image picture { height: auto; width: 100%; }
   .cover-image picture img { height: auto; width: 100%; }
