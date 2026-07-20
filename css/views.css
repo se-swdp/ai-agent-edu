@@ -171,15 +171,16 @@
    그림(1536x928, 1.66:1)은 원본 비율 그대로(크롭 없음) 좌측에 걸고,
    오른쪽에 남는 폭만 한지 여백. 테두리는 헤어라인 먹선 + 라운드만.
    접근성 텍스트는 .cover-caption.sr-only 로 별도 제공. */
-/* 대문 뷰일 때 가로 캡만 해제 — 여백은 .content 기본(24px)을 그대로 씀.
-   app.js 가 view 전환 시 토글 */
+/* 대문 뷰일 때 가로 캡 해제 + 여백 비대칭 — 그림이 좌상단에 붙고
+   숨쉴 틈은 우·하단에만. app.js 가 view 전환 시 토글 */
 .content--cover {
   max-width: none;
+  padding: var(--space-3) var(--space-6) var(--space-6) var(--space-3);
 }
 .cover-wrap {
-  /* 세로 = 뷰포트 - 톱바 - 상하 여백. -6px 는 topbar 보더·서브픽셀 반올림
-     여유 — 대문에서 세로 스크롤바가 생기지 않게 */
-  height: calc(100dvh - var(--topbar-h) - var(--space-6) * 2 - 6px);
+  /* 세로 = 뷰포트 - 톱바 - 상(12px)·하(24px) 여백. -6px 는 topbar 보더·
+     서브픽셀 반올림 여유 — 대문에서 세로 스크롤바가 생기지 않게 */
+  height: calc(100dvh - var(--topbar-h) - var(--space-3) - var(--space-6) - 6px);
   display: flex;
   align-items: center;
   justify-content: flex-start;
