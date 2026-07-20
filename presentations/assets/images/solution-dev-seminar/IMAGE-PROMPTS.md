@@ -221,7 +221,7 @@ Constraints: render each label exactly once; no title; no subtitle; no paragraph
 Avoid: dense UI, tiny pseudo-text, cyberpunk, humanoid robot, robot swarms, more than one gate
 ```
 
-## 29-harness-workflow-map.webp
+## 29-harness-workflow-map-v2.webp (2026-07-20 nameplate scrub rev)
 
 ```text
 Use case: infographic-diagram
