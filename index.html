@@ -137,7 +137,8 @@
             <script>
               (function () {
                 var heroes = [
-                  ['hero-v10', '서당', '수묵 풍속도 — 서당에서 훈장님이 신경망 족자를 짚으며 학동들에게 AI를 가르치고, 꼬마 로봇 서동이 먹을 갈아주는 그림. 화제 愛以我怡'],
+                  /* [0] alt 는 noscript 폴백 img 와 같은 문장 — 한쪽만 고치지 말 것 */
+                  ['hero-v10', '서당', '수묵 문인화 — 서당에서 훈장님이 태극도설풍 신경망 족자를 짚으며 학동들에게 AI를 가르치고, 한복 입은 꼬마 로봇 서동이 벼루에 먹을 갈아주는 그림. 우상단 화제에 愛以我怡와 낙관'],
                   ['hero-folk-ssireum', '씨름', '수묵 풍속도 — 씨름판에서 농부가 꼬마 로봇 서동의 샅바를 잡아 들어올리고, 둘러앉은 구경꾼들이 웃는 그림'],
                   ['hero-folk-thresh', '벼타작', '수묵 풍속도 — 농부들이 벼타작을 하고 꼬마 로봇 서동이 볏단을 나르며, 갓 쓴 감독관이 담뱃대 물고 쉬는 그림'],
                   ['hero-folk-forge', '대장간', '수묵 풍속도 — 대장간에서 대장장이들이 큰 톱니바퀴를 벼리고 꼬마 로봇 서동이 풀무질하는 그림'],
@@ -153,7 +154,9 @@
                 var idx = 0;
 
                 function show(i) {
-                  idx = (i + heroes.length) % heroes.length;
+                  var next = (i + heroes.length) % heroes.length;
+                  if (next === idx && pic.firstChild) return; /* 같은 폭 재선택 — 리로드 없음 */
+                  idx = next;
                   var h = heroes[idx];
                   pic.innerHTML =
                     '<source media="(max-width: 720px)" srcset="./assets/' + h[0] + '-sm.jpg" />' +
@@ -175,6 +178,7 @@
                   img.width = 768;
                   img.height = 464;
                   img.decoding = 'async';
+                  img.loading = 'lazy'; /* 레일 8장(~600KB)이 첫 페인트를 막지 않게 */
                   b.appendChild(img);
                   b.addEventListener('click', function () { show(i); });
                   rail.appendChild(b);

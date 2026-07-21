@@ -143,7 +143,7 @@ seminar-dashboard/
 ├── index.html
 ├── assets/
 │   ├── brand-mark.png       # 한옥 정자 일러스트 (사이드바 홈 버튼)
-│   ├── hero.jpg / hero-sm.jpg
+│   ├── hero-v10.* / hero-folk-*.*  # 대문 화첩 — 서당 메인 + 민속 8폭 (webp/jpg/-sm)
 │   ├── dancheong-band.webp
 │   ├── hanji-bg.jpg
 │   └── seal-ji.webp

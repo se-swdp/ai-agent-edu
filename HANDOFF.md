@@ -190,7 +190,7 @@ seminar-dashboard/
 │   ├── working-with-agents/ # AI Agent와 일해보니 (구 ai-agent-unified)
 │   ├── claude-code-playbook/# Claude Code 실전 활용법 (하이브리드: webp+HTML)
 │   ├── ai-checkpoint-2026-07/ # AI, 어디까지 왔고 어디로 가는가 (구 guru-notes-2026, HTML+노트 덱)
-│   ├── archive/ (11개 폴더)  # 인덱스에서 내려간 과거 덱 — 직접 URL 로는 계속 서빙 (301 리다이렉트 유지)
+│   ├── (archive 제거됨 2026-07-21 — 레거시 덱 13종은 git 히스토리에만 보존, 구 URL·리다이렉트 폐기)
 │   └── assets/              # 공유 데이터·이미지·랩·페이퍼·비디오
 ├── scripts/
 │   └── build-materials-manifest.mjs   # predeploy: presentations/files 스캔
