@@ -168,6 +168,17 @@ function renderComment(c, editing) {
 }
 
 function renderReplyForm(inq) {
+  const nameKey = `name:${inq.id}`;
+  const nameInput = el('input', {
+    class: 'form-input qna-reply-name',
+    type: 'text',
+    maxlength: '20',
+    placeholder: '이름 (선택)',
+    'aria-label': '답변자 이름',
+    autocomplete: 'nickname',
+    value: drafts.has(nameKey) ? drafts.get(nameKey) : savedName(),
+    on: { input: (e) => drafts.set(nameKey, e.target.value) },
+  });
   const input = el('input', {
     class: 'form-input qna-reply-input',
     type: 'text',
@@ -178,6 +189,7 @@ function renderReplyForm(inq) {
     on: { input: (e) => drafts.set(inq.id, e.target.value) },
   });
   const form = el('form', { class: 'qna-reply' }, [
+    nameInput,
     input,
     el('button', { class: 'btn btn-primary btn-sm', type: 'submit' }, ['답변']),
   ]);
@@ -185,9 +197,12 @@ function renderReplyForm(inq) {
     e.preventDefault();
     const body = input.value.trim();
     if (!body) return;
+    const name = nameInput.value.trim();
+    rememberName(name);
     try {
-      await createComment(inq.id, savedName(), body);
+      await createComment(inq.id, name, body);
       drafts.delete(inq.id);
+      drafts.delete(nameKey);
       input.value = '';
       toast('답변이 등록되었습니다');
     } catch (err) {
