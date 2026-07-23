@@ -38,6 +38,7 @@
   <link rel="modulepreload" href="./js/modals.js" />
   <link rel="modulepreload" href="./js/library.js" />
   <link rel="modulepreload" href="./js/news.js" />
+  <link rel="modulepreload" href="./js/qna.js" />
   <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js" />
   <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js" />
   <link rel="stylesheet" href="./css/tokens.css" />
@@ -89,6 +90,12 @@
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h11v11.5a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 15.5V4z"/><path d="M14 7h1.5A1.5 1.5 0 0 1 17 8.5v7a1.5 1.5 0 0 1-1.5 1.5H12.5"/><path d="M6 7.5h5M6 10.5h5M6 13.5h3"/></svg>
           </span>
           <span>뉴스</span>
+        </button>
+        <button class="nav-item" data-view="qna">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.5 5.5A1.5 1.5 0 0 1 5 4h10a1.5 1.5 0 0 1 1.5 1.5v6.5a1.5 1.5 0 0 1-1.5 1.5H9.5L6 16.5v-3H5a1.5 1.5 0 0 1-1.5-1.5V5.5z"/><path d="M8.6 7.6c.2-.8.9-1.3 1.7-1.2.8 0 1.4.6 1.4 1.3 0 1.1-1.6 1.1-1.6 2.2"/><path d="M10.1 11.4v.05"/></svg>
+          </span>
+          <span>문의하기</span>
         </button>
       </nav>
 
@@ -265,6 +272,22 @@
             <div class="news-meta" id="newsMeta"></div>
           </div>
           <div class="news-body" id="newsBody"></div>
+        </section>
+
+        <!-- QNA (문의하기) VIEW -->
+        <section class="view" data-view-content="qna">
+          <form class="qna-form" id="qnaForm">
+            <input class="form-input qna-name" name="name" maxlength="20" placeholder="이름 (선택)" aria-label="이름" autocomplete="nickname" />
+            <textarea class="form-input form-textarea" name="body" rows="3" maxlength="1000" required placeholder="궁금한 점을 편하게 남겨주세요. 답변은 댓글로 달립니다." aria-label="문의 내용"></textarea>
+            <div class="qna-form-actions">
+              <span class="qna-hint">등록한 문의는 모두에게 보입니다.</span>
+              <button class="btn btn-primary" type="submit">문의 등록</button>
+            </div>
+          </form>
+          <div class="qna-bar">
+            <div class="qna-meta" id="qnaMeta"></div>
+          </div>
+          <div class="qna-list" id="qnaList"></div>
         </section>
 
         <!-- TIMELINE VIEW -->

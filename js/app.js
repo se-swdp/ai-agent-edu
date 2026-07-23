@@ -21,10 +21,11 @@ import {
 } from './modals.js';
 import { renderLibrary } from './library.js';
 import { renderNews } from './news.js';
+import { renderQna, bindQnaForm } from './qna.js';
 
 /* =============== Shared UI state =============== */
 export const ui = {
-  view: 'cover', // cover | calendar | timeline | library | news
+  view: 'cover', // cover | calendar | timeline | library | news | qna
   calCursor: new Date(),
   calFilter: 'all',
   tlFilter: 'all',
@@ -40,6 +41,7 @@ const VIEWS = {
   timeline: { title: '타임라인', sub: '과거 · 예정 교육 목록', render: renderTimeline, usesSearch: true },
   library: { title: '열람실', sub: '발표자료 열람 · 자료 다운로드', render: renderLibrary },
   news: { title: '뉴스', sub: 'AI 업계 브리핑 — 에이전트 · 모델 · 방법론', render: renderNews },
+  qna: { title: '문의하기', sub: '질문을 남기면 답변이 댓글로 달립니다', render: renderQna },
 };
 
 /* 정적 노드 캐시 — type=module 은 defer 라 모듈 평가 시점에 DOM 완성 보장 */
@@ -215,6 +217,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   bindCalendarControls();
   bindTimelineControls();
   bindSessionForm();
+  bindQnaForm();
   store.subscribe(renderAll);
 
   renderAll();
