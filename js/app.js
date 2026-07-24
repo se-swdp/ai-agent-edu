@@ -22,6 +22,7 @@ import {
 import { renderLibrary } from './library.js';
 import { renderNews } from './news.js';
 import { renderQna, bindQnaForm } from './qna.js';
+import { initVisits } from './visits.js';
 
 /* =============== Shared UI state =============== */
 export const ui = {
@@ -218,6 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   bindTimelineControls();
   bindSessionForm();
   bindQnaForm();
+  initVisits();
   store.subscribe(renderAll);
 
   renderAll();

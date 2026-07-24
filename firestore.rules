@@ -13,5 +13,8 @@ service cloud.firestore {
     match /inquiry_comments/{id} {
       allow read, write: if true;
     }
+    match /visits/{id} {
+      allow read, write: if true;
+    }
   }
 }
