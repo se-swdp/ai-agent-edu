@@ -29,14 +29,15 @@
         ".firebase/**",
         "**/.*",
         "**/node_modules/**",
-        "README.md",
-        "**/README.md",
-        "HANDOFF.md",
-        "**/HANDOFF.md",
+        "**/*.md",
         "firestore.rules",
         "firestore.indexes.json",
         "*-firebase-adminsdk-*.json",
         "serviceAccountKey*.json",
+        "package.json",
+        "package-lock.json",
+        "scripts/**",
+        "**/deck-spec.json",
         "**/src-png/**"
       ],
       "cleanUrls": true,
@@ -51,7 +52,7 @@
           ]
         },
         {
-          "source": "**/*.@(css|js)",
+          "source": "**/*.@(css|js|json)",
           "headers": [
             {
               "key": "Cache-Control",
@@ -72,17 +73,27 @@
       "redirects": [
         {
           "source": "/presentations/guru-notes-2026",
-          "destination": "/presentations/ai-checkpoint-2026-07/",
+          "destination": "/presentations/ai-checkpoint-2026-07/note-deck.html",
           "type": 301
         },
         {
           "source": "/presentations/guru-notes-2026/",
-          "destination": "/presentations/ai-checkpoint-2026-07/",
+          "destination": "/presentations/ai-checkpoint-2026-07/note-deck.html",
           "type": 301
         },
         {
           "source": "/presentations/guru-notes-2026/:rest*",
-          "destination": "/presentations/ai-checkpoint-2026-07/:rest*",
+          "destination": "/presentations/ai-checkpoint-2026-07/note-deck.html",
+          "type": 301
+        },
+        {
+          "source": "/presentations/ai-checkpoint-2026-07",
+          "destination": "/presentations/ai-checkpoint-2026-07/note-deck.html",
+          "type": 301
+        },
+        {
+          "source": "/presentations/ai-checkpoint-2026-07/",
+          "destination": "/presentations/ai-checkpoint-2026-07/note-deck.html",
           "type": 301
         }
       ]
