@@ -11,8 +11,7 @@ export const STATUS_LABEL = Object.freeze({
   completed: '완료',
 });
 
-export const STATUSES = Object.freeze(Object.keys(STATUS_LABEL));
-const STATUS_SET = new Set(STATUSES);
+const STATUS_SET = new Set(Object.keys(STATUS_LABEL));
 
 export function normalize(s) {
   return {
@@ -22,8 +21,7 @@ export function normalize(s) {
     date: String(s.date || ''),
     startTime: s.startTime || '',
     endTime: s.endTime || '',
-    isOnline:
-      s.isOnline === true || s.isOnline === 'true' || s.isOnline === 1,
+    isOnline: s.isOnline === true,
     location: s.location ? String(s.location).trim() : '',
     instructor: s.instructor ? String(s.instructor).trim() : '',
     audience: s.audience ? String(s.audience).trim() : '',

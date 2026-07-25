@@ -21,13 +21,11 @@
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <!-- v2.0 display 세리프 — 제호·표제 전용 (본문은 Pretendard 유지) -->
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <!-- Mono + display 세리프(제호·표제 전용, 본문은 Pretendard) — 요청 1회로 통합 -->
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   </noscript>
   <!-- 모듈 워터폴 평탄화 — import 체인(app→store→firebase→SDK)을 한 번에 내려받게 -->
   <link rel="modulepreload" href="./js/app.js" />
@@ -55,7 +53,7 @@
     <aside class="sidebar" aria-label="주 메뉴">
       <button class="sidebar-brand" type="button" aria-label="홈 (대문)으로">
         <img class="brand-mark" src="./assets/brand-mark-sm.webp" alt="" aria-hidden="true" decoding="async" />
-        <div class="brand-text">
+        <div>
           <div class="brand-title">AI 전파교육</div>
           <div class="brand-sub">SW개발팀</div>
         </div>
@@ -120,14 +118,15 @@
         </div>
       </header>
 
-      <div class="content content--cover">
+      <div class="content" data-view="cover">
         <!-- COVER VIEW -->
         <section class="view is-active" data-view-content="cover">
           <div class="cover-wrap">
-            <div class="cover-image" id="coverImage">
+            <div class="cover-image">
               <picture id="coverPicture"></picture>
               <noscript>
-                <img src="./assets/hero-v10.jpg" width="1536" height="928" alt="수묵 문인화 — 서당에서 훈장님이 태극도설풍 신경망 족자를 짚으며 학동들에게 AI를 가르치고, 한복 입은 꼬마 로봇 서동이 벼루에 먹을 갈아주는 그림. 우상단 화제에 愛以我怡와 낙관" decoding="async" />
+                <!-- 폴백은 짧은 alt — 상세 묘사는 JS 경로(heroes 배열)가 단독 소유 -->
+                <img src="./assets/hero-v10.jpg" width="1536" height="928" alt="수묵 문인화 — 서당에서 훈장님과 꼬마 로봇 서동이 함께하는 AI 수업 그림" decoding="async" />
               </noscript>
             </div>
             <div class="cover-thumbs" id="coverThumbs" aria-label="대문 그림 선택"></div>
@@ -137,7 +136,6 @@
             <script>
               (function () {
                 var heroes = [
-                  /* [0] alt 는 noscript 폴백 img 와 같은 문장 — 한쪽만 고치지 말 것 */
                   ['hero-v10', '서당', '수묵 문인화 — 서당에서 훈장님이 태극도설풍 신경망 족자를 짚으며 학동들에게 AI를 가르치고, 한복 입은 꼬마 로봇 서동이 벼루에 먹을 갈아주는 그림. 우상단 화제에 愛以我怡와 낙관'],
                   ['hero-folk-ssireum', '씨름', '수묵 풍속도 — 씨름판에서 농부가 꼬마 로봇 서동의 샅바를 잡아 들어올리고, 둘러앉은 구경꾼들이 웃는 그림'],
                   ['hero-folk-thresh', '벼타작', '수묵 풍속도 — 농부들이 벼타작을 하고 꼬마 로봇 서동이 볏단을 나르며, 갓 쓴 감독관이 담뱃대 물고 쉬는 그림'],
@@ -166,6 +164,7 @@
                   for (var k = 0; k < ts.length; k++) ts[k].classList.toggle('is-active', k === idx);
                 }
 
+                var frag = document.createDocumentFragment();
                 heroes.forEach(function (h, i) {
                   var b = document.createElement('button');
                   b.className = 'cover-thumb';
@@ -173,24 +172,28 @@
                   b.title = h[1];
                   b.setAttribute('aria-label', h[1] + ' 그림 보기');
                   var img = document.createElement('img');
-                  img.src = './assets/' + h[0] + '-sm.jpg';
+                  /* loading 은 src 보다 먼저 — src 대입 즉시 로드가 시작되므로
+                     순서가 바뀌면 레일 9장(~670KB)이 첫 페인트와 경쟁한다 */
+                  img.loading = 'lazy';
+                  img.decoding = 'async';
                   img.alt = '';
                   img.width = 768;
                   img.height = 464;
-                  img.decoding = 'async';
-                  img.loading = 'lazy'; /* 레일 8장(~600KB)이 첫 페인트를 막지 않게 */
+                  img.src = './assets/' + h[0] + '-sm.jpg';
                   b.appendChild(img);
                   b.addEventListener('click', function () { show(i); });
-                  rail.appendChild(b);
+                  frag.appendChild(b);
                 });
+                rail.appendChild(frag);
 
+                var coverSection = document.querySelector('[data-view-content="cover"]');
                 document.addEventListener('keydown', function (e) {
                   if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
                   var t = e.target;
                   if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
-                  var cover = document.querySelector('[data-view-content="cover"]');
-                  if (!cover || !cover.classList.contains('is-active')) return;
-                  if (document.querySelector('.modal.is-open')) return;
+                  if (!coverSection || !coverSection.classList.contains('is-active')) return;
+                  /* 모달 열림은 app.js 가 body 클래스로 노출 — 선택자 계약 중복 방지 */
+                  if (document.body.classList.contains('is-modal-open')) return;
                   show(idx + (e.key === 'ArrowRight' ? 1 : -1));
                 });
 

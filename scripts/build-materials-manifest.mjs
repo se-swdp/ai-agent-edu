@@ -33,7 +33,8 @@ const NAME_RX = /^(\d{4}-\d{2}-\d{2})__(.+?)__(.+)\.([^.]+)$/;
  * a.item anchor 단위로 먼저 끊은 뒤 안에서 title/sub 추출.
  * lazy regex 가 카드 경계(</a>)를 가로지르지 않게 해서 한 카드 데이터가
  * 다음 카드를 흡수하는 사고를 막음.
- * 업로드 월은 anchor 의 data-month="YYYY-MM" 속성에서 읽는다.
+ * 업로드 월은 카드에 보이는 <span class="date">YYYY. MM</span> 텍스트에서
+ * 파생 — 화면 표기와 manifest 가 어긋날 수 없는 단일 소스.
  */
 async function scanSlides() {
   let html;
@@ -42,18 +43,19 @@ async function scanSlides() {
   } catch {
     return [];
   }
-  // 속성 순서에 의존하지 않도록 앵커 전체를 잡고 여는 태그에서 href/data-month 를 따로 추출.
+  // 속성 순서에 의존하지 않도록 앵커 전체를 잡고 여는 태그에서 href 를 따로 추출.
   // class 는 속성명·토큰 양쪽 경계로 매칭 — data-class= 나 "itemized" 는 제외, "featured item" 은 포함.
   const anchorRx = /<a\s+(?:[^>]*\s)?class="(?:[^"]*\s)?item(?:\s[^"]*)?"[^>]*>[\s\S]*?<\/a>/g;
   const titleRx = /<span class="title">([^<]+)<\/span>/;
   const subRx = /<span class="sub">([\s\S]*?)<\/span>/;
+  const dateRx = /<span class="date">\s*(\d{4})\.\s*(\d{2})\s*<\/span>/;
   const out = [];
   let m;
   while ((m = anchorRx.exec(html))) {
     const block = m[0];
     const openTag = block.slice(0, block.indexOf('>') + 1);
     const hm = /href="([^"]+)"/.exec(openTag);
-    const mm2 = /data-month="([^"]+)"/.exec(openTag);
+    const dm = dateRx.exec(block);
     const tm = titleRx.exec(block);
     const sm = subRx.exec(block);
     if (!hm || !tm || !sm) {
@@ -65,7 +67,7 @@ async function scanSlides() {
       continue;
     }
     const href = hm[1];
-    const month = mm2 ? mm2[1] : null;
+    const month = dm ? `${dm[1]}-${dm[2]}` : null;
     const subtitle = sm[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
     out.push({
       type: 'slide',
@@ -104,45 +106,44 @@ function parseFileName(name) {
 async function scanFiles() {
   await mkdir(FILES_DIR, { recursive: true });
   const entries = await readdir(FILES_DIR, { withFileTypes: true });
-  const out = [];
-  for (const e of entries) {
-    if (!e.isFile()) continue;
-    if (e.name === 'manifest.json' || e.name.startsWith('.')) continue;
-    const full = join(FILES_DIR, e.name);
-    const st = await stat(full);
-    const p = parseFileName(e.name);
-    out.push({
-      type: 'file',
-      name: e.name,
-      title: p.title,
-      category: p.category,
-      date: p.date,
-      ext: p.ext,
-      size: st.size,
-      mtime: st.mtime.toISOString(),
-      url: `./presentations/files/${encodeURIComponent(e.name)}`,
-    });
-  }
-  // 날짜(파일명) 또는 수정시간 내림차순 — timestamp 숫자 비교
-  const ts = (it) => Date.parse(it.date ? `${it.date}T00:00:00Z` : it.mtime) || 0;
-  out.sort((a, b) => ts(b) - ts(a));
+  const out = await Promise.all(
+    entries
+      .filter(
+        (e) =>
+          e.isFile() && e.name !== 'manifest.json' && !e.name.startsWith('.')
+      )
+      .map(async (e) => {
+        const st = await stat(join(FILES_DIR, e.name));
+        const p = parseFileName(e.name);
+        const mtime = st.mtime.toISOString();
+        return {
+          type: 'file',
+          name: e.name,
+          title: p.title,
+          category: p.category,
+          date: p.date,
+          ext: p.ext,
+          size: st.size,
+          mtime,
+          // 정렬 키 선계산 — 비교기 안에서 Date.parse 를 반복하지 않는다
+          _ts: Date.parse(p.date ? `${p.date}T00:00:00Z` : mtime) || 0,
+          url: `./presentations/files/${encodeURIComponent(e.name)}`,
+        };
+      })
+  );
+  // 날짜(파일명) 또는 수정시간 내림차순
+  out.sort((a, b) => b._ts - a._ts);
+  for (const it of out) delete it._ts;
   return out;
 }
 
 async function build() {
-  const slides = await scanSlides();
-  const files = await scanFiles();
-  // 슬라이드를 상단에 고정 — 발표자료가 먼저 보이게
+  const [slides, files] = await Promise.all([scanSlides(), scanFiles()]);
+  // 슬라이드를 상단에 고정 — 발표자료가 먼저 보이게.
+  // 집계 필드 없음 — 소비자(library.js)가 items 에서 파생, 이중 소스 방지.
+  // generatedAt 도 없음 — 출력을 결정론적으로 유지해 내용이 같으면 git diff 가 생기지 않게 한다
   const items = [...slides, ...files];
-
-  // generatedAt 없음 — 출력을 결정론적으로 유지해 내용이 같으면 git diff 가 생기지 않게 한다
-  const out = {
-    count: items.length,
-    slides: slides.length,
-    files: files.length,
-    items,
-  };
-  await writeFile(MANIFEST, JSON.stringify(out, null, 2) + '\n', 'utf8');
+  await writeFile(MANIFEST, JSON.stringify({ items }, null, 2) + '\n', 'utf8');
   console.log(
     `[materials] manifest: 슬라이드 ${slides.length} + 파일 ${files.length} = 총 ${items.length}`
   );

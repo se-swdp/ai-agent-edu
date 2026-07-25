@@ -6,7 +6,7 @@
 
 const KO_WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
-export const toDateKey = (d) =>
+const toDateKey = (d) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
     d.getDate()
   ).padStart(2, '0')}`;
@@ -100,5 +100,27 @@ export const debounce = (fn, delay = 200) => {
   return (...args) => {
     clearTimeout(t);
     t = setTimeout(() => fn(...args), delay);
+  };
+};
+
+/* ================= FETCH ================= */
+
+/**
+ * JSON 로더 팩토리 — 성공 결과만 메모리 캐시, 실패는 캐시하지 않고
+ * fallback + error 를 반환 (다음 뷰 진입 시 재시도).
+ */
+export const jsonLoader = (url, { tag, fallback }) => {
+  let cached = null;
+  return async () => {
+    if (cached) return cached;
+    try {
+      const res = await fetch(url, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      cached = await res.json();
+      return cached;
+    } catch (e) {
+      console.warn(`[${tag}] 로드 실패`, e);
+      return { ...fallback, error: e.message };
+    }
   };
 };

@@ -20,14 +20,21 @@ body {
   letter-spacing: var(--tracking-tight);
   color: var(--text-primary);
   background-color: var(--bg-base);
-  background-image: url('../assets/hanji-bg.jpg');
-  background-repeat: repeat;
-  background-size: 520px 520px;
-  background-attachment: fixed;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'ss01', 'ss02';
+}
+
+/* 한지 텍스처 — background-attachment: fixed 대신 고정 레이어.
+   fixed attachment 는 스크롤마다 재래스터라이즈되어 컴포지터 스크롤을 막는다 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url('../assets/hanji-bg.jpg') repeat;
+  background-size: 520px 520px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -131,17 +138,15 @@ svg { flex-shrink: 0; }
   border: 0;
 }
 
-/* Mobile: avoid background-attachment: fixed (iOS Safari address-bar jank) */
+/* Mobile: 타일만 축소 (고정 레이어는 iOS 주소창 리사이즈에도 안전) */
 @media (max-width: 720px) {
-  body {
-    background-attachment: scroll;
-    background-size: 320px 320px;
-  }
+  body::before { background-size: 320px 320px; }
 }
 
 /* Print styles for executive reports */
 @media print {
   body { background: white; }
+  body::before { display: none; }
   .sidebar, .topbar-right, .btn, .modal { display: none !important; }
   .main { margin: 0 !important; }
 }
@@ -151,7 +156,7 @@ svg { flex-shrink: 0; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: #d4d4d8;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 2px solid var(--bg-base);
 }
 ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }

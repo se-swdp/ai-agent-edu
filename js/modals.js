@@ -6,7 +6,7 @@
  */
 
 import { store } from './store.js';
-import { STATUS_LABEL } from './data.js';
+import { STATUS_LABEL } from './schema.js';
 import {
   el,
   $,
@@ -20,11 +20,17 @@ import {
   ui,
   openModal,
   closeModal,
+  onModalClose,
   openPasswordModal,
   toast,
 } from './app.js';
 
 /* =============== Detail modal =============== */
+// detail 모달이 닫히면 열림 상태를 함께 정리 — 생명주기는 이 모듈이 소유
+onModalClose('detail', () => {
+  ui.openSessionId = null;
+});
+
 export function openDetail(id) {
   const s = store.getById(id);
   if (!s) return;

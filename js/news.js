@@ -4,44 +4,22 @@
  * news/issues.json 을 fetch 해서 주간/일간 브리핑을 렌더.
  * 발행 워크플로: issues[] 맨 앞에 새 이슈를 추가하고 hosting 재배포.
  *   - issue: { id, type: 'weekly'|'daily', no, title, date, period, intro,
- *              highlights[], sections: [{ category, items[] }] }
- *   - item:  { title, summary, source, url, date }
+ *              highlights[], body[](통합 기사 문단), refs[] }
+ *   - ref:   { label, url }
  */
 
-import { el, $, clear } from './utils.js';
+import { el, $, clear, jsonLoader } from './utils.js';
 
 const ISSUES_URL = './news/issues.json';
 
 const TYPE_LABEL = { weekly: '주간', daily: '일간' };
 
-const SVG_ATTR =
-  `xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" ` +
-  `stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"`;
-const ARROW_EXTERNAL = `<svg ${SVG_ATTR}><path d="M7 17 17 7M9 7h8v8"/></svg>`;
-
-let cached = null;
 let currentId = null; // 선택된 이슈 — null 이면 최신호
 
-async function loadIssues() {
-  if (cached) return cached;
-  try {
-    const res = await fetch(ISSUES_URL, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    cached = await res.json();
-    return cached;
-  } catch (e) {
-    console.warn('[news] issues 로드 실패', e);
-    // 일시 실패는 캐시하지 않음 — 다음 뷰 진입 시 재시도
-    return { issues: [], error: e.message };
-  }
-}
-
-function divWithHtml(className, html) {
-  const div = document.createElement('div');
-  div.className = className;
-  div.innerHTML = html;
-  return div;
-}
+const loadIssues = jsonLoader(ISSUES_URL, {
+  tag: 'news',
+  fallback: { issues: [] },
+});
 
 /** "**핵심어**" → <strong> — 요약 속 핵심어 강조 (GeekNews 식 스캔 가독성) */
 function emphasize(text) {
@@ -57,15 +35,7 @@ function chipLabel(issue) {
   return `${md} ${TYPE_LABEL[issue.type] || ''}`.trim();
 }
 
-function itemCount(issue) {
-  if (issue.refs?.length) return issue.refs.length;
-  return (issue.sections || []).reduce(
-    (a, s) => a + (s.items?.length || s.refs?.length || 0),
-    0
-  );
-}
-
-/** '원문' 링크 행 — 통합 기사 하단·다이제스트 섹션 공용 */
+/** '원문' 링크 행 — 통합 기사 하단 */
 function renderRefs(refs) {
   if (!refs?.length) return null;
   return el('div', { class: 'news-digest-refs' }, [
@@ -101,50 +71,6 @@ function renderIssueNav(issues) {
   }
 }
 
-function renderItem(item) {
-  const main = el('div', { class: 'news-item-main' }, [
-    el('div', { class: 'news-item-title' }, [item.title]),
-    el('p', { class: 'news-item-summary' }, emphasize(item.summary)),
-    el('div', { class: 'news-item-meta' }, [
-      el('span', { class: 'news-item-source' }, [item.source || '']),
-      item.date ? el('span', { class: 'dot' }) : null,
-      item.date ? el('span', { class: 'news-item-date' }, [item.date]) : null,
-    ]),
-  ]);
-  return el(
-    'a',
-    { class: 'news-item', href: item.url, target: '_blank', rel: 'noopener' },
-    [main, divWithHtml('news-item-action', ARROW_EXTERNAL)]
-  );
-}
-
-function renderSection(section) {
-  const count = section.items?.length || section.refs?.length || 0;
-  const head = el('h3', { class: 'news-section-head' }, [
-    el('span', { class: 'news-section-label' }, [section.category]),
-    el('span', { class: 'news-section-count' }, [String(count)]),
-  ]);
-
-  // 정리본 모드 — 카테고리당 종합 문단 하나 + 원문 링크 행
-  if (section.digest) {
-    return el('section', { class: 'news-section' }, [
-      head,
-      el('div', { class: 'news-digest' }, [
-        el('p', { class: 'news-digest-text' }, emphasize(section.digest)),
-        renderRefs(section.refs),
-      ]),
-    ]);
-  }
-
-  // 목록 모드 — 항목별 카드 (구 스키마 호환)
-  const list = el(
-    'div',
-    { class: 'news-list' },
-    (section.items || []).map(renderItem)
-  );
-  return el('section', { class: 'news-section' }, [head, list]);
-}
-
 function renderIssue(issue) {
   const nodes = [];
 
@@ -158,7 +84,7 @@ function renderIssue(issue) {
         el('div', { class: 'news-issue-period' }, [
           el('span', {}, [issue.period || issue.date || '']),
           el('span', { class: 'dot' }),
-          el('span', {}, [`기사 ${itemCount(issue)}건`]),
+          el('span', {}, [`기사 ${issue.refs?.length || 0}건`]),
         ]),
       ]),
       // 낙관 — 대문 화제 '愛以我怡'를 전각 배치(우상→우하→좌상→좌하)로 새긴 인장
@@ -197,8 +123,6 @@ function renderIssue(issue) {
         renderRefs(issue.refs),
       ])
     );
-  } else {
-    for (const s of issue.sections || []) nodes.push(renderSection(s));
   }
 
   nodes.push(

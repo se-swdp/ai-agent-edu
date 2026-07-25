@@ -172,8 +172,9 @@
    오른쪽에 남는 폭만 한지 여백. 테두리는 헤어라인 먹선 + 라운드만.
    접근성 텍스트는 .cover-caption.sr-only 로 별도 제공. */
 /* 대문 뷰일 때 가로 캡 해제 + 여백 비대칭 — 그림이 좌상단에 붙고
-   숨쉴 틈은 우·하단에만. app.js 가 view 전환 시 토글 */
-.content--cover {
+   숨쉴 틈은 우·하단에만. app.js 가 content 의 data-view 를 세팅,
+   전면 화폭이 필요한 뷰는 여기서 CSS 로만 opt-in */
+.content[data-view='cover'] {
   max-width: none;
   padding: var(--space-3) var(--space-6) var(--space-6) var(--space-3);
 }
@@ -216,7 +217,7 @@
 .cover-thumbs::-webkit-scrollbar-track { background: transparent; }
 .cover-thumbs::-webkit-scrollbar-thumb {
   background: var(--border-strong);
-  border-radius: 3px;
+  border-radius: var(--radius-xs);
 }
 .cover-thumb {
   flex-shrink: 0;
@@ -328,7 +329,7 @@
   font-family: var(--font-mono);
   letter-spacing: 0.12em;
 }
-.calendar-weekdays > div:first-child { color: #b1261a; }
+.calendar-weekdays > div:first-child { color: var(--sunday); }
 .calendar-weekdays > div:last-child { color: var(--accent-500); }
 
 .calendar-grid {
@@ -342,7 +343,7 @@
   padding: 6px 8px 8px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
   position: relative;
   background: rgba(255, 252, 246, 0.94);
   transition: background var(--dur-fast) var(--ease-out);
@@ -351,12 +352,14 @@
 .cal-cell:nth-child(7n+1) { border-left: 0; }
 .cal-cell:hover { background: var(--bg-hover); }
 .cal-cell.is-other-month { background: var(--bg-subtle); }
-.cal-cell.is-other-month .cal-day-num { color: var(--text-muted); }
 .cal-cell.is-other-month:hover { background: var(--bg-subtle); }
-.cal-cell.is-weekend:not(.is-today) { background: rgba(248, 241, 226, 0.55); }
+/* 주말 바탕 — 요일은 data-dow 단일 소스. 우선순위는 규칙 순서로:
+   주말 < 오늘 (동일 특이도, 뒤가 이긴다) */
+.cal-cell[data-dow='0'],
+.cal-cell[data-dow='6'] { background: rgba(248, 241, 226, 0.55); }
 .cal-cell.is-today {
   background: var(--accent-50);
-  box-shadow: inset 0 0 0 1px var(--accent-200, rgba(42, 66, 100, 0.18));
+  box-shadow: inset 0 0 0 1px var(--accent-200);
 }
 
 .cal-day-head {
@@ -373,8 +376,9 @@
   line-height: 1;
   padding: 2px;
 }
-/* Sunday emphasis — lower priority than today-circle */
-.cal-cell[data-dow='0']:not(.is-today) .cal-day-num { color: var(--danger); }
+/* 날짜 숫자 색 우선순위 — 일요일 < 이웃달 < 오늘 (동일 특이도, 순서로 결정) */
+.cal-cell[data-dow='0'] .cal-day-num { color: var(--sunday); }
+.cal-cell.is-other-month .cal-day-num { color: var(--text-muted); }
 .cal-cell.is-today .cal-day-num {
   display: inline-flex;
   align-items: center;
@@ -382,7 +386,7 @@
   width: 22px;
   height: 22px;
   background: var(--accent-500);
-  color: #ffffff;
+  color: var(--text-on-accent);
   border-radius: 50%;
   padding: 0;
 }
@@ -397,7 +401,7 @@
 .cal-event {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-1);
   height: 24px;
   padding: 0 6px 0 6px;
   border-radius: var(--radius-sm);
@@ -539,7 +543,7 @@
   left: 50%;
   transform: translateX(-50%);
   background: var(--accent-500);
-  color: #ffffff;
+  color: var(--text-on-accent);
   font-size: var(--fs-xs);
   font-family: var(--font-mono);
   font-weight: var(--fw-semibold);
@@ -604,12 +608,12 @@
   padding: 5px;
   flex-shrink: 0;
   background: var(--cinnabar);
-  color: #fffcf6;
+  color: var(--text-on-accent);
   font-family: var(--font-serif);
   font-size: 19px;
   font-weight: var(--fw-bold);
   line-height: 1;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   transform: rotate(-4deg);
   mix-blend-mode: multiply;
   /* 인주가 고르게 묻지 않은 느낌 */
@@ -676,7 +680,7 @@
 }
 .news-highlights li {
   position: relative;
-  padding-left: 16px;
+  padding-left: var(--space-4);
   font-size: var(--fs-base);
   line-height: var(--lh-normal);
   color: var(--text-primary);
@@ -690,38 +694,6 @@
   height: 5px;
   border-radius: 1px;
   background: var(--cinnabar);
-}
-
-.news-section { margin-bottom: var(--space-8); }
-.news-section-head {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--border-default);
-}
-.news-section-label {
-  font-family: var(--font-serif);
-  font-size: var(--fs-xl);
-  font-weight: var(--fw-bold);
-  letter-spacing: var(--tracking-tight);
-  color: var(--text-primary);
-}
-/* 「 」 — 전통 인쇄물의 표제 괄호. 단청 주홍으로 조용히 강조 */
-.news-section-label::before {
-  content: '「';
-  color: var(--cinnabar);
-  margin-right: 1px;
-}
-.news-section-label::after {
-  content: '」';
-  color: var(--cinnabar);
-  margin-left: 1px;
-}
-.news-section-count {
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  color: var(--text-muted);
 }
 
 /* ---- 통합 기사 모드 ---- */
@@ -739,13 +711,6 @@
   line-height: 1.9;
 }
 
-/* ---- 정리본(다이제스트) 모드 ---- */
-.news-digest { padding: var(--space-4) 0 0; }
-.news-digest-text {
-  font-size: var(--fs-md);
-  line-height: var(--lh-relaxed);
-  color: var(--text-secondary);
-}
 .news-digest-refs {
   display: flex;
   flex-wrap: wrap;
@@ -773,69 +738,13 @@
   border-color: var(--accent-300);
 }
 
-.news-item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: start;
-  gap: var(--space-4);
-  padding: var(--space-4) var(--space-3);
-  border-bottom: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  color: inherit;
-  transition: background var(--dur-fast) var(--ease-out);
-}
-.news-item:last-child { border-bottom: none; }
-.news-item:hover { background: var(--bg-hover); }
-.news-item-title {
-  font-size: var(--fs-md);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--tracking-tight);
-  line-height: var(--lh-snug);
-  color: var(--text-primary);
-  transition: color var(--dur-fast) var(--ease-out);
-}
-.news-item:hover .news-item-title { color: var(--accent-500); }
-.news-item-summary {
-  margin-top: 4px;
-  font-size: var(--fs-base);
-  color: var(--text-secondary);
-  line-height: var(--lh-relaxed);
-}
 /* 요약·본문 속 핵심어 — 무게만 살짝, 색은 본문 먹색으로 (뉴스 뷰 공통) */
-.news-item-summary strong,
 .news-issue-intro strong,
 .news-highlights li strong,
-.news-article-p strong,
-.news-digest-text strong {
+.news-article-p strong {
   font-weight: var(--fw-semibold);
   color: var(--text-primary);
 }
-.news-item-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 6px;
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-.news-item-source {
-  font-weight: var(--fw-semibold);
-  color: var(--text-tertiary);
-}
-.news-item-action {
-  width: 16px;
-  height: 16px;
-  margin-top: 4px;
-  color: var(--text-muted);
-  opacity: 0;
-  transition: opacity var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out);
-}
-.news-item-action svg { width: 100%; height: 100%; display: block; }
-.news-item:hover .news-item-action { opacity: 1; color: var(--accent-500); }
 
 .news-foot {
   margin-top: var(--space-10);
@@ -855,6 +764,4 @@
   .news-bar { flex-direction: column; align-items: flex-start; }
   .news-issue-title { font-size: var(--fs-2xl); }
   .news-issue-seal { width: 46px; height: 46px; font-size: 15px; padding: 4px; }
-  .news-item { padding: var(--space-3) var(--space-2); }
-  .news-item-action { display: none; }
 }

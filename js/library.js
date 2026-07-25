@@ -8,11 +8,9 @@
  */
 
 import { store } from './store.js';
-import { el, $, clear } from './utils.js';
+import { el, $, clear, jsonLoader } from './utils.js';
 
 const MANIFEST_URL = './presentations/files/manifest.json';
-
-let cached = null;
 
 /* ===== Outline SVG icon set (single-color, currentColor stroke) ===== */
 const SVG_ATTR =
@@ -36,6 +34,13 @@ const ICONS = {
 const ACTION_EXTERNAL = `<svg ${SVG_ATTR} stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg>`;
 const ACTION_DOWNLOAD = `<svg ${SVG_ATTR} stroke-width="1.8"><path d="M12 4v12M6 12l6 6 6-6M5 20h14"/></svg>`;
 
+function divWithHtml(className, html) {
+  const div = document.createElement('div');
+  div.className = className;
+  div.innerHTML = html;
+  return div;
+}
+
 const EXT_GROUP = {
   pdf: 'document',
   doc: 'document', docx: 'document',
@@ -54,13 +59,6 @@ function iconHtmlFor(item) {
   return ICONS[EXT_GROUP[item.ext]] || ICONS.file;
 }
 
-function divWithHtml(className, html) {
-  const div = document.createElement('div');
-  div.className = className;
-  div.innerHTML = html;
-  return div;
-}
-
 function fmtSize(bytes) {
   if (bytes == null) return '';
   if (bytes < 1024) return `${bytes} B`;
@@ -74,19 +72,10 @@ function fmtDate(iso) {
   return iso.slice(0, 10);
 }
 
-async function loadManifest() {
-  if (cached) return cached;
-  try {
-    const res = await fetch(MANIFEST_URL, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    cached = await res.json();
-    return cached;
-  } catch (e) {
-    console.warn('[library] manifest 로드 실패', e);
-    // 일시 실패는 캐시하지 않음 — 다음 뷰 진입 시 재시도
-    return { items: [], count: 0, error: e.message };
-  }
-}
+const loadManifest = jsonLoader(MANIFEST_URL, {
+  tag: 'library',
+  fallback: { items: [] },
+});
 
 function fmtMonth(month) {
   // "YYYY-MM"(월 01–12) 정확 일치일 때만 "YYYY. MM" — 아니면 원문을 그대로 노출해 오염을 숨기지 않는다
@@ -126,10 +115,6 @@ function renderCard(item) {
   const attrs = {
     class: `library-card library-card--${item.type}`,
     href: item.url,
-    dataset: {
-      type: item.type,
-      ext: item.ext || '',
-    },
   };
   if (isSlide) {
     attrs.target = '_blank';
@@ -165,9 +150,9 @@ export async function renderLibrary() {
     if (manifest.error) {
       meta.textContent = `자료 목록을 불러오지 못했습니다 (${manifest.error})`;
     } else if (items.length) {
-      const s = manifest.slides ?? items.filter((x) => x.type === 'slide').length;
-      const f = manifest.files ?? items.filter((x) => x.type === 'file').length;
-      meta.textContent = `총 ${items.length}건 — 발표자료 ${s} · 다운로드 ${f}`;
+      // manifest 는 items 만 싣는다 — 집계는 항상 여기서 파생 (이중 소스 방지)
+      const s = items.filter((x) => x.type === 'slide').length;
+      meta.textContent = `총 ${items.length}건 — 발표자료 ${s} · 다운로드 ${items.length - s}`;
     } else {
       meta.textContent = '등록된 자료가 없습니다.';
     }

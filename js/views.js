@@ -6,7 +6,7 @@
  */
 
 import { store } from './store.js';
-import { STATUS_LABEL } from './data.js';
+import { STATUS_LABEL } from './schema.js';
 import {
   el,
   $,
@@ -20,7 +20,7 @@ import {
   formatTimeRange,
   relativeKo,
 } from './utils.js';
-import { ui, switchView } from './app.js';
+import { ui, switchView, setSearch } from './app.js';
 import { openDetail, openForm } from './modals.js';
 
 function matchesSearch(s) {
@@ -78,20 +78,21 @@ export function renderCalendar({ sessions }) {
 
   clear(grid);
   const maxPerCell = 3;
+  const editing = store.isEditing();
 
   for (const cell of cells) {
-    const items = (byDate.get(cell.key) || []).sort((a, b) =>
-      (a.startTime || '').localeCompare(b.startTime || '')
-    );
+    // store 가 이미 date→startTime→id 로 정렬 — 날짜별 그룹핑은 순서를 보존한다
+    const items = byDate.get(cell.key) || [];
+    // 요일은 data-dow 하나로만 노출 — 주말/일요일 스타일은 CSS 가 파생
     const cellEl = el('div', {
       class: `cal-cell ${cell.inMonth ? '' : 'is-other-month'} ${
         cell.key === today ? 'is-today' : ''
-      } ${cell.date.getDay() === 0 || cell.date.getDay() === 6 ? 'is-weekend' : ''}`,
+      }`,
       dataset: { dow: String(cell.date.getDay()) },
     });
     const head = el('div', { class: 'cal-day-head' }, [
       el('span', { class: 'cal-day-num' }, [String(cell.date.getDate())]),
-      store.isEditing()
+      editing
         ? el(
             'button',
             {
@@ -142,15 +143,11 @@ export function renderCalendar({ sessions }) {
             on: {
               click: () => {
                 ui.tlFilter = 'all';
-                ui.search = '';
-                $('#searchInput').value = '';
-                switchView('timeline');
-                setTimeout(() => {
-                  const target = document.querySelector(
-                    `.timeline [data-date="${cell.key}"]`
-                  );
-                  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 50);
+                setSearch('');
+                switchView('timeline'); // 동기 렌더 — 바로 스크롤 가능
+                document
+                  .querySelector(`.timeline [data-date="${cell.key}"]`)
+                  ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
               },
             },
           },

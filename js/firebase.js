@@ -7,5 +7,5 @@ import { getFirestore } from 'firebase/firestore';
 
 import { firebaseConfig } from './data.js';
 
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);

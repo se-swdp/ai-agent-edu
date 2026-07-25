@@ -28,7 +28,6 @@ const sessionsCol = collection(db, SESSIONS_COLLECTION);
 
 let state = {
   sessions: [],
-  loaded: false,
   error: null,
   editMode: sessionStorage.getItem(PASSWORD_STORAGE_KEY) === EDIT_PASSWORD,
 };
@@ -57,7 +56,6 @@ export const store = {
 
   subscribe(fn) {
     listeners.add(fn);
-    return () => listeners.delete(fn);
   },
 
   getById(id) {
@@ -73,7 +71,7 @@ export const store = {
         sessionsCol,
         (snap) => {
           const list = snap.docs.map(rowFromDoc).sort(compareSessions);
-          setState({ sessions: list, loaded: true, error: null });
+          setState({ sessions: list, error: null });
           if (!resolved) {
             resolved = true;
             resolve();
@@ -81,7 +79,7 @@ export const store = {
         },
         (err) => {
           console.error('[store] snapshot error', err);
-          setState({ sessions: [], loaded: true, error: err });
+          setState({ sessions: [], error: err });
           if (!resolved) {
             resolved = true;
             resolve();
@@ -108,18 +106,14 @@ export const store = {
   },
 
   async create(input) {
-    const row = normalize({ ...input, id: 'tmp' });
+    const row = normalize(input); // normalize 가 id 를 '' 로 기본 처리
     const ref = await addDoc(sessionsCol, stripId(row));
     return { ...row, id: ref.id };
   },
 
   async update(id, input) {
     const existing = state.sessions.find((s) => s.id === id);
-    if (!existing) {
-      const e = new Error('not found');
-      e.status = 404;
-      throw e;
-    }
+    if (!existing) throw new Error('not found');
     const merged = normalize({ ...existing, ...input, id });
     await updateDoc(doc(db, SESSIONS_COLLECTION, id), stripId(merged));
     return merged;

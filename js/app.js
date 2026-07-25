@@ -33,23 +33,26 @@ export const ui = {
   editingId: null, // null = create new, string = edit existing
 };
 
-const VIEW_TITLES = {
-  cover: ['대문', 'AI 전파교육 소개'],
-  calendar: ['캘린더', '월간 교육 일정'],
-  timeline: ['타임라인', '과거 · 예정 교육 목록'],
-  library: ['열람실', '발표자료 열람 · 자료 다운로드'],
-  news: ['뉴스', 'AI 업계 브리핑 — 에이전트 · 모델 · 방법론'],
+/** 뷰 레지스트리 — 뷰 추가/변경 시 여기 한 곳만 고친다 (nav 마크업 제외). */
+const VIEWS = {
+  cover: { title: '대문', sub: 'AI 전파교육 소개' },
+  calendar: { title: '캘린더', sub: '월간 교육 일정', render: renderCalendar, usesSearch: true },
+  timeline: { title: '타임라인', sub: '과거 · 예정 교육 목록', render: renderTimeline, usesSearch: true },
+  library: { title: '열람실', sub: '발표자료 열람 · 자료 다운로드', render: renderLibrary },
+  news: { title: '뉴스', sub: 'AI 업계 브리핑 — 에이전트 · 모델 · 방법론', render: renderNews },
 };
+
+/* 정적 노드 캐시 — type=module 은 defer 라 모듈 평가 시점에 DOM 완성 보장 */
+const NAV_ITEMS = $$('.nav-item');
+const VIEW_SECTIONS = $$('.view');
+const CONTENT = $('.content');
 
 /* =============== Top-level render =============== */
 export function renderAll() {
   const st = store.getState();
   syncLock();
   renderTally(st);
-  if (ui.view === 'calendar') renderCalendar(st);
-  if (ui.view === 'timeline') renderTimeline(st);
-  if (ui.view === 'library') renderLibrary();
-  if (ui.view === 'news') renderNews();
+  VIEWS[ui.view]?.render?.(st);
   if (ui.openSessionId) {
     const s = store.getById(ui.openSessionId);
     if (s) renderDetail(s);
@@ -60,39 +63,46 @@ export function renderAll() {
 /* =============== Navigation / view switching =============== */
 export function switchView(view) {
   ui.view = view;
-  $$('.nav-item').forEach((n) => {
+  NAV_ITEMS.forEach((n) => {
     const active = n.dataset.view === view;
     n.classList.toggle('is-active', active);
     // 스크린리더에 현재 위치 노출 — 시각적 is-active와 항상 동기
     if (active) n.setAttribute('aria-current', 'page');
     else n.removeAttribute('aria-current');
   });
-  $$('.view').forEach((v) =>
+  VIEW_SECTIONS.forEach((v) =>
     v.classList.toggle('is-active', v.dataset.viewContent === view)
   );
-  // 대문은 전면 화폭 — content 의 max-width/패딩 캡을 해제
-  const content = $('.content');
-  if (content) content.classList.toggle('content--cover', view === 'cover');
-  const [t, sub] = VIEW_TITLES[view] || ['', ''];
-  $('#pageTitle').textContent = t;
+  // 뷰별 레이아웃(예: 대문 전면 화폭)은 CSS 가 data-view 로 opt-in
+  if (CONTENT) CONTENT.dataset.view = view;
+  const { title = '', sub = '' } = VIEWS[view] || {};
+  $('#pageTitle').textContent = title;
   $('#pageSub').textContent = sub;
   renderAll();
 }
 
 function bindNav() {
-  $$('.nav-item[data-view]').forEach((btn) =>
+  NAV_ITEMS.forEach((btn) =>
     btn.addEventListener('click', () => switchView(btn.dataset.view))
   );
   $('.sidebar-brand')?.addEventListener('click', () => switchView('cover'));
 }
 
 /* =============== Topbar: search + tally =============== */
+/** 검색어 state 와 input DOM 을 함께 소유 — 둘이 어긋나지 않게 한 곳에서만 변경. */
+export function setSearch(value) {
+  ui.search = value.trim().toLowerCase();
+  const input = $('#searchInput');
+  if (input && input.value !== value) input.value = value;
+}
+
 function bindTopbar() {
   $('#searchInput').addEventListener(
     'input',
     debounce((e) => {
-      ui.search = e.target.value.trim().toLowerCase();
-      renderAll();
+      setSearch(e.target.value);
+      // 검색을 읽는 뷰만 다시 그린다 — 열람실/뉴스 재구축 낭비 방지
+      if (VIEWS[ui.view]?.usesSearch) renderAll();
     }, 180)
   );
 }
@@ -134,11 +144,20 @@ function syncLock() {
 }
 
 /* =============== Modal primitives =============== */
+/** 모달별 닫힘 후처리 — 소유 모듈(modals.js)이 등록, primitive 는 이름을 모른다.
+    저장소는 함수 프로퍼티 — modals.js 가 순환 import 로 app.js 본문 평가 전에
+    등록을 호출해도 TDZ 없이 동작한다. */
+export function onModalClose(name, fn) {
+  (onModalClose.hooks ??= {})[name] = fn;
+}
+
 export function openModal(name) {
   const m = $(`#${name}Modal`);
   if (!m) return;
   m.classList.add('is-open');
   m.setAttribute('aria-hidden', 'false');
+  // 인라인 스크립트(대문 화첩 키보드 가드)도 이 클래스로 모달 열림을 읽는다
+  document.body.classList.add('is-modal-open');
   document.body.style.overflow = 'hidden';
 }
 
@@ -147,8 +166,9 @@ export function closeModal(name) {
   if (!m) return;
   m.classList.remove('is-open');
   m.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('is-modal-open');
   document.body.style.overflow = '';
-  if (name === 'detail') ui.openSessionId = null;
+  onModalClose.hooks?.[name]?.();
 }
 
 function bindGlobalModalClose() {

@@ -4,8 +4,6 @@
  * Record-shape constants (status enum, normalize, sort) live in ./schema.js.
  */
 
-export { STATUS_LABEL } from './schema.js';
-
 // Firebase Web SDK 설정 — apiKey 등은 공개되어도 안전합니다 (Firestore Rules 가 보호).
 export const firebaseConfig = {
   apiKey: 'AIzaSyDsTcgkarw35y6qKesWX0777Z1JO5Vgj_0',
