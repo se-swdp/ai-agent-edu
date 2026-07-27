@@ -753,7 +753,8 @@
   font-size: var(--fs-xs);
   color: var(--text-muted);
 }
-.news-empty {
+.news-empty,
+.qna-empty {
   padding: var(--space-16) 0;
   text-align: center;
   font-size: var(--fs-md);
@@ -853,9 +854,6 @@
 .qna-del:hover {
   color: var(--danger);
 }
-.qna-card-head .qna-del {
-  margin-left: var(--space-1);
-}
 .qna-card-body {
   margin-top: var(--space-2);
   white-space: pre-wrap;
@@ -902,12 +900,6 @@
 .qna-reply .qna-reply-input {
   flex: 1;
   min-width: 0;
-}
-.qna-empty {
-  padding: var(--space-16) 0;
-  text-align: center;
-  font-size: var(--fs-md);
-  color: var(--text-muted);
 }
 
 @media (max-width: 720px) {

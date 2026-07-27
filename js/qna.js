@@ -19,12 +19,13 @@ import {
   query,
   serverTimestamp,
   where,
+  writeBatch,
 } from 'firebase/firestore';
 
 import { db } from './firebase.js';
 import { store } from './store.js';
-import { el, $, clear } from './utils.js';
-import { toast } from './app.js';
+import { el, $, clear, formatDateTimeKo } from './utils.js';
+import { toast, ui } from './app.js';
 
 const INQUIRIES_COLLECTION = 'inquiries';
 const COMMENTS_COLLECTION = 'inquiry_comments';
@@ -44,9 +45,7 @@ const millis = (t) => (t && typeof t.toMillis === 'function' ? t.toMillis() : Da
 
 function formatTime(t) {
   if (!t || typeof t.toDate !== 'function') return '방금';
-  const d = t.toDate();
-  const p = (n) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}. ${p(d.getMonth() + 1)}. ${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+  return formatDateTimeKo(t.toDate());
 }
 
 function savedName() {
@@ -91,8 +90,7 @@ function start() {
 }
 
 function rerenderIfActive() {
-  const sec = document.querySelector('[data-view-content="qna"]');
-  if (sec?.classList.contains('is-active')) renderQna();
+  if (ui.view === 'qna') renderQna();
 }
 
 /* =============== writes =============== */
@@ -119,12 +117,14 @@ async function removeComment(id) {
 }
 
 async function removeInquiry(inq) {
-  // 문의를 지우면 달린 답변 댓글도 함께 정리
+  // 문의를 지우면 달린 답변 댓글도 함께 정리 — 단일 배치로 원자적 삭제
   const orphans = await getDocs(
     query(collection(db, COMMENTS_COLLECTION), where('inquiryId', '==', inq.id))
   );
-  await Promise.all(orphans.docs.map((d) => deleteDoc(d.ref)));
-  await deleteDoc(doc(db, INQUIRIES_COLLECTION, inq.id));
+  const batch = writeBatch(db);
+  orphans.docs.forEach((d) => batch.delete(d.ref));
+  batch.delete(doc(db, INQUIRIES_COLLECTION, inq.id));
+  await batch.commit();
 }
 
 /* =============== render =============== */
@@ -133,13 +133,25 @@ const ICON_TRASH =
   '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">' +
   '<path d="M4 6h12M8 6V4.5A1.5 1.5 0 0 1 9.5 3h1A1.5 1.5 0 0 1 12 4.5V6m2.5 0-.7 9.1a1.5 1.5 0 0 1-1.5 1.4H7.7a1.5 1.5 0 0 1-1.5-1.4L5.5 6M8.2 9v4.5M11.8 9v4.5"/></svg>';
 
-function deleteButton(label, onClick) {
+/** 휴지통 버튼 — 확인 → 실행 → 성공/실패 토스트까지 공통 처리 */
+function deleteButton(label, confirmMsg, okToast, action) {
   const btn = el('button', {
     class: 'icon-btn qna-del',
     type: 'button',
     'aria-label': label,
     title: label,
-    on: { click: onClick },
+    on: {
+      click: async () => {
+        if (!confirm(confirmMsg)) return;
+        try {
+          await action();
+          toast(okToast);
+        } catch (e) {
+          console.error(`[qna] ${label} failed`, e);
+          toast('삭제하지 못했습니다');
+        }
+      },
+    },
   });
   btn.innerHTML = ICON_TRASH;
   return btn;
@@ -151,16 +163,9 @@ function renderComment(c, editing) {
       el('span', { class: 'qna-comment-name' }, [c.name || '익명']),
       el('span', { class: 'qna-time' }, [formatTime(c.createdAt)]),
       editing
-        ? deleteButton('답변 삭제', async () => {
-            if (!confirm('이 답변을 삭제할까요?')) return;
-            try {
-              await removeComment(c.id);
-              toast('답변 삭제됨');
-            } catch (e) {
-              console.error('[qna] comment delete failed', e);
-              toast('삭제하지 못했습니다');
-            }
-          })
+        ? deleteButton('답변 삭제', '이 답변을 삭제할까요?', '답변 삭제됨', () =>
+            removeComment(c.id)
+          )
         : null,
     ]),
     el('div', { class: 'qna-comment-body' }, [c.body || '']),
@@ -222,16 +227,12 @@ function renderCard(inq, inqComments, editing) {
         inqComments.length ? `답변 ${inqComments.length}` : '답변 대기',
       ]),
       editing
-        ? deleteButton('문의 삭제', async () => {
-            if (!confirm('이 문의와 달린 답변을 모두 삭제할까요? 되돌릴 수 없습니다.')) return;
-            try {
-              await removeInquiry(inq);
-              toast('문의 삭제됨');
-            } catch (e) {
-              console.error('[qna] inquiry delete failed', e);
-              toast('삭제하지 못했습니다');
-            }
-          })
+        ? deleteButton(
+            '문의 삭제',
+            '이 문의와 달린 답변을 모두 삭제할까요? 되돌릴 수 없습니다.',
+            '문의 삭제됨',
+            () => removeInquiry(inq)
+          )
         : null,
     ]),
     el('div', { class: 'qna-card-body' }, [inq.body || '']),

@@ -15,16 +15,14 @@ import { $, todayKey } from './utils.js';
 const VISITS_COLLECTION = 'visits';
 const VISIT_STORAGE_KEY = 'lecture-dashboard.visit-date';
 
-let today = 0;
-let total = 0;
-let todayLoaded = false;
-let totalLoaded = false;
+let today = null; // null = 첫 스냅샷 전
+let total = null;
 
 function render() {
   const elMeta = $('#visitMeta');
   if (!elMeta) return;
   // 집계는 모두, 표시는 관리자(편집 모드)만
-  if (!store.isEditing() || !todayLoaded || !totalLoaded) {
+  if (!store.isEditing() || today === null || total === null) {
     elMeta.hidden = true;
     return;
   }
@@ -36,8 +34,10 @@ function render() {
 async function record(dateKey) {
   // 실패해도 앱 동작에 영향 없음 — 조용히 무시
   try {
-    await setDoc(doc(db, VISITS_COLLECTION, dateKey), { count: increment(1) }, { merge: true });
-    await setDoc(doc(db, VISITS_COLLECTION, '_total'), { count: increment(1) }, { merge: true });
+    await Promise.all([
+      setDoc(doc(db, VISITS_COLLECTION, dateKey), { count: increment(1) }, { merge: true }),
+      setDoc(doc(db, VISITS_COLLECTION, '_total'), { count: increment(1) }, { merge: true }),
+    ]);
     localStorage.setItem(VISIT_STORAGE_KEY, dateKey);
   } catch (e) {
     console.warn('[visits] record failed', e);
@@ -54,7 +54,6 @@ export function initVisits() {
     doc(db, VISITS_COLLECTION, dateKey),
     (snap) => {
       today = snap.data()?.count || 0;
-      todayLoaded = true;
       render();
     },
     (e) => console.warn('[visits] today snapshot error', e)
@@ -63,7 +62,6 @@ export function initVisits() {
     doc(db, VISITS_COLLECTION, '_total'),
     (snap) => {
       total = snap.data()?.count || 0;
-      totalLoaded = true;
       render();
     },
     (e) => console.warn('[visits] total snapshot error', e)

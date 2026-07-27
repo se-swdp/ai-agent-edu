@@ -47,6 +47,11 @@ export const formatDateKo = (s) => {
   )}. ${String(d.getDate()).padStart(2, '0')} (${KO_WEEKDAYS[d.getDay()]})`;
 };
 
+export const formatDateTimeKo = (d) => {
+  const p = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}. ${p(d.getMonth() + 1)}. ${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+};
+
 export const formatTimeRange = (s, e) => {
   if (!s && !e) return '';
   if (s && !e) return s;
