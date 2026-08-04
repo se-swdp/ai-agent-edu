@@ -39,6 +39,78 @@
       "subtitle": "2026년 7월 AI 체크포인트 · 병목은 구현에서 인지로",
       "url": "./presentations/ai-checkpoint-2026-07/note-deck.html",
       "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-03",
+      "title": "AI Hands-on Course",
+      "subtitle": "리더 핸즈온 · PL/TL/임원 · 실습 4종 패키지",
+      "url": "./presentations/archive/leadership-hands-on/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-04",
+      "title": "AI 개발 도구 Hands-on",
+      "subtitle": "Agentic AI Tool 기초 / Hands-on 교육 본편",
+      "url": "./presentations/archive/claude-code-handson/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-04",
+      "title": "S/W개발팀 AI PoC 현황",
+      "subtitle": "일하는 방법을 바꾸다 · Claude Code 도입 PoC",
+      "url": "./presentations/archive/controller-ai-poc/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-04",
+      "title": "AI가 바꾸는 일하는 방법",
+      "subtitle": "비개발 직군 세미나 · 낸드TM 마케팅팀",
+      "url": "./presentations/archive/ai-work-basics/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-04",
+      "title": "AI가 바꾸는 일하는 방법 — 30분 브리프",
+      "subtitle": "짧은 세션용 브리프판",
+      "url": "./presentations/archive/ai-work-basics-brief/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-04",
+      "title": "Harness Engineering",
+      "subtitle": "모델을 잇는 구조물 · 에이전트 실행환경 설계",
+      "url": "./presentations/archive/harness-engineering/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-06",
+      "title": "AI 개발 도구 Hands-on · 리더십",
+      "subtitle": "리더십 핸즈온 · Controller 개발팀",
+      "url": "./presentations/archive/ai-dev-tools-handson/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-06",
+      "title": "개인 활동으로 익히는 AI 에이전트 활용법",
+      "subtitle": "개인 학습 루틴 가이드",
+      "url": "./presentations/archive/personal-agent-method/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-07",
+      "title": "AI 에이전트와 일하는 법",
+      "subtitle": "전 직군 세미나 · 메모리 CA 워크숍",
+      "url": "./presentations/archive/ai-agent-allhands/",
+      "ext": "html"
     }
   ]
 }

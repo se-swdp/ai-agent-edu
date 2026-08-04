@@ -34,3 +34,6 @@ serviceAccountKey*.json
 # playwright-cli local caches
 .playwright-cli/
 **/.playwright-cli/
+
+# personal documents
+SGG_*.docx
