@@ -30,6 +30,7 @@
         "**/.*",
         "**/node_modules/**",
         "**/*.md",
+        "**/*.docx",
         "firestore.rules",
         "firestore.indexes.json",
         "*-firebase-adminsdk-*.json",
