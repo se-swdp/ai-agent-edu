@@ -39,7 +39,8 @@
         "package-lock.json",
         "scripts/**",
         "**/deck-spec.json",
-        "**/src-png/**"
+        "**/src-png/**",
+        "integrated_presentation.html"
       ],
       "cleanUrls": true,
       "headers": [
