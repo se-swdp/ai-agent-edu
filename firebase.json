@@ -40,7 +40,8 @@
         "scripts/**",
         "**/deck-spec.json",
         "**/src-png/**",
-        "integrated_presentation.html"
+        "integrated_presentation.html",
+        "docs/**"
       ],
       "cleanUrls": true,
       "headers": [
