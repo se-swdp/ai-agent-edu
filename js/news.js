@@ -3,7 +3,7 @@
  *
  * news/issues.json 을 fetch 해서 주간/일간 브리핑을 렌더.
  * 발행 워크플로: issues[] 맨 앞에 새 이슈를 추가하고 hosting 재배포.
- *   - issue: { id, type: 'weekly'|'monthly'|'daily', no, title, date, period, intro,
+ *   - issue: { id, type: 'weekly'|'biweekly'|'monthly'|'daily', no, title, date, period, intro,
  *              highlights[], body[](통합 기사 문단), refs[] }
  *   - ref:   { label, url }
  */
@@ -12,7 +12,7 @@ import { el, $, clear, jsonLoader } from './utils.js';
 
 const ISSUES_URL = './news/issues.json';
 
-const TYPE_LABEL = { weekly: '주간', monthly: '월간', daily: '일간' };
+const TYPE_LABEL = { weekly: '주간', biweekly: '격주', monthly: '월간', daily: '일간' };
 
 let currentId = null; // 선택된 이슈 — null 이면 최신호
 
