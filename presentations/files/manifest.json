@@ -2,6 +2,14 @@
   "items": [
     {
       "type": "slide",
+      "month": "2026-10",
+      "title": "AI로 편해지는 중",
+      "subtitle": "코딩 다음은 문서 — 내 일에 맞는 공장 하나",
+      "url": "./presentations/ai-easier/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
       "month": "2026-09",
       "title": "AX는 왜 어려울까",
       "subtitle": "배포는 쉽고, 운영은 어렵다 — 서비스보다 길이 먼저",
