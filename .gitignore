@@ -37,6 +37,3 @@ serviceAccountKey*.json
 
 # personal documents
 SGG_*.docx
-
-# Demo recording for ai-easier — large media, hosted on Firebase only (drop the file in, then firebase deploy)
-presentations/ai-easier/demo.mp4
