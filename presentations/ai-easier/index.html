@@ -38,7 +38,7 @@ body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif
   .slide{display:flex!important;position:relative;page-break-after:always;break-after:page;height:100vh}
 }
 
-/* demo slide: the recording plays inside the screen frame drawn on 10-demo.webp */
+/* demo slide: the recording plays inside the screen frame drawn on 11-demo.webp */
 .demo-video{position:absolute;display:none;object-fit:contain;background:#fcf8f2;border-radius:4px}
 .demo-video.ready{display:block}
 @media print{.demo-video{display:none!important}}
@@ -55,16 +55,17 @@ body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif
 <div class="slide"><img src="06-coding-first.webp" alt="가장 먼저 좋아진 영역 — 코딩" loading="lazy" /></div>
 <div class="slide"><img src="07-work-remains.webp" alt="생각보다 — 일이 다 없어지진 않음" loading="lazy" /></div>
 <div class="slide"><img src="08-hardest-work.webp" alt="개발자로서 — 제일 괴로웠던 일" loading="lazy" /></div>
-<div class="slide"><img src="09-the-input.webp" alt="이 장들을 만든 입력" loading="lazy" /></div>
-<div class="slide demo-slide"><img src="10-demo.webp" alt="만드는 과정 — 녹화 그대로 (데모 영상)" loading="lazy" /><video class="demo-video" src="demo.mp4" preload="metadata" controls playsinline muted></video></div>
-<div class="slide"><img src="11-deck-factory.webp" alt="발표자료 공장" loading="lazy" /></div>
-<div class="slide"><img src="12-not-just-decks.webp" alt="발표자료만이 아님" loading="lazy" /></div>
-<div class="slide"><img src="13-how-to-make-it-good.webp" alt="잘 만들게 하려면" loading="lazy" /></div>
-<div class="slide"><img src="14-who-carries-data.webp" alt="자료를 나르는 사람" loading="lazy" /></div>
-<div class="slide"><img src="15-one-window.webp" alt="창 하나로" loading="lazy" /></div>
-<div class="slide"><img src="16-going-deeper.webp" alt="깊게 들어가면" loading="lazy" /></div>
-<div class="slide"><img src="17-numbers-go-wrong.webp" alt="AI가 제일 잘 틀리는 곳 — 숫자" loading="lazy" /></div>
-<div class="slide"><img src="18-closing.webp" alt="정리 — 편해지는 건 확실" loading="lazy" /></div>
+<div class="slide"><img src="09-few-lines.webp" alt="이 장들을 만든 입력 — 입력은 몇 줄, 완성은 몇 바퀴" loading="lazy" /></div>
+<div class="slide"><img src="10-loop.webp" alt="한 번에 끝나진 않음 — 루프 (바퀴는 AI가 돌리고 — 판단은 사람이)" loading="lazy" /></div>
+<div class="slide demo-slide"><img src="11-demo.webp" alt="만드는 과정 — 녹화 그대로 (데모 영상)" loading="lazy" /><video class="demo-video" src="demo.mp4" preload="auto" controls playsinline muted></video></div>
+<div class="slide"><img src="12-deck-factory.webp" alt="발표자료 공장" loading="lazy" /></div>
+<div class="slide"><img src="13-not-just-decks.webp" alt="발표자료만이 아님" loading="lazy" /></div>
+<div class="slide"><img src="14-how-to-make-it-good.webp" alt="잘 만들게 하려면" loading="lazy" /></div>
+<div class="slide"><img src="15-who-carries-data.webp" alt="자료를 나르는 사람" loading="lazy" /></div>
+<div class="slide"><img src="16-one-window.webp" alt="창 하나로" loading="lazy" /></div>
+<div class="slide"><img src="17-going-deeper.webp" alt="깊게 들어가면" loading="lazy" /></div>
+<div class="slide"><img src="18-numbers-go-wrong.webp" alt="AI가 제일 잘 틀리는 곳 — 숫자" loading="lazy" /></div>
+<div class="slide"><img src="19-closing.webp" alt="정리 — 편해지는 건 확실" loading="lazy" /></div>
 </div>
 <nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
 <div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
@@ -84,7 +85,7 @@ let tx=0,ty=0;
 document.addEventListener('touchstart',e=>{if(e.touches.length>1)return;tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
 document.addEventListener('touchend',e=>{if(e.changedTouches.length>1)return;const dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx>0)next();else prev();}},{passive:true});
 
-// screen interior of 10-demo (measured on the 1376x768 source: x 324-1053, y 240-610)
+// screen interior of 11-demo (measured on the 1376x768 source: x 324-1053, y 240-610)
 const DEMO_BOX={l:324/1376,t:240/768,w:729/1376,h:370/768};
 function placeDemo(){document.querySelectorAll('.demo-slide').forEach(s=>{const img=s.querySelector('img'),v=s.querySelector('video');if(!img||!v)return;const r=img.getBoundingClientRect(),p=s.getBoundingClientRect();if(!r.width)return;v.style.left=(r.left-p.left+r.width*DEMO_BOX.l)+'px';v.style.top=(r.top-p.top+r.height*DEMO_BOX.t)+'px';v.style.width=(r.width*DEMO_BOX.w)+'px';v.style.height=(r.height*DEMO_BOX.h)+'px';});}
 function syncDemo(){document.querySelectorAll('.demo-slide').forEach(s=>{const v=s.querySelector('video');if(!v)return;if(s.classList.contains('active')){placeDemo();if(v.classList.contains('ready'))v.play().catch(()=>{});}else if(!v.paused){v.pause();}});}
