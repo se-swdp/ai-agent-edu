@@ -3,6 +3,14 @@
     {
       "type": "slide",
       "month": "2026-10",
+      "title": "AI로 생산성은 어떻게 올랐나",
+      "subtitle": "바로 좋아진 것 · 늘어난 것 — 내 일에 맞는 워크플로우",
+      "url": "./presentations/ai-productivity/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-10",
       "title": "AI로 편해지는 중",
       "subtitle": "코딩 다음은 문서 — 내 일에 맞는 공장 하나",
       "url": "./presentations/ai-easier/",
