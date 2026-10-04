@@ -20,10 +20,10 @@ README → 검증)는 `~/.claude/skills/note-deck/SKILL.md`를 그대로 따른�
 `~/.claude/skills/note-deck/`에 깔려 있어야 한다. `gen_openrouter.py`는 note-deck을 레포
 `.claude/skills/note-deck/` → 전역 `~/.claude/skills/note-deck/` 순서로 찾는다.
 
-**다른 컴퓨터에서 기존 덱을 고칠 때.** 이 레포 덱들의 `deck-spec.json`은 `style_refs`를 `E:\workspace\...` 절대경로로
-적었고, 일부는 git에 안 올라가는 `src-png/`(예: `ai-easier/src-png/_v4/01-title.png` 앵커)를 가리킨다. 없는 레퍼런스는
-스크립트가 건너뛰고 `WARNING: style ref(s) not found`를 찍는다 — 이 경고가 뜨면 톤이 틀어지니, 경로를 그 컴퓨터의
-레포 위치로 고치고 앵커는 배포된 webp(예: `presentations/ai-easier/01-title.webp`)로 바꿔 넣는다.
+**경로.** spec의 `deck_dir`·`style_refs_dir`·`style_refs`는 상대경로로 적는다 — 스크립트가 spec 파일 폴더 →
+레포 루트 순서로 찾으므로 어느 폴더에서 실행해도, 어느 컴퓨터의 클론에서도 같다. 레퍼런스는 git에 있는 파일만 쓴다
+(gitignore된 `src-png/`는 다른 컴퓨터에 없다). 그래도 못 찾은 레퍼런스는 건너뛰고 `WARNING: style ref(s) not found`를
+찍는다 — 이 경고가 뜨면 톤이 틀어진다.
 
 ## 왜 이 엔진인가
 
@@ -62,11 +62,11 @@ python .claude/skills/note-deck-openrouter/scripts/gen_openrouter.py \
 - 모델 교체: `--model <openrouter-model-id>` 또는 spec의 `"model"`.
 - 429면 60초 쉬고 재시도, 401/402/403(키·크레딧)은 바로 중단.
 
-## 수정 (Recipe 3)
+## 수정 (Recipe 3) — `--edit`
 
-원본 PNG를 `--ref`로 주고 note-deck Recipe 3 프롬프트("The attached image is the ORIGINAL slide. Recreate it
-EXACTLY … with ONLY these changes")를 `--prompt-file`로 넘긴다. 레퍼런스가 있으면 스크립트가 "STYLE
-REFERENCES only" 지시를 앞에 붙이므로, Recipe 3일 때는 프롬프트 안에서 "ORIGINAL slide"임을 분명히 적는다.
+원본 PNG를 `--ref`로, note-deck Recipe 3 프롬프트("The attached image is the ORIGINAL slide. Recreate it EXACTLY …
+with ONLY these changes")를 `--prompt-file`로 주고 `--edit`를 붙인다. `--edit`이면 레퍼런스용 "STYLE REFERENCES only ·
+새 구도" 지시를 앞에 붙이지 않고 프롬프트를 그대로 보낸다. 어려운 수정은 같은 명령을 2~3번 돌려 나은 쪽을 고른다.
 
 ## 실측 (2026-10-02, google/gemini-3.1-flash-image)
 
@@ -87,16 +87,12 @@ python .claude/skills/note-deck-openrouter/scripts/normalize_bg.py <deck_dir>   
 
 실측(ai-easier, 18장): 보정 전 장별 종이색 (249,242,228)~(255,255,245), 보정 후 전부 (252,248,242)±1.
 
-## 국소 수정은 `--edit`
-
-`--one ... --ref 원본.png --edit` — 레퍼런스용 "새 구도" 지시를 붙이지 않고 Recipe 3 프롬프트를 그대로 보낸다.
-
 ## 인코딩·검증
 
 배포 이미지에 `immutable` 캐시가 걸린 사이트(ai-agent-edu)는 내용이 바뀐 장의 **파일명을 바꿔야** 한다.
 
 note-deck 스크립트를 그대로 쓴다. `encode_webp.py`가 1376×768을 1672×941로 LANCZOS 업스케일하므로 기존 덱·
-`verify_deck.py`와 치수가 맞는다. (네이티브 1376×768을 유지하고 싶으면 ax-why-hard처럼 크기 상수만 바꾼 로컬 사본을 쓴다.)
+`verify_deck.py`와 치수가 맞는다. (네이티브 1376×768을 유지하고 싶으면 크기 상수만 바꾼 로컬 사본을 쓴다.)
 
 ```bash
 python ~/.claude/skills/note-deck/scripts/encode_webp.py <deck_dir>

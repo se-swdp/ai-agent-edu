@@ -15,7 +15,7 @@ the home directory is a git repo with a GitHub remote).
 
 deck-spec.json (same as note-deck):
 {
-  "deck_dir": "E:/path/to/presentations/my-deck",
+  "deck_dir": "presentations/my-deck",
   "style_refs_dir": "(optional, defaults to note-deck's assets/style-refs)",
   "model": "(optional, overrides --model)",
   "slides": [
@@ -23,10 +23,13 @@ deck-spec.json (same as note-deck):
      "style_refs": ["(optional) explicit ref image paths, overrides layout default"]}
   ]
 }
+Relative paths (deck_dir, style_refs_dir, style_refs) resolve against the spec's folder, then the
+repo root (nearest parent with .git), so a spec works from any cwd and on any clone.
 Outputs <deck_dir>/src-png/<file>.png, logs in <deck_dir>/src-png/logs/.
 """
 import argparse
 import base64
+import functools
 import io
 import json
 import mimetypes
@@ -39,11 +42,14 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
+from PIL import Image
+
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 DEFAULT_MODEL = "google/gemini-3.1-flash-image"
 # note-deck lives next to this skill when the repo ships it (.claude/skills/note-deck), else in the global skills dir
 _REPO_NOTE_DECK = Path(__file__).resolve().parents[2] / "note-deck"
-NOTE_DECK_DIR = _REPO_NOTE_DECK if _REPO_NOTE_DECK.exists() else Path.home() / ".claude" / "skills" / "note-deck"
+NOTE_DECK_DIR = (_REPO_NOTE_DECK if (_REPO_NOTE_DECK / "assets" / "style-refs").is_dir()
+                 else Path.home() / ".claude" / "skills" / "note-deck")
 DEFAULT_STYLE_REFS = NOTE_DECK_DIR / "assets" / "style-refs"
 LAYOUT_REF = {
     "cover": "cover.png",
@@ -70,11 +76,13 @@ def log(msg):
         print(msg, flush=True)
 
 
+@functools.lru_cache(maxsize=None)  # the same few refs go with every slide and retry
 def data_url(path: Path) -> str:
     mime = mimetypes.guess_type(path.name)[0] or "image/png"
     return f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode()
 
 
+@functools.lru_cache(maxsize=1)
 def api_key() -> str:
     key = os.environ.get("OPENROUTER_API_KEY")
     if not key and sys.platform == "win32":
@@ -135,14 +143,12 @@ def extract_image(resp: dict) -> bytes:
 
 
 def save_png(raw: bytes, out_png: Path):
-    try:
-        from PIL import Image
-        im = Image.open(io.BytesIO(raw))
+    im = Image.open(io.BytesIO(raw))
+    if im.format == "PNG":
+        out_png.write_bytes(raw)  # already PNG — skip the decode/re-encode round trip
+    else:
         im.save(out_png, "PNG")
-        return im.size
-    except ImportError:
-        out_png.write_bytes(raw)
-        return None
+    return im.size
 
 
 def generate(name, prompt, refs, out_png: Path, log_dir: Path, model, retries, edit=False):
@@ -184,10 +190,27 @@ def generate(name, prompt, refs, out_png: Path, log_dir: Path, model, retries, e
     return False
 
 
+def repo_root(start: Path):
+    return next((d for d in [start, *start.parents] if (d / ".git").exists()), None)
+
+
+def resolve(p, base: Path, root):
+    """Absolute or ~ paths as written; relative ones against the spec's folder, then the repo root."""
+    path = Path(p).expanduser()
+    if path.is_absolute():
+        return path
+    for b in (base, root):
+        if b and (b / path).exists():
+            return b / path
+    return (root or base) / path
+
+
 def run_spec(args):
-    spec = json.loads(Path(args.spec).read_text(encoding="utf-8"))
-    deck_dir = Path(spec["deck_dir"])
-    refs_dir = Path(spec.get("style_refs_dir", DEFAULT_STYLE_REFS))
+    spec_path = Path(args.spec).resolve()
+    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    base, root = spec_path.parent, repo_root(spec_path.parent)
+    deck_dir = resolve(spec["deck_dir"], base, root)
+    refs_dir = resolve(spec["style_refs_dir"], base, root) if "style_refs_dir" in spec else DEFAULT_STYLE_REFS
     model = spec.get("model", args.model)
     slides = spec["slides"]
     if args.only:
@@ -200,7 +223,7 @@ def run_spec(args):
     log(f"Generating {len(slides)} slide(s) → {src} (model={model}, parallel={args.parallel})")
 
     def job(s):
-        refs = [Path(p) for p in s.get("style_refs", [])]
+        refs = [resolve(p, base, root) for p in s.get("style_refs", [])]
         if not refs:
             refs = [refs_dir / LAYOUT_REF.get(s.get("layout", "cards"), "cards.png")]
         missing = [r for r in refs if not r.exists()]
