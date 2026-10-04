@@ -40,6 +40,7 @@
         "scripts/**",
         "**/deck-spec.json",
         "**/src-png/**",
+        "**/style-refs/**",
         "integrated_presentation.html",
         "docs/**"
       ],
