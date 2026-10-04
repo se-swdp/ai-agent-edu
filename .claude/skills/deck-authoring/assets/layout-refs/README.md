@@ -12,4 +12,5 @@ ax-why-hard 덱("AX는 왜 어려울까", 2026-09)은 2026-10-04 삭제했다. �
 | ax-08-three-numbers.webp | stat | 〃 |
 | ax-13-banner-midpoint.webp | banner | 〃 |
 
-`.claude/`는 호스팅 ignore(`**/.*`)라 배포되지 않는다.
+`.claude/`는 호스팅 ignore(`**/.*`)라 배포되지 않는다. note-deck 스킬의 기본 레퍼런스(`~/.claude/skills/note-deck/assets/style-refs/`)와는
+별개 세트다 — spec이 `style_refs`를 비우면 그쪽이 쓰인다.

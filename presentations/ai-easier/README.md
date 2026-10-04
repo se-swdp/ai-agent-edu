@@ -15,8 +15,9 @@
 - `index.html` — 이미지 뷰어 (←/→/Space/Home/End, `F` 전체화면, 터치 스와이프, `#N` 딥링크)
 - `NN-slug.webp` — 슬라이드 18장 (1672×941, q95, 총 3.0MB, 종이색 #FCF8F2로 통일)
 - `deck-spec.json` — 장별 프롬프트·레퍼런스 (재생성 정본)
-- `src-png/` — 원본 PNG 1376×768 (git/배포 제외): `_prenorm/` 배경 보정 전, `_v1/`·`_v2/`·`_v3/` 이전 판,
-  `_orig/` 국소 수정 전, `_fix/` 수정 프롬프트, `logs/`
+- `src-png/` — 원본 PNG 1376×768 (git/배포 제외): `_prenorm/` 배경 보정 전, `_fix/` 수정 프롬프트, `logs/`.
+  이전 판 `_v1/`~`_v4/`·`_orig/`·`_zoom/`은 2026-10-04 정리 — 이전 판 이미지는 git 기록의 webp로 본다.
+  `deck-spec.json`의 레퍼런스는 레포 루트 기준 상대경로(git에 있는 webp)로 바꿨다
 
 ## 구성 (18장)
 
