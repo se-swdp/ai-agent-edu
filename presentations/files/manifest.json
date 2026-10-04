@@ -10,14 +10,6 @@
     },
     {
       "type": "slide",
-      "month": "2026-10",
-      "title": "AI로 편해지는 중",
-      "subtitle": "코딩 다음은 문서 — 내 일에 맞는 공장 하나",
-      "url": "./presentations/ai-easier/",
-      "ext": "html"
-    },
-    {
-      "type": "slide",
       "month": "2026-07",
       "title": "SWDP 개발·운영과 AI 에이전트 적용 방향",
       "subtitle": "위임 · 검증 · 통제 구조",

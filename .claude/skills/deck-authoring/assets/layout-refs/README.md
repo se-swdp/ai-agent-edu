@@ -5,7 +5,7 @@ ax-why-hard 덱("AX는 왜 어려울까", 2026-09)은 2026-10-04 삭제했다. �
 
 | 파일 | 레이아웃 | 쓰는 덱 |
 |---|---|---|
-| ax-01-cover.webp · ax-03-agent-charm.webp | cover | ai-easier, ai-productivity |
+| ax-01-cover.webp · ax-03-agent-charm.webp | cover | ai-productivity |
 | ax-17-llm-wiki-five.webp | cards | 〃 |
 | ax-11-unsettled-process.webp | flow | 〃 |
 | ax-07-belief-vs-reality.webp | contrast | 〃 |
