@@ -15,8 +15,9 @@
 - `index.html` — 이미지 뷰어 (←/→/Space/Home/End, `F` 전체화면, 터치 스와이프, `#N` 딥링크)
 - `NN-slug.webp` — 슬라이드 18장 (1672×941, q95, 총 3.0MB, 종이색 #FCF8F2로 통일)
 - `deck-spec.json` — 장별 프롬프트·레퍼런스 (재생성 정본)
-- `src-png/` — 원본 PNG 1376×768 (git/배포 제외): `_prenorm/` 배경 보정 전, `_v1/`·`_v2/`·`_v3/` 이전 판,
-  `_orig/` 국소 수정 전, `_fix/` 수정 프롬프트, `logs/`
+- `src-png/` — 원본 PNG 1376×768 (git/배포 제외): `_prenorm/` 배경 보정 전, `_fix/` 수정 프롬프트, `logs/`.
+  이전 판 `_v1/`~`_v4/`·`_orig/`·`_zoom/`은 2026-10-04 정리 — 이전 판 이미지는 git 기록의 webp로 본다.
+  `deck-spec.json`의 레퍼런스는 레포 루트 기준 상대경로(git에 있는 webp)로 바꿨다
 
 ## 구성 (18장)
 
@@ -70,7 +71,7 @@
 
 - 엔진: **note-deck-openrouter** — OpenRouter `google/gemini-3.1-flash-image`, 네이티브 1376×768.
 - 프롬프트: note-deck `references/prompts.md` STYLE 블록 + 레이아웃 레시피 (로봇 묘사만 레퍼런스에 맞춰 조임).
-- 레퍼런스: 레이아웃별 ax-why-hard 1장(발표자가 고른 톤 — 03·07) + 이 덱의 01-title(앵커),
+- 레퍼런스: 레이아웃별 ax-why-hard 1장(발표자가 고른 톤 — 03·07; ax-why-hard 덱은 2026-10-04 삭제, 쓰던 7장은 `.claude/skills/deck-authoring/assets/layout-refs/ax-*.webp`로 옮김) + 이 덱의 01-title(앵커),
   다시 그린 장은 직전 판도 함께. cover=ax 01+03, cards=ax 17, flow=ax 11, contrast=ax 07, stat=ax 08, banner=ax 13.
 - 국소 수정은 `--edit` (Recipe 3). 어려운 수정은 후보 2장을 병렬로 뽑아 나은 쪽을 고른다.
 - **배경 통일**: `normalize_bg.py`가 장마다 종이색을 부드러운 필드로 추정(1/8 축소 80퍼센타일)해 나눠서

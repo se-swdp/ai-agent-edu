@@ -20,9 +20,9 @@
 
 - `index.html` — 이미지 뷰어 (←/→/Space/Home/End, `F` 전체화면, 터치 스와이프, `#N` 딥링크)
 - `NN-slug.webp` — 슬라이드 21장 (1672×941, q95, 총 3.7MB, 종이색 #FCF8F2로 통일)
-- `deck-spec.json` — 장별 프롬프트·레퍼런스·채택 후보(`picked`) (재생성 정본). 레퍼런스 일부는 `../ai-easier/src-png/_v4/`를 가리킨다
-- `src-png/` — 원본 PNG 1376×768 (git/배포 제외): `_prenorm/` 배경 보정 전, `_v5cand/` 후보 전체
-  (`src-png/` 신규 a·b·c, `edits/` 국소 수정 e·w, `r2/` 14장 2차). ai-easier 이전 판은 `../ai-easier/src-png/_v1/`~`_v4/`
+- `deck-spec.json` — 장별 프롬프트·레퍼런스·채택 후보(`picked`) (재생성 정본). `deck_dir`·`style_refs`는 레포 루트 기준 상대경로이고, 레퍼런스는 전부 git에 있는 파일이다
+- `src-png/` — 원본 PNG 1376×768 (git/배포 제외): `_prenorm/` 배경 보정 전, `_v5cand/` 후보 spec·프롬프트
+  (`cand-spec.json`, `edits/*.txt`, `r2/`). 버린 후보 PNG는 2026-10-04에 정리했다
 
 ## 구성 (21장)
 
@@ -79,7 +79,7 @@
 
 - 엔진: **note-deck-openrouter** — OpenRouter `google/gemini-3.1-flash-image`, 네이티브 1376×768.
 - 프롬프트: note-deck `references/prompts.md` STYLE 블록 + 레이아웃 레시피 (로봇 묘사만 레퍼런스에 맞춰 조임).
-- 레퍼런스: 레이아웃별 ax-why-hard 1장 + ai-easier v4 01-title(`../ai-easier/src-png/_v4/01-title.png`, 앵커) + 다시 그린 장은 ai-easier v4의 같은 장.
+- 레퍼런스: 레이아웃별 ax-why-hard 1장(덱은 2026-10-04 삭제, `.claude/skills/deck-authoring/assets/layout-refs/ax-*.webp`) + ai-easier v4 01-title(`presentations/ai-easier/01-title.webp`, 앵커) + 다시 그린 장은 ai-easier v4의 같은 장(webp).
   cover=ax 01+03, cards=ax 17, flow=ax 11, contrast=ax 07, stat=ax 08, banner=ax 13.
 - **후보 비교**: 바뀐 17장마다 같은 프롬프트로 3장(a·b·c)을 뽑고, 문구만 바뀐 10장은 v4 원본에서
   Recipe 3 국소 수정(e)을 1장 더 뽑아, 4장 비교 시트로 고른 뒤 채택본을 원본 해상도로 다시 검수했다.
@@ -106,11 +106,8 @@ ai-easier v4에서 그대로 가져온 장: 06-coding-first · 15-one-window · 
 
 ## 변경 이력
 
-- **v1 (2026-10-04)** 21장. ai-easier v4(18장)를 재기획 — '공장' 은유를 버리고 워크플로우 구축으로, 제목은
-  "AI로 생산성은 어떻게 올랐나"("AI로 일이 빨라지는 중" 안은 발표자가 애매하다고 해서 교체).
-  ai-easier v4 대비: 신규 3·9·10·12·18·19·20·21, 재설계 7, 문구 교체 1·2·4·5·8·11·13·14·16, 유지 6·15·17.
-  v4 5장(확산)은 3장에, v4 10장(공장)·11장(루프)은 10·12장에 흡수. 클로징을 답(20)과 Q&A(21) 두 장으로 분리.
-  20장 배너는 "워크플로우 하나" → "워크플로우"(발표자 지시). ai-easier 폴더 안에서 만든 뒤 신규 덱으로 분리.
+- **v1 (2026-10-04)** 21장. ai-easier v4를 재기획(요청별 반영은 위 표). 신규 3·9·10·12·18·19·20·21, 재설계 7,
+  문구 교체 1·2·4·5·8·11·13·14·16, 유지 6·15·17. ai-easier 폴더 안에서 만든 뒤 신규 덱으로 분리.
 
 ## 수용한 경미한 결함
 
