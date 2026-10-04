@@ -79,7 +79,7 @@
 
 - 엔진: **note-deck-openrouter** — OpenRouter `google/gemini-3.1-flash-image`, 네이티브 1376×768.
 - 프롬프트: note-deck `references/prompts.md` STYLE 블록 + 레이아웃 레시피 (로봇 묘사만 레퍼런스에 맞춰 조임).
-- 레퍼런스: 레이아웃별 ax-why-hard 1장 + ai-easier v4 01-title(`../ai-easier/src-png/_v4/01-title.png`, 앵커) + 다시 그린 장은 ai-easier v4의 같은 장.
+- 레퍼런스: 레이아웃별 ax-why-hard 1장(덱은 2026-10-04 삭제, `.claude/skills/deck-authoring/assets/layout-refs/ax-*.webp`) + ai-easier v4 01-title(`../ai-easier/src-png/_v4/01-title.png`, 앵커) + 다시 그린 장은 ai-easier v4의 같은 장.
   cover=ax 01+03, cards=ax 17, flow=ax 11, contrast=ax 07, stat=ax 08, banner=ax 13.
 - **후보 비교**: 바뀐 17장마다 같은 프롬프트로 3장(a·b·c)을 뽑고, 문구만 바뀐 10장은 v4 원본에서
   Recipe 3 국소 수정(e)을 1장 더 뽑아, 4장 비교 시트로 고른 뒤 채택본을 원본 해상도로 다시 검수했다.

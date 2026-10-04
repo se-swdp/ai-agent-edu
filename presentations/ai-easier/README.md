@@ -70,7 +70,7 @@
 
 - 엔진: **note-deck-openrouter** — OpenRouter `google/gemini-3.1-flash-image`, 네이티브 1376×768.
 - 프롬프트: note-deck `references/prompts.md` STYLE 블록 + 레이아웃 레시피 (로봇 묘사만 레퍼런스에 맞춰 조임).
-- 레퍼런스: 레이아웃별 ax-why-hard 1장(발표자가 고른 톤 — 03·07) + 이 덱의 01-title(앵커),
+- 레퍼런스: 레이아웃별 ax-why-hard 1장(발표자가 고른 톤 — 03·07; ax-why-hard 덱은 2026-10-04 삭제, 쓰던 7장은 `.claude/skills/deck-authoring/assets/layout-refs/ax-*.webp`로 옮김) + 이 덱의 01-title(앵커),
   다시 그린 장은 직전 판도 함께. cover=ax 01+03, cards=ax 17, flow=ax 11, contrast=ax 07, stat=ax 08, banner=ax 13.
 - 국소 수정은 `--edit` (Recipe 3). 어려운 수정은 후보 2장을 병렬로 뽑아 나은 쪽을 고른다.
 - **배경 통일**: `normalize_bg.py`가 장마다 종이색을 부드러운 필드로 추정(1/8 축소 80퍼센타일)해 나눠서
