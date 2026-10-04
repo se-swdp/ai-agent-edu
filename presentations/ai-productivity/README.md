@@ -2,7 +2,7 @@
 
 화성 EHS팀 3분기 소통회 (2026-10-07 10:30, 225명, 20~25분 + Q&A). 비개발·AI 저활용 청중 대상.
 자기소개는 말로 하므로 자료에 없음.
-같은 소통회용 [ai-easier](../ai-easier/)("AI로 편해지는 중", 18장)를 발표자 지시로 다시 기획한 신작이다. ai-easier는 v4 그대로 남긴다.
+같은 소통회용 ai-easier("AI로 편해지는 중", 18장)를 발표자 지시로 다시 기획한 덱이다. ai-easier는 내용이 겹쳐 2026-10-04 삭제했다 — 그 README는 `history-ai-easier.md`로 옮겼다.
 
 척추 문장: **"워크플로우는 한 번 짜 두고 — 매번 넣는 건 내용만."** (9장 배너)
 답의 구조(발표자 지시): 바로 좋아진 것(코딩) · 생각과 달리 늘어난 것(보고 판단할 일) · 줄지 않은 것(일 자체) ·
@@ -21,6 +21,8 @@
 - `index.html` — 이미지 뷰어 (←/→/Space/Home/End, `F` 전체화면, 터치 스와이프, `#N` 딥링크)
 - `NN-slug.webp` — 슬라이드 21장 (1672×941, q95, 총 3.7MB, 종이색 #FCF8F2로 통일)
 - `deck-spec.json` — 장별 프롬프트·레퍼런스·채택 후보(`picked`) (재생성 정본). `deck_dir`·`style_refs`는 레포 루트 기준 상대경로이고, 레퍼런스는 전부 git에 있는 파일이다
+- `style-refs/` — 레이아웃 레퍼런스 7장 (배포 제외)
+- `history-ai-easier.md` — 전신 ai-easier(v1~v4)의 README 원문: 구성·변경 이력·재현 기록 (2026-10-04 덱 삭제 시 옮김)
 - `src-png/` — 원본 PNG 1376×768 (git/배포 제외): `_prenorm/` 배경 보정 전, `_v5cand/` 후보 spec·프롬프트
   (`cand-spec.json`, `edits/*.txt`, `r2/`). 버린 후보 PNG는 2026-10-04에 정리했다
 
@@ -79,7 +81,8 @@
 
 - 엔진: **note-deck-openrouter** — OpenRouter `google/gemini-3.1-flash-image`, 네이티브 1376×768.
 - 프롬프트: note-deck `references/prompts.md` STYLE 블록 + 레이아웃 레시피 (로봇 묘사만 레퍼런스에 맞춰 조임).
-- 레퍼런스: 레이아웃별 ax-why-hard 1장(덱은 2026-10-04 삭제, `.claude/skills/deck-authoring/assets/layout-refs/ax-*.webp`) + ai-easier v4 01-title(`presentations/ai-easier/01-title.webp`, 앵커) + 다시 그린 장은 ai-easier v4의 같은 장(webp).
+- 레퍼런스: 레이아웃별 ax 1장(`style-refs/ax-*.webp`) + 앵커 01-cover + 다시 그릴 장은 그 장의 현재 webp.
+  (생성 당시엔 ai-easier v4 01-title이 앵커, v4의 같은 장이 장별 레퍼런스였다 — ai-easier 삭제 후 이 덱 파일로 교체)
   cover=ax 01+03, cards=ax 17, flow=ax 11, contrast=ax 07, stat=ax 08, banner=ax 13.
 - **후보 비교**: 바뀐 17장마다 같은 프롬프트로 3장(a·b·c)을 뽑고, 문구만 바뀐 10장은 v4 원본에서
   Recipe 3 국소 수정(e)을 1장 더 뽑아, 4장 비교 시트로 고른 뒤 채택본을 원본 해상도로 다시 검수했다.
