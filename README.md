@@ -3,7 +3,7 @@
 SW개발팀 내부 **AI 전파교육 진행 현황 게시판**. 지난 교육과 예정된 세션을 한 화면에서 공유하고, 담당자가 화면에서 직접 추가·수정할 수 있는 가벼운 사내 캘린더.
 
 > 🌐 **메인 URL**: <https://ai-agent-edu.web.app>
-> 🌐 보조 URL (같은 콘텐츠): <https://swdp-seminar-dashboard.web.app>
+> 🌐 옛 URL <https://swdp-seminar-dashboard.web.app> 은 같은 경로의 메인 URL로 301 리다이렉트된다
 
 ---
 
@@ -12,16 +12,21 @@ SW개발팀 내부 **AI 전파교육 진행 현황 게시판**. 지난 교육과
 - **백엔드**: Firebase (Hosting + Firestore). 별도 서버 없음
 - **프런트**: Vanilla JS + 정적 HTML/CSS, 빌드 단계 없음 (Firebase Web SDK는 ESM CDN)
 - **편집 모델**: 읽기는 누구나, 편집은 비밀번호로 잠금 해제 (현재 세션에만 유지)
-- **호스팅 멀티 사이트**: 한 Firebase 프로젝트에 두 개의 `.web.app` URL — 같은 콘텐츠 동시 배포
+- **호스팅 멀티 사이트**: 한 Firebase 프로젝트에 두 개의 `.web.app` URL — `ai-agent-edu` 가 콘텐츠, `swdp-seminar-dashboard` 는 리다이렉터
 
 ---
 
 ## 1. 사용법
 
 ### 방문자 (URL 공유받은 사람)
-링크만 열면 끝. **대문 / 캘린더 / 타임라인 / 열람실** 4개 뷰. 상단 검색으로 즉시 필터.
+링크만 열면 끝. **대문 / 캘린더 / 타임라인 / 열람실 / 뉴스 / 문의** 6개 뷰. 캘린더·타임라인은 상단 검색으로 즉시 필터.
 
-> **열람실**: 발표자료 슬라이드 카드(자동 수집) + 다운로드 파일. 슬라이드는 `presentations/index.html` 에서, 파일은 `presentations/files/` 에서 predeploy 훅이 수집한다.
+> **뷰별 링크**: 각 뷰는 고유 URL을 가진다 — 특정 화면을 공유할 땐 그 주소를 보내면 된다.
+> `/` 대문 · [`/calendar`](https://ai-agent-edu.web.app/calendar) · [`/timeline`](https://ai-agent-edu.web.app/timeline) · [`/library`](https://ai-agent-edu.web.app/library) (열람실) · [`/news`](https://ai-agent-edu.web.app/news) · [`/qna`](https://ai-agent-edu.web.app/qna) (문의)
+
+> **열람실**: 발표자료 슬라이드 카드(자동 수집, 지난 교육 덱은 Archive 섹션) + 다운로드 파일. 슬라이드는 `presentations/index.html` 에서, 파일은 `presentations/files/` 에서 predeploy 훅이 수집한다.
+>
+> **뉴스**: AI 업계 브리핑 (주간·격주·월간). **문의**: 누구나 질문을 남기고, 답변은 댓글로 달린다.
 
 ### 편집자 (담당자)
 1. 우측 상단 **🔒 편집 잠금** 버튼 클릭
@@ -57,7 +62,7 @@ SW개발팀 내부 **AI 전파교육 진행 현황 게시판**. 지난 교육과
 ### 디자인
 - 컬러/spacing은 **`css/tokens.css` CSS 변수만** 사용. 하드코딩 금지
 - 사이드바 brand 영역과 topbar는 **60px(`--topbar-h`) baseline 정렬**. 어느 한쪽 padding 만질 때 같이 맞추기
-- 사이드바 footer 텍스트: `v1.2 · 관리자 KHM`
+- 사이드바 footer 텍스트: `v2.0 · 관리자 KHM`
 
 ### 캐시
 - `firebase.json`에서 css/js → `Cache-Control: no-cache`, html → `no-store`
@@ -65,7 +70,7 @@ SW개발팀 내부 **AI 전파교육 진행 현황 게시판**. 지난 교육과
 
 ### 배포
 - **자동 배포 없음**. 코드 수정 → `firebase deploy` 수동 실행 필수
-- 멀티사이트라 `firebase deploy --only hosting` 하면 두 URL 동시 배포
+- 콘텐츠는 `hosting:agent` 만 배포하면 된다. `--only hosting` 은 리다이렉터(`default`)까지 함께 배포
 
 ### 데이터
 - Firestore document에 `id` 필드 저장 안 함. 클라이언트에서 `doc.id`를 객체 `id`로 매핑
@@ -77,13 +82,13 @@ SW개발팀 내부 **AI 전파교육 진행 현황 게시판**. 지난 교육과
 
 ### 코드 수정 후 배포 (가장 자주 씀)
 ```bash
-firebase deploy --only hosting --project swdp-seminar-dashboard
+firebase deploy --only hosting:agent --project swdp-seminar-dashboard
 ```
 
-### 한 사이트만 배포
+### 리다이렉터 / 전체 hosting
 ```bash
-firebase deploy --only hosting:agent --project swdp-seminar-dashboard      # 새 URL만
-firebase deploy --only hosting:default --project swdp-seminar-dashboard    # 옛 URL만
+firebase deploy --only hosting:default --project swdp-seminar-dashboard    # 옛 URL 리다이렉터만
+firebase deploy --only hosting --project swdp-seminar-dashboard            # 두 target 모두
 ```
 
 ### Firestore 규칙만 배포
@@ -93,7 +98,7 @@ firebase deploy --only firestore:rules --project swdp-seminar-dashboard
 
 ### 강의자료 추가 (열람실)
 1. `presentations/files/` 폴더에 파일을 넣는다 (파일명 규칙: `YYYY-MM-DD__카테고리__제목.확장자`, 규칙 안 맞춰도 OK)
-2. `firebase deploy --only hosting --project swdp-seminar-dashboard`
+2. `firebase deploy --only hosting:agent --project swdp-seminar-dashboard`
 3. 끝. `manifest.json` 은 predeploy hook 이 자동 생성 (코드 수정 없음)
 
 ### 로컬 미리보기
@@ -110,6 +115,8 @@ git push origin main
 ---
 
 ## 5. 데이터 스키마 (Firestore document)
+
+교육 일정 컬렉션 `sessions` 기준. 그 외 `inquiries` / `inquiry_comments` (문의), `visits` (방문자 카운터) 컬렉션이 있다.
 
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
@@ -140,7 +147,11 @@ seminar-dashboard/
 ├── .firebaserc              # 기본 프로젝트 + hosting targets
 ├── firestore.rules          # 누구나 read/write
 ├── firestore.indexes.json
-├── index.html
+├── index.html               # 앱 셸 (6개 뷰, 뷰별 URL은 firebase.json rewrites → index.html)
+├── redirect/                # 옛 URL(default target) 리다이렉터
+├── news/
+│   └── issues.json          # 뉴스 브리핑 데이터 (최신 이슈가 맨 앞)
+├── .claude/skills/          # 발표자료 제작용 프로젝트 스킬
 ├── assets/
 │   ├── brand-mark.png       # 한옥 정자 일러스트 (사이드바 홈 버튼)
 │   ├── hero-v10.* / hero-folk-*.*  # 대문 화첩 — 서당 메인 + 민속 8폭 (webp/jpg/-sm)
@@ -148,9 +159,10 @@ seminar-dashboard/
 │   ├── hanji-bg.jpg
 │   └── seal-ji.webp
 ├── presentations/
-│   ├── index.html           # 발표자료 인덱스 (현재 5종 큐레이션, data-month 표기)
+│   ├── index.html           # 발표자료 인덱스 (라이브 6종 + Archive 9종, data-month 표기)
 │   ├── files/               # ⭐ 자료실 다운로드 파일 — 여기에 넣고 deploy
 │   ├── working-with-agents/ 등 # 발표자료 슬라이드 (HTML) — 인덱스에서 빠져도 폴더는 서빙됨
+│   ├── archive/             # 지난 교육 덱 (열람실 Archive 섹션)
 │   └── assets/
 ├── scripts/
 │   └── build-materials-manifest.mjs  # predeploy: index.html + files/ 스캔 → manifest.json
@@ -169,7 +181,10 @@ seminar-dashboard/
     ├── app.js               # 앱 셸 (부트스트랩 · UI state · 잠금)
     ├── views.js             # 캘린더 · 타임라인 렌더
     ├── modals.js            # 상세 · 편집 폼 · 비밀번호 모달
-    └── library.js           # 열람실 (manifest 카드)
+    ├── library.js           # 열람실 (manifest 카드)
+    ├── news.js              # 뉴스 (issues.json 렌더)
+    ├── qna.js               # 문의 게시판
+    └── visits.js            # 방문자 카운터
 ```
 
 ---
@@ -179,7 +194,7 @@ seminar-dashboard/
 - **비밀번호 입력해도 안됨** → `js/data.js`의 `EDIT_PASSWORD`와 정확히 일치하는지 확인 (현재 `aijjang`). 캐시된 옛 코드면 `Ctrl+Shift+R`
 - **Firestore 데이터가 안 보임** → DevTools Console 에러 확인. `firestore.rules`가 잘못됐을 때 또는 새로 만든 DB가 자동 생성된 직후 일시적 문제
 - **importmap 오류** → 최신 Chrome/Edge/Safari/Firefox 필요. IE는 미지원
-- **GitHub push 했는데 사이트 안 바뀜** → Actions 자동 배포 없음. `firebase deploy --only hosting` 별도 실행
+- **GitHub push 했는데 사이트 안 바뀜** → Actions 자동 배포 없음. `firebase deploy --only hosting:agent` 별도 실행
 
 ---
 

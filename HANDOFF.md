@@ -2,7 +2,7 @@
 
 > 다른 Claude 세션이 이 문서만 읽고 바로 운영을 이어받을 수 있도록 작성. 모호한 부분 발견 시 이 문서를 갱신.
 >
-> 마지막 갱신: 2026-07-17
+> 마지막 갱신: 2026-10-05
 
 ---
 
@@ -11,11 +11,12 @@
 | 항목 | 값 |
 |---|---|
 | 메인 URL (앞으로 공유) | **https://ai-agent-edu.web.app** |
-| 보조 URL (옛 URL, 같은 콘텐츠) | https://swdp-seminar-dashboard.web.app |
+| 옛 URL (리다이렉터) | https://swdp-seminar-dashboard.web.app → `ai-agent-edu.web.app/:path*` 로 301 (경로 유지) |
 | GitHub | https://github.com/nyd0512/seminar-dashboard (`main`) |
 | Firebase 프로젝트 ID | `swdp-seminar-dashboard` |
-| Hosting 사이트 (multi-site) | `swdp-seminar-dashboard` (target=`default`) + `ai-agent-edu` (target=`agent`) |
-| Firestore DB | `(default)`, 컬렉션 `sessions` |
+| Hosting 사이트 (multi-site) | `ai-agent-edu` (target=`agent`, 실제 콘텐츠) + `swdp-seminar-dashboard` (target=`default`, `public: "redirect"` 301 리다이렉터) |
+| 뷰별 URL | `/` 대문 · `/calendar` · `/timeline` · `/library` (열람실) · `/news` · `/qna` (문의) |
+| Firestore DB | `(default)`, 컬렉션 `sessions` · `inquiries` · `inquiry_comments` · `visits` |
 | 편집 비번 | `aijjang` (`js/data.js` `EDIT_PASSWORD`) |
 | Firebase CLI 로그인 | `ringo.cozy@gmail.com` |
 | 자동 배포 | ❌ 없음. `firebase deploy` 수동 |
@@ -24,19 +25,19 @@
 
 ## 1. 자주 쓰는 명령
 
-### 일반 배포 (두 사이트 동시 — 가장 자주 씀)
+### 일반 배포 (가장 자주 씀)
 ```powershell
-firebase deploy --only hosting --project swdp-seminar-dashboard
-```
-→ swdp + ai-agent-edu 양쪽에 같은 콘텐츠 배포.
-
-### 한 사이트만 배포
-```powershell
-# 새 URL만
 firebase deploy --only hosting:agent --project swdp-seminar-dashboard
+```
+→ 실제 콘텐츠 사이트(ai-agent-edu)만 갱신. 옛 URL은 리다이렉터라 콘텐츠 변경 시 재배포 불필요.
 
-# 옛 URL만
+### 리다이렉터 / 전체 hosting
+```powershell
+# 옛 URL 리다이렉터만 (redirect/ 또는 default target 설정을 바꿨을 때)
 firebase deploy --only hosting:default --project swdp-seminar-dashboard
+
+# 두 target 모두
+firebase deploy --only hosting --project swdp-seminar-dashboard
 ```
 
 ### Firestore 보안 규칙만
@@ -51,8 +52,8 @@ firebase deploy --project swdp-seminar-dashboard
 
 ### 로컬 미리보기
 ```powershell
-firebase serve --only hosting:agent   # 또는 hosting:default
-# → http://localhost:5000
+firebase serve --only hosting:agent
+# → http://localhost:5000  (hosting:default 는 리다이렉터라 미리볼 콘텐츠 없음)
 ```
 
 ### GitHub 동기화 (Actions 없음 — 자동 배포 X)
@@ -66,12 +67,12 @@ git push origin main
 
 ### A. 비밀번호 변경
 1. `js/data.js`의 `EDIT_PASSWORD` 값 수정
-2. `firebase deploy --only hosting --project swdp-seminar-dashboard`
+2. `firebase deploy --only hosting:agent --project swdp-seminar-dashboard`
 3. 사용자에게 새 비번 알림 (운영자만 공유)
 
 ### B. 디자인/기능 수정
 1. 코드 수정
-2. `firebase deploy --only hosting --project swdp-seminar-dashboard`
+2. `firebase deploy --only hosting:agent --project swdp-seminar-dashboard`
 3. **검증 (필수)**: Chrome MCP로 `?bust=$(timestamp)` 붙여서 새 URL 접속 → DOM/state 확인
 4. commit + push (사용자가 명시적으로 원할 때만)
 
@@ -99,7 +100,7 @@ firebase hosting:sites:delete [사이트이름] --project swdp-seminar-dashboard
 - 사이드바 "열람실" = dashboard 내 view (`data-view="library"`). 자료 카드 그리드 + 다운로드
 - **자료 추가 (코드 수정 0)**:
   1. `presentations/files/` 폴더에 파일 그대로 복사
-  2. `firebase deploy --only hosting --project swdp-seminar-dashboard`
+  2. `firebase deploy --only hosting:agent --project swdp-seminar-dashboard`
   3. predeploy hook (`scripts/build-materials-manifest.mjs`) 이 자동으로 `presentations/files/manifest.json` 생성 → 페이지에서 카드 자동 렌더
 - **파일명 규칙** (선택): `YYYY-MM-DD__카테고리__제목.확장자`
   - 예: `2026-04-23__슬라이드__AI에이전트_개론.pdf` → 카드에 날짜/카테고리/제목 분리 표시
@@ -107,9 +108,27 @@ firebase hosting:sites:delete [사이트이름] --project swdp-seminar-dashboard
 - **구현 파일**:
   - `js/library.js` — manifest fetch + 카드 렌더
   - `scripts/build-materials-manifest.mjs` — predeploy hook
-  - `firebase.json` 의 양 target `predeploy: ["node scripts/build-materials-manifest.mjs"]`
+  - `firebase.json` 의 `agent` target `predeploy: ["node scripts/build-materials-manifest.mjs"]`
 - **발표자료 슬라이드 HTML** (`presentations/[slug]/index.html`): `presentations/index.html` 의 `a.item` 앵커에서 자동 수집되어 **열람실 카드로 노출**된다 (제목 · `data-month` 업로드월 · 부제). 인덱스에서 빠진 폴더도 직접 URL 로는 계속 서빙 (딥링크 보존).
-- 새 슬라이드 추가: `presentations/[slug]/` 폴더 + `presentations/index.html` 에 `data-month="YYYY-MM"` 포함 카드 한 줄 추가 → deploy 시 manifest 자동 반영. 폴더 rename 시 firebase.json 리다이렉트는 **bare / trailing-slash / `/:rest*` 3종 세트**로 추가해야 한다 (`:rest*` 는 빈 나머지를 매칭하지 못함 — 5e0c6d6 참고).
+- 새 슬라이드 추가: `presentations/[slug]/` 폴더 + `presentations/index.html` 에 `data-month="YYYY-MM"` 포함 카드 한 줄 추가 (라이브 덱은 "지난 교육 자료 / Archive" divider 위, 지난 덱은 그 아래 `archive/` 경로) → deploy 시 manifest 자동 반영. 폴더 rename 시 firebase.json 리다이렉트는 **bare / trailing-slash / `/:rest*` 3종 세트**로 추가해야 한다 (`:rest*` 는 빈 나머지를 매칭하지 못함 — 5e0c6d6 참고).
+
+### H. 뉴스 — 브리핑 이슈 발행
+- 데이터: `news/issues.json` (`{ updated, issues[] }`). 렌더: `js/news.js` (스키마는 파일 상단 주석)
+- 발행: `issues[]` **맨 앞**에 새 이슈 추가 (+ `updated` 갱신) → `firebase deploy --only hosting:agent --project swdp-seminar-dashboard`
+  - issue: `{ id, type, no, title, date, period, intro, highlights[], body[], refs[{ label, url }] }`
+  - `type`: `weekly` / `biweekly` / `monthly` / `daily` (주간·격주·월간·일간 라벨)
+- commit 컨벤션: `content(news): <type> briefing issue N (YYYY-MM-DD)`
+
+### I. 문의 게시판 · 방문자 카운터
+- `js/qna.js` — `inquiries` (문의 글) + `inquiry_comments` (답변 댓글, `inquiryId` 로 연결). 둘 다 onSnapshot 구독
+- 글쓰기는 누구나 (이름 선택), 삭제 버튼은 편집 모드(관리자)에서만 노출
+- `js/visits.js` — `visits` 컬렉션 (날짜별 문서 `YYYY-MM-DD` + `_total`), 브라우저당 하루 1회 집계, 사이드바 `#visitMeta` 에 편집 모드일 때만 표시
+- 새 컬렉션을 쓰면 `firestore.rules` 에 match 블록 추가 + `firebase deploy --only firestore:rules --project swdp-seminar-dashboard`
+
+### J. 뷰별 URL · 새 뷰 추가
+- 뷰마다 고유 경로: `/` 대문 · `/calendar` · `/timeline` · `/library` (열람실) · `/news` · `/qna` (문의). 특정 뷰를 공유할 땐 그 경로를 그대로 보낸다
+- 구현: `js/app.js` 의 `VIEWS` 레지스트리에 뷰마다 `path` → 뷰 전환 시 `history.pushState`. `firebase.json` (`agent` target) rewrites 가 이 경로들을 `/index.html` 로 보낸다
+- 새 뷰 추가: ① `VIEWS` 에 항목 (`title` / `sub` / `render` / `path`) ② `index.html` 사이드바 `nav-item` 버튼 (`data-view`) + `data-view-content` 섹션 ③ `firebase.json` (`agent` target) rewrites 에 해당 path → `/index.html` (기존 뷰처럼 끝 슬래시 `/path/` → `/path` 301 redirect 도 함께)
 
 ---
 
@@ -132,19 +151,22 @@ firebase hosting:sites:delete [사이트이름] --project swdp-seminar-dashboard
 ### Service Account Key 노출 이력
 - 초기 deploy 시 `*-firebase-adminsdk-*.json` 키가 약 30분 호스팅에 공개됨
 - 사용자에게 폐기 권장 안내함 — 새 admin 작업 필요해지면 새 키 받아서 사용
-- `.gitignore` + 두 site의 `firebase.json` ignore 패턴에 `*-firebase-adminsdk-*.json` 추가됨
+- `.gitignore` + `firebase.json` `agent` target ignore 패턴에 `*-firebase-adminsdk-*.json` 추가됨 (`default` target은 `redirect/` 만 배포)
 
 ### GitHub Actions 없음
 - `git push` 자체로는 자동 배포 안 됨. `firebase deploy` 별도 실행 필수
 - 사용자가 Actions 셋업을 명시적으로 거절함 ("필요없을거같다")
 
 ### 멀티사이트 배포 시 주의
-- `firebase deploy --only hosting` 은 **모든** target에 배포 (현재는 default + agent 둘 다)
-- 한 사이트만 갱신하려면 `hosting:default` 또는 `hosting:agent` 명시
+- `firebase deploy --only hosting` 은 **모든** target에 배포 (agent 콘텐츠 + default 리다이렉터)
+- `default` target 은 `public: "redirect"` + `/:path*` → `https://ai-agent-edu.web.app/:path*` 301. 옛 링크는 경로 그대로 새 사이트로 넘어간다
+- deploy 제외 목록은 `agent` target `ignore` (`**/*.md`, `**/*.docx`, `docs/**`, `scripts/**`, `**/src-png/**`, `**/style-refs/**` 등). 로컬 전용 파일이 생기면 여기에 추가
 
 ---
 
 ## 4. Firestore 컬렉션 구조
+
+컬렉션 4개: `sessions` (교육 일정, 아래 표) · `inquiries` / `inquiry_comments` (문의, §2.I) · `visits` (방문자 카운터). Rules는 모두 누구나 read/write.
 
 **컬렉션**: `sessions`
 **docId**: 자동 생성 (기존 13건은 `s01`~`s13` 보존)
@@ -179,18 +201,24 @@ seminar-dashboard/
 ├── .firebaserc              # default 프로젝트 + hosting targets
 ├── firestore.rules          # 누구나 read/write
 ├── firestore.indexes.json   # 빈 인덱스
-├── index.html               # importmap (Firebase ESM CDN) + UI (4 nav: 대문/캘린더/타임라인/열람실)
+├── index.html               # importmap (Firebase ESM CDN) + UI (6 nav: 대문/캘린더/타임라인/열람실/뉴스/문의)
+├── package.json             # 로컬 도구 의존성만 (빌드 없음, deploy 제외)
+├── redirect/                # default target(옛 URL) public — 301 리다이렉터 fallback index.html
+├── news/
+│   └── issues.json          # 뉴스 브리핑 이슈 (최신이 맨 앞)
+├── .claude/skills/          # 프로젝트 덱 제작 스킬 (deck-authoring, note-deck-a/b/c)
 ├── assets/                  # hero / 단청 / 낙관 / brand-mark (한옥 일러스트)
 ├── presentations/
-│   ├── index.html           # 발표자료 인덱스 — 현재 5종 큐레이션 (업로드월 data-month 표기)
+│   ├── index.html           # 발표자료 인덱스 — 라이브 6종 + Archive 9종 (`a.item`, 업로드월 data-month 표기)
 │   ├── files/               # ⭐ 자료실 다운로드 파일 — 여기에 파일만 넣고 deploy
 │   │   └── manifest.json    # 자동 생성 (predeploy hook, 결정론적 출력)
+│   ├── ai-productivity/     # AI로 생산성은 어떻게 올랐나 (EHS 소통회)
 │   ├── ai-dlc-swdp/         # SWDP 개발·운영과 AI 에이전트 적용 방향
 │   ├── ai-driven-transition/# AI Driven 전환은 왜 어려운가
 │   ├── working-with-agents/ # AI Agent와 일해보니 (구 ai-agent-unified)
 │   ├── claude-code-playbook/# Claude Code 실전 활용법 (하이브리드: webp+HTML)
 │   ├── ai-checkpoint-2026-07/ # AI, 어디까지 왔고 어디로 가는가 (구 guru-notes-2026, 노트 덱)
-│   ├── (archive 제거됨 2026-07-21 — 레거시 덱 13종은 git 히스토리에만 보존, 구 URL·리다이렉트 폐기)
+│   ├── archive/             # 지난 교육 덱 9종 — 열람실 "Archive" 섹션으로 노출 (39ef50f 복원, archive/README.md)
 │   └── assets/              # 공유 데이터·이미지·랩·페이퍼·비디오
 ├── scripts/
 │   └── build-materials-manifest.mjs   # predeploy: presentations/files 스캔
@@ -209,13 +237,17 @@ seminar-dashboard/
     ├── app.js               # 부트스트랩 + ui state + renderAll + switchView + nav/topbar/lock/toast/modal primitives
     ├── views.js             # 캘린더 + 타임라인 렌더·컨트롤
     ├── modals.js            # detail / password / session form 모달
-    └── library.js           # 자료실(열람실) manifest fetch + 카드 렌더
+    ├── library.js           # 자료실(열람실) manifest fetch + 카드 렌더
+    ├── news.js              # 뉴스 뷰 (news/issues.json 렌더)
+    ├── qna.js               # 문의 게시판 (inquiries + inquiry_comments)
+    └── visits.js            # 방문자 카운터 (visits)
 ```
 
 ### JS 모듈 의존 그래프
 ```
 app.js  ─┬→ views.js  ─→ modals.js
-         └→ modals.js
+         ├→ modals.js
+         └→ library.js / news.js / qna.js / visits.js
 views.js / modals.js  ─→ app.js  (ui state, openModal/closeModal, toast, openPasswordModal)
                       ─→ store.js, utils.js, data.js
 ```
@@ -226,7 +258,7 @@ ESM cyclic import 있음 (app ↔ views, app ↔ modals). 런타임 호출 시 r
 ## 6. 디자인 규칙 (지켜야 할 것)
 
 - **사이드바 brand 영역과 topbar는 60px 정렬** (`--topbar-h`). brand 또는 topbar padding을 만지면 같이 맞춰야 함
-- **사이드바 footer 텍스트**: `v1.2 · 관리자 KHM` (`index.html`의 `.sidebar-meta`)
+- **사이드바 footer 텍스트**: `v2.0 · 관리자 KHM` (`index.html`의 `.sidebar-meta`; 바로 위 `#visitMeta` 는 방문자 카운터)
 - **컬러/spacing**: `css/tokens.css` CSS 변수만 사용. 하드코딩 금지
 - **brand-mark**: 한옥 정자 일러스트 (`assets/brand-mark.png`, 배경 투명). 36x36, object-fit: contain
 - **캘린더 가시성 기준**:
@@ -277,21 +309,17 @@ ESM cyclic import 있음 (app ↔ views, app ↔ modals). 런타임 호출 시 r
 
 - 코드 수정 + 배포 후 **사용자가 만족하면** commit + push
 - commit 메시지 한국어 OK, 영어 OK. 일관성 유지 (현재까지 영어 prefix + 한국어 본문)
-- co-author trailer 추가:
-  ```
-  Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
-  ```
+- co-author trailer 추가: 그 세션에서 실제로 쓰는 모델의 `Co-Authored-By: Claude <모델명> <noreply@anthropic.com>` (특정 모델명 고정 금지)
 - main 브랜치에 직접 push (PR 안 씀)
 
 ---
 
-## 11. 마지막 큰 변경
+## 11. 최근 주요 변경 (최신은 `git log --oneline` 으로 확인)
 
-| commit | 내용 |
-|---|---|
-| `e050e5c` | feat: migrate from Express to Firebase Hosting + Firestore |
-| `46d40a7` | docs: add HANDOFF.md |
-| `674e909` | ui: hanok-gate brand mark |
-| `5d7a06f` | ui: brand-mark transparent bg |
-| `9f47d27` | ui: tally "(동일인 누적 포함)" |
-| `9a2e38d` | ui(calendar): legibility boost |
+- `e41bc87` feat(library): 'AI로 생산성은 어떻게 올랐나' 덱 추가 — 이어서 ai-easier(`73f7b7c`)·ax-why-hard(`60f9b76`) 덱 정리
+- `8382d80` / `08bdab0` / `9c44400` chore·fix(hosting): `docs/`, 로컬 리포트, `*.docx` deploy 제외
+- `2933171` content(news): 격주 브리핑 5호 (2026-09-29) — 뉴스 이슈는 `content(news): ...` 로 누적
+- `39ef50f` feat(library): 지난 덱 9종을 열람실 Archive 섹션으로 복원
+- `365684b` feat(qna): 문의 게시판 (댓글 답변) · `585de35` 메뉴명 '문의'
+- `e2d1473` fix(visits): 방문자 카운터는 편집 모드에서만 표시
+- `dd1bedd` / `c6ab81a` feat(skills): 프로젝트 덱 스킬 (deck-authoring, note-deck-a/b/c)
