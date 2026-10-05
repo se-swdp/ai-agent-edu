@@ -68,6 +68,10 @@ STYLE — Korean scholar's ink-brush note slide (문인화 노트), 16:9 landsca
 
 ## 파이프라인
 
-내용 설계·어투 → 프로젝트 `deck-authoring` 스킬. 스펙 작성·배치 생성(`gen_deck.py`)·
-육안 검수·`encode_webp.py`·뷰어 조립·README → 전역 `note-deck` 스킬 §1~8 그대로.
+내용 설계·어투 → 프로젝트 `deck-authoring` 스킬. 이미지 생성 → `note-deck-openrouter` 스킬
+(`python .claude/skills/note-deck-openrouter/scripts/gen_openrouter.py <deck-spec.json>`). 구성표(Phase 0)·육안 검수(Phase 2)·
+`encode_webp.py`·뷰어 조립·README(Phase 3)·검증(Phase 4)·수정(Phase 5) → 전역 `note-deck` 스킬 그대로.
 이 스킬은 STYLE 블록과 위 어휘 표만 교체한다.
+OpenRouter로 생성할 때는 spec 각 장의 `style_refs`에 이 스킬 폴더의 `assets/style-refs/*.webp`를
+넣는다 — 안 넣으면 note-deck 기본 크림 레퍼런스가 섞여 들어온다.
+(B는 사이트 대문 `assets/hero-v10.jpg`도 함께 넣는다.)

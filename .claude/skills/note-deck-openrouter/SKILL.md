@@ -1,17 +1,19 @@
 ---
 name: note-deck-openrouter
 description: >-
-  note-deck 손글씨 노트 덱을 OpenRouter 이미지 모델(기본 google/gemini-3.1-flash-image)로 생성하는 변형.
-  사용자가 "note-deck-openrouter", "오픈라우터로 덱/슬라이드", "제미나이 이미지로 슬라이드"를 말하거나,
-  codex image_gen이 쿼터 소진·툴 미노출로 막혔을 때 note-deck 대신 사용한다. 내용 설계·어투는 deck-authoring,
+  이 레포 노트 덱(note-deck 및 note-deck-a/b/c 변형)의 기본 이미지 생성 엔진 — OpenRouter 이미지 모델
+  (기본 google/gemini-3.1-flash-image)로 슬라이드를 만든다. 덱 이미지를 생성할 때는 따로 말하지 않아도 이 스킬을
+  쓰고, "note-deck-openrouter", "오픈라우터로 덱/슬라이드", "제미나이 이미지로 슬라이드"에도 사용한다. 대안은
+  agy generate_image, codex image_gen은 결제가 살아 있을 때만. 내용 설계·어투는 deck-authoring,
   STYLE 블록·레이아웃 레시피·스타일 레퍼런스·인코딩·뷰어는 note-deck 스킬을 그대로 쓰고, 이 스킬은
-  이미지 생성 엔진(3단계)만 교체한다.
+  이미지 생성 엔진(note-deck Phase 1)만 교체한다.
 ---
 
 # Note Deck — OpenRouter 엔진
 
-note-deck 파이프라인에서 **3. 배치 생성**만 바꾼다. 나머지(구성표 → deck-spec.json → 검수 → 인코딩 → 뷰어 →
-README → 검증)는 `~/.claude/skills/note-deck/SKILL.md`를 그대로 따른다. 프롬프트는 반드시
+note-deck 파이프라인에서 **Phase 1 — Generate slides**(codex imagegen)만 이 엔진으로 바꾼다. 구성표를 이 스킬의
+deck-spec.json으로 옮겨 적은 뒤 생성하고, 나머지(Phase 0 구성표 → Phase 2 검수 → Phase 3 인코딩·뷰어·README →
+Phase 4 검증 → Phase 5 수정)는 `~/.claude/skills/note-deck/SKILL.md`를 그대로 따른다. 프롬프트는 반드시
 `~/.claude/skills/note-deck/references/prompts.md`의 STYLE 블록 + 레이아웃 레시피로 쓴다.
 
 **위치와 의존성.** 이 스킬은 ai-agent-edu 레포의 `.claude/skills/note-deck-openrouter/`에 들어 있어 레포를 받은
@@ -28,7 +30,8 @@ numpy(`normalize_bg.py`)가 필요하다 — 없으면 `python -m pip install --
 
 ## 왜 이 엔진인가
 
-- codex image_gen은 쿼터가 떨어지면 에러 없이 툴이 사라진다(note-deck 메모 참고). OpenRouter는 크레딧만 있으면 바로 된다.
+- 기본 엔진이다. codex image_gen은 지금 결제 대기로 막혀 있고, 쿼터가 떨어지면 에러 없이 툴이 사라진다(note-deck 메모 참고).
+  OpenRouter는 크레딧만 있으면 바로 된다. 대안은 agy generate_image.
 - **스타일 레퍼런스가 진짜 이미지 입력으로 들어간다.** 웹 채팅에 손으로 붙여 넣을 때 생기던 로봇·색 불일치가
   여기서는 생기지 않는다. 통일성의 핵심은 매 장 같은 레퍼런스를 붙이는 것이다.
 
@@ -119,5 +122,5 @@ LANCZOS 리사이즈하므로 기존 덱·`verify_deck.py`와 치수가 맞는�
 
 ```bash
 python ~/.claude/skills/note-deck/scripts/encode_webp.py <deck_dir>
-python ~/.claude/skills/note-deck/scripts/verify_deck.py <deck_dir> [base_url]
+python ~/.claude/skills/note-deck/scripts/verify_deck.py <deck_dir> <base_url>   # base_url 필수 — 레포 루트에서 python -m http.server로 띄운 덱 URL
 ```

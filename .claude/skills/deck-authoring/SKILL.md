@@ -91,11 +91,14 @@ description: >
 ## 제작 파이프라인과 검증
 
 1. **기획서**: 척추 문장·텐션 곡선·구간표(슬라이드별 펀치라인 포함)를 먼저 쓰고 팩트체크를 돌린다.
-2. **이미지 생성**: 전역 note-deck 스킬 사용 (1672×941, codex image_gen, 스타일 레퍼런스,
-   webp q95 인코딩, 뷰어 패키징). 국소 수정은 원본 PNG를 `-i`로 첨부하는 Recipe 3
-   ("Recreate EXACTLY … with ONLY these changes").
-   codex image_gen이 막히면(쿼터 소진·툴 미노출) 이 레포의 note-deck-openrouter 스킬로 생성 엔진만 바꾼다.
-3. **정합성 감사**: 완성 후 4렌즈(숫자·비주얼·카피·서사) 병렬 감사를 돌린다. 손글씨 생성은
+2. **이미지 생성**: 기본 엔진은 이 레포의 note-deck-openrouter 스킬
+   (`python .claude/skills/note-deck-openrouter/scripts/gen_openrouter.py <deck-spec.json>`).
+   출력은 1376×768이고, 전역 note-deck의 `encode_webp.py`가 1672×941로 업스케일해 webp q95로 인코딩한다.
+   STYLE 블록·스타일 레퍼런스·뷰어 패키징·검증은 전역 note-deck 스킬을 따른다. 대안: agy generate_image,
+   codex image_gen은 쓸 수 있을 때만(현재 결제 대기로 막힘). 국소 수정은 원본 PNG를 레퍼런스로 첨부하는
+   Recipe 3("Recreate EXACTLY … with ONLY these changes").
+3. **정합성 감사**: 완성 후 숫자·비주얼·카피·서사를 한 번에 보는 통합 리뷰 1회가 기본이다. 렌즈별 병렬
+   감사로 쪼개는 건 큰 덱(대략 30장 이상)일 때만 — 리뷰를 겹겹이 쌓지 않는다. 손글씨 생성은
    오타가 섞인다 — "건너띔", "TH1.1→THI.1" 같은 글자 결함은 확대 검수로만 잡힌다.
    오탐도 있으니(정상 표기를 오타로 오인) 확정 결함만 Recipe 3으로 국소 재생성한다.
 4. **README 기록**: 구성표(구간·페이지·내용), 압축·컷 내역, 재생성 이력을 덱 README에 남긴다.
