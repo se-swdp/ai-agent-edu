@@ -94,6 +94,7 @@ description: >
 2. **이미지 생성**: 전역 note-deck 스킬 사용 (1672×941, codex image_gen, 스타일 레퍼런스,
    webp q95 인코딩, 뷰어 패키징). 국소 수정은 원본 PNG를 `-i`로 첨부하는 Recipe 3
    ("Recreate EXACTLY … with ONLY these changes").
+   codex image_gen이 막히면(쿼터 소진·툴 미노출) 이 레포의 note-deck-openrouter 스킬로 생성 엔진만 바꾼다.
 3. **정합성 감사**: 완성 후 4렌즈(숫자·비주얼·카피·서사) 병렬 감사를 돌린다. 손글씨 생성은
    오타가 섞인다 — "건너띔", "TH1.1→THI.1" 같은 글자 결함은 확대 검수로만 잡힌다.
    오탐도 있으니(정상 표기를 오타로 오인) 확정 결함만 Recipe 3으로 국소 재생성한다.

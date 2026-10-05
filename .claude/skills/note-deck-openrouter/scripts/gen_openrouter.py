@@ -190,6 +190,12 @@ def generate(name, prompt, refs, out_png: Path, log_dir: Path, model, retries, e
     return False
 
 
+def layout_ref(refs_dir: Path, layout: str) -> Path:
+    """Layout's default style ref; note-deck installs name it either cards.png or ref-cards.png."""
+    name = LAYOUT_REF.get(layout, "cards.png")
+    return next((p for p in (refs_dir / name, refs_dir / f"ref-{name}") if p.exists()), refs_dir / name)
+
+
 def repo_root(start: Path):
     return next((d for d in [start, *start.parents] if (d / ".git").exists()), None)
 
@@ -225,7 +231,7 @@ def run_spec(args):
     def job(s):
         refs = [resolve(p, base, root) for p in s.get("style_refs", [])]
         if not refs:
-            refs = [refs_dir / LAYOUT_REF.get(s.get("layout", "cards"), "cards.png")]
+            refs = [layout_ref(refs_dir, s.get("layout", "cards"))]
         missing = [r for r in refs if not r.exists()]
         if missing:
             log(f"[{s['file']}] WARNING: style ref(s) not found, skipped: {', '.join(str(m) for m in missing)}")
@@ -258,6 +264,8 @@ def run_one(args):
 
 
 def main():
+    for stream in (sys.stdout, sys.stderr):  # cp949 consoles can't print the — / → in help and logs
+        stream.reconfigure(errors="replace")
     ap = argparse.ArgumentParser()
     ap.add_argument("spec", nargs="?")
     ap.add_argument("--model", default=DEFAULT_MODEL)
@@ -269,6 +277,11 @@ def main():
     ap.add_argument("--ref", action="append", help="single-image mode: reference image (repeatable)")
     ap.add_argument("--edit", action="store_true", help="single-image mode: Recipe 3 edit — send the prompt as-is, no style-reference preamble")
     args = ap.parse_args()
+    if args.one or args.spec:
+        try:
+            api_key()  # fail fast — otherwise every slide burns its retries on the same missing key
+        except RuntimeError as e:
+            sys.exit(f"ERROR: {e} (setx OPENROUTER_API_KEY ... then open a new shell)")
     if args.one:
         if not args.prompt_file:
             sys.exit("--one needs --prompt-file")

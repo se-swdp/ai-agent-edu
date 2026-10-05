@@ -18,7 +18,8 @@ README → 검증)는 `~/.claude/skills/note-deck/SKILL.md`를 그대로 따른�
 컴퓨터면 어디서든 쓸 수 있다. 아래 명령은 레포 루트에서 실행한다. 다만 프롬프트 레시피·기본 스타일 레퍼런스·
 `encode_webp.py`·`verify_deck.py`는 **note-deck 스킬**에 있고 note-deck은 레포에 없다 — 전역
 `~/.claude/skills/note-deck/`에 깔려 있어야 한다. `gen_openrouter.py`는 note-deck을 레포
-`.claude/skills/note-deck/` → 전역 `~/.claude/skills/note-deck/` 순서로 찾는다.
+`.claude/skills/note-deck/` → 전역 `~/.claude/skills/note-deck/` 순서로 찾는다. Python 패키지는 Pillow(두 스크립트)와
+numpy(`normalize_bg.py`)가 필요하다 — 없으면 `python -m pip install --user pillow numpy`.
 
 **경로.** spec의 `deck_dir`·`style_refs_dir`·`style_refs`는 상대경로로 적는다 — 스크립트가 spec 파일 폴더 →
 레포 루트 순서로 찾으므로 어느 폴더에서 실행해도, 어느 컴퓨터의 클론에서도 같다. 레퍼런스는 git에 있는 파일만 쓴다
@@ -55,6 +56,9 @@ python .claude/skills/note-deck-openrouter/scripts/gen_openrouter.py \
   --one <deck>/src-png/03-divider.png --prompt-file prompt.txt \
   --ref ~/.claude/skills/note-deck/assets/style-refs/divider.png --ref <deck>/src-png/01-cover.png
 ```
+
+- 전역 note-deck의 style-ref 파일명은 설치본마다 `divider.png` 또는 `ref-divider.png`다. `--ref`에는 실제 있는
+  이름을 쓴다(`ls ~/.claude/skills/note-deck/assets/style-refs/`). spec 모드의 레이아웃 기본값은 두 이름을 다 찾는다.
 
 - 결과: `<deck_dir>/src-png/<file>.png`, 로그·프롬프트·사용량(`*.usage.json`, 비용 포함)은 `src-png/logs/`.
 - 레퍼런스 기본값은 note-deck과 같은 레이아웃별 style-ref 1장. **통일성을 올리려면** spec의 `style_refs`에
