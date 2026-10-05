@@ -65,6 +65,8 @@ python .claude/skills/note-deck-openrouter/scripts/gen_openrouter.py \
   레이아웃 레퍼런스 + 이 덱에서 잘 나온 앵커 장(보통 01 커버)을 같이 넣는다 (note-deck Recipe 2와 같은 원리).
 - 모델 교체: `--model <openrouter-model-id>` 또는 spec의 `"model"`.
 - 429면 60초 쉬고 재시도, 401/402/403(키·크레딧)은 바로 중단.
+- 회사망(TLS 검사 프록시)에서 `CERTIFICATE_VERIFY_FAILED (Missing Authority Key Identifier)`가 나던 문제는 스크립트가
+  Python 3.13의 `VERIFY_X509_STRICT`만 끄는 SSL 컨텍스트로 처리한다. 체인·호스트명 검증은 그대로 켜져 있다.
 
 ## 수정 (Recipe 3) — `--edit`
 

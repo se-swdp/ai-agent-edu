@@ -34,6 +34,7 @@ import io
 import json
 import mimetypes
 import os
+import ssl
 import sys
 import threading
 import time
@@ -67,6 +68,10 @@ GEN_INSTRUCTION = (
     "Do not copy the text from the reference images.\n\n"
 )
 MIN_BYTES = 50_000
+# Python 3.13 turned on VERIFY_X509_STRICT by default; corporate TLS-inspection root CAs often lack
+# the Authority Key Identifier and fail it. The chain and hostname are still fully verified.
+SSL_CTX = ssl.create_default_context()
+SSL_CTX.verify_flags &= ~getattr(ssl, "VERIFY_X509_STRICT", 0)
 
 print_lock = threading.Lock()
 
@@ -119,7 +124,7 @@ def call_openrouter(prompt: str, refs, model: str, timeout: int = 300):
         },
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
+    with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 
@@ -138,7 +143,7 @@ def extract_image(resp: dict) -> bytes:
     url = urls[0]
     if url.startswith("data:"):
         return base64.b64decode(url.split(",", 1)[1])
-    with urllib.request.urlopen(url, timeout=120) as r:
+    with urllib.request.urlopen(url, timeout=120, context=SSL_CTX) as r:
         return r.read()
 
 
