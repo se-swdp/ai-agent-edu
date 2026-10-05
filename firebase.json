@@ -99,6 +99,37 @@
           "source": "/presentations/ai-checkpoint-2026-07/",
           "destination": "/presentations/ai-checkpoint-2026-07/note-deck",
           "type": 301
+        },
+        {
+          "source": "/calendar/",
+          "destination": "/calendar",
+          "type": 301
+        },
+        {
+          "source": "/timeline/",
+          "destination": "/timeline",
+          "type": 301
+        },
+        {
+          "source": "/library/",
+          "destination": "/library",
+          "type": 301
+        },
+        {
+          "source": "/news/",
+          "destination": "/news",
+          "type": 301
+        },
+        {
+          "source": "/qna/",
+          "destination": "/qna",
+          "type": 301
+        }
+      ],
+      "rewrites": [
+        {
+          "source": "/@(calendar|timeline|library|news|qna)",
+          "destination": "/index.html"
         }
       ]
     }

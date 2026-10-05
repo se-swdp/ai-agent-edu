@@ -35,15 +35,22 @@ export const ui = {
   editingId: null, // null = create new, string = edit existing
 };
 
-/** 뷰 레지스트리 — 뷰 추가/변경 시 여기 한 곳만 고친다 (nav 마크업 제외). */
+/** 뷰 레지스트리 — 뷰 추가/변경 시 여기 한 곳만 고친다 (nav 마크업 제외).
+    path 를 바꾸거나 추가하면 firebase.json 의 rewrites/redirects 도 맞춘다. */
 const VIEWS = {
-  cover: { title: '대문', sub: 'AI 전파교육 소개' },
-  calendar: { title: '캘린더', sub: '월간 교육 일정', render: renderCalendar, usesSearch: true },
-  timeline: { title: '타임라인', sub: '과거 · 예정 교육 목록', render: renderTimeline, usesSearch: true },
-  library: { title: '열람실', sub: '발표자료 열람 · 자료 다운로드', render: renderLibrary },
-  news: { title: '뉴스', sub: 'AI 업계 브리핑 — 에이전트 · 모델 · 방법론', render: renderNews },
-  qna: { title: '문의', sub: '질문을 남기면 답변이 댓글로 달립니다', render: renderQna },
+  cover: { path: '/', title: '대문', sub: 'AI 전파교육 소개' },
+  calendar: { path: '/calendar', title: '캘린더', sub: '월간 교육 일정', render: renderCalendar, usesSearch: true },
+  timeline: { path: '/timeline', title: '타임라인', sub: '과거 · 예정 교육 목록', render: renderTimeline, usesSearch: true },
+  library: { path: '/library', title: '열람실', sub: '발표자료 열람 · 자료 다운로드', render: renderLibrary },
+  news: { path: '/news', title: '뉴스', sub: 'AI 업계 브리핑 — 에이전트 · 모델 · 방법론', render: renderNews },
+  qna: { path: '/qna', title: '문의', sub: '질문을 남기면 답변이 댓글로 달립니다', render: renderQna },
 };
+
+/** pathname → 뷰 이름. 끝 슬래시 · /index.html 허용, 모르는 경로는 null. */
+function viewFromPath(pathname) {
+  const p = pathname.replace(/\/index\.html$/, '/').replace(/(.)\/+$/, '$1');
+  return Object.keys(VIEWS).find((k) => VIEWS[k].path === p) ?? null;
+}
 
 /* 정적 노드 캐시 — type=module 은 defer 라 모듈 평가 시점에 DOM 완성 보장 */
 const NAV_ITEMS = $$('.nav-item');
@@ -64,8 +71,14 @@ export function renderAll() {
 }
 
 /* =============== Navigation / view switching =============== */
-export function switchView(view) {
+/** push=false 는 popstate · 부트스트랩용 — 히스토리를 새로 쌓지 않는다. */
+export function switchView(view, { push = true } = {}) {
   ui.view = view;
+  const path = VIEWS[view]?.path;
+  // ?bust= 같은 쿼리와 해시는 유지한 채 경로만 바꾼다
+  if (push && path && location.pathname !== path) {
+    history.pushState({ view }, '', path + location.search + location.hash);
+  }
   NAV_ITEMS.forEach((n) => {
     const active = n.dataset.view === view;
     n.classList.toggle('is-active', active);
@@ -89,6 +102,18 @@ function bindNav() {
     btn.addEventListener('click', () => switchView(btn.dataset.view))
   );
   $('.sidebar-brand')?.addEventListener('click', () => switchView('cover'));
+  // 뒤로/앞으로 — URL 이 이미 바뀌었으니 뷰만 맞춘다
+  window.addEventListener('popstate', () =>
+    switchView(viewFromPath(location.pathname) ?? 'cover', { push: false })
+  );
+}
+
+/** 첫 진입 뷰를 URL 에서 결정 — 모르는 경로는 대문으로, 주소도 '/' 로 교정. */
+function initialView() {
+  const view = viewFromPath(location.pathname);
+  if (view) return view;
+  history.replaceState(null, '', '/' + location.search + location.hash);
+  return 'cover';
 }
 
 /* =============== Topbar: search + tally =============== */
@@ -222,7 +247,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   initVisits();
   store.subscribe(renderAll);
 
-  renderAll();
+  // store.init 전에 뷰를 확정 — 정적 뷰(열람실/뉴스)는 바로 그려진다
+  switchView(initialView(), { push: false });
   await store.init();
 
   if (store.getState().error) toast('데이터를 불러오지 못했습니다');
