@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>AI가 짠 코드에 — 내 이름을 걸기까지</title>
+<script>
+if(location.protocol==='http:'||location.protocol==='https:'){
+  const base=document.createElement('base');
+  // 폴더명을 하드코딩하지 않고 URL 에서 유도 — 폴더 rename 에도 안전 (/x, /x/, /x/index.html 모두 처리)
+  const p=location.pathname;
+  base.href=/\.[^/]+$/.test(p)?p.replace(/[^/]*$/,''):p.replace(/\/?$/,'/');
+  document.head.appendChild(base);
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;width:100%;height:100%}
+body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#fcf8f2;color:#1c1c1c;-webkit-font-smoothing:antialiased}
+.slides{position:relative;width:100%;height:100%}
+/* stacked slides toggled by display — a translateX film strip of N viewport-size
+   images creates a huge composited layer that breaks screenshot pipelines */
+.slide{position:absolute;inset:0;display:none;justify-content:center;align-items:center;background:#fcf8f2;padding:2.6vh 3vw}
+.slide.active{display:flex}
+/* never upscale past native 1672x941 — keeps strokes crisp on 1080p fullscreen */
+.slide img{width:auto;height:auto;max-width:min(100%,1672px);max-height:min(100%,941px);object-fit:contain;display:block}
+.nav{position:fixed;bottom:24px;left:36px;display:flex;gap:6px;z-index:100}
+.nav button{width:36px;height:36px;background:rgba(255,255,255,0.75);border:1px solid rgba(28,28,28,0.22);color:rgba(28,28,28,0.65);font-size:14px;cursor:pointer;border-radius:50%;transition:all 0.18s;box-shadow:0 4px 12px rgba(60,50,30,0.10)}
+.nav button:hover{background:#fff;color:#1c1c1c;border-color:rgba(28,28,28,0.45)}
+.nav button:focus-visible{outline:2px solid #2f73bd;outline-offset:2px}
+.page-num{position:fixed;bottom:30px;right:36px;font-size:0.82rem;color:rgba(28,28,28,0.55);letter-spacing:0.06em;font-family:'Noto Sans KR',sans-serif;z-index:100}
+.progress{position:fixed;top:0;left:0;height:2px;background:#2f73bd;z-index:200}
+@media(max-width:768px){.nav{left:16px;bottom:16px}.page-num{right:16px;bottom:22px}}
+@media print{
+  html,body{overflow:visible!important;height:auto}
+  .nav,.progress,.page-num{display:none!important}
+  .slides{display:block!important}
+  .slide{display:flex!important;position:relative;page-break-after:always;break-after:page;height:100vh}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="slides" id="slides">
+<div class="slide"><img src="01-cover.webp" alt="커버 — AI가 짠 코드에 — 내 이름을 걸기까지" fetchpriority="high" /></div>
+<div class="slide"><img src="02-hook.webp" alt="AI로 코딩했어요 — 그다음 질문, 그 코드에 이름을 걸 수 있나?" loading="lazy" /></div>
+<div class="slide"><img src="03-then-now.webp" alt="1년 전의 나 vs 지금의 나 — 게을러진 게 아니라 믿을 곳이 생김" loading="lazy" /></div>
+<div class="slide"><img src="04-divider-shift.webp" alt="① 스니펫에서 — 위임까지 (1년 사이 바뀐 것)" loading="lazy" /></div>
+<div class="slide"><img src="05-snippet-era.webp" alt="2025 초 — 받아서 붙여 넣기 (사람이 손으로 돌리는 루프)" loading="lazy" /></div>
+<div class="slide"><img src="06-agent-loop.webp" alt="2025 후반 — 돌려 보고, 고치고 (루프를 에이전트가 돌림)" loading="lazy" /></div>
+<div class="slide"><img src="07-same-no-read.webp" alt="같은 &#x27;안 읽음&#x27; — 다른 근거 (바이브 코딩 vs 하네스)" loading="lazy" /></div>
+<div class="slide"><img src="08-three-things-stacked.webp" alt="맡길 수 있게 된 이유 — 셋이 같이 쌓임" loading="lazy" /></div>
+<div class="slide"><img src="09-divider-bottleneck.webp" alt="② 이제 막히는 곳 — 리뷰 (만드는 속도와 읽는 속도)" loading="lazy" /></div>
+<div class="slide"><img src="10-three-numbers.webp" alt="세 숫자 — 75% · 5배 · 3배" loading="lazy" /></div>
+<div class="slide"><img src="11-why-line-review-fails.webp" alt="한 줄씩 읽기가 버거운 이유" loading="lazy" /></div>
+<div class="slide"><img src="12-takeaway-evidence.webp" alt="리뷰를 없애는 게 아니라 — 리뷰 대상을 바꾼다 (코드 → 증거)" loading="lazy" /></div>
+<div class="slide"><img src="13-divider-pipeline.webp" alt="③ 이름을 걸 수 있게 해 주는 것 (내 파이프라인 열어 보기)" loading="lazy" /></div>
+<div class="slide"><img src="14-pipeline-map.webp" alt="내 파이프라인 — 한 장으로" loading="lazy" /></div>
+<div class="slide"><img src="15-contract-first.webp" alt="계약이 먼저 — 완료의 정의를 AI보다 먼저" loading="lazy" /></div>
+<div class="slide"><img src="16-tests-as-order.webp" alt="테스트가 곧 주문서" loading="lazy" /></div>
+<div class="slide"><img src="17-other-model-grades.webp" alt="채점은 — 다른 모델에게" loading="lazy" /></div>
+<div class="slide"><img src="18-green-but-caught.webp" alt="테스트는 전부 초록 — 그래도 걸린 것" loading="lazy" /></div>
+<div class="slide"><img src="19-read-evidence.webp" alt="내가 읽는 건 — 보고서" loading="lazy" /></div>
+<div class="slide"><img src="20-results.webp" alt="그래서 — 지금은 (매주 3~4만 줄 · 롤백·핫픽스 거의 없음)" loading="lazy" /></div>
+<div class="slide"><img src="21-divider-fooled.webp" alt="④ 파이프라인도 속는다 (믿기 전에 — 의심부터)" loading="lazy" /></div>
+<div class="slide"><img src="22-green-light-gamed.webp" alt="초록불은 — 에이전트도 켤 수 있음" loading="lazy" /></div>
+<div class="slide"><img src="23-outside-the-diff.webp" alt="사고는 — diff 바깥에서" loading="lazy" /></div>
+<div class="slide"><img src="24-takeaway-untouchable.webp" alt="이름을 걸 파이프라인 — 에이전트가 손댈 수 없는" loading="lazy" /></div>
+<div class="slide"><img src="25-divider-grows.webp" alt="⑤ 고친 만큼 — 자란다 (문제가 터진 다음이 — 진짜 시작)" loading="lazy" /></div>
+<div class="slide"><img src="26-fix-the-pipeline.webp" alt="문제가 터지면 — 코드보다 파이프라인부터" loading="lazy" /></div>
+<div class="slide"><img src="27-harness-grows.webp" alt="이 파이프라인은 — 처음부터 있던 게 아님 (암묵지 → 메모리 → 규칙 → 스킬 → 워크플로우)" loading="lazy" /></div>
+<div class="slide"><img src="28-docs-too.webp" alt="문서도 같음 — 숫자 안 틀리는 리뷰어" loading="lazy" /></div>
+<div class="slide"><img src="29-the-moat.webp" alt="그럼 — 개발자 몫은? (코드 짜기 AI · 파이프라인 설계 사람 · 이름 걸기 사람)" loading="lazy" /></div>
+<div class="slide"><img src="30-closing-qna.webp" alt="AI가 짠 10만 줄 — 내 이름으로 내보낼 수 있나? (질문 셋 + Q&amp;A)" loading="lazy" /></div>
+</div>
+<nav aria-label="슬라이드 이동" class="nav"><button aria-label="이전 슬라이드" onclick="prev()">&larr;</button><button aria-label="다음 슬라이드" onclick="next()">&rarr;</button></nav>
+<div class="page-num" id="pageNum" aria-live="polite" aria-atomic="true">1 / 1</div>
+<script>
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let current=0;
+const pageNumEl=document.getElementById('pageNum'),progressEl=document.getElementById('progress');
+slides.forEach((slide,index)=>{slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','슬라이드');slide.setAttribute('aria-label',`${index+1} / ${total}`);});
+function update(){slides.forEach((s,i)=>{const active=i===current;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});if(!pageNumEl||!progressEl)return;pageNumEl.textContent=`${current+1} / ${total}`;progressEl.style.width=total>1?`${(current/(total-1))*100}%`:'100%';
+  [current+1,current+2,current-1].forEach(i=>{if(i>=0&&i<total){const img=slides[i].querySelector('img');if(img&&img.loading==='lazy'){img.loading='eager';}}});
+}
+function goTo(i){if(total===0)return;if(i<0)i=0;if(i>=total)i=total-1;current=i;try{history.replaceState(null,'','#'+(current+1));}catch(e){}update();}
+function next(){goTo(current+1);}
+function prev(){goTo(current-1);}
+document.addEventListener('keydown',e=>{const tag=document.activeElement.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable)return;switch(e.key){case'ArrowRight':case' ':case'PageDown':e.preventDefault();next();break;case'ArrowLeft':case'PageUp':e.preventDefault();prev();break;case'Home':e.preventDefault();goTo(0);break;case'End':e.preventDefault();goTo(total-1);break;case'f':case'F':const el=document.documentElement;const isFs=document.fullscreenElement||document.webkitFullscreenElement;if(!isFs){(el.requestFullscreen||el.webkitRequestFullscreen).call(el)?.catch(()=>{});}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)?.catch(()=>{});}break;}});
+let tx=0,ty=0;
+document.addEventListener('touchstart',e=>{if(e.touches.length>1)return;tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches.length>1)return;const dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx>0)next();else prev();}},{passive:true});
+const initSlide=parseInt(location.hash.slice(1))-1;
+if(!isNaN(initSlide)&&initSlide>=0)goTo(initSlide);else update();
+</script>
+</body>
+</html>

@@ -3,6 +3,14 @@
     {
       "type": "slide",
       "month": "2026-10",
+      "title": "AI가 짠 코드에 — 내 이름을 걸기까지",
+      "subtitle": "읽는 리뷰에서 — 믿을 수 있는 파이프라인으로",
+      "url": "./presentations/ai-code-sign-off/",
+      "ext": "html"
+    },
+    {
+      "type": "slide",
+      "month": "2026-10",
       "title": "AI로 생산성은 어떻게 올랐나",
       "subtitle": "바로 좋아진 것 · 늘어난 것 — 내 일에 맞는 워크플로우",
       "url": "./presentations/ai-productivity/",
