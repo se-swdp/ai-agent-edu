@@ -80,6 +80,23 @@ with ONLY these changes")를 `--prompt-file`로 주고 `--edit`를 붙인다. `-
   22장 덱이면 2달러 안팎, 재생성 포함해도 3~4달러 수준.
 - 한글 문구 verbatim 정확(디바이더 테스트에서 오탈자 0). 로봇 안테나 끝 빨간 점이 빠지는 경향 — 필요하면 프롬프트에 강조.
 
+## 모델 선택 (실측 2026-10-05)
+
+ai-productivity 덱 11·13·17장, 같은 프롬프트 + style_refs, 모델당 1회. 공정한 비교는 자기 webp를 refs에서 뺀
+17-numbers-caution 하나뿐이었다. 한글 오탈자는 넷 다 0.
+
+| 모델 | 시간·비용 | 쓰임 |
+|------|-----------|------|
+| `google/gemini-3.1-flash-image` | 12초 · $0.069 · 1376×768 | **기본값 유지.** 덱 톤에 가장 가깝다. 13장 카드 그리드를 지시(2×3)와 달리 3×2로 깔았다 → 검수에서 배치 확인 |
+| `google/gemini-3-pro-image` | 35초 · $0.143 | 글씨가 폰트처럼 보이고 형광펜이 번진다. 스타일 일관성이 중요한 장에만 |
+| `openai/gpt-5.4-image-2` | 72초 · 약 $0.18 · 1280×720 | 레이아웃 지시를 가장 충실히 따르고 선이 가늘다. 배치가 계속 틀리는 장의 승격용 |
+| `google/gemini-3.1-flash-lite-image` | 9초 · $0.035 | 지시 위반이 잦다(배너를 칠함, 로봇이 겹침) → 초안 전용 |
+
+- 이미지 전용 출력 모델(`openai/gpt-image-2.5-flare`, Seedream, Qwen-Image, FLUX)은 `/api/v1/images` 엔드포인트가
+  필요해 이 스크립트로는 못 쓴다. gpt-image 계열이 한글 텍스트 평판이 제일 좋아 나중에 붙일 만하다.
+- **주의:** spec의 style_refs에 그 장의 완성 webp가 들어 있으면 모델은 대부분 그걸 베낀다. 새 장은 레이아웃
+  레퍼런스 + 앵커 장(예: 01-cover)으로 주고, 그 장 자신은 넣지 않는다.
+
 ## 배경색 통일 (인코딩 전에 꼭)
 
 Gemini는 부를 때마다 종이색을 조금씩 다르게 칠한다(누런 장, 회색 장, 장 안의 비네팅). 인코딩 전에
@@ -97,8 +114,8 @@ python .claude/skills/note-deck-openrouter/scripts/normalize_bg.py <deck_dir>   
 
 배포 이미지에 `immutable` 캐시가 걸린 사이트(ai-agent-edu)는 내용이 바뀐 장의 **파일명을 바꿔야** 한다.
 
-note-deck 스크립트를 그대로 쓴다. `encode_webp.py`가 1376×768을 1672×941로 LANCZOS 업스케일하므로 기존 덱·
-`verify_deck.py`와 치수가 맞는다. (네이티브 1376×768을 유지하고 싶으면 크기 상수만 바꾼 로컬 사본을 쓴다.)
+note-deck 스크립트를 그대로 쓴다. `encode_webp.py`가 16:9 근처 입력(1376×768, 1280×720 등)을 모두 1672×941로
+LANCZOS 리사이즈하므로 기존 덱·`verify_deck.py`와 치수가 맞는다. (네이티브 1376×768을 유지하고 싶으면 크기 상수만 바꾼 로컬 사본을 쓴다.)
 
 ```bash
 python ~/.claude/skills/note-deck/scripts/encode_webp.py <deck_dir>
