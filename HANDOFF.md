@@ -117,8 +117,9 @@ firebase hosting:sites:delete [사이트이름] --project swdp-seminar-dashboard
 - 발행: `issues[]` **맨 앞**에 새 이슈 추가 (+ `updated` 갱신) → `firebase deploy --only hosting:agent --project swdp-seminar-dashboard`
   - issue: `{ id, type, no, title, date, period, intro, highlights[], body[], refs[{ label, url }] }`
   - `type`: `weekly` / `biweekly` / `monthly` / `daily` (주간·격주·월간·일간 라벨)
-  - 그림 (7호부터): `cover` 대표 그림 · `feature` 특집 블록 · `body[]` 항목을 `{ text, img }`로 — 이미지는 `news/img/<issue id>/*.webp`.
-    생성 절차·스타일 프롬프트: `news/img/STYLE.md` (OpenRouter `gpt-5.4-image-2`, 매거진 카드뉴스 톤)
+  - 7호부터: `cover` · `feature` 특집 블록 · `body[]` 항목 `{ label, title, text[], img? }` (제목은 오른쪽 '이번 호 차례'에 뜬다) — 이미지는 `news/img/<issue id>/*.webp`.
+    그림: `news/img/STYLE.md` (데이터는 코드 차트 `news/img/tools/`, AI 일러스트는 호당 1장 + "AI 생성" 표기)
+    문장: `news/WRITING.md` (AI 말투 금지 목록 + 발행 전 점검) — 발행 전에 반드시 통과시킨다
 - commit 컨벤션: `content(news): <type> briefing issue N (YYYY-MM-DD)`
 
 ### I. 문의 게시판 · 방문자 카운터
