@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../base.css">
+<script src="../svg.js"></script>
+<title>cover-index</title>
+<style>
+  .cover { position: relative; width: 1600px; height: 900px; padding: 64px 96px 0; }
+  .mast { font-family: var(--serif); font-weight: 700; font-size: 156px; line-height: 1; letter-spacing: -0.03em; }
+  .folio { margin-top: 30px; border-top: 5px solid var(--ink); border-bottom: 1px solid var(--ink);
+           display: flex; justify-content: space-between; align-items: baseline; padding: 14px 2px 12px; }
+  .no { font-family: var(--serif); font-weight: 700; font-size: 40px; color: var(--cinnabar); }
+  .period { font-family: var(--mono); font-weight: 500; font-size: 30px; letter-spacing: 0.02em; color: var(--ink-2); }
+  .label { margin-top: 48px; font-size: 26px; font-weight: 700; letter-spacing: 0.14em; color: var(--cinnabar); }
+  ol { list-style: none; margin-top: 14px; }
+  li { display: grid; grid-template-columns: 72px 104px 1fr; align-items: baseline;
+       padding: 19px 2px 18px; border-top: 1px solid var(--rule); }
+  li:last-child { border-bottom: 1px solid var(--rule); }
+  .n { font-family: var(--mono); font-size: 24px; color: var(--muted); }
+  .tag { font-size: 24px; color: var(--muted); }
+  .t { font-size: 36px; font-weight: 500; letter-spacing: -0.01em; }
+</style>
+</head><body>
+<div class="cover">
+  <div class="mast">주간 AI 브리핑</div>
+  <div class="folio"><span class="no">제7호</span><span class="period">2026. 10. 05 – 10. 11</span></div>
+  <div class="label">이번 호</div>
+  <ol>
+    <li><span class="n">01</span><span class="tag">특집</span><span class="t">AI 보컬 곡 「꿈꾸던 어른이 되었나요?」 멜론 5위</span></li>
+    <li><span class="n">02</span><span class="tag">안전</span><span class="t">앤트로픽, 모델 ‘비의도 행동’ 4유형 공개</span></li>
+    <li><span class="n">03</span><span class="tag">돈</span><span class="t">FT “오픈AI 연환산 매출 500억 달러 근접”</span></li>
+    <li><span class="n">04</span><span class="tag">모델</span><span class="t">클로드 하이쿠 5.5, 100만 토큰당 $0.10</span></li>
+    <li><span class="n">05</span><span class="tag">국내</span><span class="t">삼성전자 3분기 영업이익 107.4조 원</span></li>
+  </ol>
+</div>
+</body></html>

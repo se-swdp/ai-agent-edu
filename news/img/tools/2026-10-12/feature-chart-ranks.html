@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../base.css">
+<script src="../svg.js"></script>
+<title>feature-chart-ranks</title>
+<style>
+  .legend { position: absolute; left: 80px; top: 196px; display: flex; gap: 36px; font-size: 23px; color: var(--ink-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 10px; }
+  .legend svg { overflow: visible; }
+</style>
+</head><body>
+<div class="card">
+  <div class="title">「꿈꾸던 어른이 되었나요?」 플랫폼별 차트 순위</div>
+  <div class="sub">점마다 다른 차트, 다른 기준 시각이다. 선은 같은 차트 안에서만 이었다.</div>
+  <div class="legend">
+    <span><svg width="16" height="16"><circle cx="8" cy="8" r="8" fill="#b0392e"/></svg>유튜브 · 유튜브 뮤직</span>
+    <span><svg width="16" height="16"><rect width="16" height="16" fill="#2a4264"/></svg>국내 음원 차트 (멜론 · 벅스 · 플로)</span>
+    <span><svg width="18" height="18"><path d="M9 0L18 9L9 18L0 9Z" fill="#8d7c66"/></svg>톱스타뉴스 뮤직100</span>
+  </div>
+  <div class="source">자료: 멜론·벅스·플로·유튜브 차트(기준 시각 표기), 톱스타뉴스 뮤직100, CWN</div>
+</div>
+<svg class="plot" id="p" width="1600" height="900"></svg>
+<script>
+// 데이터 — 기사에서 출처가 확인된 점만. 날짜는 2026년, 순위는 각 차트의 그 시점 순위.
+const C = { yt: '#b0392e', kr: '#2a4264', ts: '#8d7c66' };
+const X0 = 150, X1 = 1206, D0 = date(6, 18), D1 = date(10, 14);
+const Y0 = 290, Y1 = 730, RMAX = 20;
+const x = (t) => X0 + (t - D0) / (D1 - D0) * (X1 - X0);
+const y = (r) => Y0 + (r - 1) / (RMAX - 1) * (Y1 - Y0);
+const svg = document.getElementById('p');
+
+// rank grid (linear, 1 at top)
+for (const r of [1, 5, 10, 15, 20]) {
+  el(svg, 'line', { class: 'grid', x1: X0, x2: X1, y1: y(r), y2: y(r) });
+  el(svg, 'text', { x: X0 - 16, y: y(r) + 8, 'text-anchor': 'end', 'font-size': 22, class: 'muted' }, r + '위');
+}
+// time axis (proportional)
+const AX = Y1 + 26;
+el(svg, 'line', { class: 'axis', x1: X0, x2: X1, y1: AX, y2: AX });
+for (const [m, lab] of [[7, '7월'], [8, '8월'], [9, '9월'], [10, '10월']]) {
+  const t = x(date(m, 1));
+  el(svg, 'line', { class: 'axis', x1: t, x2: t, y1: AX, y2: AX + 10 });
+  el(svg, 'text', { x: t + 8, y: AX + 36, 'font-size': 22, class: 'muted' }, lab);
+}
+// release
+const xr = x(date(6, 23));
+el(svg, 'line', { x1: xr, x2: xr, y1: Y0 - 14, y2: AX + 10, stroke: '#2b2117', 'stroke-width': 1.5, 'stroke-dasharray': '5 6' });
+el(svg, 'text', { x: xr + 12, y: Y0 + 2, 'font-size': 24, 'font-weight': 600 }, '6.23 발매');
+
+function label(px, py, anchor, main, ...subs) {
+  el(svg, 'text', { x: px, y: py - 4, 'text-anchor': anchor, 'font-size': 24, 'font-weight': 600 }, main);
+  subs.forEach((s, i) => el(svg, 'text', { x: px, y: py + 24 + i * 28, 'text-anchor': anchor, 'font-size': 22, class: 'muted' }, s));
+}
+const ring = { stroke: '#fffcf6', 'stroke-width': 2 };
+const dot = (t, r, c) => el(svg, 'circle', { cx: x(t), cy: y(r), r: 8, fill: c, ...ring });
+const sq = (t, r, c) => el(svg, 'rect', { x: x(t) - 8, y: y(r) - 8, width: 16, height: 16, fill: c, ...ring });
+const dia = (t, r, c) => el(svg, 'path', { d: `M${x(t)} ${y(r) - 10}l10 10l-10 10l-10 -10Z`, fill: c, ...ring });
+
+// 9.2 유튜브 일간 인기 MV 1위
+dot(date(9, 2), 1, C.yt);
+label(x(date(9, 2)) - 18, y(1), 'end', '유튜브 일간 인기 MV 1위', '9.2');
+// 10.2 멜론 TOP100 최고 18위 (CWN 보도, 기준 시각 없음)
+sq(date(10, 2), 18, C.kr);
+label(x(date(10, 2)) - 18, y(18), 'end', '멜론 TOP100 최고 18위', '10.2 (CWN)');
+// 10.6 벅스 일간 2위, 10.8 07시 플로 5위
+sq(date(10, 6), 2, C.kr);
+label(x(date(10, 6)) - 18, y(2), 'end', '벅스 2위', '10.6 일간');
+sq(date(10, 8), 5, C.kr);
+label(x(date(10, 8)) - 18, y(5), 'end', '플로 5위', '10.8 07시');
+// 톱스타뉴스 뮤직100 13위 -> 10위 (10.11 -> 10.12, 07시)
+el(svg, 'line', { x1: x(date(10, 11)), y1: y(13), x2: x(date(10, 12)), y2: y(10), stroke: C.ts, 'stroke-width': 2 });
+dia(date(10, 11), 13, C.ts); dia(date(10, 12), 10, C.ts);
+// 10.12: 유튜브 뮤직 2위, 멜론 TOP100 5위 (11시)
+dot(date(10, 12), 2, C.yt);
+sq(date(10, 12), 5, C.kr);
+const xe = x(date(10, 12)) + 22;
+label(xe, y(2), 'start', '유튜브 뮤직 2위', '10.12');
+label(xe, y(5), 'start', '멜론 TOP100 5위', '10.12 11시');
+label(xe, (y(10) + y(13)) / 2 - 10, 'start', '톱스타뉴스 뮤직100', '13위 → 10위', '10.11 → 10.12, 각 07시');
+</script>
+</body></html>

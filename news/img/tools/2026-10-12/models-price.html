@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../base.css">
+<script src="../svg.js"></script>
+<title>models-price</title>
+<style>
+  .legend { position: absolute; left: 80px; top: 206px; display: flex; gap: 36px; font-size: 24px; color: var(--ink-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 10px; }
+  .legend i { display: inline-block; width: 18px; height: 18px; }
+</style>
+</head><body>
+<div class="card">
+  <div class="title">클로드 하이쿠 5.5, 입력·출력 모두 하이쿠 4.5의 10분의 1</div>
+  <div class="sub">100만 토큰당 가격, 미국 달러</div>
+  <div class="legend"><span><i style="background:#2a4264"></i>입력</span><span><i style="background:#b0392e"></i>출력</span></div>
+  <div class="source">자료: 앤트로픽 · 오픈AI 공개 가격 (2026. 10. 12 기준)</div>
+</div>
+<svg class="plot" id="p" width="1600" height="900"></svg>
+<script>
+const rows = [
+  { name: '클로드 하이쿠 4.5', note: '앤트로픽', inp: 1, out: 5 },
+  { name: '클로드 하이쿠 5.5', note: '앤트로픽 · 10.7 출시', inp: 0.10, out: 0.50 },
+  { name: 'Decisions API', note: '오픈AI · 예·아니오/택일 판정용', inp: 0.10, out: 0 },
+];
+const X0 = 520, X1 = 1440, VMAX = 5, BH = 42, GAP = 4, Y = 290, ROW = 150;
+const w = (v) => v / VMAX * (X1 - X0);
+const svg = document.getElementById('p');
+const money = (v) => v === 0 ? '무료' : '$' + (v < 1 ? v.toFixed(2) : v);
+const yEnd = Y + ROW * rows.length - 30;
+for (let v = 0; v <= VMAX; v++) {
+  el(svg, 'line', { class: v ? 'grid' : 'axis', x1: X0 + w(v), x2: X0 + w(v), y1: Y - 20, y2: yEnd });
+  el(svg, 'text', { x: X0 + w(v), y: yEnd + 32, 'text-anchor': 'middle', 'font-size': 22, class: 'muted' }, '$' + v);
+}
+rows.forEach((r, i) => {
+  const y0 = Y + i * ROW;
+  el(svg, 'text', { x: X0 - 28, y: y0 + BH - 2, 'text-anchor': 'end', 'font-size': 30, 'font-weight': 600 }, r.name);
+  el(svg, 'text', { x: X0 - 28, y: y0 + BH + 34, 'text-anchor': 'end', 'font-size': 22, class: 'muted' }, r.note);
+  [[r.inp, '#2a4264', y0], [r.out, '#b0392e', y0 + BH + GAP]].forEach(([v, c, yy]) => {
+    if (v > 0) bar(svg, X0, yy, w(v), BH, c, 'right');
+    el(svg, 'text', { x: X0 + w(v) + 14, y: yy + BH / 2 + 9, 'font-size': 26, 'font-weight': 600 }, money(v));
+  });
+});
+</script>
+</body></html>

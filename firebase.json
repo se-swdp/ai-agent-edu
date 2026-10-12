@@ -42,7 +42,8 @@
         "**/src-png/**",
         "**/style-refs/**",
         "integrated_presentation.html",
-        "docs/**"
+        "docs/**",
+        "news/img/tools/**"
       ],
       "cleanUrls": true,
       "headers": [

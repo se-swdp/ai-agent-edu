@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../base.css">
+<script src="../svg.js"></script>
+<title>feature-komca-timeline</title>
+</head><body>
+<div class="card">
+  <div class="title">음저협 AI 음악 신탁 등록, 22일 만에 철회</div>
+  <div class="sub">2026년 8–9월 · 점 사이 간격은 실제 날짜 수에 비례한다.</div>
+  <div class="source">자료: 경향신문, 데일리안</div>
+</div>
+<svg class="plot" id="p" width="1600" height="900"></svg>
+<script>
+const X0 = 110, X1 = 1490, D0 = date(7, 28), D1 = date(9, 30), AY = 520;
+const x = (t) => X0 + (t - D0) / (D1 - D0) * (X1 - X0);
+const svg = document.getElementById('p');
+const INK = '#2b2117', CIN = '#b0392e';
+
+el(svg, 'line', { x1: X0, x2: X1, y1: AY, y2: AY, stroke: INK, 'stroke-width': 2 });
+// week ticks (Mondays) + month boundaries
+for (let t = date(8, 3); t <= D1; t += 7 * DAY)
+  el(svg, 'line', { class: 'axis', x1: x(t), x2: x(t), y1: AY, y2: AY + 10 });
+for (const [m, lab] of [[8, '8월'], [9, '9월']]) {
+  const t = x(date(m, 1));
+  el(svg, 'line', { x1: t, x2: t, y1: AY - 12, y2: AY + 12, stroke: INK, 'stroke-width': 2 });
+  el(svg, 'text', { x: t + 10, y: AY + 40, 'font-size': 22, class: 'muted' }, lab);
+}
+// registration window 8.3 -> 8.25
+el(svg, 'line', { x1: x(date(8, 3)), x2: x(date(8, 25)), y1: AY, y2: AY, stroke: CIN, 'stroke-width': 8 });
+el(svg, 'text', { x: (x(date(8, 3)) + x(date(8, 18))) / 2, y: AY + 44, 'text-anchor': 'middle', 'font-size': 24, 'font-weight': 600, fill: CIN }, '등록 기간 22일');
+
+// side: -1 above the axis, +1 below
+const events = [
+  { t: date(8, 3),  d: '8.3',  lines: ['음저협, AI 음악 신탁 등록 시작'], side: -1, anchor: 'start' },
+  { t: date(8, 18), d: '8.18', lines: ['문체부 공문'], side: 1, anchor: 'start' },
+  { t: date(8, 25), d: '8.25', lines: ['음저협 이사회, 등록 철회', '등록 시작 22일 만'], side: -1, anchor: 'start', hot: true },
+  { t: date(9, 22), d: '9.22', lines: ['국회 AI 음악 토론회', '(예정 보도)'], side: 1, anchor: 'end' },
+];
+for (const e of events) {
+  const px = x(e.t), col = e.hot ? CIN : INK;
+  const top = e.side < 0 ? AY - 236 : AY + 84;          // top of the text block
+  const stemEnd = e.side < 0 ? top + 8 : top + 128;
+  el(svg, 'line', { x1: px, x2: px, y1: AY, y2: stemEnd, stroke: col, 'stroke-width': 1.5 });
+  el(svg, 'circle', { cx: px, cy: AY, r: 10, fill: col, stroke: '#fffcf6', 'stroke-width': 3 });
+  const tx = e.anchor === 'start' ? px + 18 : px - 18;
+  el(svg, 'text', { x: tx, y: top + 48, 'text-anchor': e.anchor, 'font-family': 'Gowun Batang, serif', 'font-weight': 700, 'font-size': 54, fill: col }, e.d);
+  e.lines.forEach((ln, i) => el(svg, 'text', {
+    x: tx, y: top + 100 + i * 40, 'text-anchor': e.anchor,
+    'font-size': i ? 26 : 30, 'font-weight': i ? 400 : 600, ...(i ? { class: 'muted' } : {}),
+  }, ln));
+}
+</script>
+</body></html>
