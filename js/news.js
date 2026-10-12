@@ -4,7 +4,11 @@
  * news/issues.json 을 fetch 해서 주간/일간 브리핑을 렌더.
  * 발행 워크플로: issues[] 맨 앞에 새 이슈를 추가하고 hosting 재배포.
  *   - issue: { id, type: 'weekly'|'biweekly'|'monthly'|'daily', no, title, date, period, intro,
- *              highlights[], body[](통합 기사 문단), refs[] }
+ *              cover?, highlights[], feature?, body[](통합 기사 문단), refs[] }
+ *   - body[] 항목: "문단" 또는 { text, img? } — img 가 있으면 문단 위에 그림
+ *   - feature: { label?, title, img?, body[] } — 요점 아래 특집 블록 (body 항목 형식 동일)
+ *   - img / cover: { src, alt, caption? } — src 는 /news/img/<issue id>/*.webp
+ *     (이미지는 immutable 캐시 — 내용을 바꾸면 파일명도 바꾼다)
  *   - ref:   { label, url }
  */
 
@@ -33,6 +37,25 @@ function chipLabel(issue) {
   const d = issue.date || '';
   const md = d.length >= 10 ? `${d.slice(5, 7)}.${d.slice(8, 10)}` : d;
   return `${md} ${TYPE_LABEL[issue.type] || ''}`.trim();
+}
+
+/** 기사 그림 — 클릭하면 원본 크기로 새 탭 */
+function renderFigure(img, cls = '') {
+  if (!img?.src) return null;
+  return el('figure', { class: `news-figure ${cls}`.trim() }, [
+    el('a', { href: img.src, target: '_blank', rel: 'noopener' }, [
+      el('img', { src: img.src, alt: img.alt || '', loading: 'lazy', decoding: 'async' }),
+    ]),
+    img.caption ? el('figcaption', {}, emphasize(img.caption)) : null,
+  ]);
+}
+
+/** body[] 항목 — 문자열이면 문단만, { text, img } 면 그림 + 문단 */
+function renderBodyItems(items) {
+  return items.flatMap((item) => {
+    const { text, img } = typeof item === 'string' ? { text: item } : item;
+    return [renderFigure(img), text ? el('p', { class: 'news-article-p' }, emphasize(text)) : null];
+  });
 }
 
 /** '원문' 링크 행 — 통합 기사 하단 */
@@ -100,6 +123,8 @@ function renderIssue(issue) {
   ]);
   nodes.push(head);
 
+  if (issue.cover) nodes.push(renderFigure(issue.cover, 'news-cover'));
+
   if (issue.highlights?.length) {
     nodes.push(
       el('aside', { class: 'news-highlights' }, [
@@ -113,13 +138,23 @@ function renderIssue(issue) {
     );
   }
 
+  const { feature } = issue;
+  if (feature?.body?.length) {
+    nodes.push(
+      el('section', { class: 'news-feature' }, [
+        el('div', { class: 'news-feature-label' }, [feature.label || '이번 호 특집']),
+        el('h3', { class: 'news-feature-title' }, [feature.title || '']),
+        renderFigure(feature.img),
+        ...renderBodyItems(feature.body),
+      ])
+    );
+  }
+
   if (issue.body?.length) {
     // 통합 기사 모드 — 카테고리 구분 없이 한 편의 요약 기사로
     nodes.push(
       el('article', { class: 'news-article' }, [
-        ...issue.body.map((p) =>
-          el('p', { class: 'news-article-p' }, emphasize(p))
-        ),
+        ...renderBodyItems(issue.body),
         renderRefs(issue.refs),
       ])
     );

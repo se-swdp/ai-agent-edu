@@ -738,6 +738,49 @@
   border-color: var(--accent-300);
 }
 
+/* ---- 그림 — 대표 그림·특집·문단 삽화 ---- */
+.news-figure {
+  margin: 0 0 var(--space-4);
+}
+.news-figure a { display: block; }
+.news-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+}
+.news-figure figcaption {
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+}
+.news-cover { margin-bottom: var(--space-6); }
+
+/* ---- 특집 — 요점 아래, 본문과 겹괘선으로 구분 ---- */
+.news-feature {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: 2px solid var(--border-strong);
+}
+.news-feature-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--cinnabar);
+}
+.news-feature-title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--text-primary);
+  margin: var(--space-2) 0 var(--space-4);
+}
+
 /* 요약·본문 속 핵심어 — 무게만 살짝, 색은 본문 먹색으로 (뉴스 뷰 공통) */
 .news-issue-intro strong,
 .news-highlights li strong,
